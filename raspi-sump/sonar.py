@@ -31,9 +31,9 @@ def reading(sensor):
         timepassed = signalon - signaloff
         
         distance_cm = timepassed * 17000
-	distance_in = distance_cm * float(0.39)        
-        return distance_in
-        
+	       
+        return distance_cm
+         
         GPIO.cleanup()
 
     else:
@@ -41,4 +41,8 @@ def reading(sensor):
 
 x = reading(0)
 print "The distance is %f" % x,
+print "centimeters"
+
+inches = x * float(0.39)
+print "The distance is %f" % inches,
 print "inches"
