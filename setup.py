@@ -6,14 +6,14 @@ except ImportError:
 config = {
     'description': 'Raspi-Sump',
     'author': 'Al Audet',
-    'url': 'https://github.com/alaudet/raspi-sump-monitor',
+    'url': 'https://github.com/alaudet/raspi-sump',
     'download_url': 'Where to download it.',
     'author_email': 'alaudet@linuxnorth.org.',
-    'version': '0.1',
+    'version': '0.01',
     'install_requires': ['nose'],
     'packages': ['NAME'],
     'scripts': [],
-    'name': 'raspi-sump-monitor'
+    'name': 'raspi-sump'
 }
 
 setup(**config)
