@@ -60,14 +60,14 @@ def reading(sensor):
         # change this value to the pin you are using
         # GPIO input = the pin that's connected to "Echo" on the sensor
         while GPIO.input(27) == 0:
-          signaloff = time.time()
+            signaloff = time.time()
         
         # listen to the input pin. Once a signal is received, record the
         # time the signal came through
         # change this value to the pin you are using
         # GPIO input = the pin that's connected to "Echo" on the sensor
         while GPIO.input(27) == 1:
-          signalon = time.time()
+            signalon = time.time()
         
         # work out the difference in the two recorded times above to 
         # calculate the distance of an object in front of the sensor
