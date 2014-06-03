@@ -3,9 +3,12 @@
 # raspi-sump, a sump pump monitoring system
 # Al Audet
 
+from sys import argv
 import time
 import RPi.GPIO as GPIO
 import decimal
+
+script, filename = argv
 
 def waterlevel():
 
@@ -40,25 +43,25 @@ def waterlevel():
                 
             timepassed = signalon - signaloff
                       
-            decimal.getcontext().prec = 3
+            decimal.getcontext().prec = 3 # readings to one decimal place
             distance = decimal.Decimal(timepassed) * 17000
             
             distance_cm = distance
             
-            if distance_cm >= 85:  # for testing only
-                print "> Higher than 85"
+            if distance_cm < 30:
+                #add smtp code to alert if water reaches a certain level.
+                pass
 
-            elif distance_cm < 84 : # for testing only
-                print "< Lower than 84"
-            
-            
-            print distance_cm
+            target.write(time.strftime("%H:%M:%S,")),
+            target.write(str(distance_cm)),
+            target.write("\n")         
              
             GPIO.cleanup()
             time.sleep(10)
     
     except KeyboardInterrupt:
         print "Script killed by user"
-    
+        target.close()
 
+target = open(filename, 'a')
 waterlevel()
