@@ -7,8 +7,11 @@ import time
 import RPi.GPIO as GPIO
 import decimal
 
-def reading():
-    
+def waterlevel():
+
+    trig_pin = 17  #gpio pin 17 connected to Trig on HC-SR04 sensor
+    echo_pin = 27  #gpio pin 27 connected to Echo on HC-SR04 sensor 
+
     GPIO.setwarnings(False)
     
     GPIO.setmode(GPIO.BCM)
@@ -17,22 +20,22 @@ def reading():
     try:
         while run == 1:
         
-            GPIO.setup(17,GPIO.OUT)
-            GPIO.setup(27,GPIO.IN)
-            GPIO.output(17, GPIO.LOW)
+            GPIO.setup(trig_pin,GPIO.OUT)
+            GPIO.setup(echo_pin,GPIO.IN)
+            GPIO.output(trig_pin, GPIO.LOW)
             
             time.sleep(0.3)
             
-            GPIO.output(17, True)
+            GPIO.output(trig_pin, True)
             
             time.sleep(0.00001)
             
-            GPIO.output(17, False)
+            GPIO.output(trig_pin, False)
 
-            while GPIO.input(27) == 0:
+            while GPIO.input(echo_pin) == 0:
                 signaloff = time.time()
                 
-            while GPIO.input(27) == 1:
+            while GPIO.input(echo_pin) == 1:
                 signalon = time.time()
                 
             timepassed = signalon - signaloff
@@ -58,4 +61,4 @@ def reading():
         print "Script killed by user"
     
 
-reading()
+waterlevel()
