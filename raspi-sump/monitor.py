@@ -46,20 +46,14 @@ def waterlevel():
                 while GPIO.input(echo_pin) == 1:
                     sonar_signal_on = time.time()
                     
-                time_passed = sonar_signal_on - sonar_signal_off
-                
-                #decimal.getcontext().prec = 3    
-                #distance_cm = decimal.Decimal(time_passed) * 17000
+                time_passed = sonar_signal_on - sonar_signal_off    
                 distance_cm = time_passed * 17000
                 
                 sample.append(distance_cm)
                 
                 GPIO.cleanup()
 
-           
             handle_error(sample, critical_distance)
-            
-            #route_output()
     
     except KeyboardInterrupt:
         print "Script killed by user"
@@ -69,7 +63,7 @@ def waterlevel():
 def handle_error(sample, critical_distance):
     
     sorted_sample = sorted(sample)
-    true_distance = sorted_sample[5]
+    true_distance = sorted_sample[5] # median reading
     
     if true_distance < critical_distance:
         smtp_alerts(true_distance) 
@@ -80,8 +74,8 @@ def handle_error(sample, critical_distance):
 
 def level_good(how_far):
     
-#    # print to screen is good enough for now
-#    # later dump to file and upload offsite for processing
+    # print to screen is good enough for now
+    # later dump to file and upload offsite for processing
     print time.strftime("%H:%M:%S,"),
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
@@ -95,8 +89,13 @@ def level_good(how_far):
 def smtp_alerts(how_far):
     
       
-    username = "raspi-sump@example.com"
-    password = "secret"
+    #username = "raspi-sump@example.com"
+    #password = "secret"
+    
+    print time.strftime("%H:%M:%S,"),
+    decimal.getcontext().prec = 3 
+    how_far_clean = decimal.Decimal(how_far) * 1
+    print how_far_clean
     
     email_from = 'raspi-sump@example.com'
     email_to = 'my_cell_number@wireless_carrier.com'
@@ -105,23 +104,21 @@ def smtp_alerts(how_far):
         "To: %s" % email_to,
         "Subject: Sump Pump Alert!",
         "",
-        "The sump pump level is at %f cm!" % how_far,
+        "The sump pump level is at %s cm!" % str(how_far_clean),
         ), "\r\n")
 
-    print time.strftime("%H:%M:%S,"),
-    decimal.getcontext().prec = 3 
-    how_far_clean = decimal.Decimal(how_far) * 1
-    print how_far
+    print "Send email"
+
     #target.write(time.strftime("%H:%M:%S,")),
     #target.write(str(length)),
     #target.write("\n")
     
-    server = smtplib.SMTP("smtp.gmail.com:587")
-    server.starttls()
-    server.login(username, password)
-    server.sendmail(email_from, email_to, email_body)
-    server.quit()
-    time.sleep(10)
+   # server = smtplib.SMTP("smtp.gmail.com:587")
+   # server.starttls()
+   # server.login(username, password)
+   # server.sendmail(email_from, email_to, email_body)
+   # server.quit()
+   # time.sleep(10)
 
 if __name__ == "__main__":
     #target = open(filename, 'a')
