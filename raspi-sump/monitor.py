@@ -42,8 +42,9 @@ def water_level():
                 while GPIO.input(echo_pin) == 1:
                     sonar_signal_on = time.time()
         
-                time_passed = sonar_signal_on - sonar_signal_off    
-                distance_cm = time_passed * 17000
+                time_passed = sonar_signal_on - sonar_signal_off
+                # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
+                distance_cm = time_passed * 17161
                 sample.append(distance_cm)
                 
                 GPIO.cleanup()
