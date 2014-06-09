@@ -4,15 +4,14 @@
 # Al Audet
 # http://www.linuxnorth.org/raspi-sump/
 
-# from sys import argv
+from sys import argv
 import time
 import decimal
 import smtplib
 import string
 import RPi.GPIO as GPIO
 
-# Will do this later. Printing to screen for now
-# script, filename = argv
+script, filename = argv
 
 def water_level():
 
@@ -43,6 +42,7 @@ def water_level():
                     sonar_signal_on = time.time()
         
                 time_passed = sonar_signal_on - sonar_signal_off
+                
                 # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
                 distance_cm = time_passed * 17161
                 sample.append(distance_cm)
@@ -52,7 +52,7 @@ def water_level():
     
     except KeyboardInterrupt:
         print "Script killed by user"
-        #target.close()
+        target.close()
 
 def handle_error(sample, critical_distance):
     sorted_sample = sorted(sample)
@@ -64,49 +64,53 @@ def handle_error(sample, critical_distance):
         level_good(true_distance)   
 
 def level_good(how_far):
-    # Print to screen is good enough for now.
-    # Later dump to file and upload offsite for processing.
-    print time.strftime("%H:%M:%S,"),
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
-    print how_far_clean
-    #target.write(time.strftime("%H:%M:%S,")),
-    #target.write(str(length)),
-    #target.write("\n")
-    #time.sleep(5)
+    
+    print how_far_clean # only while testing
+    
+    target.write(time.strftime("%H:%M:%S,")),
+    target.write(str(how_far_clean)),
+    target.write("\n")
+    time.sleep(5)
     
 def smtp_alerts(how_far): 
-    #username = "raspi-sump@example.com"
-    #password = "secret"
+    username = "your smtp username here "
+    password = "your smtp password here"
+    smtp_server = "smtp.gmail.com:587"
 
-    print time.strftime("%H:%M:%S,"),
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
-    print how_far_clean
     
-    email_from = 'raspi-sump@example.com'
-    email_to = 'my_cell_number@wireless_carrier.com'
+    print how_far_clean, # only while testing
+    print "email sent" # only while testing
+    
+    target.write(time.strftime("%H:%M:%S,")),
+    target.write(str(how_far_clean)),
+    target.write("\n")
+       
+    email_from = "sender email"
+    email_to = "recipient email or wireless carrier sms #"
     email_body = string.join((
         "From: %s" % email_from,
         "To: %s" % email_to,
         "Subject: Sump Pump Alert!",
         "",
-        "The sump pump level is at %s cm!" % str(how_far_clean),
-        ), "\r\n")
-
-    print "Send email"
-
-    #target.write(time.strftime("%H:%M:%S,")),
-    #target.write(str(length)),
-    #target.write("\n")
+        "Critical! The sump pit water level is at %s cm from the lid." % str(
+        how_far_clean),), "\r\n"
+        )
     
-   # server = smtplib.SMTP("smtp.gmail.com:587")
-   # server.starttls()
-   # server.login(username, password)
-   # server.sendmail(email_from, email_to, email_body)
-   # server.quit()
-   # time.sleep(10)
+    print email_from # only while testing
+    print email_to # only while testing
+    print email_body #only while testing
+   
+    server = smtplib.SMTP(smtp_server)
+    server.starttls() 
+    server.login(username, password) 
+    server.sendmail(email_from, email_to, email_body)
+    server.quit()
+    time.sleep(5)
 
 if __name__ == "__main__":
-    #target = open(filename, 'a')
+    target = open(filename, 'a')
     water_level()
