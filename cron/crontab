@@ -1,0 +1,1 @@
+45 * * * * * /home/pi/raspi-sump/scripts/move_file.sh
