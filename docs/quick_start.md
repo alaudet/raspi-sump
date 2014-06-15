@@ -8,7 +8,9 @@ If you choose to do this you do it at your own risk.
 
 In home directory
 Create raspi-sump and raspi-sump/csv directories
+
 Copy raspy-sump.py to /home/pi/raspi-sump
+
 Make raspy-sump.py executable by running sudo chmod +x raspi-sump.py
 
 
@@ -25,21 +27,28 @@ My pump triggers at 42cm from the sensor so I set the critical level to 37cm.
 Edit SMTP server info
 ======================
 add username and password (if authentication needed)
+
 enter SMTP Server and port (Remove authentication and StartTLS if not needed)
+
 change Email_From and Email_To values.  You can enter your sms email here for sms alerts.
 
 Hardware
 ========
 
 Setup hardware (Please make sure you understand GPIO information on your pi).
+
 Echo *MUST* have a 1K resistor between it and the GPIO pin on your pi or else you will most likely fry it.
 One wire as follows from the sensor to the pi
 (note, this will require some soldering).  A floppy disk power connector fits nicely on the sensor.
 
 VCC pin to 5V pin on Pi (pin 2)
+
 Ground pin to Ground on Pi (pin 6)
+
 Trig pin to GPIO
+
 Echo pin to GPIO (need 1k resistor)
+
 see http://www.linuxnorth.org/raspi-sump/ for information on pins I used.
 
 Google soldering resistors for good information on how to do this if you have never done it.
