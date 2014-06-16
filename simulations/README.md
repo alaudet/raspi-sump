@@ -1,7 +1,7 @@
 Raspi-Sump Simulations
 ======================
 
-The following two scripts simply replace Raspberry Pi GPIO code with simulated readings to test how Raspi-Pump works.
+The following two scripts simply replace Raspberry Pi GPIO code with simulated readings to test how Raspi-Sump works.
 You can even run this on Windows if you have Python installed.
 
 To test out Raspi-Sump do the following
