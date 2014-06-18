@@ -14,7 +14,7 @@ def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
     trig_pin = 17  # GPIO pin 17 connected to Trig on HC-SR04 sensor.
     echo_pin = 27  # GPIO pin 27 connected to Echo on HC-SR04 sensor. 
-    critical_distance = 45 
+    critical_distance = 37 
 
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
@@ -73,7 +73,7 @@ def level_good(how_far, target):
     target.write(str(how_far_clean)),
     target.write("\n")
     target.close()
-    time.sleep(30)
+    time.sleep(60)
 
 def smtp_alerts(how_far, target):
     """Process reading and generate alert if less than critical distance."""

@@ -36,16 +36,16 @@ Hardware
 
 Setup hardware (Please make sure you understand GPIO information on your pi).
 
-Echo *MUST* have a 1K resistor between it and the GPIO pin on your pi or else you will most likely fry it.
+You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. 
 Four wires connected as follows from the sensor to the pi (note, this will require some soldering).  A floppy disk power connector fits nicely on the sensor.
 
 1-VCC pin to 5V pin on Pi (pin 2)
 
-2-Ground pin to Ground on Pi (pin 6)
+2-Ground pin to Ground on Pi (pin 6)  (Connect to 1K resistor and bridge to echo line)
 
 3-Trig pin to GPIO
 
-4-Echo pin to GPIO (need 1k resistor)
+4-Echo pin to GPIO (need 470R resistor and 1K resistor to create a voltage divider.) I will try and put a diagram up here in the future.  In short, the 470 Ohm and 1K Ohm resistor are connected to one another with the Echo wire soldered between both of them to the GPIO pin.  The other end of the 1K resistor is then soldered to the Ground wire.
 
 see http://www.linuxnorth.org/raspi-sump/ for information on pins I used.
 
