@@ -66,7 +66,7 @@ def handle_error(sample, critical_distance, pit_depth):
         level_good(water_depth, capture)   
 
 def level_good(how_far, target):
-    """Process reading if level is greater than critical distance."""
+    """Process reading if level is less than critical distance."""
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
     target.write(time.strftime("%H:%M:%S,")),
@@ -76,7 +76,8 @@ def level_good(how_far, target):
     time.sleep(60)
 
 def smtp_alerts(how_far, target):
-    """Process reading and generate alert if less than critical distance."""
+    """Process reading and generate alert if level greater than critical 
+    distance."""
     username = "your smtp username here "
     password = "your smtp password here"
     smtp_server = "smtp.gmail.com:587"
