@@ -8,26 +8,27 @@ import time
 import decimal
 import smtplib
 import string
-filename = "/home/pi/raspi-sump/simulation/pump_working-%s.csv" % time.strftime(
+filename = "/home/al/pump_working-%s.csv" % time.strftime(
             "%Y%m%d"
             )
 
 def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
     
-    critical_distance = 29
-    start_level = 40
+    critical_distance = 35
+    start_level = 30
     water_rising = 0.1
    
     try:
         while True:
-            if start_level < 30:
+            if start_level > 34:
                 print "pump empties pit"
-                start_level = 40
-                start_level -= water_rising
+                time.sleep(1)
+                start_level = 30
+                start_level += water_rising
                 sample = [start_level for i in range(11)]
             else:
-                start_level -= water_rising
+                start_level += water_rising
                 sample = [start_level for i in range(11)]
             handle_error(sample, critical_distance, filename)
     
@@ -43,7 +44,7 @@ def handle_error(sample, critical_distance, filename):
     
     capture = open(filename, 'a')
     
-    if true_distance < critical_distance:
+    if true_distance > critical_distance:
         smtp_alerts(true_distance, capture)
     else:
         level_good(true_distance, capture)   
@@ -52,12 +53,13 @@ def level_good(how_far, target):
     """Process reading if level is greater than critical distance."""
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
-    print how_far_clean
+    print how_far_clean,
+    print "Water Rising"
     target.write(time.strftime("%H:%M:%S,")),
     target.write(str(how_far_clean)),
     target.write("\n")
     target.close()
-    #time.sleep(0.1)
+    time.sleep(0.2)
 
 def smtp_alerts(how_far, target):
     """Process reading and generate alert if less than critical distance."""
@@ -80,7 +82,7 @@ def smtp_alerts(how_far, target):
         "To: %s" % email_to,
         "Subject: Sump Pump Alert!",
         "",
-        "Critical! The sump pit water level is at %s cm from the lid." % str(
+        "Critical! The sump pit water level is at %s." % str(
         how_far_clean),), "\r\n"
         )
     

@@ -8,20 +8,24 @@ import time
 import decimal
 import smtplib
 import string
-filename = "/home/pi/raspi-sump/simulation/pump_failure-%s.csv" % time.strftime(
+filename = "/home/al/pump_failure-%s.csv" % time.strftime(
             "%Y%m%d"
             )
 
 def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
     
-    critical_distance = 30
-    start_level = 31.0
-    water_rising = 0.1
-   
+    critical_distance = 35
+    start_level = 30.0
+    water_rising = 0.5
+    print "When water level reaches %i cm's generate an email alert" % (
+            critical_distance   
+            )
+    time.sleep(3)
+
     try:
         while True:
-            start_level -= water_rising
+            start_level += water_rising
             sample = [start_level for i in range(11)]                 
             handle_error(sample, critical_distance, filename)
     
@@ -37,7 +41,7 @@ def handle_error(sample, critical_distance, filename):
     
     capture = open(filename, 'a')
     
-    if true_distance < critical_distance:
+    if true_distance > critical_distance:
         smtp_alerts(true_distance, capture)
     else:
         level_good(true_distance, capture)   
@@ -52,7 +56,7 @@ def level_good(how_far, target):
     target.write(str(how_far_clean)),
     target.write("\n")
     target.close()
-    time.sleep(2)
+    time.sleep(1)
 
 def smtp_alerts(how_far, target):
     """Process reading and generate alert if less than critical distance."""
@@ -75,7 +79,7 @@ def smtp_alerts(how_far, target):
         "To: %s" % email_to,
         "Subject: Sump Pump Alert!",
         "",
-        "Critical! The sump pit water level is at %s cm from the lid." % str(
+        "Critical! The sump pit water level is %s cm." % str(
         how_far_clean),), "\r\n"
         )
     print ""
