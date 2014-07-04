@@ -28,6 +28,7 @@ def graph(csvfile, filename):
     plt.xticks(rotation=30)    
     plt.grid(True, color='#ECE5DE', linestyle='solid')
     plt.tick_params(axis='x', bottom='off', top='off')
+    plt.tick_params(axis='y', left='off', right='off')
     plt.savefig(filename,dpi=72)
 
 graph(csvfile, filename)
