@@ -1,3 +1,9 @@
+Disclaimer
+==========
+Raspi-Sump is still experimental software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump breaks. Use for experimental purposes only.
+
+Description
+===========
 Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
 Ultrasonic Sensor (HC-SR04)
 
@@ -16,9 +22,11 @@ Future versions will include;
 - LCD panel to get a quick glance of the water lever without opening the lid.
 - Material list and instructions for anyone else who would like to set up something similar for themselves
 
+More Info
+=========
 Further details provided at http://www.linuxnorth.org/raspi-sump/
 
 I am going to start developing the web component where I can view graphs of the water level and analyse the volume of water that gets pumped per day.
 
-A rough hourly updating graph is available for view.
+A hourly updating graph is available for view.
 http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
