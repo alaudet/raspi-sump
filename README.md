@@ -28,5 +28,5 @@ Further details provided at http://www.linuxnorth.org/raspi-sump/
 
 I am going to start developing the web component where I can view graphs of the water level and analyse the volume of water that gets pumped per day.
 
-A hourly updating graph is available for view.
+An hourly updating graph is available for view.
 http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
