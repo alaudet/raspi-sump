@@ -1,18 +1,3 @@
-Disclaimer
-==========
-Raspi-Sump is still experimental software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump fails. Use for experimental purposes only.
-
-This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
-
-Best practices should also include:
-
-- A backup pump that triggers at a slightly higher water level than your main pump.
-- The secondary pump should be connected to a seperate dedicated electrical breaker. 
-- You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
-- if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
-
-Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
-
 Description
 ===========
 Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
@@ -37,7 +22,20 @@ More Info
 =========
 Further details provided at http://www.linuxnorth.org/raspi-sump/
 
-I am going to start developing the web component where I can view graphs of the water level and analyse the volume of water that gets pumped per day.
-
 An hourly updating graph is available for view.
 http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
+
+Disclaimer
+==========
+Raspi-Sump is still experimental software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump fails. Use for experimental purposes only.
+
+This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
+
+Best practices should also include:
+
+- A backup pump that triggers at a slightly higher water level than your main pump.
+- The secondary pump should be connected to a seperate dedicated electrical breaker. 
+- You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
+- if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
+
+Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
