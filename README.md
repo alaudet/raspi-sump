@@ -39,3 +39,7 @@ Best practices should also include:
 - if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
 
 Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
+
+License
+=======
+I added a license for the main purpose of the use AS-IS clause is case you use this and your basement floods or causes any other disaster.  You agree that your use of Raspi-Sump is at your own risk. 
