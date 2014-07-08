@@ -42,4 +42,4 @@ Once you have done all of these things, then consider using a monitoring system 
 
 License
 =======
-I added a license for the main purpose of the use AS-IS clause is case you use this and your basement floods or causes any other disaster.  You agree that your use of Raspi-Sump is at your own risk. 
+I added a license for the main purpose of the use AS-IS clause in case you use this and your basement floods or causes any other disaster.  You agree that your use of Raspi-Sump is at your own risk. 
