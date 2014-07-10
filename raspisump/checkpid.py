@@ -1,11 +1,13 @@
 #!/usr/bin/python
-# Check to make sure process raspi-sump is running and restart process if required.
+# Check to make sure process raspisump.py is running and restart process if required.
 # lots of duplicate code.  File working will cleanup later
 
 import subprocess
 import time
 
 def check_pid():
+    """Check health of raspisump.py process."""
+    
     logfile = open("/home/pi/raspi-sump/process_log", 'a')
     cmdp1 = "ps aux"
     cmdp2 = "grep -v grep"
@@ -47,14 +49,16 @@ def check_pid():
 
         
 def restart():
-    print "Restarting Raspi-Sump"
+    """Restart raspisump.py if it is stopped"""
+
     restart_cmd = "/home/pi/raspi-sump/raspisump.py &"
     restart_now = restart_cmd.split(' ')
     subprocess.Popen(restart_now)
     exit(0)
 
 def kill_start():
-    print "Killing Raspi-Sump"
+    """Kill all raspisump.py processes."""
+
     kill_cmd = "killall 09 raspisump.py"
     kill_it = kill_cmd.split(' ')
     subprocess.call(kill_it)

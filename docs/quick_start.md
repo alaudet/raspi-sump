@@ -14,6 +14,9 @@ Copy raspisump.py to /home/pi/raspi-sump
 
 Make raspisump.py executable by running    sudo chmod +x raspisump.py
 
+Copy checkpid.py to home/pi/raspi-sump
+
+Make checkpid.py executable by running    sudo chmod +x checkpid.py
 
 Edit raspi-sump.py
 ==================
@@ -67,3 +70,12 @@ sudo killall 09 raspisump.py
 
 To monitor the log file in the csv folder while raspi-sump is running;
 tail -f 'csvlogfilename'
+
+To check for the health of the raspisump.py process run the checkpid.py script as root
+Add to root user crontab as follows;
+1 - login as root
+2 - crontab -e
+3 - enter line in crontab as follows;
+    5 * * * * /home/pi/raspisump/checkpid.py
+
+This will check the raspisump.py process once per hour and restart the process if it is stopped.
