@@ -28,7 +28,6 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
-
 import time
 import decimal
 import smtplib
@@ -39,7 +38,7 @@ def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
     trig_pin = 17  # GPIO pin 17 connected to Trig on HC-SR04 sensor.
     echo_pin = 27  # GPIO pin 27 connected to Echo on HC-SR04 sensor. 
-    critical_distance = 40 # Water level should not exceed this depth (cm).
+    critical_distance = 35 # Water level should not exceed this depth (cm).
     pit_depth = 72 # Distance from the sensor to the bottom of sump pit.
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
@@ -122,7 +121,7 @@ def smtp_alerts(how_far, target):
         "To: %s" % email_to,
         "Subject: Sump Pump Alert!",
         "",
-        "Sump pit water level above 40cm critical level. Currently at %s cm." % str(
+        "Critical! The sump pit water level is %s cm." % str(
         how_far_clean),), "\r\n"
         )
     
