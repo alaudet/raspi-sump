@@ -32,14 +32,21 @@ import time
 import decimal
 import smtplib
 import string
+import ConfigParser
 import RPi.GPIO as GPIO
+
+config = ConfigParser.RawConfigParser()
+config.read('/home/pi/raspi-sump/.raspisump.conf')
+
+# Do not modify these variables
+# Use .raspisump.conf for all configurations
 
 def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
-    trig_pin = 17  # GPIO pin 17 connected to Trig on HC-SR04 sensor.
-    echo_pin = 27  # GPIO pin 27 connected to Echo on HC-SR04 sensor. 
-    critical_distance = 35 # Water level should not exceed this depth (cm).
-    pit_depth = 72 # Distance from the sensor to the bottom of sump pit.
+    trig_pin = config.getint('gpio_pins', 'trig_pin')
+    echo_pin = config.getint('gpio_pins', 'echo_pin')
+    critical_distance = config.getint('pit', 'critical_distance')
+    pit_depth = config.getint('pit', 'pit_depth')
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
     
@@ -91,20 +98,24 @@ def handle_error(sample, critical_distance, pit_depth):
 
 def level_good(how_far, target):
     """Process reading if level is less than critical distance."""
+    reading_interval = config.getint('pit', 'reading_interval')
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
     target.write(time.strftime("%H:%M:%S,")),
     target.write(str(how_far_clean)),
     target.write("\n")
     target.close()
-    time.sleep(60)
+    time.sleep(reading_interval)
 
 def smtp_alerts(how_far, target):
     """Process reading and generate alert if level greater than critical 
     distance."""
-    username = "your smtp username here "
-    password = "your smtp password here"
-    smtp_server = "smtp.gmail.com:587"
+    reading_interval = config.getint('pit', 'reading_interval')
+    smtp_authentication = config.getint('email', 'smtp_authentication')
+    smtp_tls = config.getint('email', 'smtp_tls')
+    smtp_server = config.get('email', 'smtp_server')
+    email_to = config.get('email', 'email_to')
+    email_from = config.get('email', 'email_from')
 
     decimal.getcontext().prec = 3 
     how_far_clean = decimal.Decimal(how_far) * 1
@@ -114,8 +125,6 @@ def smtp_alerts(how_far, target):
     target.write("\n")
     target.close()   
 
-    email_from = "Raspi-Sump <email@yourdomain.com>"
-    email_to = "email@yourdomain.com or wireless sms email for sms alerts"
     email_body = string.join((
         "From: %s" % email_from,
         "To: %s" % email_to,
@@ -126,11 +135,25 @@ def smtp_alerts(how_far, target):
         )
     
     server = smtplib.SMTP(smtp_server)
-    server.starttls() 
-    server.login(username, password) 
+    
+    if smtp_tls == 1:
+        server.starttls() 
+    else:
+        pass
+    
+    if smtp_authentication == 1:
+        username = config.get('email', 'username')
+        password = config.get('email', 'password')
+        server.login(username, password)
+    else:
+        pass
+    
     server.sendmail(email_from, email_to, email_body)
     server.quit()
-    time.sleep(60)
+    time.sleep(reading_interval)
+
+def main():
+    water_level()
 
 if __name__ == "__main__":
-    water_level()
+    main()

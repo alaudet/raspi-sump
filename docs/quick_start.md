@@ -12,28 +12,19 @@ Create raspi-sump and raspi-sump/csv directories
 
 Copy raspisump.py to /home/pi/raspi-sump
 
+Copy .raspisump.conf to /home/pi/raspi-sump
+
 Make raspisump.py executable by running    sudo chmod +x raspisump.py
 
 Copy checkpid.py to home/pi/raspi-sump
 
 Make checkpid.py executable by running    sudo chmod +x checkpid.py
 
-Edit raspi-sump.py
-==================
+Edit .raspisump.conf 
+====================
 
-change critical_level to appropriate value in "cm's".  This will generate alerts when the water
-level gets higher then the specified depth.
+Do not edit the raspisump.py file.  All configurations for are recorded in .raspisump.conf
 
-To start set the level to 1000cm and let the script run for a while.  This will help you determine an appropriate value to enter later.  I set mine 5cm above when the pump usually triggers.
-My pump triggers at 30cm of water depth so I set the critical level to 35cm which is below my backup pump.
-
-Edit SMTP server info
-======================
-1-add username and password (if authentication needed)
-
-2-enter SMTP Server and port (Remove authentication and StartTLS if not needed).  Google mail requires this but many ISP's simply allow their customers to freely use their SMTP server on port 25 without authentication.  Better yet, if your ISP allows you, set the SMTP server to localhost:25.  My ISP blocks port 25 traffic so I just use Gmail instead of their unreliable SMTP server.
-
-3-change Email_From and Email_To values.  You can enter your sms email here for sms alerts.  Check with your cellular provider on how to send email sms messages to your cell phone.  If you have a smartphone with a data plan then you can simply use the email address you configured on your phone.
 
 Hardware
 ========
