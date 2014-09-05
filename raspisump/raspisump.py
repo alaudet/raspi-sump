@@ -3,6 +3,10 @@
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
 # http://www.linuxnorth.org/raspi-sump/
+# 
+# No variables in this file need to be changed.  All configuration
+# changes should be done in .raspisump.conf
+
 
 """
 The MIT License (MIT)
@@ -37,9 +41,6 @@ import RPi.GPIO as GPIO
 
 config = ConfigParser.RawConfigParser()
 config.read('/home/pi/raspi-sump/.raspisump.conf')
-
-# Do not modify these variables
-# Use .raspisump.conf for all configurations
 
 def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
@@ -136,11 +137,12 @@ def smtp_alerts(how_far, target):
     
     server = smtplib.SMTP(smtp_server)
     
+    # Check if smtp server uses TLS
     if smtp_tls == 1:
         server.starttls() 
     else:
         pass
-    
+    # Check if smtp server uses authentication
     if smtp_authentication == 1:
         username = config.get('email', 'username')
         password = config.get('email', 'password')

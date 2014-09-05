@@ -8,22 +8,25 @@ If you choose to do this you do it at your own risk.
 
 In home directory
 =================
-Create raspi-sump and raspi-sump/csv directories
+Create raspi-sump, raspi-sump/csv, raspi-sump/logs directories
 
 Copy raspisump.py to /home/pi/raspi-sump
 
 Copy .raspisump.conf to /home/pi/raspi-sump
 
-Make raspisump.py executable by running    sudo chmod +x raspisump.py
+Make raspisump.py executable by running    'sudo chmod +x raspisump.py'
 
 Copy checkpid.py to home/pi/raspi-sump
 
-Make checkpid.py executable by running    sudo chmod +x checkpid.py
+Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
+
 
 Edit .raspisump.conf 
 ====================
 
-Do not edit the raspisump.py file.  All configurations for are recorded in .raspisump.conf
+Do not edit the raspisump.py file.  All configurations are recorded in .raspisump.conf
+
+See the configuration file for explanations of variables.
 
 
 Hardware
