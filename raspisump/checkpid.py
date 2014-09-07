@@ -1,14 +1,11 @@
 #!/usr/bin/python
-# Check to make sure process raspisump.py is running and restart process if required.
-# lots of duplicate code.  File working will cleanup later
+# Check to make sure process raspi-sump is running and restart if required.
 
 import subprocess
 import time
 
 def check_pid():
-    """Check health of raspisump.py process."""
-    
-    logfile = open("/home/pi/raspi-sump/process_log", 'a')
+    '''Check status of raspisump.py process.'''
     cmdp1 = "ps aux"
     cmdp2 = "grep -v grep"
     cmdp3 = "grep -v sudo"
@@ -25,43 +22,36 @@ def check_pid():
     part4 = subprocess.Popen(cmdp4list, stdin=part3.stdout,stdout=subprocess.PIPE)
     part3.stdout.close()
     x = int(part4.communicate()[0])
-     
     if x == 0:
-        logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
-        logfile.write("Process stopped, Restarting"),
-        logfile.write("\n")
-        logfile.close
-        restart()
-    
+        log_check("Process stopped, restarting")
+        restart()  
     elif x == 1:
-        logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
-        logfile.write("Process Healthy...Exiting"),
-        logfile.write("\n")
-        logfile.close
         exit(0)
-    
     else:
-        logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
-        logfile.write("Multiple Processes...Killing and Restarting"),
-        logfile.write("\n")
-        logfile.close
+        log_check("Multiple Processes...Killing and Restarting")
         kill_start()
-
         
 def restart():
-    """Restart raspisump.py if it is stopped"""
-
+    '''Restart raspisump.py process.'''
     restart_cmd = "/home/pi/raspi-sump/raspisump.py &"
     restart_now = restart_cmd.split(' ')
     subprocess.Popen(restart_now)
     exit(0)
 
 def kill_start():
-    """Kill all raspisump.py processes."""
-
+    '''Kill all instances of raspisump.py process.'''
     kill_cmd = "killall 09 raspisump.py"
     kill_it = kill_cmd.split(' ')
     subprocess.call(kill_it)
     restart()    
- 
-check_pid()
+
+def log_check(reason):
+    print reason
+    logfile = open("/home/pi/raspi-sump/logs/process_log", 'a')
+    logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
+    logfile.write(reason),
+    logfile.write("\n")
+    logfile.close
+
+if __name__ == "__main__":
+    check_pid()
