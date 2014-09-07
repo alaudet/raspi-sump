@@ -46,7 +46,6 @@ def kill_start():
     restart()    
 
 def log_check(reason):
-    print reason
     logfile = open("/home/pi/raspi-sump/logs/process_log", 'a')
     logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
     logfile.write(reason),
