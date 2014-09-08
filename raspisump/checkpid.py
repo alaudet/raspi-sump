@@ -21,14 +21,14 @@ def check_pid():
     part2.stdout.close()
     part4 = subprocess.Popen(cmdp4list, stdin=part3.stdout,stdout=subprocess.PIPE)
     part3.stdout.close()
-    x = int(part4.communicate()[0])
-    if x == 0:
-        log_check("Process stopped, restarting")
+    number_of_processes = int(part4.communicate()[0])
+    if number_of_processes == 0:
+        log_restarts("Process stopped, restarting")
         restart()  
-    elif x == 1:
+    elif number_of_processes == 1:
         exit(0)
     else:
-        log_check("Multiple Processes...Killing and Restarting")
+        log_restarts("Multiple processes...killing and restarting")
         kill_start()
         
 def restart():
@@ -45,7 +45,8 @@ def kill_start():
     subprocess.call(kill_it)
     restart()    
 
-def log_check(reason):
+def log_restarts(reason):
+    '''Log all process restarts'''
     logfile = open("/home/pi/raspi-sump/logs/process_log", 'a')
     logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
     logfile.write(reason),
