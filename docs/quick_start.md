@@ -16,9 +16,11 @@ Copy raspisump.conf to /home/pi/raspi-sump
 
 Make raspisump.py executable by running    'sudo chmod +x raspisump.py'
 
-* If running raspisump.py more than once per minute do the following;
-
+If running raspisump.py more than once per minute do the following;
+===================================================================
 Replace raspisump.py with raspisump_alternate.py
+
+set reading_interval in raspisump.conf to desired interval (e.g. reading_interval = 30)
 
 Copy checkpid.py to home/pi/raspi-sump
 
@@ -28,7 +30,7 @@ Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
 Edit raspisump.conf 
 ====================
 
-Do not edit the raspisump.py file.  All configurations are recorded in .raspisump.conf
+Do not edit the raspisump.py file.  All configurations are recorded in raspisump.conf
 
 See the configuration file for explanations of variables.
 
@@ -55,7 +57,18 @@ Google soldering resistors for good information on how to do this if you have ne
 
 Starting Raspi-Sump
 ===================
-To start raspi-sump manually issue the command    sudo /home/pi/raspi-sump/raspisump.py &
+To start raspi-sump manually issue the command    sudo /home/pi/raspi-sump/raspisump.py
+
+To run raspisump at 1 minute intervals enter the following line in crontab as follows;
+1 - crontab -e
+2 - enter line in crontab as follows;
+    1 * * * * sudo /home/pi/raspi-sump/raspisump.py
+3 - Save crontab
+
+(See cron documentation for questions on configuring crontab
+
+If running as a continuous process (raspisump_alternate.py)
+===========================================================
 
 To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
@@ -69,8 +82,8 @@ sudo killall 09 raspisump.py
 To monitor the log file in the csv folder while raspi-sump is running;
 tail -f 'csvlogfilename'
 
-If using checking level more than once per minute only
-=======================================================
+Health check with checkpid.py. If checking level more than once per minute only.
+================================================================================
 
 To check for the health of the raspisump.py process run the checkpid.py script as root
 Add to root user crontab as follows;
@@ -78,5 +91,6 @@ Add to root user crontab as follows;
 2 - crontab -e
 3 - enter line in crontab as follows;
     5 * * * * /home/pi/raspisump/checkpid.py
+4 - Save crontab
 
-This will check the raspisump.py process once per hour and restart the process if it is stopped.
+This will check the raspisump.py process every 5 minutes and restart it if it is stopped.
