@@ -1,6 +1,15 @@
 #!/usr/bin/python
 # Check to make sure process raspi-sump is running and restart if required.
 
+###Note###
+'''Only use checkpid.py with raspisump_alternate.py. This will monitor the health
+of the raspisump process and restart it if it is stopped.
+The only reason for using this file instead of cron is that cron is limited
+to running processes every minute.  If you need to set your reading interval to a
+lower value, like 30 seconds, this file will make sure the raspisump process recovers
+from a failure.
+'''
+
 import subprocess
 import time
 
