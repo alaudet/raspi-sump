@@ -12,16 +12,20 @@ Create raspi-sump, raspi-sump/csv, raspi-sump/logs directories
 
 Copy raspisump.py to /home/pi/raspi-sump
 
-Copy .raspisump.conf to /home/pi/raspi-sump
+Copy raspisump.conf to /home/pi/raspi-sump
 
 Make raspisump.py executable by running    'sudo chmod +x raspisump.py'
+
+* If running raspisump.py more than once per minute do the following;
+
+Replace raspisump.py with raspisump_alternate.py
 
 Copy checkpid.py to home/pi/raspi-sump
 
 Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
 
 
-Edit .raspisump.conf 
+Edit raspisump.conf 
 ====================
 
 Do not edit the raspisump.py file.  All configurations are recorded in .raspisump.conf
@@ -64,6 +68,9 @@ sudo killall 09 raspisump.py
 
 To monitor the log file in the csv folder while raspi-sump is running;
 tail -f 'csvlogfilename'
+
+If using checking level more than once per minute only
+=======================================================
 
 To check for the health of the raspisump.py process run the checkpid.py script as root
 Add to root user crontab as follows;

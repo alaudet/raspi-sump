@@ -3,10 +3,6 @@
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
 # http://www.linuxnorth.org/raspi-sump/
-# 
-# No variables in this file need to be changed.  All configuration
-# changes should be done in .raspisump.conf
-
 
 """
 The MIT License (MIT)
@@ -32,6 +28,15 @@ furnished to do so, subject to the following conditions:
     SOFTWARE.
 """
 
+####Note###
+"""Only use this file if you need to take a reading more often than once
+per minute.  You should rename this file raspisump.py replacing the other version.
+For any interval longer than 60 seconds consider using the main raspisump.py file
+with cron instead.  This file uses a while loop to continuously run.  
+It should be run in conjunction with checkpid.py to monitor the health of the 
+raspisump process.
+"""
+
 import time
 import decimal
 import smtplib
@@ -41,6 +46,9 @@ import RPi.GPIO as GPIO
 
 config = ConfigParser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
+
+# Do not modify these variables
+# Use .raspisump.conf for all configurations
 
 def water_level():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
@@ -115,6 +123,8 @@ def smtp_alerts(how_far, target):
     smtp_authentication = config.getint('email', 'smtp_authentication')
     smtp_tls = config.getint('email', 'smtp_tls')
     smtp_server = config.get('email', 'smtp_server')
+    #smtp_server = "smtp.gmail.com:587"
+    print smtp_server
     email_to = config.get('email', 'email_to')
     email_from = config.get('email', 'email_from')
 
@@ -137,12 +147,11 @@ def smtp_alerts(how_far, target):
     
     server = smtplib.SMTP(smtp_server)
     
-    # Check if smtp server uses TLS
     if smtp_tls == 1:
         server.starttls() 
     else:
         pass
-    # Check if smtp server uses authentication
+    
     if smtp_authentication == 1:
         username = config.get('email', 'username')
         password = config.get('email', 'password')
