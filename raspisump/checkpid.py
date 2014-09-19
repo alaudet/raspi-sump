@@ -1,17 +1,18 @@
 #!/usr/bin/python
 # Check to make sure process raspi-sump is running and restart if required.
 
-###Note###
-'''Only use checkpid.py with raspisump_alternate.py. This will monitor the health
-of the raspisump process and restart it if it is stopped.
+# Note
+'''Only use checkpid.py with raspisump_alternate.py. This will monitor the
+health of the raspisump process and restart it if it is stopped.
 The only reason for using this file instead of cron is that cron is limited
-to running processes every minute.  If you need to set your reading interval to a
-lower value, like 30 seconds, this file will make sure the raspisump process recovers
-from a failure.
+to running processes every minute.  If you need to set your reading interval
+to a lower value, like 30 seconds, this file will make sure the raspisump
+process recovers from a failure.
 '''
 
 import subprocess
 import time
+
 
 def check_pid():
     '''Check status of raspisump.py process.'''
@@ -24,22 +25,29 @@ def check_pid():
     cmdp3list = cmdp3.split(' ')
     cmdp4list = cmdp4.split(' ')
     part1 = subprocess.Popen(cmdp1list, stdout=subprocess.PIPE)
-    part2 = subprocess.Popen(cmdp2list, stdin=part1.stdout, stdout=subprocess.PIPE)
+    part2 = subprocess.Popen(cmdp2list, stdin=part1.stdout,
+                             stdout=subprocess.PIPE
+                             )
     part1.stdout.close()
-    part3 = subprocess.Popen(cmdp3list, stdin=part2.stdout,stdout=subprocess.PIPE)
+    part3 = subprocess.Popen(cmdp3list, stdin=part2.stdout,
+                             stdout=subprocess.PIPE
+                             )
     part2.stdout.close()
-    part4 = subprocess.Popen(cmdp4list, stdin=part3.stdout,stdout=subprocess.PIPE)
+    part4 = subprocess.Popen(cmdp4list, stdin=part3.stdout,
+                             stdout=subprocess.PIPE
+                             )
     part3.stdout.close()
     number_of_processes = int(part4.communicate()[0])
     if number_of_processes == 0:
         log_restarts("Process stopped, restarting")
-        restart()  
+        restart()
     elif number_of_processes == 1:
         exit(0)
     else:
         log_restarts("Multiple processes...killing and restarting")
         kill_start()
-        
+
+
 def restart():
     '''Restart raspisump.py process.'''
     restart_cmd = "/home/pi/raspi-sump/raspisump.py &"
@@ -47,12 +55,14 @@ def restart():
     subprocess.Popen(restart_now)
     exit(0)
 
+
 def kill_start():
     '''Kill all instances of raspisump.py process.'''
     kill_cmd = "killall 09 raspisump.py"
     kill_it = kill_cmd.split(' ')
     subprocess.call(kill_it)
-    restart()    
+    restart()
+
 
 def log_restarts(reason):
     '''Log all process restarts'''
