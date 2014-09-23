@@ -81,28 +81,27 @@ def handle_error(sample, critical_distance, pit_depth):
     sorted_sample = sorted(sample)
     sensor_distance = sorted_sample[5]  # median reading
     water_depth = pit_depth - sensor_distance
+    water_depth_decimal = decimalize(water_depth)
     filename = "/home/pi/raspi-sump/csv/waterlevel-%s.csv" % time.strftime(
                "%Y%m%d"
     )
-    capture = open(filename, 'a')
+    log_to_file = open(filename, 'a')
 
-    if water_depth > critical_distance:
-        smtp_alerts(water_depth, capture)
+    if water_depth_decimal > critical_distance:
+        smtp_alerts(water_depth_decimal, log_to_file)
     else:
-        level_good(water_depth, capture)
+        level_good(water_depth_decimal, log_to_file)
 
 
-def level_good(how_far, target):
+def level_good(water_depth_decimal, log_to_file):
     """Process reading if level is less than critical distance."""
-    decimal.getcontext().prec = 3
-    how_far_clean = decimal.Decimal(how_far) * 1
-    target.write(time.strftime("%H:%M:%S,")),
-    target.write(str(how_far_clean)),
-    target.write("\n")
-    target.close()
+    log_to_file.write(time.strftime("%H:%M:%S,")),
+    log_to_file.write(str(water_depth_decimal)),
+    log_to_file.write("\n")
+    log_to_file.close()
 
 
-def smtp_alerts(how_far, target):
+def smtp_alerts(water_depth_decimal, log_to_file):
     """Process reading and generate alert if level greater than critical
     distance."""
     smtp_authentication = config.getint('email', 'smtp_authentication')
@@ -111,13 +110,10 @@ def smtp_alerts(how_far, target):
     email_to = config.get('email', 'email_to')
     email_from = config.get('email', 'email_from')
 
-    decimal.getcontext().prec = 3
-    how_far_clean = decimal.Decimal(how_far) * 1
-
-    target.write(time.strftime("%H:%M:%S,")),
-    target.write(str(how_far_clean)),
-    target.write("\n")
-    target.close()
+    log_to_file.write(time.strftime("%H:%M:%S,")),
+    log_to_file.write(str(water_depth_decimal)),
+    log_to_file.write("\n")
+    log_to_file.close()
 
     email_body = string.join((
         "From: %s" % email_from,
@@ -125,7 +121,7 @@ def smtp_alerts(how_far, target):
         "Subject: Sump Pump Alert!",
         "",
         "Critical! The sump pit water level is %s cm." % str(
-            how_far_clean
+            water_depth_decimal
         ),), "\r\n"
         )
 
@@ -147,6 +143,10 @@ def smtp_alerts(how_far, target):
     server.sendmail(email_from, email_to, email_body)
     server.quit()
 
+
+def decimalize(value):
+    decimal.getcontext().prec = 3
+    return decimal.Decimal(value) * 1
 
 if __name__ == "__main__":
     config = ConfigParser.RawConfigParser()
