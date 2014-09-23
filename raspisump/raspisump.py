@@ -40,7 +40,7 @@ import ConfigParser
 import RPi.GPIO as GPIO
 
 
-def water_level():
+def water_distance():
     """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
     trig_pin = config.getint('gpio_pins', 'trig_pin')
     echo_pin = config.getint('gpio_pins', 'echo_pin')
@@ -48,29 +48,23 @@ def water_level():
     pit_depth = config.getint('pit', 'pit_depth')
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
-
     sample = []
     for error_margin in range(11):
         GPIO.setup(trig_pin, GPIO.OUT)
         GPIO.setup(echo_pin, GPIO.IN)
-
         GPIO.output(trig_pin, GPIO.LOW)
         time.sleep(0.3)
         GPIO.output(trig_pin, True)
         time.sleep(0.00001)
         GPIO.output(trig_pin, False)
-
         while GPIO.input(echo_pin) == 0:
             sonar_signal_off = time.time()
         while GPIO.input(echo_pin) == 1:
             sonar_signal_on = time.time()
-
         time_passed = sonar_signal_on - sonar_signal_off
-
         # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
         distance_cm = time_passed * 17161
         sample.append(distance_cm)
-
         GPIO.cleanup()
     handle_error(sample, critical_distance, pit_depth)
 
@@ -79,54 +73,53 @@ def handle_error(sample, critical_distance, pit_depth):
     """Eliminate fringe error readings by using the median reading of a
     sorted sample."""
     sorted_sample = sorted(sample)
-    sensor_distance = sorted_sample[5]  # median reading
+    sensor_distance = sorted_sample[5]
     water_depth = pit_depth - sensor_distance
     water_depth_decimal = decimalize(water_depth)
-    filename = "/home/pi/raspi-sump/csv/waterlevel-%s.csv" % time.strftime(
-               "%Y%m%d"
+    time_of_reading = time.strftime("%H:%M:%S,")
+    filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
+        time.strftime("%Y%m%d")
     )
     log_to_file = open(filename, 'a')
 
     if water_depth_decimal > critical_distance:
-        smtp_alerts(water_depth_decimal, log_to_file)
+        smtp_alerts(water_depth_decimal, log_to_file, time_of_reading)
     else:
-        level_good(water_depth_decimal, log_to_file)
+        level_good(water_depth_decimal, log_to_file, time_of_reading)
 
 
-def level_good(water_depth_decimal, log_to_file):
+def level_good(water_depth_decimal, log_to_file, time_of_reading):
     """Process reading if level is less than critical distance."""
-    log_to_file.write(time.strftime("%H:%M:%S,")),
+    log_to_file.write(time_of_reading),
     log_to_file.write(str(water_depth_decimal)),
     log_to_file.write("\n")
     log_to_file.close()
 
 
-def smtp_alerts(water_depth_decimal, log_to_file):
+def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
     """Process reading and generate alert if level greater than critical
     distance."""
-    smtp_authentication = config.getint('email', 'smtp_authentication')
-    smtp_tls = config.getint('email', 'smtp_tls')
-    smtp_server = config.get('email', 'smtp_server')
-    email_to = config.get('email', 'email_to')
-    email_from = config.get('email', 'email_from')
-
-    log_to_file.write(time.strftime("%H:%M:%S,")),
+    log_to_file.write(time_of_reading),
     log_to_file.write(str(water_depth_decimal)),
     log_to_file.write("\n")
     log_to_file.close()
 
+    email_to = config.get('email', 'email_to')
+    email_from = config.get('email', 'email_from')
     email_body = string.join((
-        "From: %s" % email_from,
-        "To: %s" % email_to,
+        "From: {}".format(email_from),
+        "To: {}".format(email_to),
         "Subject: Sump Pump Alert!",
         "",
-        "Critical! The sump pit water level is %s cm." % str(
-            water_depth_decimal
+        "Critical! The sump pit water level is {} cm.".format(
+            str(water_depth_decimal)
         ),), "\r\n"
         )
 
+    smtp_authentication = config.getint('email', 'smtp_authentication')
+    smtp_tls = config.getint('email', 'smtp_tls')
+    smtp_server = config.get('email', 'smtp_server')
     server = smtplib.SMTP(smtp_server)
-
     # Check if smtp server uses TLS
     if smtp_tls == 1:
         server.starttls()
@@ -145,10 +138,12 @@ def smtp_alerts(water_depth_decimal, log_to_file):
 
 
 def decimalize(value):
-    decimal.getcontext().prec = 3
+    """Format a value at one decimal place."""
+    left_of_decimal, the_decimal, right_of_decimal = str(value).partition(".")
+    decimal.getcontext().prec = len(left_of_decimal) + 1
     return decimal.Decimal(value) * 1
 
 if __name__ == "__main__":
     config = ConfigParser.RawConfigParser()
     config.read('/home/pi/raspi-sump/raspisump.conf')
-    water_level()
+    water_distance()
