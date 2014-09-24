@@ -52,7 +52,9 @@ Google soldering resistors for good information on how to do this if you have ne
 
 Starting Raspi-Sump
 ===================
-To start raspi-sump manually issue the command    sudo /home/pi/raspi-sump/raspisump.py
+To start raspi-sump manually issue the command;
+
+    sudo /home/pi/raspi-sump/raspisump.py
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
 
@@ -111,3 +113,21 @@ Add to root user crontab as follows;
 4 - Save crontab
 
 This will check the raspisump.py process every 5 minutes and restart it if it is stopped.
+
+
+Making Line Charts of Sump Activity
+===================================
+
+You can make a daily chart of sump pump activity by using todaychart.py.
+
+1 - Create the /home/pi/raspi-sump/charts directory if it does not already exist.
+
+2 - From the command line run;
+
+    ./todaychart.py
+
+
+This will create a line chart of sump pump activity.  You can easily modify the file to save to a different location with another name.
+Combined with a scheduled cron job it is an easy way to see the latest activity graphically.
+
+**Note that this requires matplotlib and numpy on your RaspberryPi which can be installed with the apt-get command.
