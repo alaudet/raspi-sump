@@ -1,8 +1,7 @@
 Quick Setup
 ===========
 
-Disclaimer: You could easily damage your raspberry pi if you do not take proper care to understand
-the need to insert a resistor between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
+Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
 
 
@@ -16,15 +15,6 @@ Copy raspisump.conf to /home/pi/raspi-sump
 
 Make raspisump.py executable by running    'sudo chmod +x raspisump.py'
 
-If running raspisump.py more than once per minute do the following;
-===================================================================
-Replace raspisump.py with raspisump_alternate.py
-
-set reading_interval in raspisump.conf to desired interval (e.g. reading_interval = 30)
-
-Copy checkpid.py to home/pi/raspi-sump
-
-Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
 
 
 Edit raspisump.conf 
@@ -60,26 +50,40 @@ Starting Raspi-Sump
 To start raspi-sump manually issue the command    sudo /home/pi/raspi-sump/raspisump.py
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
+
 1 - crontab -e
+
 2 - enter line in crontab as follows;
     1 * * * * sudo /home/pi/raspi-sump/raspisump.py
+
 3 - Save crontab
 
-(See cron documentation for questions on configuring crontab
+(See cron documentation for questions on configuring crontab)
+
 
 If running as a continuous process (raspisump_alternate.py)
 ===========================================================
 
-To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
+1) Replace raspisump.py with raspisump_alternate.py
+
+2) set reading_interval in raspisump.conf to desired interval (e.g. reading_interval = 30)
+
+3) Copy checkpid.py to home/pi/raspi-sump
+
+4) Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
+
+5) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
 /home/pi/raspi-sump/raspisump.py &
 
-Do not forget the ampersand '&' as this will run the script as a background process.
+6) Do not forget the ampersand '&' as this will run the script as a background process.
 
-To stop Raspi-Sump:
+7) To stop Raspi-Sump:
+
 sudo killall 09 raspisump.py
 
-To monitor the log file in the csv folder while raspi-sump is running;
+8) To monitor the log file in the csv folder while raspi-sump is running;
+
 tail -f 'csvlogfilename'
 
 Health check with checkpid.py. If checking level more than once per minute only.
@@ -87,10 +91,15 @@ Health check with checkpid.py. If checking level more than once per minute only.
 
 To check for the health of the raspisump.py process run the checkpid.py script as root
 Add to root user crontab as follows;
+
 1 - login as root
+
 2 - crontab -e
+
 3 - enter line in crontab as follows;
+
     5 * * * * /home/pi/raspisump/checkpid.py
+
 4 - Save crontab
 
 This will check the raspisump.py process every 5 minutes and restart it if it is stopped.
