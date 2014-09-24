@@ -1,0 +1,31 @@
+Raspi-Sump Changelog
+====================
+
+Version 0.2
+
+- Configuration file to store variables
+- use cron to run the script at 1 minute intervals rather than in the script
+- use raspisump_alternate.py if you want to run raspisump as a continuous 
+process without cron.  Use only if you need to use intervals less than one minute.
+- use checkpid.py if using as continuous process to monitor health of raspisump
+process and restart it if stopped.
+- PEP8 changes to code
+- other code cleanup
+- Added MIT License
+- Added changelog
+
+Version 0.1B
+
+- Report water level in pit as opposed to distance of water from sensor
+- todaychart.py to graph the water level
+- add simulations for testing functionality without using RPi.GPIO
+- Documentation for using raspisump
+- added rudimentary cron examples
+
+Verions 0.1A
+
+- 60 second interval monitoring of sump pit water level
+- measures distance between sensor and water
+- Error handling to compensate for fringe readings
+- Readings logged to csv file.
+- Automated SMS Email Alerts if water depth exceeds 35 cm in the sump pit.
