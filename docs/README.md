@@ -7,14 +7,18 @@ If you choose to do this you do it at your own risk.
 
 In home directory
 =================
-Create raspi-sump, raspi-sump/csv, raspi-sump/logs directories
+Create raspi-sump, raspi-sump/csv, raspi-sump/charts and raspi-sump/logs directories
 
 Copy raspisump.py to /home/pi/raspi-sump
 
 Copy raspisump.conf to /home/pi/raspi-sump
 
-Make raspisump.py executable by running    'sudo chmod +x raspisump.py'
+Make raspisump.py executable by running;    
 
+    sudo chmod +x raspisump.py
+
+
+**Note take care with your raspisump.conf file if you are using Gmail or any other mail system that requires authentication.  Your username and password will be viewable in the file. You should change the default pi and root passwords on your RaspberryPi.
 
 
 Edit raspisump.conf 
@@ -30,7 +34,8 @@ Hardware
 
 Setup hardware (Please make sure you understand GPIO information on your pi).
 
-You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. I could have also use a 1K and 2K resistor to give me 3.333V
+You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. I could have also use a 1K and 2K resistor to give me 3.333V. 
+
 Four wires connected as follows from the sensor to the pi (note, this will require some soldering).  A floppy disk power connector fits nicely on the sensor. 
 
 1-VCC pin to 5V pin on Pi (pin 2)
@@ -54,6 +59,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 1 - crontab -e
 
 2 - enter line in crontab as follows;
+
     1 * * * * sudo /home/pi/raspi-sump/raspisump.py
 
 3 - Save crontab
@@ -70,21 +76,23 @@ If running as a continuous process (raspisump_alternate.py)
 
 3) Copy checkpid.py to home/pi/raspi-sump
 
-4) Make checkpid.py executable by running    'sudo chmod +x checkpid.py'
+4) Make checkpid.py executable by running    
+
+    sudo chmod +x checkpid.py
 
 5) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
-/home/pi/raspi-sump/raspisump.py &
+    /home/pi/raspi-sump/raspisump.py &
 
 6) Do not forget the ampersand '&' as this will run the script as a background process.
 
 7) To stop Raspi-Sump:
 
-sudo killall 09 raspisump.py
+    sudo killall 09 raspisump.py
 
 8) To monitor the log file in the csv folder while raspi-sump is running;
 
-tail -f 'csvlogfilename'
+    tail -f 'csvlogfilename'
 
 Health check with checkpid.py. If checking level more than once per minute only.
 ================================================================================
