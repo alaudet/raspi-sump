@@ -71,39 +71,21 @@ def water_distance():
 
 def handle_error(sample, critical_distance, pit_depth):
     """Eliminate fringe error readings by using the median reading of a
-    sorted sample."""
+    sorted sample and log reading to file."""
     sorted_sample = sorted(sample)
     sensor_distance = sorted_sample[5]
     water_depth = pit_depth - sensor_distance
     water_depth_decimal = decimalize(water_depth)
-    time_of_reading = time.strftime("%H:%M:%S,")
-    filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
-        time.strftime("%Y%m%d")
-    )
-    log_to_file = open(filename, 'a')
-
+    log_reading(water_depth_decimal)
     if water_depth_decimal > critical_distance:
-        smtp_alerts(water_depth_decimal, log_to_file, time_of_reading)
+        smtp_alerts(water_depth_decimal)
     else:
-        level_good(water_depth_decimal, log_to_file, time_of_reading)
+        exit(0)
 
 
-def level_good(water_depth_decimal, log_to_file, time_of_reading):
-    """Process reading if level is less than critical distance."""
-    log_to_file.write(time_of_reading),
-    log_to_file.write(str(water_depth_decimal)),
-    log_to_file.write("\n")
-    log_to_file.close()
-
-
-def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
+def smtp_alerts(water_depth_decimal):
     """Process reading and generate alert if level greater than critical
     distance."""
-    log_to_file.write(time_of_reading),
-    log_to_file.write(str(water_depth_decimal)),
-    log_to_file.write("\n")
-    log_to_file.close()
-
     email_to = config.get('email', 'email_to')
     email_from = config.get('email', 'email_from')
     email_body = string.join((
@@ -135,6 +117,20 @@ def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
 
     server.sendmail(email_from, email_to, email_body)
     server.quit()
+    exit(0)
+
+
+def log_reading(water_depth_decimal):
+    """Log time and water depth reading."""
+    time_of_reading = time.strftime("%H:%M:%S,")
+    filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
+        time.strftime("%Y%m%d")
+    )
+    csv_file = open(filename, 'a')
+    csv_file.write(time_of_reading),
+    csv_file.write(str(water_depth_decimal)),
+    csv_file.write("\n")
+    csv_file.close()
 
 
 def decimalize(value):
