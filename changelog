@@ -1,6 +1,13 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.2.1
+
+- Minor changes to some code.
+  - no longer using my own code to round numbers. Using round() method instead
+  - small corrections to License
+  - eliminated some duplicate code around logging
+
 Version 0.2
 
 - Configuration file to store variables
