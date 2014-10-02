@@ -41,9 +41,7 @@ continuously run.  It should be run in conjunction with checkpid.py to
 monitor the health of the raspisump process.
 """
 
-
 import time
-import decimal
 import smtplib
 import string
 import ConfigParser
@@ -58,70 +56,46 @@ def water_distance():
     pit_depth = config.getint('pit', 'pit_depth')
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
-    try:
-        while True:
-            sample = []
-            for error_margin in range(11):
-                GPIO.setup(trig_pin, GPIO.OUT)
-                GPIO.setup(echo_pin, GPIO.IN)
-                GPIO.output(trig_pin, GPIO.LOW)
-                time.sleep(0.3)
-                GPIO.output(trig_pin, True)
-                time.sleep(0.00001)
-                GPIO.output(trig_pin, False)
-                while GPIO.input(echo_pin) == 0:
-                    sonar_signal_off = time.time()
-                while GPIO.input(echo_pin) == 1:
-                    sonar_signal_on = time.time()
-                time_passed = sonar_signal_on - sonar_signal_off
-                # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
-                distance_cm = time_passed * 17161
-                sample.append(distance_cm)
-                GPIO.cleanup()
-            handle_error(sample, critical_distance, pit_depth)
-
-    except KeyboardInterrupt:
-        print "Script killed by user"
+    while True:
+        sample = []
+        for error_margin in range(11):
+            GPIO.setup(trig_pin, GPIO.OUT)
+            GPIO.setup(echo_pin, GPIO.IN)
+            GPIO.output(trig_pin, GPIO.LOW)
+            time.sleep(0.3)
+            GPIO.output(trig_pin, True)
+            time.sleep(0.00001)
+            GPIO.output(trig_pin, False)
+            while GPIO.input(echo_pin) == 0:
+                sonar_signal_off = time.time()
+            while GPIO.input(echo_pin) == 1:
+                sonar_signal_on = time.time()
+            time_passed = sonar_signal_on - sonar_signal_off
+            # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
+            distance_cm = time_passed * 17161
+            sample.append(distance_cm)
+            GPIO.cleanup()
+        handle_error(sample, critical_distance, pit_depth)
 
 
 def handle_error(sample, critical_distance, pit_depth):
     """Eliminate fringe error readings by using the median reading of a
     sorted sample."""
+    reading_interval = config.getint('pit', 'reading_interval')
     sorted_sample = sorted(sample)
     sensor_distance = sorted_sample[5]
-    water_depth = pit_depth - sensor_distance
-    water_depth_decimal = decimalize(water_depth)
-    time_of_reading = time.strftime("%H:%M:%S,")
-    filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
-        time.strftime("%Y%m%d")
-    )
-    log_to_file = open(filename, 'a')
-
-    if water_depth_decimal > critical_distance:
-        smtp_alerts(water_depth_decimal, log_to_file, time_of_reading)
+    water_depth = round((pit_depth - sensor_distance), 1)
+    log_reading(water_depth)
+    if water_depth > critical_distance:
+        smtp_alerts(water_depth)
     else:
-        level_good(water_depth_decimal, log_to_file, time_of_reading)
+        time.sleep(reading_interval)
+        
 
-
-def level_good(water_depth_decimal, log_to_file, time_of_reading):
-    """Process reading if level is less than critical distance."""
-    reading_interval = config.getint('pit', 'reading_interval')
-    log_to_file.write(time_of_reading),
-    log_to_file.write(str(water_depth_decimal)),
-    log_to_file.write("\n")
-    log_to_file.close()
-    time.sleep(reading_interval)
-
-
-def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
+def smtp_alerts(water_depth):
     """Process reading and generate alert if level greater than critical
     distance."""
     reading_interval = config.getint('pit', 'reading_interval')
-    log_to_file.write(time_of_reading),
-    log_to_file.write(str(water_depth_decimal)),
-    log_to_file.write("\n")
-    log_to_file.close()
-
     email_to = config.get('email', 'email_to')
     email_from = config.get('email', 'email_from')
     email_body = string.join((
@@ -130,7 +104,7 @@ def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
         "Subject: Sump Pump Alert!",
         "",
         "Critical! The sump pit water level is {} cm.".format(
-            str(water_depth_decimal)
+            str(water_depth)
         ),), "\r\n"
         )
 
@@ -156,11 +130,17 @@ def smtp_alerts(water_depth_decimal, log_to_file, time_of_reading):
     time.sleep(reading_interval)
 
 
-def decimalize(value):
-    """Format a value at one decimal place."""
-    left_of_decimal, the_decimal, right_of_decimal = str(value).partition(".")
-    decimal.getcontext().prec = len(left_of_decimal) + 1
-    return decimal.Decimal(value) * 1
+def log_reading(water_depth):
+    """Log time and water depth reading."""
+    time_of_reading = time.strftime("%H:%M:%S,")
+    filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
+        time.strftime("%Y%m%d")
+    )
+    csv_file = open(filename, 'a')
+    csv_file.write(time_of_reading),
+    csv_file.write(str(water_depth)),
+    csv_file.write("\n")
+    csv_file.close()
 
 if __name__ == "__main__":
     config = ConfigParser.RawConfigParser()

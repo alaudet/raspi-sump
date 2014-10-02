@@ -33,7 +33,6 @@ furnished to do so, subject to the following conditions:
 """
 
 import time
-import decimal
 import smtplib
 import string
 import ConfigParser
@@ -74,16 +73,15 @@ def handle_error(sample, critical_distance, pit_depth):
     sorted sample and log reading to file."""
     sorted_sample = sorted(sample)
     sensor_distance = sorted_sample[5]
-    water_depth = pit_depth - sensor_distance
-    water_depth_decimal = decimalize(water_depth)
-    log_reading(water_depth_decimal)
-    if water_depth_decimal > critical_distance:
-        smtp_alerts(water_depth_decimal)
+    water_depth = round((pit_depth - sensor_distance), 1)
+    log_reading(water_depth)
+    if water_depth > critical_distance:
+        smtp_alerts(water_depth)
     else:
         exit(0)
 
 
-def smtp_alerts(water_depth_decimal):
+def smtp_alerts(water_depth):
     """Process reading and generate alert if level greater than critical
     distance."""
     email_to = config.get('email', 'email_to')
@@ -94,7 +92,7 @@ def smtp_alerts(water_depth_decimal):
         "Subject: Sump Pump Alert!",
         "",
         "Critical! The sump pit water level is {} cm.".format(
-            str(water_depth_decimal)
+            str(water_depth)
         ),), "\r\n"
         )
 
@@ -120,7 +118,7 @@ def smtp_alerts(water_depth_decimal):
     exit(0)
 
 
-def log_reading(water_depth_decimal):
+def log_reading(water_depth):
     """Log time and water depth reading."""
     time_of_reading = time.strftime("%H:%M:%S,")
     filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
@@ -128,16 +126,9 @@ def log_reading(water_depth_decimal):
     )
     csv_file = open(filename, 'a')
     csv_file.write(time_of_reading),
-    csv_file.write(str(water_depth_decimal)),
+    csv_file.write(str(water_depth)),
     csv_file.write("\n")
     csv_file.close()
-
-
-def decimalize(value):
-    """Format a value at one decimal place."""
-    left_of_decimal, the_decimal, right_of_decimal = str(value).partition(".")
-    decimal.getcontext().prec = len(left_of_decimal) + 1
-    return decimal.Decimal(value) * 1
 
 if __name__ == "__main__":
     config = ConfigParser.RawConfigParser()
