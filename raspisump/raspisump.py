@@ -82,8 +82,7 @@ def handle_error(sample, critical_distance, pit_depth):
 
 
 def smtp_alerts(water_depth):
-    """Process reading and generate alert if level greater than critical
-    distance."""
+    """Generate email alert if water level greater than critical distance."""
     email_to = config.get('email', 'email_to')
     email_from = config.get('email', 'email_from')
     email_body = string.join((
