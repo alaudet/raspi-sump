@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.2.1'
+version = '0.3.0dev'
 
 # Copy default config if not exists
 raspi_sump_dir = '/home/pi/raspi-sump/'
@@ -30,7 +30,7 @@ if not os.path.isdir(raspi_sump_dir):
     os.system(cmd)
 else:
     print 'Updating install document for version {}'.format(version)
-    cmd = 'cp -u docs/README.md ' + docs_path  
+    cmd = 'cp -u docs/*.md ' + docs_path  
     os.system(cmd)
     cmd = 'chown -R pi ' + raspi_sump_dir
     os.system(cmd)
