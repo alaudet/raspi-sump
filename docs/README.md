@@ -1,3 +1,9 @@
+NEW INFO COMING
+===============
+
+This whole file will change with new pip install method
+Will add information to use apt-get to install Matplotlib and Numpy
+
 Quick Setup
 ===========
 
