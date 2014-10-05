@@ -9,7 +9,15 @@ chart_path = '{}charts/'.format(raspi_sump_dir)
 log_path = '{}logs/'.format(raspi_sump_dir)
 csv_path = '{}csv/'.format(raspi_sump_dir)
 docs_path = '{}docs/'.format(raspi_sump_dir)
-if not os.path.isdir(raspi_sump_dir):
+if os.path.isdir(raspi_sump_dir):
+    print "I should not see this"
+    print 'Updating install document for version {}'.format(version)
+    cmd = 'cp -u docs/*.md ' + docs_path
+    os.system(cmd)
+    cmd = 'chown -R pi ' + raspi_sump_dir
+    os.system(cmd)
+else:
+    print "make home directories"
     cmd = 'mkdir ' + raspi_sump_dir
     os.system(cmd)
     cmd = 'cp conf/raspisump.conf ' + conf_path
@@ -25,12 +33,6 @@ if not os.path.isdir(raspi_sump_dir):
     cmd = 'mkdir ' + docs_path
     os.system(cmd)
     cmd = 'cp docs/README.md ' + docs_path
-    os.system(cmd)
-    cmd = 'chown -R pi ' + raspi_sump_dir
-    os.system(cmd)
-else:
-    print 'Updating install document for version {}'.format(version)
-    cmd = 'cp -u docs/*.md ' + docs_path  
     os.system(cmd)
     cmd = 'chown -R pi ' + raspi_sump_dir
     os.system(cmd)
@@ -50,14 +52,14 @@ config = {
 
 setup(**config)
 
-# Make Raspi-Sump Files Executable
+
+# Finalize setup
 install_dir = '/usr/local/lib/python2.7/dist-packages/raspisump/'
 cmd = 'chmod +x ' + install_dir + '*.py'
-os.system(cmd)
-cmd = 'ln -s /usr/local/lib/python2.7/dist-packages/raspisump /usr/bin/raspisump'
 os.system(cmd)
 print ''
 print "*************************************************************"
 print "*See /home/pi/raspi-sump/docs for configuration information.*"
 print "*************************************************************"
 print ''
+exit(0)
