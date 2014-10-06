@@ -10,14 +10,12 @@ log_path = '{}logs/'.format(raspi_sump_dir)
 csv_path = '{}csv/'.format(raspi_sump_dir)
 docs_path = '{}docs/'.format(raspi_sump_dir)
 if os.path.isdir(raspi_sump_dir):
-    print "I should not see this"
     print 'Updating install document for version {}'.format(version)
     cmd = 'cp -u docs/*.md ' + docs_path
     os.system(cmd)
     cmd = 'chown -R pi ' + raspi_sump_dir
     os.system(cmd)
 else:
-    print "make home directories"
     cmd = 'mkdir ' + raspi_sump_dir
     os.system(cmd)
     cmd = 'cp conf/raspisump.conf ' + conf_path
@@ -37,29 +35,29 @@ else:
     cmd = 'chown -R pi ' + raspi_sump_dir
     os.system(cmd)
 
+raspi_sump_files = ['raspisump/raspisump.py',
+                    'raspisump/raspisump_alternate.py',
+                    'raspisump/todaychart.py',
+                    'raspisump/checkpid.py'
+                    ]
+
 config = {
-    'description': 'Raspi-Sump',
+    'name': 'Raspi-Sump',
+    'description': 'A sump pit monitoring system for Raspberry Pi',
     'author': 'Al Audet',
+    'author_email': 'alaudet@linuxnorth.org.',
     'url': 'http://www.linuxnorth.org/raspi-sump/',
     'download_url': 'https://github.com/alaudet/raspi-sump/releases',
-    'author_email': 'alaudet@linuxnorth.org.',
     'version': version,
     'install_requires': ['RPi.GPIO'],
-    'packages': ['raspisump'],
-    'scripts': [],
-    'name': 'Raspi-Sump'
+    'scripts': raspi_sump_files
 }
 
 setup(**config)
 
 
-# Finalize setup
-install_dir = '/usr/local/lib/python2.7/dist-packages/raspisump/'
-cmd = 'chmod +x ' + install_dir + '*.py'
-os.system(cmd)
 print ''
 print "*************************************************************"
 print "*See /home/pi/raspi-sump/docs for configuration information.*"
 print "*************************************************************"
 print ''
-exit(0)
