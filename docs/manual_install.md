@@ -1,8 +1,10 @@
 Manual Setup
 ============
-
-In a /home/pi/tmp directory
-=================
+Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
+If you choose to do this you do it at your own risk.
+    
+In /home/pi/tmp directory
+==========================
 Get latest version from Github.  Download  and extract the latest version at 
 https://github.com/alaudet/raspi-sump/releases
 
@@ -88,13 +90,13 @@ If running as a continuous process (raspisump_alternate.py)
 
 5) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
-    /home/pi/raspi-sump/raspisump.py &
+    /home/pi/raspi-sump/raspisump_alternate.py &
 
 6) Do not forget the ampersand '&' as this will run the script as a background process.
 
 7) To stop Raspi-Sump:
 
-    sudo killall 09 raspisump.py
+    sudo killall 09 raspisump_alternate.py
 
 8) To monitor the log file in the csv folder while raspi-sump is running;
 
@@ -103,20 +105,18 @@ If running as a continuous process (raspisump_alternate.py)
 Health check with checkpid.py. If checking level more than once per minute only.
 ================================================================================
 
-To check for the health of the raspisump.py process run the checkpid.py script as root
-Add to root user crontab as follows;
+To check for the health of the raspisump_alternate.py process run the checkpid.py script as root
+Add to pi user crontab as follows;
 
-1 - login as root
+1 - crontab -e
 
-2 - crontab -e
+2 - enter line in crontab as follows;
 
-3 - enter line in crontab as follows;
+    5 * * * * sudo /home/pi/raspisump/checkpid.py
 
-    5 * * * * /home/pi/raspisump/checkpid.py
+3 - Save crontab
 
-4 - Save crontab
-
-This will check the raspisump.py process every 5 minutes and restart it if it is stopped.
+This will check the raspisump_alternate.py process every 5 minutes and restart it if it is stopped.
 
 
 Making Line Charts of Sump Activity
