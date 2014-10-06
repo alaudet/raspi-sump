@@ -39,11 +39,11 @@ import time
 
 
 def check_pid():
-    '''Check status of raspisump.py process.'''
+    '''Check status of raspisump_alternate.py process.'''
     cmdp1 = "ps aux"
     cmdp2 = "grep -v grep"
     cmdp3 = "grep -v sudo"
-    cmdp4 = "grep -c /home/pi/raspi-sump/raspisump.py"
+    cmdp4 = "grep -c /usr/local/bin/raspisump_alternate.py"
     cmdp1list = cmdp1.split(' ')
     cmdp2list = cmdp2.split(' ')
     cmdp3list = cmdp3.split(' ')
@@ -74,7 +74,7 @@ def check_pid():
 
 def restart():
     '''Restart raspisump.py process.'''
-    restart_cmd = "/home/pi/raspi-sump/raspisump.py &"
+    restart_cmd = "/usr/local/bin/raspisump_alternate.py &"
     restart_now = restart_cmd.split(' ')
     subprocess.Popen(restart_now)
     exit(0)
@@ -82,7 +82,7 @@ def restart():
 
 def kill_start():
     '''Kill all instances of raspisump.py process.'''
-    kill_cmd = "killall 09 raspisump.py"
+    kill_cmd = "killall 09 raspisump_alternate.py"
     kill_it = kill_cmd.split(' ')
     subprocess.call(kill_it)
     restart()

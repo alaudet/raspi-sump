@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.3.1dev
+fix checkpid .py for raspisump_alternate.py process
+
 Version 0.3.0dev
 - packaging with pip
 - new install instructions for automated and manual installs

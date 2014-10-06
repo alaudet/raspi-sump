@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.3.0dev'
+version = '0.3.1dev'
 
 # Copy default config if not exists
 raspi_sump_dir = '/home/pi/raspi-sump/'
