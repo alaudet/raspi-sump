@@ -69,7 +69,7 @@ Starting Raspi-Sump
 ===================
 To start raspi-sump manually issue the command;
 
-    sudo /home/pi/raspi-sump/raspisump.py
+    sudo raspisump.py
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
 
@@ -77,7 +77,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 2 - enter line in crontab as follows;
 
-    1 * * * * sudo /home/pi/raspi-sump/raspisump.py
+    1 * * * * sudo /usr/local/bin/raspisump.py
 
 3 - Save crontab
 
@@ -95,7 +95,7 @@ If running as a continuous process (raspisump_alternate.py)
 
 4) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
-    /home/pi/raspi-sump/raspisump_alternate.py &
+    /usr/local/bin/raspisump_alternate.py &
 
 6) Do not forget the ampersand '&' as this will run the script as a background process.
 
