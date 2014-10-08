@@ -90,7 +90,7 @@ def handle_error(sample, critical_distance, pit_depth):
         smtp_alerts(water_depth)
     else:
         time.sleep(reading_interval)
-        
+
 
 def smtp_alerts(water_depth):
     """Generate email alert if water level greater than critical distance."""
