@@ -1,2 +1,4 @@
 include conf/raspisump.conf
 include docs/*.md
+include simulations/*
+include cron/*
