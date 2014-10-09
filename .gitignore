@@ -1,3 +1,5 @@
 *.sw*
 *.pyc
 *.csv
+dist
+*egg-info
