@@ -34,7 +34,7 @@ setup(name='raspisump',
           "Natural Language :: English",
           "Operating System :: Raspbian Linux",
           "Programming Language :: Python :: 2.7",
-          "Topic :: Utilities",
+          "Topic :: Home Automation",
           "License :: OSI Approved :: MIT License",
           ],
       author='Al Audet',
@@ -48,18 +48,9 @@ setup(name='raspisump',
       )
 
 if os.path.isdir('/home/pi/raspi-sump'):
-    #print "***********************************"
-    #if not os.path.isdir('/home/pi/raspi-sump/csv'):
-    #    os.system('mkdir /home/pi/raspi-sump/csv')
-    #if not os.path.isdir('/home/pi/raspi-sump/logs'):
-    #    os.system('mkdir /home/pi/raspi-sump/logs')
-    #if not os.path.isdir('/home/pi/raspi-sump/charts'):
-    #    os.system('mkdir /home/pi/raspi-sump/charts')
     cmd = 'chown -R pi /home/pi/raspi-sump/'
     os.system(cmd)
     cmd = 'chmod 700 /home/pi/raspi-sump/raspisump.conf'
     os.system(cmd)
-        
 else:
-    print "Nooooooooooooooooooooooo"
     pass
