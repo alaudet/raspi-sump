@@ -9,6 +9,9 @@ raspi_sump_files = ['raspisump/raspisump.py',
                     ]
 
 add_files = [('/home/pi/raspi-sump', ['conf/raspisump.conf']),
+             ('/home/pi/raspi-sump/csv', ['conf/csv/README.md']),
+             ('/home/pi/raspi-sump/logs', ['conf/logs/README.md']),
+             ('/home/pi/raspi-sump/charts', ['conf/charts/README.md']),
              ('/home/pi/raspi-sump/docs', ['docs/README.md']),
              ('/home/pi/raspi-sump/docs', ['docs/automated_install.md']),
              ('/home/pi/raspi-sump/docs', ['docs/manual_install.md']),
@@ -45,13 +48,13 @@ setup(name='raspisump',
       )
 
 if os.path.isdir('/home/pi/raspi-sump'):
-    print "***********************************"
-    if not os.path.isdir('/home/pi/raspi-sump/csv'):
-        os.system('mkdir /home/pi/raspi-sump/csv')
-    if not os.path.isdir('/home/pi/raspi-sump/logs'):
-        os.system('mkdir /home/pi/raspi-sump/logs')
-    if not os.path.isdir('/home/pi/raspi-sump/charts'):
-        os.system('mkdir /home/pi/raspi-sump/charts')
+    #print "***********************************"
+    #if not os.path.isdir('/home/pi/raspi-sump/csv'):
+    #    os.system('mkdir /home/pi/raspi-sump/csv')
+    #if not os.path.isdir('/home/pi/raspi-sump/logs'):
+    #    os.system('mkdir /home/pi/raspi-sump/logs')
+    #if not os.path.isdir('/home/pi/raspi-sump/charts'):
+    #    os.system('mkdir /home/pi/raspi-sump/charts')
     cmd = 'chown -R pi /home/pi/raspi-sump/'
     os.system(cmd)
     cmd = 'chmod 700 /home/pi/raspi-sump/raspisump.conf'

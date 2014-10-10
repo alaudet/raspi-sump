@@ -1,4 +1,7 @@
 include conf/raspisump.conf
+include conf/csv/*
+include conf/logs/*
+include conf/charts/*
 include docs/*.md
 include simulations/*
 include cron/*

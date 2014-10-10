@@ -1,1 +1,0 @@
-5 * * * * /home/pi/raspi-sump/checkpid.py
