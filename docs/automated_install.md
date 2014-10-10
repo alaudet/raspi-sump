@@ -12,13 +12,15 @@ as follows;
     sudo apt-get install python-matplotlib
     sudo apt-get install python-numpy
 
+Also Requires RPi.GPIO module (see Install Raspi-Sump)
+
 Install Raspi-Sump
 ==================
 
 The following will automatically install RPi.GPIO if it is not already
 installed on your Pi.
 
-    sudo pip install --pre Raspi-Sump
+    sudo pip install --pre raspisump
 
 This will copy all the files you need into /usr/local/bin and
 /home/pi/raspi-sump
