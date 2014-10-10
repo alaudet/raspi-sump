@@ -10,6 +10,7 @@ raspisump is still beta, use the --pre option
 - if you want to use charts install maplotlib and numpy
 
     sudo apt-get install python-matplotlib
+
     sudo apt-get install python-numpy
 
 - Read the configuration docs copied during setup on your pi at the following
