@@ -18,9 +18,10 @@ Install Raspi-Sump
 The following will automatically install RPi.GPIO if it is not already
 installed on your Pi.
 
-    sudo pip install Raspi-Sump
+    sudo pip install --pre Raspi-Sump
 
-This will copy all the files you need into /home/pi/raspi-sump
+This will copy all the files you need into /usr/local/bin and
+/home/pi/raspi-sump
 
 * raspi-sump/raspisump.conf (all configurations for raspisump)
 * raspi-sump/csv (location of waterlevel readings to csv file)
@@ -129,7 +130,7 @@ Making Line Charts of Sump Activity
 
 You can make a daily chart of sump pump activity by using todaychart.py.
 
-2 - From the command line run;
+1 - From the command line run;
 
     todaychart.py
 
@@ -140,3 +141,6 @@ Combined with a scheduled cron job it is an easy way to see the latest activity 
 **Note that this requires matplotlib and numpy on your RaspberryPi which can be
 installed with the apt-get command.  See the Install Dependancies section at the
 beginning of this file.
+
+You can also you the move_file.sh script provided as an example of how you
+transfer files offsite to a webserver or save historal chart information.
