@@ -5,3 +5,4 @@ include conf/charts/*
 include docs/*.md
 include simulations/*
 include cron/*
+include README.md
