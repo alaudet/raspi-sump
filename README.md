@@ -1,3 +1,23 @@
+GET ME TO THE ACTION - QUICK INSTALL
+====================================
+
+raspisump is still beta, use the --pre option
+
+    sudo pip install --pre raspisump
+
+- above command will install RPi.GPIO if not already installed
+
+- if you want to use charts install maplotlib and numpy
+
+    sudo apt-get install python-matplotlib
+    sudo apt-get install python-numpy
+
+- Read the configuration docs copied during setup on your pi at the following
+  location;
+
+    /home/pi/raspi-sump/docs
+
+
 Description
 ===========
 Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
