@@ -25,7 +25,13 @@ installed on your Pi.
 This will copy all the files you need into /usr/local/bin and
 /home/pi/raspi-sump
 
-* raspi-sump/raspisump.conf (all configurations for raspisump)
+
+Navigate to /home/pi/raspi-sump/ and move the sample config file
+to this directory.
+
+    mv sample_config/raspisump.conf .
+
+* raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 * raspi-sump/csv (location of waterlevel readings to csv file)
 * raspi-sump/charts (location of charts if using todaychart.py)
 * raspi-sump/logs (location of checkpid.py logs if using raspisump as acontinuous process)

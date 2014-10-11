@@ -1,6 +1,11 @@
 from setuptools import setup
 import os
-version = '0.3.0beta1'
+version = '0.3.1dev2'
+
+if os.path.isfile('/home/pi/raspi-sump/raspisump.conf'):
+    cmd = 'cp -u /home/pi/raspi-sump/raspisump.conf \
+            /home/pi/raspi-sump/raspisump.conf.save'
+    os.system(cmd)
 
 raspi_sump_files = ['raspisump/raspisump.py',
                     'raspisump/raspisump_alternate.py',
@@ -8,7 +13,7 @@ raspi_sump_files = ['raspisump/raspisump.py',
                     'raspisump/checkpid.py'
                     ]
 
-add_files = [('/home/pi/raspi-sump', ['conf/raspisump.conf']),
+add_files = [('/home/pi/raspi-sump/sample_config', ['conf/raspisump.conf']),
              ('/home/pi/raspi-sump/csv', ['conf/csv/README.md']),
              ('/home/pi/raspi-sump/logs', ['conf/logs/README.md']),
              ('/home/pi/raspi-sump/charts', ['conf/charts/README.md']),
@@ -50,7 +55,7 @@ setup(name='raspisump',
 if os.path.isdir('/home/pi/raspi-sump'):
     cmd = 'chown -R pi /home/pi/raspi-sump/'
     os.system(cmd)
-    cmd = 'chmod 700 /home/pi/raspi-sump/raspisump.conf'
+    cmd = 'chmod 600 /home/pi/raspi-sump/raspisump.conf'
     os.system(cmd)
 else:
     pass
