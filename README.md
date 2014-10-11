@@ -5,15 +5,15 @@ raspisump is still beta, use the --pre option
 
     sudo pip install --pre raspisump
 
-- above command will install RPi.GPIO if not already installed
+* above command will install RPi.GPIO if not already installed
 
-- if you want to use charts install maplotlib and numpy
+* if you want to use charts install maplotlib and numpy
 
     sudo apt-get install python-matplotlib
 
     sudo apt-get install python-numpy
 
-- Read the configuration docs copied during setup on your pi at the following
+* Read the configuration docs copied during setup on your pi at the following
   location;
 
     /home/pi/raspi-sump/docs
@@ -53,10 +53,10 @@ This is not a replacement for remaining vigilant in maintaining your water pumpi
 
 Best practices should also include:
 
-- A backup pump that triggers at a slightly higher water level than your main pump.
-- The secondary pump should be connected to a seperate dedicated electrical breaker. 
-- You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
-- if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
+* A backup pump that triggers at a slightly higher water level than your main pump.
+* The secondary pump should be connected to a seperate dedicated electrical breaker. 
+* You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
+* if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
 
 Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
 

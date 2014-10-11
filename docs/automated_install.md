@@ -31,16 +31,19 @@ to this directory.
 
     mv sample_config/raspisump.conf .
 
+The /home/pi/raspi-sump folder is setup as follows on install;
+
 * raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 * raspi-sump/csv (location of waterlevel readings to csv file)
 * raspi-sump/charts (location of charts if using todaychart.py)
 * raspi-sump/logs (location of checkpid.py logs if using raspisump as acontinuous process)
 
 All scripts associated to Raspisump are installed as follows;
-/usr/local/bin/raspisump.py
-/usr/local/bin/raspisump_alternate.py
-/usr/local/bin/todaychart.py
-/usr/local/bin/checkpid.py
+
+* /usr/local/bin/raspisump.py
+* /usr/local/bin/raspisump_alternate.py
+* /usr/local/bin/todaychart.py
+* /usr/local/bin/checkpid.py
 
 **Note take care with your raspisump.conf file if you are using Gmail or any other mail system that requires authentication.  Your username and password will be viewable in the file. You should change the default pi and root passwords on your RaspberryPi.
 
