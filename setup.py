@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.3.1dev2'
+version = '0.3.0.beta2'
 
 if os.path.isfile('/home/pi/raspi-sump/raspisump.conf'):
     cmd = 'cp -u /home/pi/raspi-sump/raspisump.conf \

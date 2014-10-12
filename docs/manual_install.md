@@ -1,8 +1,29 @@
 Manual Setup
 ============
+
+I recommend using pip to install raspisump but if you want to do it yourself
+these instructions will work for you. (see automated_install.cmd)
+
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
     
+Dependancies
+============
+RPi.GPIO
+
+    sudo pip install RPi.GPIO
+
+or
+
+    sudo apt-get install python-rpi.gpio
+
+Matplotlib and Numpy for charts
+
+    sudo apt-get install python-matplotlib
+
+    sudo apt-get install python-numpy
+
+
 In /home/pi/tmp directory
 ==========================
 Get latest version from Github.  Download  and extract the latest version at 

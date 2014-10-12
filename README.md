@@ -1,20 +1,19 @@
 GET ME TO THE ACTION - QUICK INSTALL
 ====================================
 
-raspisump is still beta, use the --pre option
+raspisump is still beta, use the --pre option. This will also install RPi.GPIO
+if not present on the system.
 
     sudo pip install --pre raspisump
 
-* above command will install RPi.GPIO if not already installed
 
-* if you want to use charts install maplotlib and numpy
+If you want to use charts install maplotlib and numpy
 
     sudo apt-get install python-matplotlib
 
     sudo apt-get install python-numpy
 
-* Read the configuration docs copied during setup on your pi at the following
-  location;
+Read the configuration docs copied during setup on your pi at the following location;
 
     /home/pi/raspi-sump/docs
 
@@ -47,7 +46,7 @@ http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
 Disclaimer
 ==========
-Raspi-Sump is still experimental software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump fails. Use for experimental purposes only.
+Raspi-Sump is beta software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump fails. Use for experimental purposes only.
 
 This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
 
@@ -62,4 +61,11 @@ Once you have done all of these things, then consider using a monitoring system 
 
 License
 =======
-I added a license for the main purpose of the use AS-IS clause in case you use this and your basement floods or causes any other disaster.  You agree that your use of Raspi-Sump is at your own risk. 
+MIT License.  I want you to do whatever you want with Raspi-Sump.  If you
+improve it please let me know.
+
+Contributing
+============
+If you add a useful feature please consider forking Raspi-Sump and contributing
+back by issuing a Pull Request.   Use the devel branch for adding new features
+and if it works I will merge them into Master.

@@ -1,11 +1,11 @@
 Raspi-Sump Changelog
 ====================
 
-Version 0.3.1.dev2
-- fix pip install whacking the configuration file on update
+Version 0.3.0beta2
 
-Version 0.3.1dev1
-- Updated instructions
+- fix raspisump.conf getting deleted on upgrade
+- upgrade makes a backup of raspisump.conf to raspisump.conf.save
+- Updated Instructions
 
 Version 0.3.0beta1
 - fix checkpid .py for raspisump_alternate.py process
