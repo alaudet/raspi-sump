@@ -1,8 +1,8 @@
 Manual Setup
 ============
 
-I recommend using pip to install raspisump but if you want to do it yourself
-these instructions will work for you. (see automated_install.cmd)
+I recommend using pip to install Raspi-Sump but if you want to do it yourself
+these instructions will work for you.
 
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
@@ -85,16 +85,19 @@ To start raspi-sump manually issue the command;
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
 
-1 - crontab -e
+1) crontab -e
 
-2 - enter line in crontab as follows;
+2) enter line in crontab as follows;
 
     1 * * * * sudo /home/pi/raspi-sump/raspisump.py
 
-3 - Save crontab
+3) Save crontab
 
 (See cron documentation for questions on configuring crontab)
 
+4) To monitor the log file in the csv folder while raspi-sump is running;
+
+    tail -f 'csvlogfilename'
 
 If running as a continuous process (raspisump_alternate.py)
 ===========================================================
@@ -103,7 +106,7 @@ If running as a continuous process (raspisump_alternate.py)
 
 2) set reading_interval in raspisump.conf to desired interval (e.g. reading_interval = 30)
 
-3) Copy checkpid.py to home/pi/raspi-sump
+3) Copy checkpid.py to /home/pi/raspi-sump
 
 4) Make checkpid.py executable by running    
 
@@ -113,13 +116,13 @@ If running as a continuous process (raspisump_alternate.py)
 
     /home/pi/raspi-sump/raspisump_alternate.py &
 
-6) Do not forget the ampersand '&' as this will run the script as a background process.
+Note*** Do not forget the ampersand '&' as this will run the script as a background process.
 
-7) To stop Raspi-Sump:
+6) To stop Raspi-Sump:
 
     sudo killall 09 raspisump_alternate.py
 
-8) To monitor the log file in the csv folder while raspi-sump is running;
+7) To monitor the log file in the csv folder while raspi-sump is running;
 
     tail -f 'csvlogfilename'
 
@@ -156,3 +159,6 @@ This will create a line chart of sump pump activity.  You can easily modify the 
 Combined with a scheduled cron job it is an easy way to see the latest activity graphically.
 
 **Note that this requires matplotlib and numpy on your RaspberryPi which can be installed with the apt-get command.
+
+You can also use the move_file.sh script provided as an example of how you
+transfer files offsite to a webserver or save historal chart information.
