@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.3.0beta3
+
+- fixed error in setup.py
+
 Version 0.3.0beta2
 
 - fix raspisump.conf getting deleted on upgrade

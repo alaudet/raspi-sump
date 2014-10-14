@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.3.0.beta2'
+version = '0.3.0.beta3'
 
 if os.path.isfile('/home/pi/raspi-sump/raspisump.conf'):
     cmd = 'cp -u /home/pi/raspi-sump/raspisump.conf \
@@ -46,7 +46,6 @@ setup(name='raspisump',
       url='http://www.linuxnorth.org/raspi-sump/',
       download_url='https://github.com/alaudet/raspi-sump/releases',
       license='MIT License',
-      packages=['raspisump'],
       scripts=raspi_sump_files,
       data_files=add_files,
       install_requires=['RPi.GPIO']
