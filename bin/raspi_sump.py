@@ -36,49 +36,7 @@ import time
 import smtplib
 import string
 import ConfigParser
-import RPi.GPIO as GPIO
-
-
-def water_distance():
-    """Measure the distance of water using the HC-SR04 Ultrasonic Sensor."""
-    trig_pin = config.getint('gpio_pins', 'trig_pin')
-    echo_pin = config.getint('gpio_pins', 'echo_pin')
-    critical_distance = config.getint('pit', 'critical_distance')
-    pit_depth = config.getint('pit', 'pit_depth')
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    sample = []
-    for error_margin in range(11):
-        GPIO.setup(trig_pin, GPIO.OUT)
-        GPIO.setup(echo_pin, GPIO.IN)
-        GPIO.output(trig_pin, GPIO.LOW)
-        time.sleep(0.3)
-        GPIO.output(trig_pin, True)
-        time.sleep(0.00001)
-        GPIO.output(trig_pin, False)
-        while GPIO.input(echo_pin) == 0:
-            sonar_signal_off = time.time()
-        while GPIO.input(echo_pin) == 1:
-            sonar_signal_on = time.time()
-        time_passed = sonar_signal_on - sonar_signal_off
-        # Speed of sound is 34,322 cm/sec at 20d Celcius (divide by 2)
-        distance_cm = time_passed * 17161
-        sample.append(distance_cm)
-        GPIO.cleanup()
-    handle_error(sample, critical_distance, pit_depth)
-
-
-def handle_error(sample, critical_distance, pit_depth):
-    """Eliminate fringe error readings by using the median reading of a
-    sorted sample and log reading to file."""
-    sorted_sample = sorted(sample)
-    sensor_distance = sorted_sample[5]
-    water_depth = round((pit_depth - sensor_distance), 1)
-    log_reading(water_depth)
-    if water_depth > critical_distance:
-        smtp_alerts(water_depth)
-    else:
-        exit(0)
+import raspisump.sensor as sensor
 
 
 def smtp_alerts(water_depth):
@@ -132,4 +90,16 @@ def log_reading(water_depth):
 if __name__ == "__main__":
     config = ConfigParser.RawConfigParser()
     config.read('/home/pi/raspi-sump/raspisump.conf')
-    water_distance()
+    critical_distance = config.getint('pit', 'critical_distance')
+    pit_depth = config.getint('pit', 'pit_depth')
+    trig_pin = config.getint('gpio_pins', 'trig_pin')
+    echo_pin = config.getint('gpio_pins', 'echo_pin')
+    rounded_to = 1
+    temperature = 20
+    value = sensor.Measurement(trig_pin, echo_pin, rounded_to, temperature)
+    water_depth = pit_depth - value.distance()
+    log_reading(water_depth)
+    if water_depth > critical_distance:
+        smtp_alerts(water_depth)
+    else:
+        exit(0)

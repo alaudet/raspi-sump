@@ -1,8 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
-Version 0.3.0beta3
+Version 0.4.0dev
+- start seperation of functions to modules
 
+Version 0.3.0beta3
 - fixed error in setup.py
 
 Version 0.3.0beta2

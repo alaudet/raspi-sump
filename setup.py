@@ -1,30 +1,30 @@
 from setuptools import setup
 import os
-version = '0.3.0.beta3'
+version = '0.4.0.beta1'
 
-if os.path.isfile('/home/pi/raspi-sump/raspisump.conf'):
-    cmd = 'cp -u /home/pi/raspi-sump/raspisump.conf \
-            /home/pi/raspi-sump/raspisump.conf.save'
+homedir = '/home/pi/raspi-sump/'
+
+if os.path.isfile(homedir + 'raspisump.conf'):
+    cmd = 'cp -u ' + homedir + 'raspisump.conf ' + homedir + \
+            'raspisump.conf.save'
     os.system(cmd)
 
-raspi_sump_files = ['raspisump/raspisump.py',
-                    'raspisump/raspisump_alternate.py',
-                    'raspisump/todaychart.py',
-                    'raspisump/checkpid.py'
+raspi_sump_files = ['bin/raspi_sump.py',
+                    'bin/raspisump_alternate.py',
+                    'bin/todaychart.py',
+                    'bin/checkpid.py'
                     ]
 
-add_files = [('/home/pi/raspi-sump/sample_config', ['conf/raspisump.conf']),
-             ('/home/pi/raspi-sump/csv', ['conf/csv/README.md']),
-             ('/home/pi/raspi-sump/logs', ['conf/logs/README.md']),
-             ('/home/pi/raspi-sump/charts', ['conf/charts/README.md']),
-             ('/home/pi/raspi-sump/docs', ['docs/README.md']),
-             ('/home/pi/raspi-sump/docs', ['docs/automated_install.md']),
-             ('/home/pi/raspi-sump/docs', ['docs/manual_install.md']),
-             ('/home/pi/raspi-sump/simulations', ['simulations/README.md']),
-             ('/home/pi/raspi-sump/simulations',
-                 ['simulations/sim-pump-fail.py']),
-             ('/home/pi/raspi-sump/simulations',
-                 ['simulations/sim-pump-working.py']),
+add_files = [(homedir + '/sample_config', ['conf/raspisump.conf']),
+             (homedir + 'csv', ['conf/csv/README.md']),
+             (homedir + 'logs', ['conf/logs/README.md']),
+             (homedir + 'charts', ['conf/charts/README.md']),
+             (homedir + 'docs', ['docs/README.md']),
+             (homedir + 'docs', ['docs/automated_install.md']),
+             (homedir + 'docs', ['docs/manual_install.md']),
+             (homedir + 'simulations', ['simulations/README.md']),
+             (homedir + 'simulations', ['simulations/sim-pump-fail.py']),
+             (homedir + 'simulations', ['simulations/sim-pump-working.py']),
              ]
 
 setup(name='raspisump',
@@ -46,15 +46,16 @@ setup(name='raspisump',
       url='http://www.linuxnorth.org/raspi-sump/',
       download_url='https://github.com/alaudet/raspi-sump/releases',
       license='MIT License',
+      packages=['raspisump'],
       scripts=raspi_sump_files,
       data_files=add_files,
       install_requires=['RPi.GPIO']
       )
 
-if os.path.isdir('/home/pi/raspi-sump'):
-    cmd = 'chown -R pi /home/pi/raspi-sump/'
+if os.path.isdir(homedir):
+    cmd = 'chown -R pi ' + homedir
     os.system(cmd)
-    cmd = 'chmod 600 /home/pi/raspi-sump/raspisump.conf'
+    cmd = 'chmod 600 ' + homedir + 'raspisump.conf'
     os.system(cmd)
 else:
     pass
