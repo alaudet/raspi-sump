@@ -26,7 +26,7 @@ furnished to do so, subject to the following conditions:
 """
 
 # Note
-'''Only use checkpid.py with raspisump_alternate.py. This will monitor the
+'''Only use checkpid.py with rsump.py. This will monitor the
 health of the raspisump process and restart it if it is stopped.
 The only reason for using this file instead of cron is that cron is limited
 to running processes every minute.  If you need to set your reading interval
@@ -35,15 +35,15 @@ process recovers from a failure.
 '''
 
 import subprocess
-import time
+import raspisump.log as log
 
 
 def check_pid():
-    '''Check status of raspisump_alternate.py process.'''
+    '''Check status of rsump.py process.'''
     cmdp1 = "ps aux"
     cmdp2 = "grep -v grep"
     cmdp3 = "grep -v sudo"
-    cmdp4 = "grep -c /usr/local/bin/raspisump_alternate.py"
+    cmdp4 = "grep -c /usr/local/bin/rsump.py"
     cmdp1list = cmdp1.split(' ')
     cmdp2list = cmdp2.split(' ')
     cmdp3list = cmdp3.split(' ')
@@ -63,38 +63,29 @@ def check_pid():
     part3.stdout.close()
     number_of_processes = int(part4.communicate()[0])
     if number_of_processes == 0:
-        log_restarts("Process stopped, restarting")
+        log.log_restarts("Process stopped, restarting")
         restart()
     elif number_of_processes == 1:
         exit(0)
     else:
-        log_restarts("Multiple processes...killing and restarting")
+        log.log_restarts("Multiple processes...killing and restarting")
         kill_start()
 
 
 def restart():
-    '''Restart raspisump.py process.'''
-    restart_cmd = "/usr/local/bin/raspisump_alternate.py &"
+    '''Restart Raspi-Sump'''
+    restart_cmd = "/usr/local/bin/rsump.py &"
     restart_now = restart_cmd.split(' ')
     subprocess.Popen(restart_now)
     exit(0)
 
 
 def kill_start():
-    '''Kill all instances of raspisump.py process.'''
-    kill_cmd = "killall 09 raspisump_alternate.py"
+    '''Kill all instances of Raspi-Sump.'''
+    kill_cmd = "killall 09 rsump.py"
     kill_it = kill_cmd.split(' ')
     subprocess.call(kill_it)
     restart()
-
-
-def log_restarts(reason):
-    '''Log all process restarts'''
-    logfile = open("/home/pi/raspi-sump/logs/process_log", 'a')
-    logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
-    logfile.write(reason),
-    logfile.write("\n")
-    logfile.close
 
 if __name__ == "__main__":
     check_pid()

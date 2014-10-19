@@ -9,8 +9,7 @@ if os.path.isfile(homedir + 'raspisump.conf'):
             'raspisump.conf.save'
     os.system(cmd)
 
-raspi_sump_files = ['bin/raspi_sump.py',
-                    'bin/raspisump_alternate.py',
+raspi_sump_files = ['bin/rsump.py',
                     'bin/todaychart.py',
                     'bin/checkpid.py'
                     ]
