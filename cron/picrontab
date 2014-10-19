@@ -1,4 +1,4 @@
-*/1 * * * *  sudo /usr/local/bin/raspisump.py
+*/1 * * * *  sudo /usr/local/bin/rsump.py
 59 * * * * * /home/pi/raspi-sump/move_file.sh
 
 # if running raspisump as a continuous process run checkpid.py every 5 minutes

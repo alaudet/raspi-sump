@@ -1,6 +1,5 @@
-Installation Methods
-====================
+Configuration
+=============
 
-1) to install with PIP read automated_install.md
+View automated_install.md for configuration instructions.
 
-2) to install manually read manual_install.md

@@ -40,8 +40,7 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 
 All scripts associated to Raspisump are installed as follows;
 
-* /usr/local/bin/raspisump.py
-* /usr/local/bin/raspisump_alternate.py
+* /usr/local/bin/rsump.py
 * /usr/local/bin/todaychart.py
 * /usr/local/bin/checkpid.py
 
@@ -81,7 +80,7 @@ Starting Raspi-Sump
 ===================
 To start raspi-sump manually issue the command;
 
-    sudo raspisump.py
+    sudo rsump.py
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
 
@@ -89,7 +88,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 2 - enter line in crontab as follows;
 
-    1 * * * * sudo /usr/local/bin/raspisump.py
+    1 * * * * sudo /usr/local/bin/rsump.py
 
 3 - Save crontab
 
@@ -100,27 +99,29 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
     tail -f 'csvlogfilename'
 
-If running as a continuous process (raspisump_alternate.py)
-===========================================================
+If running as a continuous process 
+==================================
 
-1) set reading_interval in raspisump.conf to desired interval (e.g. reading_interval = 30)
+1) set reading_interval in raspisump.conf to desired interval in seconds (e.g.
+reading_interval = 30). The default setting is 0 which will not run rsump.py as
+a continuous process.
 
 2) Add checkpid.py to crontab (see next section)
 
 3) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
-    /usr/local/bin/raspisump_alternate.py &
+    /usr/local/bin/rsump.py &
 
 5) Reboot your Raspberry Pi or run the following command.  Your pi will run
 Raspi-Sump on boot from now on.
 
-    sudo raspisump_alternate &
+    sudo rsump.py &
 
 Note*** Do not forget the ampersand '&' as this will run the script as a background process.
 
 6) To stop Raspi-Sump:
 
-    sudo killall 09 raspisump_alternate.py
+    sudo killall 09 rsump.py
 
 7) To monitor the log file in the csv folder while raspi-sump is running;
 
@@ -129,7 +130,7 @@ Note*** Do not forget the ampersand '&' as this will run the script as a backgro
 Health check with checkpid.py. If checking level more than once per minute only.
 ================================================================================
 
-To check for the health of the raspisump_alternate.py process run the checkpid.py script as root
+To check for the health of the rsump.py process run the checkpid.py script as root
 Add to pi user crontab as follows;
 
 1 - crontab -e
@@ -140,7 +141,7 @@ Add to pi user crontab as follows;
 
 3 - Save crontab
 
-This will check the raspisump_alternate.py process every 5 minutes and restart it if it is stopped.
+This will check the rsump.py process every 5 minutes and restart it if it is stopped.
 
 
 Making Line Charts of Sump Activity

@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.4.0.beta1'
+version = '0.4.0.dev2'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -20,10 +20,12 @@ add_files = [(homedir + '/sample_config', ['conf/raspisump.conf']),
              (homedir + 'charts', ['conf/charts/README.md']),
              (homedir + 'docs', ['docs/README.md']),
              (homedir + 'docs', ['docs/automated_install.md']),
-             (homedir + 'docs', ['docs/manual_install.md']),
              (homedir + 'simulations', ['simulations/README.md']),
              (homedir + 'simulations', ['simulations/sim-pump-fail.py']),
              (homedir + 'simulations', ['simulations/sim-pump-working.py']),
+             (homedir + 'cron', ['cron/README.md']),
+             (homedir + 'cron', ['cron/move_file.sh']),
+             (homedir + 'cron', ['cron/picrontab']),
              ]
 
 setup(name='raspisump',
