@@ -12,3 +12,12 @@ def log_reading(water_depth):
     csv_file.write(str(water_depth)),
     csv_file.write("\n")
     csv_file.close()
+
+
+def log_restarts(reason):
+    '''Log all process restarts'''
+    logfile = open("/home/pi/raspi-sump/logs/process_log", 'a')
+    logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
+    logfile.write(reason),
+    logfile.write("\n")
+    logfile.close
