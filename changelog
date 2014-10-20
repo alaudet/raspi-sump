@@ -1,8 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
-Version 0.4.0dev
-- start seperation of functions to modules
+Version 0.4.0beta1
+- Seperated program into scripts and modules.
+- Removed the manual install instructions in favor of packaged install only.
 
 Version 0.3.0beta3
 - fixed error in setup.py

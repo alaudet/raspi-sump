@@ -50,7 +50,7 @@ All scripts associated to Raspisump are installed as follows;
 Edit raspisump.conf 
 ====================
 
-Do not edit the raspisump.py file.  All configurations are recorded in raspisump.conf
+All configurations are recorded in /home/pi/raspi-sump/raspisump.conf
 
 See the configuration file for explanations of variables.
 
@@ -130,7 +130,8 @@ Note*** Do not forget the ampersand '&' as this will run the script as a backgro
 Health check with checkpid.py. If checking level more than once per minute only.
 ================================================================================
 
-To check for the health of the rsump.py process run the checkpid.py script as root
+To check for the health of the rsump.py process run the checkpid.py script as
+root. 
 Add to pi user crontab as follows;
 
 1 - crontab -e
