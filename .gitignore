@@ -3,3 +3,4 @@
 *.csv
 dist
 *egg-info
+tests/

@@ -11,7 +11,7 @@ if os.path.isfile(homedir + 'raspisump.conf'):
 
 raspi_sump_files = ['bin/rsump.py',
                     'bin/todaychart.py',
-                    'bin/checkpid.py'
+                    'bin/rsumpmonitor.py'
                     ]
 
 add_files = [(homedir + '/sample_config', ['conf/raspisump.conf']),
