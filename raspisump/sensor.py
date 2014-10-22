@@ -1,7 +1,12 @@
-# simple module for measuring distance with an Ultrasonic sound sensor
-# and a Raspberry Pi
+'''Class to create a measurement using HC-SR04 sensor connected to the
+Raspberry Pi GPIO pins.'''
+
+# Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# MIT License
+# http://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
 import math

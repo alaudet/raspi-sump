@@ -5,7 +5,7 @@
 # http://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
-# MIT License
+# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
 import ConfigParser
@@ -15,7 +15,7 @@ config = ConfigParser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')
 
-if reading_interval == 0:    
+if reading_interval == 0:
     reading.water_reading()
 else:
     while True:

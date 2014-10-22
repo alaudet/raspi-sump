@@ -1,3 +1,13 @@
+'''Module to monitor the health of a process and restart it if it has stopped
+or if it has spawned multiple processes.'''
+
+# Raspi-sump, a sump pump monitoring system.
+# Al Audet
+# http://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
+
 import subprocess
 import raspisump.log as log
 

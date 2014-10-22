@@ -35,14 +35,14 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 
 * raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 * raspi-sump/csv (location of waterlevel readings to csv file)
-* raspi-sump/charts (location of charts if using todaychart.py)
-* raspi-sump/logs (location of checkpid.py logs if using raspisump as acontinuous process)
+* raspi-sump/charts (location of charts if using rsumpchart.py)
+* raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as acontinuous process)
 
 All scripts associated to Raspisump are installed as follows;
 
 * /usr/local/bin/rsump.py
-* /usr/local/bin/todaychart.py
-* /usr/local/bin/checkpid.py
+* /usr/local/bin/rsumpchart.py
+* /usr/local/bin/rsumpmonitor.py
 
 **Note take care with your raspisump.conf file if you are using Gmail or any other mail system that requires authentication.  Your username and password will be viewable in the file. You should change the default pi and root passwords on your RaspberryPi.
 
@@ -106,7 +106,7 @@ If running as a continuous process
 reading_interval = 30). The default setting is 0 which will not run rsump.py as
 a continuous process.
 
-2) Add checkpid.py to crontab (see next section)
+2) Add rsumpmonitor.py to crontab (see next section)
 
 3) To start Raspi-Sump on bootup add the following line at the end of /etc/rc.local just before the line 'exit 0'
 
@@ -127,10 +127,10 @@ Note*** Do not forget the ampersand '&' as this will run the script as a backgro
 
     tail -f 'csvlogfilename'
 
-Health check with checkpid.py. If checking level more than once per minute only.
+Health check with rsumpmonitor.py. If checking level more than once per minute only.
 ================================================================================
 
-To check for the health of the rsump.py process run the checkpid.py script as
+To check for the health of the rsump.py process run the rsumpmonitor.py script as
 root. 
 Add to pi user crontab as follows;
 
@@ -138,7 +138,7 @@ Add to pi user crontab as follows;
 
 2 - enter line in crontab as follows;
 
-    5 * * * * sudo /usr/local/bin/checkpid.py
+    5 * * * * sudo /usr/local/bin/rsumpmonitor.py
 
 3 - Save crontab
 
@@ -148,11 +148,11 @@ This will check the rsump.py process every 5 minutes and restart it if it is sto
 Making Line Charts of Sump Activity
 ===================================
 
-You can make a daily chart of sump pump activity by using todaychart.py.
+You can make a daily chart of sump pump activity by using rsumpchart.py.
 
 1 - From the command line run;
 
-    todaychart.py
+    rsumpchart.py
 
 
 This will create a line chart of sump pump activity.  You can easily modify the file to save to a different location with another name.

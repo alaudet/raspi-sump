@@ -1,3 +1,12 @@
+'''Module to log water_level readings and process restarts.'''
+
+# Raspi-sump, a sump pump monitoring system.
+# Al Audet
+# http://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
+
 import time
 
 def log_reading(water_depth):
