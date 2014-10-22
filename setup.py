@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.4.0.dev2'
+version = '0.4.0.dev3'
 
 homedir = '/home/pi/raspi-sump/'
 
