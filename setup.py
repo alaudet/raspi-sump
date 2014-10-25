@@ -1,12 +1,12 @@
 from setuptools import setup
 import os
-version = '0.4.0beta1'
+version = '0.5.0'
 
 homedir = '/home/pi/raspi-sump/'
 
 if os.path.isfile(homedir + 'raspisump.conf'):
     cmd = 'cp -u ' + homedir + 'raspisump.conf ' + homedir + \
-            'raspisump.conf.save'
+        'raspisump.conf.save'
     os.system(cmd)
 
 raspi_sump_files = ['bin/rsump.py',
@@ -14,7 +14,7 @@ raspi_sump_files = ['bin/rsump.py',
                     'bin/rsumpmonitor.py'
                     ]
 
-add_files = [(homedir + '/sample_config', ['conf/raspisump.conf']),
+add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'csv', ['conf/csv/README.md']),
              (homedir + 'logs', ['conf/logs/README.md']),
              (homedir + 'charts', ['conf/charts/README.md']),
@@ -33,7 +33,7 @@ setup(name='raspisump',
       description='A sump pit monitoring system for Raspberry Pi',
       long_description=open("./README.md", "r").read(),
       classifiers=[
-          "Development Status :: 4 - Beta",
+          "Development Status :: 5 - Production/Stable",
           "Environment :: Console",
           "Intended Audience :: End Users/Desktop",
           "Natural Language :: English",
@@ -58,5 +58,3 @@ if os.path.isdir(homedir):
     os.system(cmd)
     cmd = 'chmod 600 ' + homedir + 'raspisump.conf'
     os.system(cmd)
-else:
-    pass

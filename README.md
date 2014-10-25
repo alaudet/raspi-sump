@@ -1,11 +1,14 @@
 GET ME TO THE ACTION - QUICK INSTALL
 ====================================
+Install the pip package manager if not present on you pi at;
 
-raspisump is still beta, use the --pre option. This will also install RPi.GPIO
-if not present on the system.
+http://pip.readthedocs.org/en/latest/installing.html
 
-    sudo pip install --pre raspisump
+Install Raspi-Sump
 
+    sudo pip install raspisump
+
+This will also install RPi.GPIO if not present on the system.
 
 If you want to use charts install maplotlib and numpy
 
@@ -46,7 +49,7 @@ http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
 Disclaimer
 ==========
-Raspi-Sump is beta software. You are welcome to use it but there is no guarantee it will work. Your house may still flood if your sump pump fails. Use for experimental purposes only.
+You are welcome to use Raspi-Sump but there is no guarantee it will work. Your house may still flood if your sump pump fails. This software comes with no warranty. See License details.
 
 This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
 

@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.5.0
+First non beta release.
+Small changes to install instructions.
+
 Version 0.4.0beta1
 - Seperated program into scripts and modules.
 - Removed the manual install instructions in favor of packaged install only.
@@ -9,7 +13,6 @@ Version 0.3.0beta3
 - fixed error in setup.py
 
 Version 0.3.0beta2
-
 - fix raspisump.conf getting deleted on upgrade
 - upgrade makes a backup of raspisump.conf to raspisump.conf.save
 - Updated Instructions
@@ -20,14 +23,12 @@ Version 0.3.0beta1
 - new install instructions for automated and manual installs
 
 Version 0.2.1
-
 - Minor changes to some code.
   - no longer using my own code to round numbers. Using round() method instead
   - small corrections to License
   - eliminated some duplicate code around logging
 
 Version 0.2
-
 - Configuration file to store variables
 - use cron to run the script at 1 minute intervals rather than in the script
 - use raspisump_alternate.py if you want to run raspisump as a continuous 
@@ -40,7 +41,6 @@ process and restart it if stopped.
 - Added changelog
 
 Version 0.1B
-
 - Report water level in pit as opposed to distance of water from sensor
 - todaychart.py to graph the water level
 - add simulations for testing functionality without using RPi.GPIO
@@ -48,7 +48,6 @@ Version 0.1B
 - added rudimentary cron examples
 
 Verions 0.1A
-
 - 60 second interval monitoring of sump pit water level
 - measures distance between sensor and water
 - Error handling to compensate for fringe readings

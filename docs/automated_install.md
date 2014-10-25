@@ -14,13 +14,18 @@ as follows;
 
 Also Requires RPi.GPIO module (see Install Raspi-Sump)
 
+If pip package manager is not installed you can get the latest version at the
+following site.
+
+    http://pip.readthedocs.org/en/latest/installing.html
+
 Install Raspi-Sump
 ==================
 
 The following will automatically install RPi.GPIO if it is not already
 installed on your Pi.
 
-    sudo pip install --pre raspisump
+    sudo pip install raspisump
 
 This will copy all the files you need into /usr/local/bin and
 /home/pi/raspi-sump
