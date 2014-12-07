@@ -27,6 +27,7 @@ configs = {'email_to': config.get('email', 'email_to'),
 
 def smtp_alerts(water_depth):
     """Generate email alert if water level greater than critical distance."""
+    recipients = configs['email_to'].split(', ')
     email_body = string.join((
         "From: {}".format(configs['email_from']),
         "To: {}".format(configs['email_to']),
@@ -51,5 +52,5 @@ def smtp_alerts(water_depth):
     else:
         pass
 
-    server.sendmail(configs['email_from'], configs['email_to'], email_body)
+    server.sendmail(configs['email_from'], recipients, email_body)
     server.quit()

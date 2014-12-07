@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.5.1
+- Add option to send alerts to multiple recipients
+- Change to raspisump.conf
+
 Version 0.5.0
 First non beta release.
 Small changes to install instructions.
