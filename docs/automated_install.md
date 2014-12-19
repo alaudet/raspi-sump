@@ -27,8 +27,7 @@ installed on your Pi.
 
     sudo pip install raspisump
 
-This will copy all the files you need into /usr/local/bin and
-/home/pi/raspi-sump
+This will copy all the files you need into /home/pi/raspi-sump
 
 
 Navigate to /home/pi/raspi-sump/ and move the sample config file
@@ -43,11 +42,6 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 * raspi-sump/charts (location of charts if using rsumpchart.py)
 * raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as acontinuous process)
 
-All scripts associated to Raspisump are installed as follows;
-
-* /usr/local/bin/rsump.py
-* /usr/local/bin/rsumpchart.py
-* /usr/local/bin/rsumpmonitor.py
 
 **Note take care with your raspisump.conf file if you are using Gmail or any other mail system that requires authentication.  Your username and password will be viewable in the file. You should change the default pi and root passwords on your RaspberryPi.
 

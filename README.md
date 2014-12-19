@@ -1,6 +1,6 @@
 GET ME TO THE ACTION - QUICK INSTALL
 ====================================
-Install the pip package manager if not present on you pi at;
+Install the pip package manager (if not present on your pi) at;
 
 http://pip.readthedocs.org/en/latest/installing.html
 
@@ -20,6 +20,10 @@ Read the configuration docs copied during setup on your pi at the following loca
 
     /home/pi/raspi-sump/docs
 
+Also available at
+
+https://github.com/alaudet/raspi-sump/blob/master/docs/automated_install.md
+
 
 Description
 ===========
@@ -29,14 +33,10 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-The Raspberry Pi uses Linux (Raspbian) which is not a real time OS.  This has implications 
-for this type of application as a multitasking OS like Linux will cause some small error
-variance in the readings, as opposed to an Arduino that uses a RealTime OS. 
-
-While the accuracy is fine for a home system, the problem is mitigated by taking a larger sorted sample of readings and using the median reading as the reported one.  In my testing so far I have a variance of about one centimeter which is acceptable for a residential monitoring system.  It would appear that using the median reading eliminates the infrequent fringe type readings that can give false positives.
 
 Future versions will include;
 - An offsite web component for viewing historical data, including graphs and water volume
+- A web based interface on the pi to configure it.
 - Proper push button shutdown to turn off the pi (raspi-atx)
 - LCD panel to get a quick glance of the water level without opening the lid.
 
