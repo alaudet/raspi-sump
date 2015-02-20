@@ -24,11 +24,11 @@ class Measurement(object):
     def distance(self):
         """Return the distance, in cm, of an object adjusted for
         temperature in Celcius."""
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
         speed_of_sound = 331.3 * math.sqrt(1+(self.temperature / 273.15))
         sample = []
         for distance_reading in range(11):
+            GPIO.setwarnings(False)
+            GPIO.setmode(GPIO.BCM)
             GPIO.setup(self.trig_pin, GPIO.OUT)
             GPIO.setup(self.echo_pin, GPIO.IN)
             GPIO.output(self.trig_pin, GPIO.LOW)

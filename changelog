@@ -1,6 +1,11 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.5.3
+- Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
+'GPIO.cleanup() unsets the current pin mode' 
+This version of Raspi-Sump is compatible with RPi.GPIO 0.5.11
+
 Version 0.5.2
 - Additional explanation on raspisump.conf
 - Documentation changes

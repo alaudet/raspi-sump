@@ -1,18 +1,22 @@
-***ALERT***
-===========
+***ALERT PLEASE UPGRADE***
+==========================
 
+If you have upgraded to version 0.5.11 of RPi.GPIO you must upgrade to version 0.5.3 of Raspi-Sump
 As of version 0.5.11 of RPi.GPIO a runtime error happens in sensor.py when raspisump tries to take a reading.
 
-If you have problems you can downgrade as follows
+Upgrade Raspi-Sump as follows;
 
-     sudo pip uninstall RPi.GPIO
+     sudo pip install -U raspisump
 
-Downgrade to version 0.5.10
-
-     sudo pip install https://pypi.python.org/packages/source/R/RPi.GPIO/RPi.GPIO-0.5.10.tar.gz#md5=f1c67de40bf99e0612d75538b06a2181
-
+Version 0.5.3 is also compatible with older versions of RPi.GPIO
 
 Please see issue tracker for full info.
+
+https://github.com/alaudet/raspi-sump/issues/2
+
+You can check the version you are running by issuing this command on your Pi
+
+    find /usr | grep -i gpio
 
 
 GET ME TO THE ACTION - QUICK INSTALL
