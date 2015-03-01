@@ -1,12 +1,8 @@
-'''Class to create a measurement using HC-SR04 sensor connected to the
-Raspberry Pi GPIO pins.'''
+''' Module for measuring distance or depth with an HCSRO4 Ultrasonic sound 
+sensor and a Raspberry Pi.  Imperial and Metric measurements are available'''
 
-# Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# http://www.linuxnorth.org/raspi-sump/
-#
-# All configuration changes should be done in raspisump.conf
-# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
+# MIT License
 
 import time
 import math
@@ -14,16 +10,24 @@ import RPi.GPIO as GPIO
 
 
 class Measurement(object):
-    '''Create a measurement using an HC-SR04 Ultrasonic Sensor'''
-    def __init__(self, trig_pin, echo_pin, rounded_to, temperature):
+    '''Create a measurement using a HC-SR04 Ultrasonic Sensor connected to 
+    the GPIO pins of a Raspberry Pi.'''
+    def __init__(self, trig_pin, echo_pin, temperature, unit, round_to):
         self.trig_pin = trig_pin
         self.echo_pin = echo_pin
-        self.rounded_to = rounded_to
         self.temperature = temperature
+        self.unit = unit
+        self.round_to = round_to
 
-    def distance(self):
-        """Return the distance, in cm, of an object adjusted for
-        temperature in Celcius."""
+    def raw_distance(self):
+        '''Return an error corrected unrounded distance, in cm, of an object 
+        adjusted for temperature in Celcius.  The distance calculated
+        is the median value of a sample of 11 readings.'''
+        if self.unit != 'metric' and self.unit != 'imperial':
+            print "Unit Type Error: Unit must be imperial or metric"
+            exit(0)
+        if self.unit == 'imperial':
+            self.temperature = (self.temperature - 32) * 0.5556
         speed_of_sound = 331.3 * math.sqrt(1+(self.temperature / 273.15))
         sample = []
         for distance_reading in range(11):
@@ -45,5 +49,24 @@ class Measurement(object):
             sample.append(distance_cm)
             GPIO.cleanup()
         sorted_sample = sorted(sample)
-        sensor_distance = sorted_sample[5]
-        return round(sensor_distance, self.rounded_to)
+        return sorted_sample[5]
+
+    def depth_metric(self, median_reading, hole_depth):
+        '''Calculate the rounded metric depth of a liquid. hole_depth is the
+        distance, in cm's, from the sensor to the bottom of the hole.'''
+        return round(hole_depth - median_reading, self.round_to)
+
+    def depth_imperial(self, median_reading, hole_depth):
+        '''Calculate the rounded imperial depth of a liquid. hole_depth is the
+        distance, in inches, from the sensor to the bottom of the hole.'''
+        return round(hole_depth - (median_reading * 0.394), self.round_to)
+
+    def distance_metric(self, median_reading):
+        '''Calculate the rounded metric distance, in cm's, from the sensor
+        to an object'''
+        return round(median_reading, self.round_to)
+
+    def distance_imperial(self, median_reading):
+        '''Calculate the rounded imperial distance, in inches, from the sensor
+        to an oject.'''
+        return round(median_reading * 0.394, self.round_to)

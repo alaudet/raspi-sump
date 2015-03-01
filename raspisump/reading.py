@@ -19,7 +19,8 @@ configs = {'critical_distance': config.getint('pit', 'critical_distance'),
            'pit_depth': config.getint('pit', 'pit_depth'),
            'temperature': config.getint('pit', 'temperature'),
            'trig_pin': config.getint('gpio_pins', 'trig_pin'),
-           'echo_pin': config.getint('gpio_pins', 'echo_pin')
+           'echo_pin': config.getint('gpio_pins', 'echo_pin'),
+           'unit': config.get('pit', 'unit')
            }
 
 
@@ -29,11 +30,20 @@ def water_reading():
     critical_distance = configs['critical_distance']
     trig_pin = configs['trig_pin']
     echo_pin = configs['echo_pin']
-    rounded_to = 1
+    round_to = 1
     temperature = configs['temperature']
-
-    value = sensor.Measurement(trig_pin, echo_pin, rounded_to, temperature)
-    water_depth = pit_depth - value.distance()
+    unit = configs['unit']
+    print unit
+    value = sensor.Measurement(trig_pin, echo_pin, temperature, unit, round_to)
+    raw_distance = value.raw_distance()
+    if unit == 'imperial':
+        water_depth = value.depth_imperial(raw_distance, pit_depth)
+    
+    elif unit == 'metric':
+        water_depth = value.depth_metric(raw_distance, pit_depth)
+    else:
+        print "Error"
+        i
     generate_log(water_depth)
     generate_alert(water_depth, critical_distance)
 
