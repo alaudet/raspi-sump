@@ -1,22 +1,17 @@
-***ALERT PLEASE UPGRADE***
-==========================
+v0.6beta
+========
 
-If you have upgraded to version 0.5.11 of RPi.GPIO you must upgrade to version 0.5.3 of Raspi-Sump
-As of version 0.5.11 of RPi.GPIO a runtime error happens in sensor.py when raspisump tries to take a reading.
+If you install this beta you will need to add variables to your raspisump.conf
+file.
 
-Upgrade Raspi-Sump as follows;
+I am adding the ability to use imperial or metric measurements.
+Also some variables in the conf file were confusing so I will be updating those
+things.
 
-     sudo pip install -U raspisump
+Simply upgrading to v0.6beta will break your current install of Raspi-Sump
+unless you take some time to fix your configuration file.
 
-Version 0.5.3 is also compatible with older versions of RPi.GPIO
-
-Please see issue tracker for full info.
-
-https://github.com/alaudet/raspi-sump/issues/2
-
-You can check the version you are running by issuing this command on your Pi
-
-    find /usr | grep -i gpio
+I recommend you keep using 0.5.3
 
 
 GET ME TO THE ACTION - QUICK INSTALL

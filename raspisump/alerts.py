@@ -21,20 +21,30 @@ configs = {'email_to': config.get('email', 'email_to'),
            'smtp_tls': config.getint('email', 'smtp_tls'),
            'smtp_server': config.get('email', 'smtp_server'),
            'username': config.get('email', 'username'),
-           'password': config.get('email', 'password')
+           'password': config.get('email', 'password'),
+           'unit': config.get('pit', 'unit')
            }
 
 
 def smtp_alerts(water_depth):
     """Generate email alert if water level greater than critical distance."""
     recipients = configs['email_to'].split(', ')
+    unit = configs['unit']
+
+    if unit == 'imperial':
+        unit_type = 'inches'
+    elif unit == 'metric':
+        unit_type = 'centimeters'
+    else:
+        print "Error"
+
     email_body = string.join((
         "From: {}".format(configs['email_from']),
         "To: {}".format(configs['email_to']),
         "Subject: Sump Pump Alert!",
         "",
-        "Critical! The sump pit water level is {} cm.".format(
-            str(water_depth)
+        "Critical! The sump pit water level is {} {}.".format(
+            str(water_depth), unit_type
         ),), "\r\n"
         )
 
