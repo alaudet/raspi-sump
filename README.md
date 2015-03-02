@@ -2,16 +2,18 @@ v0.6beta
 ========
 
 If you install this beta you will need to add variables to your raspisump.conf
-file.
+file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
+/home/pi/raspi-sump.  Re-enter all of your variables.  Older info has been saved in
+/home/pi/raspi-sump/raspisump.conf.save
 
-I am adding the ability to use imperial or metric measurements.
-Also some variables in the conf file were confusing so I will be updating those
-things.
+The choice of Imperial or Metric measurements have been added to 0.6beta.
+Also some variables in the conf file were confusing so I have made changes to this file
+including better comments to explain each variable.
 
 Simply upgrading to v0.6beta will break your current install of Raspi-Sump
 unless you take some time to fix your configuration file.
 
-I recommend you keep using 0.5.3
+I recommend you keep using v0.5.3 if you don't want to do this.
 
 
 GET ME TO THE ACTION - QUICK INSTALL
@@ -20,11 +22,19 @@ Install the pip package manager (if not present on your pi) at;
 
 http://pip.readthedocs.org/en/latest/installing.html
 
-Install Raspi-Sump
+Install Raspi-Sump by pulling the git repository for v0.6beta.
 
-    sudo pip install raspisump
+    git clone https://github.com/alaudet/raspi-sump.git
 
-This will also install RPi.GPIO if not present on the system.
+Checkout the v0.6beta branch
+
+    git checkout --track origin/v0.6beta
+
+From the root of the raspisump git repository run pip to install raspisump
+
+    sudo pip install .
+
+This will also install the HCSR04sensor and  RPi.GPIO modules if not present on your Pi.
 
 If you want to use charts install maplotlib and numpy
 
@@ -38,7 +48,7 @@ Read the configuration docs copied during setup on your pi at the following loca
 
 Also available at
 
-https://github.com/alaudet/raspi-sump/blob/master/docs/automated_install.md
+https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
 Description

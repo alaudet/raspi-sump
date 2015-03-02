@@ -15,10 +15,17 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
+import ConfigParser
+
+config = ConfigParser.RawConfigParser()
+config.read('/home/pi/raspi-sump/raspisump.conf')
+
+configs = {'unit': config.get('pit', 'unit')}
 
 
 def graph(csv_file, filename):
     """Create a line graph from a two column csv file."""
+    unit = configs['unit']
     date, value = np.loadtxt(csv_file, delimiter=',', unpack=True,
                              converters={0: mdates.strpdate2num('%H:%M:%S')}
                              )
@@ -32,7 +39,12 @@ def graph(csv_file, filename):
     title_set = plt.title(title)
     title_set.set_y(1.09)
     plt.subplots_adjust(top=0.86)
-    plt.ylabel('Centimeters')
+
+    if unit == 'imperial':
+        plt.ylabel('inches')
+    if unit == 'metric':
+        plt.ylabel('centimeters')
+    
     plt.xlabel('Time of Day')
     plt.xticks(rotation=30)
     plt.grid(True, color='#ECE5DE', linestyle='solid')

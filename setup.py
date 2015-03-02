@@ -19,7 +19,7 @@ add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'logs', ['conf/logs/README.md']),
              (homedir + 'charts', ['conf/charts/README.md']),
              (homedir + 'docs', ['docs/README.md']),
-             (homedir + 'docs', ['docs/automated_install.md']),
+             (homedir + 'docs', ['docs/Installation_Instructions.md']),
              (homedir + 'simulations', ['simulations/README.md']),
              (homedir + 'simulations', ['simulations/sim-pump-fail.py']),
              (homedir + 'simulations', ['simulations/sim-pump-working.py']),
@@ -50,7 +50,7 @@ setup(name='raspisump',
       packages=['raspisump'],
       scripts=raspi_sump_files,
       data_files=add_files,
-      install_requires=['RPi.GPIO']
+      install_requires=['hcsr04sensor']
       )
 
 if os.path.isdir(homedir):
