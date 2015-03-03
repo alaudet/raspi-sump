@@ -1,6 +1,16 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.6.0beta
+
+- sensor module removed from raspisump and now uses hcsr04sensor library.
+- numerous changes to raspisump.conf
+ - added unit variable
+ - changed critical_distance to critical_water_level
+ - added better explanations of variables
+- changes to reading.py to add metric and imperial parameters sent to hcsr04sensor
+- changes to setup.py
+
 Version 0.5.3
 - Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
 'GPIO.cleanup() unsets the current pin mode' 

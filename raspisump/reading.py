@@ -33,16 +33,19 @@ def water_reading():
     round_to = 1
     temperature = configs['temperature']
     unit = configs['unit']
+
+    # just while testing
     print unit
+
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit, round_to)
     raw_distance = value.raw_distance()
+
     if unit == 'imperial':
         water_depth = value.depth_imperial(raw_distance, pit_depth)
-    
-    elif unit == 'metric':
+    if unit == 'metric':
         water_depth = value.depth_metric(raw_distance, pit_depth)
-    else:
-        print "Error"
+
+
     generate_log(water_depth)
     generate_alert(water_depth, critical_water_level)
 
