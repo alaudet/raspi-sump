@@ -33,8 +33,9 @@ Checkout the v0.6beta branch
 From the root of the raspisump git repository run pip to install raspisump
 
     sudo pip install .
+    sudo pip install -U .  (if upgrading)
 
-This will also install the HCSR04sensor and  RPi.GPIO modules if not present on your Pi.
+This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) and  RPi.GPIO modules if not present on your Pi.
 
 If you want to use charts install maplotlib and numpy
 
@@ -45,10 +46,6 @@ If you want to use charts install maplotlib and numpy
 Read the configuration docs copied during setup on your pi at the following location;
 
     /home/pi/raspi-sump/docs
-
-Also available at
-
-https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
 Description
