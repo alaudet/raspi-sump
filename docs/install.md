@@ -35,17 +35,25 @@ as follows;
     sudo apt-get install python-matplotlib
     sudo apt-get install python-numpy
 
-Also Requires RPi.GPIO module (see Install Raspi-Sump)
+Also Requires the hcsr04sensor and RPi.GPIO module (see Install Raspi-Sump)
 
 If pip package manager is not installed you can get the latest version at the
-following site.
+following site. (preferred)
 
     http://pip.readthedocs.org/en/latest/installing.html
+
+
+Alternately you can install the packaged version with apt-get.
+
+
+    sudo apt-get install python-pip
+
+
 
 Install Raspi-Sump
 ==================
 
-The following will automatically install RPi.GPIO if it is not already
+The following will automatically install hcsr04sensor and RPi.GPIO if it is not already
 installed on your Pi.
 
     sudo pip install raspisump
@@ -74,7 +82,8 @@ Edit raspisump.conf
 
 All configurations are recorded in /home/pi/raspi-sump/raspisump.conf
 
-See the configuration file for explanations of variables.
+See the configuration file for explanations of variables.  You can choose to
+take imperial (inches) or metric (centimeters) water level readings.
 
 
 Hardware
@@ -83,6 +92,7 @@ Hardware
 Setup hardware (Please make sure you understand GPIO information on your pi).
 
 You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. I could have also use a 1K and 2K resistor to give me 3.333V. 
+
 
 Four wires connected as follows from the sensor to the pi (note, this will require some soldering).  A floppy disk power connector fits nicely on the sensor. 
 
@@ -97,6 +107,7 @@ Four wires connected as follows from the sensor to the pi (note, this will requi
 see http://www.linuxnorth.org/raspi-sump/ for information on pins I used.
 
 Google soldering resistors for good information on how to do this if you have never done it.
+
 
 Starting Raspi-Sump
 ===================
@@ -202,7 +213,7 @@ graphs of sump pit activity through your web browser.  This is accomplished by
 configuring a local webserver on your pi.
 
 Once complete you will be able to view sump pump activity by connecting to
-http://<ip_address_of_your_pi>
+http://ip_address_of_your_pi
 
 Preperation
 ===========
@@ -240,7 +251,7 @@ for configuring and using it.
 
 I personally prefer using Apache and configuring it for low resource servers, so that is what I will be
 concentrating on in this install.  Apache is the most widely used webserver software on the internet and
-has the best resources for information on a multitude of configurations. It is what I know and like. 
+has the best resources for information on a multitude of configurations. 
 
 To install Apache:
 
@@ -265,7 +276,8 @@ Scroll down the file and change the following values;
 
 Change setting in the mpm_prefork_module and mpm_worker_module as follows
 
-   <IfModule mpm_prefork_module>
+
+    <IfModule mpm_prefork_module>
         StartServers          1
         MinSpareServers       1
         MaxSpareServers       3
@@ -306,4 +318,16 @@ Link the charts folder to your web root.
 Setup Cron to generate charts hourly and archive past days
 ==========================================================
 
+1 - crontab -e
 
+2 - enter line in crontab as follows; 
+
+    59 * * * * sudo /usr/local/bin/rsumpchart.py
+
+(note: provide a script to chart and archive)
+3 - Save crontab
+
+(See cron documentation for questions on configuring crontab)
+
+
+4 - To view sump pit activity navigate to http://ip_of_your_pi
