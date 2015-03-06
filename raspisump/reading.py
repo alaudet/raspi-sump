@@ -34,9 +34,6 @@ def water_reading():
     temperature = configs['temperature']
     unit = configs['unit']
 
-    # just while testing
-    print unit
-
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit, round_to)
     raw_distance = value.raw_distance()
 
