@@ -229,105 +229,45 @@ Getting Started
 ===============
 
 These instructions will do the following
-- install the Apache Webserver
-- configure apache for low resource usage
-- configure cron to launch script to create for graphs of sump pump activity
+- install the Lighttpd
+- configure cron to run the script to create for graphs of sump pump activity
 - link charts to web folder to view charts
 
 
-Install Apache Web Server
-=========================
+To view your sump pit activity install the Lighttpd webserver on your
+Raspberry Pi as follows.
 
-At this point many people will tell you that you are better off using Nginx or Lighttpd as they are lower 
-resource usage webservers.  They are both fine webservers and if you prefer them, then by all means use 
-those.
-
-To install Lighttpd for example simply enter the following:
-
-    sudo apt-get install -y lighttpd
-
-Navigate to http://ip_of_your_pi and view the welcome screen.  There are plenty of resources on the internet
-for configuring and using it.
-
-I personally prefer using Apache and configuring it for low resource servers, so that is what I will be
-concentrating on in this install.  Apache is the most widely used webserver software on the internet and
-has the best resources for information on a multitude of configurations. 
-
-To install Apache:
-
-    sudo apt-get install -y apache2
-
-Configure apache for low resource usage
-=======================================
-
-In order to configure the Apache Webserver for low resource systems such as the Raspberry Pi, 
-we need to make a few changes to the /etc/apache2/apache2.conf file.  This file is where
-we configure the settings of our webserver.
-
-Open the file in a text editor as follows;
-
-    cd /etc/apache2
-    sudo nano apache2.conf
-
-Scroll down the file and change the following values;
-
-    Timeout 60
-    KeepAliveTimeout 2
-
-Change setting in the mpm_prefork_module and mpm_worker_module as follows
+    sudo apt-get install lighttpd
 
 
-    <IfModule mpm_prefork_module>
-        StartServers          1
-        MinSpareServers       1
-        MaxSpareServers       3
-        MaxClients           10
-        MaxRequestsPerChild 3000
-    </IfModule>
- 
-    <IfModule mpm_worker_module>
-        StartServers          1
-        MinSpareThreads       5
-        MaxSpareThreads      15 
-        ThreadLimit          25
-        ThreadsPerChild       5
-        MaxClients           25
-        MaxRequestsPerChild 200
-    </IfModule>
+Enable directory listing for historical charts
+
+    sudo lighttpd-enable-mod dir-listing
+    sudo /etc/init.d/lighttpd force-reload
 
 
-Save and close the apache2.conf file.
+Copy the provided index.html to the contents of the web directory to /var/www
 
-Copy the provided html files to your webserver root as follows;
-
-    cp -R /home/pi/raspi-sump/web /var/www
-
-Restart the apache webserver as follows
-
-    sudo /etc/init.d/apache2 restart
+    cp /home/pi/raspi-sump/web/index.html /var/www
 
 
-
-Link the charts folder to your web root.
+Create a symolic link to the charts folder in your web server folder
 
     cd /var/www
-
     ln -s /home/pi/raspi-sump/charts charts
 
+Create a cron job to generate an hourly graph of your sump pit activity
 
-Setup Cron to generate charts hourly and archive past days
-==========================================================
+    1 - crontab -e
 
-1 - crontab -e
+    2 - enter line in crontab as follows;
 
-2 - enter line in crontab as follows; 
+    */59 * * * * /home/pi/raspi-sump/move_file.sh
 
-    59 * * * * sudo /usr/local/bin/rsumpchart.py
-
-(note: provide a script to chart and archive)
-3 - Save crontab
-
-(See cron documentation for questions on configuring crontab)
+    3 - Save crontab
 
 
-4 - To view sump pit activity navigate to http://ip_of_your_pi
+Open a web browser to http://ip_of_your_pi.  At the 59th minute of every hour
+you will creae a chart of sump pit activity for the day which will be viewable
+on this page.  It will also copy historical information that you can access
+from the link in the web page.

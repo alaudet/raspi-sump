@@ -23,6 +23,7 @@ add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'cron', ['cron/README.md']),
              (homedir + 'cron', ['cron/move_file.sh']),
              (homedir + 'cron', ['cron/picrontab']),
+             (homedir + 'web', ['web/index.html'])
              ]
 
 setup(name='raspisump',

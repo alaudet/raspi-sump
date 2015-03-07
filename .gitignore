@@ -3,4 +3,3 @@
 *.csv
 dist
 *egg-info
-web/
