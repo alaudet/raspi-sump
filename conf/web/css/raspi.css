@@ -1,0 +1,38 @@
+table,td {
+	font-family: "Verdana";
+	}
+table {
+	width:70%;
+	al;
+	}
+table.center {
+	margin-left:auto; 
+   margin-right:auto;
+  }
+img.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+h1 {
+	font-size:120%; 
+	color: 017B86;
+   text-align:center;
+	}
+h2 {
+	font-size:80%; 
+	color: 017B86;
+   text-align:center;
+	}
+h3 {
+	font-size:80%;
+	color: 017B86; 
+   text-align:left;
+	}				
+p {
+	font-family: "Verdana";
+	font-size:75%; 
+	text-align:left; 
+	}
+a:link    {color:017B86; font-size:80%;}
+a:visited {color:017B86; font-size:80%;}
+a:hover   {color:017B86; font-weight: bold; font-size:80%;}

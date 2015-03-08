@@ -23,7 +23,9 @@ add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'docs', ['docs/install.md']),
              (homedir + 'cron', ['cron/README.md']),
              (homedir + 'cron', ['cron/picrontab']),
-             (homedir + 'web', ['web/index.html'])
+             (homedir + 'web', ['conf/web/index.html']),
+             (homedir + 'web/css', ['conf/web/css/index.html']),
+             (homedir + 'web/css', ['conf/web/css/raspi.css'])
              ]
 
 setup(name='raspisump',

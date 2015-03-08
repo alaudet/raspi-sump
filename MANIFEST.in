@@ -2,7 +2,8 @@ include conf/raspisump.conf
 include conf/csv/*
 include conf/logs/*
 include conf/charts/*
+include conf/web/index.html
+include conf/web/css/*
 include docs/*.md
 include cron/*
-include web/*
 include README.md

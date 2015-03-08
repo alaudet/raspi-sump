@@ -250,7 +250,7 @@ Enable directory listing for historical charts
 Copy the provided index.html to the contents of the web directory to /var/www
 
     cp /home/pi/raspi-sump/web/index.html /var/www
-
+    cp -R /home/pi/raspi-sump/web/css /var/www/css
 
 Create a symolic link to the charts folder in your web server folder
 
