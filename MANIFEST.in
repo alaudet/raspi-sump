@@ -5,6 +5,7 @@ include conf/logs/*
 include conf/charts/*
 include conf/web/index.html
 include conf/web/css/*
+include conf/web/images/*
 include docs/*.md
 include cron/*
 include README.md

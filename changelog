@@ -1,7 +1,11 @@
 Raspi-Sump Changelog
 ====================
 
-Versin 0.6.1
+Version 0.6.1.1
+
+Bug fix.  Pypi download was failing
+
+Version 0.6.1
 
 - new instructions and configuration for local web server.
 
