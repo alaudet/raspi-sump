@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Versin 0.6.1
+
+- new instructions and configuration for local web server.
+
 Version 0.6.0
 
 - sensor module removed from raspisump and now uses hcsr04sensor library.
