@@ -48,9 +48,7 @@ Read the configuration docs copied during setup on your pi at the following loca
 
     /home/pi/raspi-sump/docs
 
-They are also available on github
-
-    https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
+They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
 Description
