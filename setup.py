@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.6.0'
+version = '0.6.1'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -16,6 +16,7 @@ raspi_sump_files = ['bin/rsump.py',
                     ]
 
 add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
+             (homedir + 'sample_config', ['conf/lighttpd.conf']),
              (homedir + 'csv', ['conf/csv/README.md']),
              (homedir + 'logs', ['conf/logs/README.md']),
              (homedir + 'charts', ['conf/charts/README.md']),
@@ -24,6 +25,7 @@ add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'cron', ['cron/README.md']),
              (homedir + 'cron', ['cron/picrontab']),
              (homedir + 'web', ['conf/web/index.html']),
+             (homedir + 'web/images', ['conf/web/images/logo.png']),
              (homedir + 'web/css', ['conf/web/css/index.html']),
              (homedir + 'web/css', ['conf/web/css/raspi.css'])
              ]

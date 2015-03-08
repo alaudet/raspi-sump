@@ -1,30 +1,8 @@
-Automated Install
-=================
+Install
+=======
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
 
-Reduce RAM used by the GPU
-==========================
-
-Raspi-Sump is a dedicated device that will not be used for intensive graphical related tasks.  You can minimize the amount of RAM used by the GPU to allow your pi to have more RAM for other tasks.
-
-To do so set the amount of RAM for the GPU to 32MB instead of the default 128MB
-
-    sudo raspi-config
-
-This will present you with a menu system for various options.  Using your arrow key go down the list and select Advanced Options
-
-Now select A3 Memory Split from the menu.
-Enter 32 and select OK
-Select Finish
-Select OK to reboot your pi
-
-Once rebooted you can check the amount of free memory by running the following command.
-
-    free -m
-
-You should see Mem total as 469.  This is good.  We just freed up 96MB of memory for use by other applications.  That's just under a 20% increase.
-	
 
 Install Dependancies
 ====================
@@ -240,22 +218,20 @@ Raspberry Pi as follows.
 
     sudo apt-get install lighttpd
 
+Copy the provided lighttpd.conf as follows;
+
+
+    sudo cp /home/pi/raspi-sump/sample_config/lighttpd.conf /etc/lighttpd
+
 
 Enable directory listing for historical charts
 
     sudo lighttpd-enable-mod dir-listing
+
+Restart the web server
+
     sudo /etc/init.d/lighttpd force-reload
 
-
-Copy the provided index.html to the contents of the web directory to /var/www
-
-    cp /home/pi/raspi-sump/web/index.html /var/www
-    cp -R /home/pi/raspi-sump/web/css /var/www/css
-
-Create a symolic link to the charts folder in your web server folder
-
-    cd /var/www
-    ln -s /home/pi/raspi-sump/charts charts
 
 Create a cron job to generate an hourly graph of your sump pit activity for
 viewing on your pi webserver
