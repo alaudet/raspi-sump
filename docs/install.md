@@ -229,9 +229,10 @@ Getting Started
 ===============
 
 These instructions will do the following
-- install the Lighttpd
-- configure cron to run the script to create for graphs of sump pump activity
+- install the Lighttpd webserver on your Pi
+- copy the provided index.html file to your webserver
 - link charts to web folder to view charts
+- configure cron to run the script to create for graphs of sump pump activity
 
 
 To view your sump pit activity install the Lighttpd webserver on your
@@ -256,18 +257,22 @@ Create a symolic link to the charts folder in your web server folder
     cd /var/www
     ln -s /home/pi/raspi-sump/charts charts
 
-Create a cron job to generate an hourly graph of your sump pit activity
+Create a cron job to generate an hourly graph of your sump pit activity for
+viewing on your pi webserver
 
     1 - crontab -e
 
     2 - enter line in crontab as follows;
 
-    */59 * * * * /home/pi/raspi-sump/move_file.sh
+    59 * * * * /usr/local/bin/rsumpwebchart.py
 
     3 - Save crontab
 
+    4 - run the script manually to create the first chart
+        
+        rsumpwebchart.py
 
 Open a web browser to http://ip_of_your_pi.  At the 59th minute of every hour
-you will creae a chart of sump pit activity for the day which will be viewable
+you will create a chart of sump pit activity for the day which will be viewable
 on this page.  It will also copy historical information that you can access
 from the link in the web page.

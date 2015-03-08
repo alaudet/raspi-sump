@@ -11,7 +11,8 @@ if os.path.isfile(homedir + 'raspisump.conf'):
 
 raspi_sump_files = ['bin/rsump.py',
                     'bin/rsumpchart.py',
-                    'bin/rsumpmonitor.py'
+                    'bin/rsumpmonitor.py',
+                    'bin/rsumpwebchart.py'
                     ]
 
 add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
@@ -21,7 +22,6 @@ add_files = [(homedir + 'sample_config', ['conf/raspisump.conf']),
              (homedir + 'docs', ['docs/README.md']),
              (homedir + 'docs', ['docs/install.md']),
              (homedir + 'cron', ['cron/README.md']),
-             (homedir + 'cron', ['cron/move_file.sh']),
              (homedir + 'cron', ['cron/picrontab']),
              (homedir + 'web', ['web/index.html'])
              ]
@@ -56,3 +56,12 @@ if os.path.isdir(homedir):
     os.system(cmd)
     cmd = 'chmod 600 ' + homedir + 'raspisump.conf'
     os.system(cmd)
+
+print '''
+**********************************************************************
+Many changes to version 0.6.x of Raspi-Sump.
+Please update your configuration file.
+
+Details at https://github.com/alaudet/raspi-sump/blob/master/README.md
+**********************************************************************
+'''

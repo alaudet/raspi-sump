@@ -10,6 +10,9 @@ Version 0.6.0beta
  - added better explanations of variables
 - changes to reading.py to add metric and imperial parameters sent to hcsr04sensor
 - changes to setup.py
+- add instructions for setting up a local webserver on your Pi for chart viewing
+- add rsumpwebchart.py in bin folder to create a webchart from the command line or cron
+- add webchart.py module to create charts for web viewing on Pi local webserver (called from rsumpwebchart.py)
 
 Version 0.5.3
 - Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
