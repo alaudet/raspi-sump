@@ -1,5 +1,12 @@
 '''Module to create charts for viewing on Raspberry Pi Web Server.'''
 
+# Raspi-sump, a sump pump monitoring system.
+# Al Audet
+# http://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- http://www.linuxnorth.org/raspi-sump/license.htmlimport os
+
 import os
 import subprocess
 import time

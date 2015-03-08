@@ -1,19 +1,24 @@
-v0.6beta
-========
+NEW VERSION v0.6.0
+==================
 
-If you install this beta you will need to add variables to your raspisump.conf
+Many changes to this new version.  You will need to add variables to your raspisump.conf
 file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
 /home/pi/raspi-sump.  Re-enter all of your variables.  Older info has been saved in
 /home/pi/raspi-sump/raspisump.conf.save
 
-The choice of Imperial or Metric measurements have been added to 0.6beta.
+The choice of Imperial or Metric measurements have been added to 0.6.0.
 Also some variables in the conf file were confusing so I have made changes to this file
 including better comments to explain each variable.
 
-Simply upgrading to v0.6beta will break your current install of Raspi-Sump
+Simply upgrading to v0.6.0 will break your current install of Raspi-Sump
 unless you take some time to fix your configuration file.
 
 I recommend you keep using v0.5.3 if you don't want to do this.
+
+To roll back to v0.5.3 simply do the following;
+
+    sudo pip uninstall raspisump
+    sudo pip install https://pypi.python.org/packages/source/r/raspisump/raspisump-0.5.3.tar.gz#md5=91aed30a087c35e12ae36fe7a9523945
 
 
 GET ME TO THE ACTION - QUICK INSTALL
@@ -22,18 +27,14 @@ Install the pip package manager (if not present on your pi) at;
 
 http://pip.readthedocs.org/en/latest/installing.html
 
-Install Raspi-Sump by pulling the git repository for v0.6beta.
+Install Raspi-Sump.
 
-    git clone https://github.com/alaudet/raspi-sump.git
+    sudo pip install raspisump
 
-Checkout the v0.6beta branch
+Upgrading an existing version
 
-    git checkout --track origin/v0.6beta
 
-From the root of the raspisump git repository run pip to install raspisump
-
-    sudo pip install .
-    sudo pip install -U .  (if upgrading)
+    sudo pip install -U raspisump
 
 This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) and  RPi.GPIO modules if not present on your Pi.
 
@@ -47,6 +48,10 @@ Read the configuration docs copied during setup on your pi at the following loca
 
     /home/pi/raspi-sump/docs
 
+They are also available on github
+
+    https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
+
 
 Description
 ===========
@@ -56,12 +61,7 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-
-Future versions will include;
-- An offsite web component for viewing historical data, including graphs and water volume
-- A web based interface on the pi to configure it.
-- Proper push button shutdown to turn off the pi (raspi-atx)
-- LCD panel to get a quick glance of the water level without opening the lid.
+See the changelog for the latest features.
 
 More Info
 =========
