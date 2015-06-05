@@ -1,21 +1,24 @@
 Raspi-Sump Changelog
 ====================
 
-Version 0.6.1.1
+Version 0.7.0beta
+- Add ability to limit SMS Email alerts to a defined interval to prevent
+spamming yourself with alerts every minute or less.  Can now be set in the
+raspisum.conf file as alert_interval.  Default is 5 minutes if option is not
+set.
 
-Bug fix.  Pypi download was failing
+Version 0.6.1.1
+- Bug fix.  Pypi download was failing
 
 Version 0.6.1
-
 - new instructions and configuration for local web server.
 
 Version 0.6.0
-
 - sensor module removed from raspisump and now uses hcsr04sensor library.
 - numerous changes to raspisump.conf
- - added unit variable
- - changed critical_distance to critical_water_level
- - added better explanations of variables
+- added unit variable
+- changed critical_distance to critical_water_level
+- added better explanations of variables
 - changes to reading.py to add metric and imperial parameters sent to hcsr04sensor
 - changes to setup.py
 - add instructions for setting up a local webserver on your Pi for chart viewing

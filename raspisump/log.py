@@ -9,8 +9,8 @@
 
 import time
 
-def log_reading(water_depth):
 
+def log_reading(water_depth):
     """Log time and water depth reading."""
     time_of_reading = time.strftime("%H:%M:%S,")
     filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
@@ -29,4 +29,13 @@ def log_restarts(reason):
     logfile.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
     logfile.write(reason),
     logfile.write("\n")
-    logfile.close
+    logfile.close()
+
+
+def log_alerts(notification):
+    '''Log all email sms alerts'''
+    alert_log = open("/home/pi/raspi-sump/logs/alert_log", 'a')
+    alert_log.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
+    alert_log.write(notification),
+    alert_log.write("\n")
+    alert_log.close()

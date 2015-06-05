@@ -7,23 +7,43 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
+import os
+import time
 import smtplib
+from datetime import datetime
 import string
 import ConfigParser
+from collections import deque
+import csv
+import raspisump.log as log
 
 config = ConfigParser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
-configs = {'email_to': config.get('email', 'email_to'),
-           'email_from': config.get('email', 'email_from'),
-           'smtp_authentication': config.getint(
-               'email', 'smtp_authentication'),
-           'smtp_tls': config.getint('email', 'smtp_tls'),
-           'smtp_server': config.get('email', 'smtp_server'),
-           'username': config.get('email', 'username'),
-           'password': config.get('email', 'password'),
-           'unit': config.get('pit', 'unit')
-           }
+try:
+    configs = {'email_to': config.get('email', 'email_to'),
+               'email_from': config.get('email', 'email_from'),
+               'smtp_authentication': config.getint(
+                   'email', 'smtp_authentication'),
+               'smtp_tls': config.getint('email', 'smtp_tls'),
+               'smtp_server': config.get('email', 'smtp_server'),
+               'username': config.get('email', 'username'),
+               'password': config.get('email', 'password'),
+               'alert_interval': config.getint('email', 'alert_interval'),
+               'unit': config.get('pit', 'unit')
+               }
+except ConfigParser.NoOptionError:
+    configs = {'email_to': config.get('email', 'email_to'),
+               'email_from': config.get('email', 'email_from'),
+               'smtp_authentication': config.getint(
+                   'email', 'smtp_authentication'),
+               'smtp_tls': config.getint('email', 'smtp_tls'),
+               'smtp_server': config.get('email', 'smtp_server'),
+               'username': config.get('email', 'username'),
+               'password': config.get('email', 'password'),
+               'alert_interval': 5,
+               'unit': config.get('pit', 'unit')
+               }
 
 
 def smtp_alerts(water_depth):
@@ -64,3 +84,36 @@ def smtp_alerts(water_depth):
 
     server.sendmail(configs['email_from'], recipients, email_body)
     server.quit()
+
+
+def determine_if_alert(water_depth):
+    '''Determine if an alert is required.  Only send if last alert has been
+    sent more than the amount of time identified in the raspisump.conf file.
+    Entry in conf file is alert_interval under the [alerts] section.'''
+
+    alert_interval = configs['alert_interval']
+
+    alert_log = '/home/pi/raspi-sump/logs/alert_log'
+
+    if not os.path.isfile(alert_log):
+        smtp_alerts(water_depth)
+        log.log_alerts('Email SMS Alert Sent')
+
+    else:
+        with open(alert_log, 'rb') as f:
+            last_row = deque(csv.reader(f), 1)[0]
+            last_alert_sent = last_row[0]
+            current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+            last_alert_time = datetime.strptime(
+                last_alert_sent, '%Y-%m-%d %H:%M:%S'
+            )
+            time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
+            delta = (time_now - last_alert_time)
+            minutes_passed = delta.seconds / 60
+
+        if minutes_passed >= alert_interval:
+            smtp_alerts(water_depth)
+            log.log_alerts('Email SMS Alert Sent')
+
+        else:
+            pass

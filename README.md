@@ -1,16 +1,19 @@
-NEW VERSION v0.6.0
-==================
+Note if upgrading from version 0.5.x
+====================================
 
-Many changes to this new version.  You will need to add variables to your raspisump.conf
-file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
+You will need to add variables to your raspisump.conf file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
 /home/pi/raspi-sump.  Re-enter all of your variables.  Older info has been saved in
 /home/pi/raspi-sump/raspisump.conf.save
+
+New in version 0.7.0
+add alert_interval to the email section.  See new raspisump.conf for details.
+Default is 5 minutes if not set.
 
 The choice of Imperial or Metric measurements have been added to 0.6.0.
 Also some variables in the conf file were confusing so I have made changes to this file
 including better comments to explain each variable.
 
-Simply upgrading to v0.6.0 will break your current install of Raspi-Sump
+Simply upgrading from version 0.5.x will break your current install of Raspi-Sump
 unless you take some time to fix your configuration file.
 
 I recommend you keep using v0.5.3 if you don't want to do this.

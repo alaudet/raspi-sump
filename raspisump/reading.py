@@ -42,7 +42,6 @@ def water_reading():
     if unit == 'metric':
         water_depth = value.depth_metric(raw_distance, pit_depth)
 
-
     generate_log(water_depth)
     generate_alert(water_depth, critical_water_level)
 
@@ -56,6 +55,6 @@ def generate_alert(water_depth, critical_water_level):
     '''Generate an email alert if water_depth greater than critical
     distance.'''
     if water_depth > critical_water_level:
-        alerts.smtp_alerts(water_depth)
+        alerts.determine_if_alert(water_depth)
     else:
         pass
