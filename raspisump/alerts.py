@@ -47,7 +47,7 @@ except ConfigParser.NoOptionError:
 
 
 def smtp_alerts(water_depth):
-    """Generate email alert if water level greater than critical distance."""
+    '''Generate email alert if water level greater than critical distance.'''
     recipients = configs['email_to'].split(', ')
     unit = configs['unit']
 
@@ -89,7 +89,7 @@ def smtp_alerts(water_depth):
 def determine_if_alert(water_depth):
     '''Determine if an alert is required.  Only send if last alert has been
     sent more than the amount of time identified in the raspisump.conf file.
-    Entry in conf file is alert_interval under the [alerts] section.'''
+    Entry in conf file is alert_interval under the [email] section.'''
 
     alert_interval = configs['alert_interval']
 

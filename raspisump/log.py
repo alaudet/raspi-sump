@@ -11,7 +11,7 @@ import time
 
 
 def log_reading(water_depth):
-    """Log time and water depth reading."""
+    '''Log time and water depth reading.'''
     time_of_reading = time.strftime("%H:%M:%S,")
     filename = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
         time.strftime("%Y%m%d")

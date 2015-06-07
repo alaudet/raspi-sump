@@ -37,12 +37,12 @@ def check_pid(process):
     part3.stdout.close()
     number_of_processes = int(part4.communicate()[0])
     if number_of_processes == 0:
-        log.log_restarts("Process stopped, restarting")
+        log.log_restarts('Process stopped, restarting')
         restart(process)
     elif number_of_processes == 1:
         exit(0)
     else:
-        log.log_restarts("Multiple processes...killing and restarting")
+        log.log_restarts('Multiple processes...killing and restarting')
         kill_start(process)
 
 

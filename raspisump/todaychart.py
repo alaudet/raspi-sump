@@ -24,7 +24,7 @@ configs = {'unit': config.get('pit', 'unit')}
 
 
 def graph(csv_file, filename):
-    """Create a line graph from a two column csv file."""
+    '''Create a line graph from a two column csv file.'''
     unit = configs['unit']
     date, value = np.loadtxt(csv_file, delimiter=',', unpack=True,
                              converters={0: mdates.strpdate2num('%H:%M:%S')}

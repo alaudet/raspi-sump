@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.7beta'
+version = '0.7.0'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -63,9 +63,8 @@ if os.path.isdir(homedir):
 
 print '''
 **********************************************************************
-Many changes to version 0.6.x of Raspi-Sump.
-Please update your configuration file.
-
-Details at https://github.com/alaudet/raspi-sump/blob/master/README.md
+IMPORTANT
+If you are upgrading from version 0.5.x you must upgrade
+your raspisump.conf file.
 **********************************************************************
 '''

@@ -24,8 +24,8 @@ To roll back to v0.5.3 simply do the following;
     sudo pip install https://pypi.python.org/packages/source/r/raspisump/raspisump-0.5.3.tar.gz#md5=91aed30a087c35e12ae36fe7a9523945
 
 
-GET ME TO THE ACTION - QUICK INSTALL
-====================================
+QUICK INSTALL
+=============
 Install the pip package manager (if not present on your pi) at;
 
 http://pip.readthedocs.org/en/latest/installing.html

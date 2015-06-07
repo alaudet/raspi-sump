@@ -1,8 +1,8 @@
 Raspi-Sump Changelog
 ====================
 
-Version 0.7.0beta
-- Add ability to limit SMS Email alerts to a defined interval to prevent
+Version 0.7.0
+- Add option to limit SMS Email alerts to a defined interval to prevent
 spamming yourself with alerts every minute or less.  Can now be set in the
 raspisum.conf file as alert_interval.  Default is 5 minutes if option is not
 set.
