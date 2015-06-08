@@ -37,7 +37,7 @@ try:
 
 # if not in raspisump.conf , provide a default value
 except ConfigParser.NoOptionError:
-    configs['alert_interval'] = 2
+    configs['alert_interval'] = 5 
 
 
 def smtp_alerts(water_depth):
