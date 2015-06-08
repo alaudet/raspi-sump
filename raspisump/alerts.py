@@ -20,30 +20,24 @@ import raspisump.log as log
 config = ConfigParser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
+configs = {'email_to': config.get('email', 'email_to'),
+           'email_from': config.get('email', 'email_from'),
+           'smtp_authentication': config.getint(
+               'email', 'smtp_authentication'),
+           'smtp_tls': config.getint('email', 'smtp_tls'),
+           'smtp_server': config.get('email', 'smtp_server'),
+           'username': config.get('email', 'username'),
+           'password': config.get('email', 'password'),
+           'unit': config.get('pit', 'unit')
+           }
+
+# If item in raspisump.conf add to configs dict above
 try:
-    configs = {'email_to': config.get('email', 'email_to'),
-               'email_from': config.get('email', 'email_from'),
-               'smtp_authentication': config.getint(
-                   'email', 'smtp_authentication'),
-               'smtp_tls': config.getint('email', 'smtp_tls'),
-               'smtp_server': config.get('email', 'smtp_server'),
-               'username': config.get('email', 'username'),
-               'password': config.get('email', 'password'),
-               'alert_interval': config.getint('email', 'alert_interval'),
-               'unit': config.get('pit', 'unit')
-               }
+    configs['alert_interval'] = config.getint('email', 'alert_interval')
+
+# if not in raspisump.conf , provide a default value
 except ConfigParser.NoOptionError:
-    configs = {'email_to': config.get('email', 'email_to'),
-               'email_from': config.get('email', 'email_from'),
-               'smtp_authentication': config.getint(
-                   'email', 'smtp_authentication'),
-               'smtp_tls': config.getint('email', 'smtp_tls'),
-               'smtp_server': config.get('email', 'smtp_server'),
-               'username': config.get('email', 'username'),
-               'password': config.get('email', 'password'),
-               'alert_interval': 5,
-               'unit': config.get('pit', 'unit')
-               }
+    configs['alert_interval'] = 2
 
 
 def smtp_alerts(water_depth):
@@ -65,6 +59,9 @@ def smtp_alerts(water_depth):
         "",
         "Critical! The sump pit water level is {} {}.".format(
             str(water_depth), unit_type
+        ),
+        "Next alert in {} minutes".format(
+            configs['alert_interval']
         ),), "\r\n"
         )
 
@@ -110,7 +107,7 @@ def determine_if_alert(water_depth):
             time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
             delta = (time_now - last_alert_time)
             minutes_passed = delta.seconds / 60
-
+            
         if minutes_passed >= alert_interval:
             smtp_alerts(water_depth)
             log.log_alerts('Email SMS Alert Sent')
