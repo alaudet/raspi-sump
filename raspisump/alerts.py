@@ -39,6 +39,12 @@ try:
 except ConfigParser.NoOptionError:
     configs['alert_interval'] = 5 
 
+# same idea as above.
+try:
+    configs['alert_on'] = config.get('pit', 'alert_on')
+
+except ConfigParser.NoOptionError:
+    configs['alert_on'] = 'high' 
 
 def smtp_alerts(water_depth):
     '''Generate email alert if water level greater than critical distance.'''
@@ -52,18 +58,33 @@ def smtp_alerts(water_depth):
     else:
         print "Error"
 
-    email_body = string.join((
-        "From: {}".format(configs['email_from']),
-        "To: {}".format(configs['email_to']),
-        "Subject: Sump Pump Alert!",
-        "",
-        "Critical! The sump pit water level is {} {}.".format(
-            str(water_depth), unit_type
-        ),
-        "Next alert in {} minutes".format(
-            configs['alert_interval']
-        ),), "\r\n"
-        )
+    if configs['alert_on'] == 'high':
+        email_body = string.join((
+            "From: {}".format(configs['email_from']),
+            "To: {}".format(configs['email_to']),
+            "Subject: Sump Pump Alert!",
+            "",
+            "Critical! The sump pit water level is {} {}.".format(
+                str(water_depth), unit_type
+            ),
+            "Next alert in {} minutes".format(
+                configs['alert_interval']
+            ),), "\r\n"
+            )
+
+    if configs['alert_on'] == 'low':
+        email_body = string.join((
+            "From: {}".format(configs['email_from']),
+            "To: {}".format(configs['email_to']),
+            "Subject: Low Water Level Alert!",
+            "",
+            "Warning! The water level is down to {} {}.".format(
+                str(water_depth), unit_type
+            ),
+            "Next alert in {} minutes".format(
+                configs['alert_interval']
+            ),), "\r\n"
+            )
 
     server = smtplib.SMTP(configs['smtp_server'])
     # Check if smtp server uses TLS

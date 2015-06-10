@@ -1,3 +1,8 @@
+Beta 0.8.0
+==========
+Monitor Low water levels.  Still testing, see raspisump.conf alert_on option.
+
+
 Note if upgrading from version 0.5.x
 ====================================
 

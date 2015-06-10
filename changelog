@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 0.8.0b
+- Option to receive alerts on low water levels instead of high. This would allow
+you to monitor a drinking water source for example.
+
 Version 0.7.0
 - Add option to limit SMS Email alerts to a defined interval to prevent
 spamming yourself with alerts every minute or less.  Can now be set in the
