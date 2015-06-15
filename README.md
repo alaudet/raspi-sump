@@ -1,7 +1,7 @@
-Beta 0.8.0
-==========
-Monitor Low water levels.  Still testing, see raspisump.conf alert_on option.
+New Version 0.8.0
+=================
 
+See the changelog for changes to all versions.
 
 Note if upgrading from version 0.5.x
 ====================================
@@ -9,14 +9,6 @@ Note if upgrading from version 0.5.x
 You will need to add variables to your raspisump.conf file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
 /home/pi/raspi-sump.  Re-enter all of your variables.  Older info has been saved in
 /home/pi/raspi-sump/raspisump.conf.save
-
-New in version 0.7.0
-add alert_interval to the email section.  See new raspisump.conf for details.
-Default is 5 minutes if not set.
-
-The choice of Imperial or Metric measurements have been added to 0.6.0.
-Also some variables in the conf file were confusing so I have made changes to this file
-including better comments to explain each variable.
 
 Simply upgrading from version 0.5.x will break your current install of Raspi-Sump
 unless you take some time to fix your configuration file.
@@ -29,11 +21,14 @@ To roll back to v0.5.3 simply do the following;
     sudo pip install https://pypi.python.org/packages/source/r/raspisump/raspisump-0.5.3.tar.gz#md5=91aed30a087c35e12ae36fe7a9523945
 
 
+If you are running version 0.6.0 or later you need not change anything.
+
 QUICK INSTALL
 =============
-Install the pip package manager (if not present on your pi) at;
+Install the pip package manager (if not present on your pi).
 
-http://pip.readthedocs.org/en/latest/installing.html
+    sudo apt-get install python-pip
+
 
 Install Raspi-Sump.
 

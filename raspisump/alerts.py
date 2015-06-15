@@ -41,10 +41,10 @@ except ConfigParser.NoOptionError:
 
 # same idea as above.
 try:
-    configs['alert_on'] = config.get('pit', 'alert_on')
+    configs['alert_when'] = config.get('pit', 'alert_when')
 
 except ConfigParser.NoOptionError:
-    configs['alert_on'] = 'high' 
+    configs['alert_when'] = 'high' 
 
 def smtp_alerts(water_depth):
     '''Generate email alert if water level greater than critical distance.'''
@@ -58,7 +58,7 @@ def smtp_alerts(water_depth):
     else:
         print "Error"
 
-    if configs['alert_on'] == 'high':
+    if configs['alert_when'] == 'high':
         email_body = string.join((
             "From: {}".format(configs['email_from']),
             "To: {}".format(configs['email_to']),
@@ -72,7 +72,7 @@ def smtp_alerts(water_depth):
             ),), "\r\n"
             )
 
-    if configs['alert_on'] == 'low':
+    if configs['alert_when'] == 'low':
         email_body = string.join((
             "From: {}".format(configs['email_from']),
             "To: {}".format(configs['email_to']),

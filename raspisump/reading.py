@@ -25,11 +25,11 @@ configs = {'critical_water_level': config.getint('pit', 'critical_water_level'),
 
 # If item in raspisump.conf add to configs dict above
 try:
-    configs['alert_on'] = config.get('pit', 'alert_on')
+    configs['alert_when'] = config.get('pit', 'alert_when')
 
 # if not in raspisump.conf , provide a default value
 except ConfigParser.NoOptionError:
-    configs['alert_on'] = 'high'
+    configs['alert_when'] = 'high'
 
 
 def water_reading():
@@ -61,9 +61,9 @@ def generate_log(water_depth):
 
 def generate_alert(water_depth, critical_water_level):
     '''Determine if an alert is required and initiate one if it is.'''
-    if water_depth > critical_water_level and configs['alert_on'] == 'high':
+    if water_depth > critical_water_level and configs['alert_when'] == 'high':
         alerts.determine_if_alert(water_depth)
-    elif water_depth < critical_water_level and configs['alert_on'] == 'low':
+    elif water_depth < critical_water_level and configs['alert_when'] == 'low':
         alerts.determine_if_alert(water_depth)
     else:
         pass
