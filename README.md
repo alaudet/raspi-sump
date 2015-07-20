@@ -1,7 +1,20 @@
+Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
+Ultrasonic Sensor (HC-SR04)
+
+
+![alt tag](http://www.linuxnorth.org/raspi-sump/images/raspi-chart.png)
+
+
+Currently the system monitors the water level in your pit at defined intervals. It sends
+email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
+
 New Version 0.8.0
 =================
 
-See the changelog for changes to all versions.
+
+See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) 
+for changes to all versions.
+
 
 Note if upgrading from version 0.5.x
 ====================================
@@ -53,20 +66,6 @@ Read the configuration docs copied during setup on your pi at the following loca
 
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
-
-Description
-===========
-Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
-Ultrasonic Sensor (HC-SR04)
-
-
-![alt tag](http://www.linuxnorth.org/raspi-sump/images/raspi-chart.png)
-
-
-Currently the system monitors the water level in your pit at defined intervals. It sends
-email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
-
-See the changelog for the latest features.
 
 More Info
 =========
