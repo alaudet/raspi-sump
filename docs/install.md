@@ -42,6 +42,7 @@ This will copy all the files you need into /home/pi/raspi-sump
 Navigate to /home/pi/raspi-sump/ and move the sample config file
 to this directory.
 
+    cd /home/pi/raspi-sump
     mv sample_config/raspisump.conf .
 
 The /home/pi/raspi-sump folder is setup as follows on install;
@@ -50,9 +51,15 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 * raspi-sump/csv (location of waterlevel readings to csv file)
 * raspi-sump/charts (location of charts if using rsumpchart.py)
 * raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as acontinuous process)
+* raspi-sump/web (all files need if you install the web server)
+* raspi-sump/cron (example crontab for scheduling readings)
 
 
-**Note take care with your raspisump.conf file if you are using Gmail or any other mail system that requires authentication.  Your username and password will be viewable in the file. You should change the default pi and root passwords on your RaspberryPi.
+**Note take care with your raspisump.conf file if you are using Gmail or any
+other mail system that requires authentication.  Your username and password
+will be viewable in the file. You should change the default pi and root
+passwords on your RaspberryPi.  The installer also tightens file security on
+the file automatically.
 
 
 Edit raspisump.conf 
@@ -72,7 +79,10 @@ Setup hardware (Please make sure you understand GPIO information on your pi).
 You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. I could have also use a 1K and 2K resistor to give me 3.333V. 
 
 
-Four wires connected as follows from the sensor to the pi (note, this will require some soldering).  A floppy disk power connector fits nicely on the sensor. 
+Four wires connected as follows from the sensor to the pi (note, this will
+require some soldering).  A floppy disk power connector fits nicely on the
+sensor. If you are just testing then a breadboard works great for quick and easy
+connections. 
 
 1-VCC pin to 5V pin on Pi (pin 2)
 
@@ -252,3 +262,10 @@ Open a web browser to http://ip_of_your_pi.  At the 59th minute of every hour
 you will create a chart of sump pit activity for the day which will be viewable
 on this page.  It will also copy historical information that you can access
 from the link in the web page.
+
+You are only limited by your own imagination on how to view your charts.  I
+have setup a bash script that automatically creates the graph on my Pi and
+moves it to an offsite webserver where I can view today's readouts and
+historical data.
+
+Example: https://raspisump.linuxnorth.org
