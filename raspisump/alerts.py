@@ -12,12 +12,21 @@ import time
 import smtplib
 from datetime import datetime
 import string
-import ConfigParser
+
+try:
+    import ConfigParser
+except ImportError:
+    import configparser
+
 from collections import deque
 import csv
 import raspisump.log as log
 
-config = ConfigParser.RawConfigParser()
+try:
+    config = ConfigParser.RawConfigParser()
+except NameError:
+    config = configparser.RawConfigParser()
+
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
 configs = {'email_to': config.get('email', 'email_to'),
@@ -56,7 +65,7 @@ def smtp_alerts(water_depth):
     elif unit == 'metric':
         unit_type = 'centimeters'
     else:
-        print "Error"
+        print("Error")
 
     if configs['alert_when'] == 'high':
         email_body = string.join((

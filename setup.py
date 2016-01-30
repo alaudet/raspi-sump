@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.8.0'
+version = '0.8.1b2'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -41,6 +41,7 @@ setup(name='raspisump',
           "Natural Language :: English",
           "Operating System :: POSIX :: Linux",
           "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3.4",
           "Topic :: Home Automation",
           "License :: OSI Approved :: MIT License",
           ],
@@ -61,10 +62,10 @@ if os.path.isdir(homedir):
     cmd = 'chmod 600 ' + homedir + 'raspisump.conf'
     os.system(cmd)
 
-print '''
+print('''
 **********************************************************************
 IMPORTANT
 If you are upgrading from version 0.5.x you must upgrade
 your raspisump.conf file.
 **********************************************************************
-'''
+''')

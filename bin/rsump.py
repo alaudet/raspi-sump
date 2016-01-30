@@ -8,10 +8,18 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser
+
 import raspisump.reading as reading
 
-config = ConfigParser.RawConfigParser()
+try:
+    config = ConfigParser.RawConfigParser()
+except NameError:
+    config = configparser.RawConfigParser()
+
 config.read('/home/pi/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')
 

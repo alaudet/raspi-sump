@@ -15,9 +15,18 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
-import ConfigParser
 
-config = ConfigParser.RawConfigParser()
+try:
+    import ConfigParser
+except ImportError:
+    import configparser
+
+
+try:
+    config = ConfigParser.RawConfigParser()
+except NameError:
+    config = configparser.RawConfigParser()
+
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
 configs = {'unit': config.get('pit', 'unit')}
