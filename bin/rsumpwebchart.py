@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet

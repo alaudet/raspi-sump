@@ -17,26 +17,40 @@ from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
 try:
-    import ConfigParser
+    import ConfigParser as configparser
 except ImportError:
     import configparser
 
 
-try:
-    config = ConfigParser.RawConfigParser()
-except NameError:
-    config = configparser.RawConfigParser()
-
+config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
 configs = {'unit': config.get('pit', 'unit')}
 
 
-def graph(csv_file, filename):
+def bytesdate2str(fmt, encoding='utf-8'):
+    '''Convert strpdate2num from bytes to string as require in Python3.
+
+    This is a workaround as described in the following tread;
+    https://github.com/matplotlib/matplotlib/issues/4126/
+
+    Credit to github user cimarronm for this workaround.
+    '''
+
+    strconverter = mdates.strpdate2num(fmt)
+
+    def bytesconverter(b):
+        s = b.decode(encoding)
+        return strconverter(s)
+    return bytesconverter
+
+
+def graph(csv_file, filename, bytes2str):
     '''Create a line graph from a two column csv file.'''
+
     unit = configs['unit']
     date, value = np.loadtxt(csv_file, delimiter=',', unpack=True,
-                             converters={0: mdates.strpdate2num('%H:%M:%S')}
+                             converters={0: bytes2str}
                              )
     fig = plt.figure(figsize=(10, 3.5))
     fig.add_subplot(111, axisbg='white', frameon=False)
@@ -53,7 +67,7 @@ def graph(csv_file, filename):
         plt.ylabel('inches')
     if unit == 'metric':
         plt.ylabel('centimeters')
-    
+
     plt.xlabel('Time of Day')
     plt.xticks(rotation=30)
     plt.grid(True, color='#ECE5DE', linestyle='solid')

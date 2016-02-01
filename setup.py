@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.8.1b2'
+version = '0.8.1b6'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -62,10 +62,3 @@ if os.path.isdir(homedir):
     cmd = 'chmod 600 ' + homedir + 'raspisump.conf'
     os.system(cmd)
 
-print('''
-**********************************************************************
-IMPORTANT
-If you are upgrading from version 0.5.x you must upgrade
-your raspisump.conf file.
-**********************************************************************
-''')

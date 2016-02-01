@@ -7,8 +7,9 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
+# Python 2 or 3
 try:
-    import ConfigParser
+    import ConfigParser as configparser
 except ImportError:
     import configparser
 
@@ -16,11 +17,8 @@ import hcsr04sensor.sensor as sensor
 import raspisump.log as log
 import raspisump.alerts as alerts
 
-try:
-    config = ConfigParser.RawConfigParser()
-except NameError:
-    config = configparser.RawConfigParser()
 
+config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
 configs = {'critical_water_level': config.getint('pit', 'critical_water_level'),
@@ -36,7 +34,7 @@ try:
     configs['alert_when'] = config.get('pit', 'alert_when')
 
 # if not in raspisump.conf , provide a default value
-except ConfigParser.NoOptionError:
+except configparser.NoOptionError:
     configs['alert_when'] = 'high'
 
 

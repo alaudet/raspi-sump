@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
@@ -8,17 +8,16 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
+
+# Python 2 or 3
 try:
-    import ConfigParser
+    import ConfigParser as configparser
 except ImportError:
     import configparser
 
 import raspisump.reading as reading
 
-try:
-    config = ConfigParser.RawConfigParser()
-except NameError:
-    config = configparser.RawConfigParser()
+config = configparser.RawConfigParser()
 
 config.read('/home/pi/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')

@@ -11,21 +11,18 @@ import os
 import time
 import smtplib
 from datetime import datetime
-import string
 
 try:
-    import ConfigParser
+    import ConfigParser as configparser  # Python2
 except ImportError:
-    import configparser
+    import configparser  # Python3
 
 from collections import deque
 import csv
 import raspisump.log as log
 
-try:
-    config = ConfigParser.RawConfigParser()
-except NameError:
-    config = configparser.RawConfigParser()
+
+config = configparser.RawConfigParser()
 
 config.read('/home/pi/raspi-sump/raspisump.conf')
 
@@ -45,15 +42,17 @@ try:
     configs['alert_interval'] = config.getint('email', 'alert_interval')
 
 # if not in raspisump.conf , provide a default value
-except ConfigParser.NoOptionError:
-    configs['alert_interval'] = 5 
+except configparser.NoOptionError:
+    print('no interval Except worked')
+    configs['alert_interval'] = 5
 
 # same idea as above.
 try:
     configs['alert_when'] = config.get('pit', 'alert_when')
 
-except ConfigParser.NoOptionError:
-    configs['alert_when'] = 'high' 
+except configparser.NoOptionError:
+    print('no alert_when Except worked')
+    configs['alert_when'] = 'high'
 
 def smtp_alerts(water_depth):
     '''Generate email alert if water level greater than critical distance.'''
@@ -68,7 +67,7 @@ def smtp_alerts(water_depth):
         print("Error")
 
     if configs['alert_when'] == 'high':
-        email_body = string.join((
+        email_body = "\r\n".join((
             "From: {}".format(configs['email_from']),
             "To: {}".format(configs['email_to']),
             "Subject: Sump Pump Alert!",
@@ -78,11 +77,11 @@ def smtp_alerts(water_depth):
             ),
             "Next alert in {} minutes".format(
                 configs['alert_interval']
-            ),), "\r\n"
+            ),)
             )
 
     if configs['alert_when'] == 'low':
-        email_body = string.join((
+        email_body = "\r\n".join((
             "From: {}".format(configs['email_from']),
             "To: {}".format(configs['email_to']),
             "Subject: Low Water Level Alert!",
@@ -92,9 +91,8 @@ def smtp_alerts(water_depth):
             ),
             "Next alert in {} minutes".format(
                 configs['alert_interval']
-            ),), "\r\n"
+            ),)
             )
-
     server = smtplib.SMTP(configs['smtp_server'])
     # Check if smtp server uses TLS
     if configs['smtp_tls'] == 1:
@@ -127,7 +125,7 @@ def determine_if_alert(water_depth):
         log.log_alerts('Email SMS Alert Sent')
 
     else:
-        with open(alert_log, 'rb') as f:
+        with open(alert_log, 'rt') as f:
             last_row = deque(csv.reader(f), 1)[0]
             last_alert_sent = last_row[0]
             current_time = time.strftime('%Y-%m-%d %H:%M:%S')

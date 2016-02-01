@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
@@ -17,7 +17,8 @@ def main():
         time.strftime('%Y%m%d')
         )
     filename = "/home/pi/raspi-sump/charts/today.png"
-    chart.graph(csv_file, filename)
+    bytes2str = chart.bytesdate2str('%H:%M:%S')
+    chart.graph(csv_file, filename, bytes2str)
 
 if __name__ == "__main__":
     main()
