@@ -65,7 +65,7 @@ def graph(csv_file, filename, bytes2str):
     if unit == 'imperial':
         plt.ylabel('inches')
     if unit == 'metric':
-        plt.ylabel('centimeters')
+        plt.ylabel('centimetres')
 
     plt.xlabel('Time of Day')
     plt.xticks(rotation=30)

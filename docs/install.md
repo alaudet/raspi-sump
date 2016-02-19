@@ -25,7 +25,7 @@ To exit the interpreter;
 
 
 To install Python3 on your pi; (first command is optional and updates your
-repositories.
+repositories)
 
     sudo apt-get update && sudo apt-get -y upgrade
     sudo apt-get -y install python3 python3-dev
@@ -130,7 +130,15 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 2 - enter line in crontab as follows;
 
-    1 * * * * sudo /usr/local/bin/rsump.py
+    */1 * * * * /usr/local/bin/rsump.py
+
+
+***Note: On Raspbian Wheezy it appears that you need to access GPIO pins with
+sudo even with version 0.6x of RPi.GPIO which was supposed to address that
+issue.  If you get a message stating that
+access to /dev/mem requires elevated privileges then add sudo in front of
+/usr/local/bin/rsump.py 
+
 
 3 - Save crontab
 
@@ -157,7 +165,7 @@ a continuous process.
 5) Reboot your Raspberry Pi or run the following command.  Your pi will run
 Raspi-Sump on boot from now on.
 
-    sudo rsump.py &
+    rsump.py &
 
 Note*** Do not forget the ampersand '&' as this will run the script as a background process.
 
@@ -180,7 +188,10 @@ Add to pi user crontab as follows;
 
 2 - enter line in crontab as follows;
 
-    */5 * * * * sudo /usr/local/bin/rsumpmonitor.py
+    */5 * * * * /usr/local/bin/rsumpmonitor.py
+
+**Note: you may need to run the above command with sudo on Raspbian Wheezy as
+explained earlier.
 
 3 - Save crontab
 
@@ -229,9 +240,10 @@ Preparation
 
 If you have not done so in a while run the following command to update your Pi.
 This command updates repository information and then upgrades packages that are
-installed on your Pi.
+installed on your Pi.  If you did this already earlier in the instructions then
+it is not necessary to do again.
 
-    sudo apt-get -y update && sudo apt-get -y upgrade
+    sudo apt-get update && sudo apt-get -y upgrade
 
 
 Getting Started
