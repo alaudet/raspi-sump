@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '0.8.1b6'
+version = '1.0.0b3'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -41,6 +41,7 @@ setup(name='raspisump',
           "Natural Language :: English",
           "Operating System :: POSIX :: Linux",
           "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3.2",
           "Programming Language :: Python :: 3.4",
           "Topic :: Home Automation",
           "License :: OSI Approved :: MIT License",

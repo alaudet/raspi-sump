@@ -18,6 +18,7 @@ def main():
         )
     filename = "/home/pi/raspi-sump/charts/today.png"
     bytes2str = chart.bytesdate2str('%H:%M:%S')
+    print(bytes2str)
     chart.graph(csv_file, filename, bytes2str)
 
 if __name__ == "__main__":

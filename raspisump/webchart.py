@@ -32,7 +32,8 @@ def create_chart(homedir):
         homedir, time.strftime('%Y%m%d')
         )
     filename = '{}charts/today.png'.format(homedir)
-    chart.graph(csv_file, filename)
+    bytes2str = chart.bytesdate2str('%H:%M:%S')
+    chart.graph(csv_file, filename, bytes2str)
 
 
 def copy_chart(year, month, today, homedir):

@@ -19,7 +19,7 @@ except ImportError:
 
 from collections import deque
 import csv
-import raspisump.log as log
+from raspisump import log
 
 
 config = configparser.RawConfigParser()
@@ -37,63 +37,65 @@ configs = {'email_to': config.get('email', 'email_to'),
            'unit': config.get('pit', 'unit')
            }
 
-# If item in raspisump.conf add to configs dict above
+# If item in raspisump.conf add to configs dict above.  If not then provide
+# a default value
 try:
     configs['alert_interval'] = config.getint('email', 'alert_interval')
-
-# if not in raspisump.conf , provide a default value
 except configparser.NoOptionError:
-    print('no interval Except worked')
+    print('no interval Except worked') # temporary line for testing
     configs['alert_interval'] = 5
 
 # same idea as above.
 try:
     configs['alert_when'] = config.get('pit', 'alert_when')
-
 except configparser.NoOptionError:
-    print('no alert_when Except worked')
+    print('no alert_when Except worked') # temporary line for testing
     configs['alert_when'] = 'high'
 
-def smtp_alerts(water_depth):
-    '''Generate email alert if water level greater than critical distance.'''
-    recipients = configs['email_to'].split(', ')
+def unit_types():
+    '''Determine  if inches or centimeters'''
+
     unit = configs['unit']
 
     if unit == 'imperial':
-        unit_type = 'inches'
-    elif unit == 'metric':
-        unit_type = 'centimeters'
-    else:
-        print("Error")
+        return 'inches'
+    if unit == 'metric':
+        return 'centimeters'
+
+def email_content(water_depth):
+    '''Build the contents of email body which will be sent as an alert'''
+    
+    unit_type = unit_types()
+    email_contents = {'subject_high': 'Subject: Sump Pump Alert!',
+                      'subject_low': 'Subject: Low Water Level Alert!',
+                      'message_high': 'Critical! The sump pit water level is',
+                      'message_low': 'Warning! The waterlevel is down to'
+                      }
 
     if configs['alert_when'] == 'high':
-        email_body = "\r\n".join((
-            "From: {}".format(configs['email_from']),
-            "To: {}".format(configs['email_to']),
-            "Subject: Sump Pump Alert!",
-            "",
-            "Critical! The sump pit water level is {} {}.".format(
-                str(water_depth), unit_type
-            ),
-            "Next alert in {} minutes".format(
-                configs['alert_interval']
-            ),)
-            )
+        subject = email_contents['subject_high']
+        message = email_contents['message_high']
+    else:
+        subject = email_contents['subject_low']
+        message = email_contents['message_low']
+    
+    return "\r\n".join((
+        "From: {}".format(configs['email_from']),
+        "To: {}".format(configs['email_to']),
+        "{}".format(subject),
+        "",
+        "{} {} {}.".format(message, str(water_depth), unit_type),
+        "Next alert in {} minutes".format(configs['alert_interval']),
+        )
+        )
 
-    if configs['alert_when'] == 'low':
-        email_body = "\r\n".join((
-            "From: {}".format(configs['email_from']),
-            "To: {}".format(configs['email_to']),
-            "Subject: Low Water Level Alert!",
-            "",
-            "Warning! The water level is down to {} {}.".format(
-                str(water_depth), unit_type
-            ),
-            "Next alert in {} minutes".format(
-                configs['alert_interval']
-            ),)
-            )
+
+def smtp_alerts(water_depth):
+    '''Send email alert if water level greater than critical distance.'''
+    recipients = configs['email_to'].split(', ')
+    email_body = email_content(water_depth)
     server = smtplib.SMTP(configs['smtp_server'])
+
     # Check if smtp server uses TLS
     if configs['smtp_tls'] == 1:
         server.starttls()

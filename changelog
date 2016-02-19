@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.0.0
+Python 3 compatible
+
+
 Version 0.8.0
 - Option to receive alerts on low water levels instead of high. This would allow
 you to monitor a drinking water source for example.

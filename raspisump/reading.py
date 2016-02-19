@@ -13,9 +13,12 @@ try:
 except ImportError:
     import configparser
 
-import hcsr04sensor.sensor as sensor
-import raspisump.log as log
-import raspisump.alerts as alerts
+
+from hcsr04sensor import sensor
+from raspisump import log, alerts
+#import hcsr04sensor.sensor as sensor
+#import raspisump.log as log
+#import raspisump.alerts as alerts
 
 
 config = configparser.RawConfigParser()
@@ -49,27 +52,28 @@ def water_reading():
     unit = configs['unit']
 
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit, round_to)
-    raw_distance = value.raw_distance()
+    raw_distance = value.raw_distance(sample_wait=0.3)
 
     if unit == 'imperial':
-        water_depth = value.depth_imperial(raw_distance, pit_depth)
+        return value.depth_imperial(raw_distance, pit_depth)
     if unit == 'metric':
-        water_depth = value.depth_metric(raw_distance, pit_depth)
-
-    generate_log(water_depth)
-    generate_alert(water_depth, critical_water_level)
+        return value.depth_metric(raw_distance, pit_depth)
 
 
-def generate_log(water_depth):
-    '''Log water level reading to a file.'''
+def water_depth():
+    '''Determine the depth of the water, log result and generate alert
+    if needed.
+    '''
+
+    critical_water_level = configs['critical_water_level']
+    
+    water_depth = water_reading()
     log.log_reading(water_depth)
-
-
-def generate_alert(water_depth, critical_water_level):
-    '''Determine if an alert is required and initiate one if it is.'''
+    
     if water_depth > critical_water_level and configs['alert_when'] == 'high':
         alerts.determine_if_alert(water_depth)
     elif water_depth < critical_water_level and configs['alert_when'] == 'low':
         alerts.determine_if_alert(water_depth)
     else:
         pass
+

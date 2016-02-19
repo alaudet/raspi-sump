@@ -23,8 +23,8 @@ config.read('/home/pi/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')
 
 if reading_interval == 0:
-    reading.water_reading()
+    reading.water_depth()
 else:
     while True:
-        reading.water_reading()
+        reading.water_depth()
         time.sleep(reading_interval)
