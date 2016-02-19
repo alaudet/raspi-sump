@@ -15,11 +15,10 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
-
 try:
-    import ConfigParser as configparser
+    import ConfigParser as configparser # Python2
 except ImportError:
-    import configparser
+    import configparser # Python3
 
 
 config = configparser.RawConfigParser()
@@ -29,7 +28,7 @@ configs = {'unit': config.get('pit', 'unit')}
 
 
 def bytesdate2str(fmt, encoding='utf-8'):
-    '''Convert strpdate2num from bytes to string as require in Python3.
+    '''Convert strpdate2num from bytes to string as required in Python3.
 
     This is a workaround as described in the following tread;
     https://github.com/matplotlib/matplotlib/issues/4126/

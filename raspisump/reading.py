@@ -7,19 +7,12 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
-# Python 2 or 3
 try:
-    import ConfigParser as configparser
+    import ConfigParser as configparser  # Python2
 except ImportError:
-    import configparser
-
-
+    import configparser  # Python3
 from hcsr04sensor import sensor
 from raspisump import log, alerts
-#import hcsr04sensor.sensor as sensor
-#import raspisump.log as log
-#import raspisump.alerts as alerts
-
 
 config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')

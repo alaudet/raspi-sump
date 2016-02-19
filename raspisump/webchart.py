@@ -10,7 +10,7 @@
 import os
 import subprocess
 import time
-import raspisump.todaychart as chart
+from raspisump import todaychart
 
 
 def create_folders(year, month, homedir):
@@ -32,8 +32,8 @@ def create_chart(homedir):
         homedir, time.strftime('%Y%m%d')
         )
     filename = '{}charts/today.png'.format(homedir)
-    bytes2str = chart.bytesdate2str('%H:%M:%S')
-    chart.graph(csv_file, filename, bytes2str)
+    bytes2str = todaychart.bytesdate2str('%H:%M:%S')
+    todaychart.graph(csv_file, filename, bytes2str)
 
 
 def copy_chart(year, month, today, homedir):

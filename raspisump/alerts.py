@@ -1,4 +1,4 @@
-'''Module to send SMTP alerts in case of sump pump failure'''
+'''Send SMTP email alerts in case of sump pump failure.'''
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
@@ -11,12 +11,10 @@ import os
 import time
 import smtplib
 from datetime import datetime
-
 try:
     import ConfigParser as configparser  # Python2
 except ImportError:
     import configparser  # Python3
-
 from collections import deque
 import csv
 from raspisump import log
@@ -52,6 +50,7 @@ except configparser.NoOptionError:
     print('no alert_when Except worked') # temporary line for testing
     configs['alert_when'] = 'high'
 
+
 def unit_types():
     '''Determine  if inches or centimeters'''
 
@@ -62,9 +61,10 @@ def unit_types():
     if unit == 'metric':
         return 'centimeters'
 
+
 def email_content(water_depth):
     '''Build the contents of email body which will be sent as an alert'''
-    
+
     unit_type = unit_types()
     email_contents = {'subject_high': 'Subject: Sump Pump Alert!',
                       'subject_low': 'Subject: Low Water Level Alert!',
@@ -78,7 +78,7 @@ def email_content(water_depth):
     else:
         subject = email_contents['subject_low']
         message = email_contents['message_low']
-    
+
     return "\r\n".join((
         "From: {}".format(configs['email_from']),
         "To: {}".format(configs['email_to']),

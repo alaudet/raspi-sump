@@ -7,7 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
-import raspisump.checkpid as checkpid
+from raspisump import checkpid
 
 
 def main():

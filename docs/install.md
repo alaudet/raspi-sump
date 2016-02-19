@@ -3,28 +3,49 @@ Install
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
 
+Installation instructions assume Python3 on Raspbian
 
-Install Dependancies
+To install for Python2 simply use pip instead of pip3 and for packages install
+with apt-get python-<package name> instead of python3-<package name>
+
+
+Install Dependencies
 ====================
 
-If you want to create graphs of sump pit activity install Matplotlib and Numpy
+1) Check to ensure that Python3 is installed on Raspbian Linux.
+
+    python3
+
+You should see the interpreter open and the version of Python3.  Raspbian
+Wheezy uses Version 3.2 and Jessie uses 3.4 at the time of this writing.
+
+To exit the interpreter;
+
+    quit()
+
+
+To install Python3 on your pi; (first command is optional and updates your
+repositories.
+
+    sudo apt-get update && sudo apt-get -y upgrade
+    sudo apt-get -y install python3 python3-dev
+
+
+2) If you want to create graphs of sump pit activity install Matplotlib and Numpy
 as follows;
 
-    sudo apt-get install python-matplotlib
-    sudo apt-get install python-numpy
+    sudo apt-get install python3-matplotlib
 
-Also Requires the hcsr04sensor and RPi.GPIO module (see Install Raspi-Sump)
+Matplotlib should install Numpy as a dependency but if you need to install
+it manually;
 
-If pip package manager is not installed you can get the latest version at the
-following site. (preferred)
-
-    http://pip.readthedocs.org/en/latest/installing.html
+    sudo apt-get install python3-numpy  
 
 
-Alternately you can install the packaged version with apt-get.
+3) Install PIP
 
 
-    sudo apt-get install python-pip
+    sudo apt-get install python3-pip
 
 
 
@@ -34,7 +55,7 @@ Install Raspi-Sump
 The following will automatically install hcsr04sensor and RPi.GPIO if it is not already
 installed on your Pi.
 
-    sudo pip install raspisump
+    sudo pip3 install raspisump
 
 This will copy all the files you need into /home/pi/raspi-sump
 
@@ -50,7 +71,7 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 * raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 * raspi-sump/csv (location of waterlevel readings to csv file)
 * raspi-sump/charts (location of charts if using rsumpchart.py)
-* raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as acontinuous process)
+* raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as a continuous process)
 * raspi-sump/web (all files need if you install the web server)
 * raspi-sump/cron (example crontab for scheduling readings)
 
@@ -68,7 +89,7 @@ Edit raspisump.conf
 All configurations are recorded in /home/pi/raspi-sump/raspisump.conf
 
 See the configuration file for explanations of variables.  You can choose to
-take imperial (inches) or metric (centimeters) water level readings.
+take imperial (inches) or metric (centimetres) water level readings.
 
 
 Hardware
@@ -92,7 +113,7 @@ connections.
 
 4-Echo pin to GPIO (need 470R resistor and 1K resistor to create a voltage divider.) In short, the 470 Ohm and 1K Ohm resistor are connected to one another with the Echo wire soldered between both of them to the GPIO pin.  The other end of the 1K resistor is then soldered to the Ground wire.
 
-see http://www.linuxnorth.org/raspi-sump/ for information on pins I used.
+see https://www.linuxnorth.org/raspi-sump/ for information on pins I used.
 
 Google soldering resistors for good information on how to do this if you have never done it.
 
@@ -159,7 +180,7 @@ Add to pi user crontab as follows;
 
 2 - enter line in crontab as follows;
 
-    5 * * * * sudo /usr/local/bin/rsumpmonitor.py
+    */5 * * * * sudo /usr/local/bin/rsumpmonitor.py
 
 3 - Save crontab
 
@@ -180,11 +201,11 @@ This will create a line chart of sump pump activity.  You can easily modify the 
 Combined with a scheduled cron job it is an easy way to see the latest activity graphically.
 
 **Note that this requires matplotlib and numpy on your RaspberryPi which can be
-installed with the apt-get command.  See the Install Dependancies section at the
+installed with the apt-get command.  See the Install Dependencies section at the
 beginning of this file.
 
 You can also use the move_file.sh script provided as an example of how you
-transfer files offsite to a webserver or save historal chart information.
+transfer files offsite to a webserver or save historical chart information.
 
 
 Optional - Setting Up a Local Web Server for easy Charts Viewing
@@ -203,7 +224,7 @@ configuring a local webserver on your pi.
 Once complete you will be able to view sump pump activity by connecting to
 http://ip_address_of_your_pi
 
-Preperation
+Preparation
 ===========
 
 If you have not done so in a while run the following command to update your Pi.

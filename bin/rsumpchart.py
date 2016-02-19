@@ -8,7 +8,7 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import raspisump.todaychart as chart
+from raspisump import todaychart
 
 
 def main():
@@ -17,9 +17,8 @@ def main():
         time.strftime('%Y%m%d')
         )
     filename = "/home/pi/raspi-sump/charts/today.png"
-    bytes2str = chart.bytesdate2str('%H:%M:%S')
-    print(bytes2str)
-    chart.graph(csv_file, filename, bytes2str)
+    bytes2str = todaychart.bytesdate2str('%H:%M:%S')
+    todaychart.graph(csv_file, filename, bytes2str)
 
 if __name__ == "__main__":
     main()

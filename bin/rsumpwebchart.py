@@ -8,7 +8,7 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import raspisump.webchart as webchart
+from raspisump import webchart
 
 
 def main():
