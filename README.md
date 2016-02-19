@@ -8,57 +8,41 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-New Version 0.8.0
-=================
+New Version 1.0.0 Python3 compatible 
+=====================================
 
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) 
 for changes to all versions.
 
 
-Note if upgrading from version 0.5.x
-====================================
 
-You will need to add variables to your raspisump.conf file.  Copy the new conf file located in the /home/pi/raspi-sump/conf folder to
-/home/pi/raspi-sump.  Re-enter all of your variables.  Older info has been saved in
-/home/pi/raspi-sump/raspisump.conf.save
-
-Simply upgrading from version 0.5.x will break your current install of Raspi-Sump
-unless you take some time to fix your configuration file.
-
-I recommend you keep using v0.5.3 if you don't want to do this.
-
-To roll back to v0.5.3 simply do the following;
-
-    sudo pip uninstall raspisump
-    sudo pip install https://pypi.python.org/packages/source/r/raspisump/raspisump-0.5.3.tar.gz#md5=91aed30a087c35e12ae36fe7a9523945
-
-
-If you are running version 0.6.0 or later you need not change anything.
-
-QUICK INSTALL
-=============
+QUICK INSTALL - Python 3 Recommended
+=====================================
 Install the pip package manager (if not present on your pi).
 
-    sudo apt-get install python-pip
+    sudo apt-get install python3-pip
 
 
 Install Raspi-Sump.
 
-    sudo pip install raspisump
+    sudo pip3 install raspisump
 
 Upgrading an existing version
 
 
-    sudo pip install -U raspisump
+    sudo pip3 install -U raspisump
 
 This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) and  RPi.GPIO modules if not present on your Pi.
 
-If you want to use charts install maplotlib and numpy
+If you want to use charts install maplotlib.
 
-    sudo apt-get install python-matplotlib
+    sudo apt-get install python3-matplotlib
 
-    sudo apt-get install python-numpy
+
+Matplotlib should install Numpy.  If you need to install Numpy seperately;
+
+    sudo apt-get install python3-numpy
 
 Read the configuration docs copied during setup on your pi at the following location;
 
@@ -67,11 +51,32 @@ Read the configuration docs copied during setup on your pi at the following loca
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
+Upgrading from Python2 to Python3
+=================================
+
+    sudo pip uninstall raspisump
+    sudo pip3 install raspisump
+
+
+Your configuration file will be preserved in /home/pi/raspi-sump/
+
+Python2 install
+===============
+
+Raspi-sump was originally written in Python 2 and is still compatible with the
+older version.
+
+To run in python 2 install with pip instead of pip3
+
+All apt-get install should be done with;
+
+    sudo apt-get install python-<package name>
+
 More Info
 =========
 Further details provided at http://www.linuxnorth.org/raspi-sump/
 
-An hourly updating graph is available for view.
+An example hourly updating graph is available for view.
 http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
 Disclaimer
