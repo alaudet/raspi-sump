@@ -17,7 +17,10 @@ for changes to all versions.
 
 
 
-QUICK INSTALL - Python 3 Recommended
+QUICK INSTALL 
+=============
+
+Python 3 Recommended for Raspbian Jessie
 =====================================
 Install the pip package manager (if not present on your pi).
 
@@ -51,7 +54,7 @@ Read the configuration docs copied during setup on your pi at the following loca
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
-Upgrading from Python2 to Python3
+Upgrading from Python2 to Python3 (Raspbian Jessie)
 =================================
 
     sudo pip uninstall raspisump
@@ -60,15 +63,33 @@ Upgrading from Python2 to Python3
 
 Your configuration file will be preserved in /home/pi/raspi-sump/
 
+
 Python2 install
 ===============
+
+Recommended for Raspbian Wheezy
+===============================
 
 Raspi-sump was originally written in Python 2 and is still compatible with the
 older version.
 
+On Raspbian Wheezy it may be better to just stick with Python 2 as there are no
+packaged versions of python3-matplotlib.  You will have to install it manually
+with pip3.2.
+
+Matplotlib can be a little tricky when installing with pip.  It depends on many
+packages and requires some fiddling to get to work.  It's just easier to use
+apt-get.  However it will work fine with Python3 if you manage to install
+matplotlib.  There is no extra functionality in the Python3 version of
+Raspi-Sump, it's just a compatibility upgrade.  If Python2 version is working
+fine for you right now you could just stick with it as it will continue to be
+identical.
+
 To run in python 2 install with pip instead of pip3
 
-All apt-get install should be done with;
+    sudo pip install raspisump
+
+All apt-get installs should be done with;
 
     sudo apt-get install python-<package name>
 

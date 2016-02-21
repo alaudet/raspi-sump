@@ -8,16 +8,23 @@ Installation instructions assume Python3 on Raspbian
 To install for Python2 simply use pip instead of pip3 and for packages install
 with apt-get python-<package name> instead of python3-<package name>
 
+If using the older Raspbian Wheezy release I recommend you stick with the
+Python 2 install to avoid having to install Matplotlib with pip instead of
+apt-get. However it will still work under Wheezy with a pip installed version
+of Python3 matplolib.
+
 
 Install Dependencies
 ====================
 
-1) Check to ensure that Python3 is installed on Raspbian Linux.
+1) Check to ensure that Python3 is installed on Raspbian Linux (Jessie).
 
     python3
 
 You should see the interpreter open and the version of Python3.  Raspbian
-Wheezy uses Version 3.2 and Jessie uses 3.4 at the time of this writing.
+Wheezy uses Version 3.2 and Jessie uses 3.4 at the time of this writing. If
+you are running Wheezy I recommend installing the Python2 version of
+Raspi-Sump.
 
 To exit the interpreter;
 
@@ -32,9 +39,12 @@ repositories)
 
 
 2) If you want to create graphs of sump pit activity install Matplotlib and Numpy
-as follows;
+as follows; 
 
     sudo apt-get install python3-matplotlib
+
+    **Note this assumes Raspbian Jessie as Wheezy does not provide an packaged
+    version of python3-matplotlib.
 
 Matplotlib should install Numpy as a dependency but if you need to install
 it manually;
