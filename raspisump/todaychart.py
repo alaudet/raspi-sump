@@ -1,4 +1,4 @@
-'''Module to graph sump pit activity.'''
+'''Graph sump pit activity.'''
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
@@ -65,7 +65,7 @@ def graph(csv_file, filename, bytes2str):
     if unit == 'imperial':
         plt.ylabel('inches')
     if unit == 'metric':
-        plt.ylabel('centimetres')
+        plt.ylabel('centimeters')
 
     plt.xlabel('Time of Day')
     plt.xticks(rotation=30)

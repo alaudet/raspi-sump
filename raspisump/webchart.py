@@ -1,4 +1,4 @@
-'''Module to create charts for viewing on Raspberry Pi Web Server.'''
+'''Create charts for viewing on Raspberry Pi Web Server.'''
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet

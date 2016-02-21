@@ -37,7 +37,6 @@ except configparser.NoOptionError:
 def water_reading():
     '''Initiate a water level reading.'''
     pit_depth = configs['pit_depth']
-    critical_water_level = configs['critical_water_level']
     trig_pin = configs['trig_pin']
     echo_pin = configs['echo_pin']
     round_to = 1

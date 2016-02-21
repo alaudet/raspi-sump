@@ -8,14 +8,11 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-
-# Python 2 or 3
 try:
-    import ConfigParser as configparser
+    import ConfigParser as configparser # Python2
 except ImportError:
-    import configparser
-
-import raspisump.reading as reading
+    import configparser # Python3
+from raspisump import reading
 
 config = configparser.RawConfigParser()
 

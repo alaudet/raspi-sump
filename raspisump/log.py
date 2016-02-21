@@ -1,4 +1,4 @@
-'''Module to log water_level readings and process restarts.'''
+'''Log waterlevel readings, restarts and alerts.'''
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
