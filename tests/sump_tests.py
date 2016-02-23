@@ -37,12 +37,12 @@ def test_unit_types():
 
 
 def test_email_content():
-    configs['email_to'] = 'recipient@somewhere.com'
-    configs['email_from'] = 'sender@somewhere.com'
+    
     water_depth = 35 
     email_contents = alerts.email_content(water_depth)
     assert type(email_contents) == str
     beg, sep, end = email_contents.partition('Subject: ')
+    assert_equals(beg[0:5], 'From:')
     try:
         assert_equals(end[0:9], 'Low Water')
     except:
