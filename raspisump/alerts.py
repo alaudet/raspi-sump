@@ -90,6 +90,7 @@ def email_content(water_depth):
         )
 
 
+
 def smtp_alerts(water_depth):
     '''Send email alert if water level greater than critical distance.'''
     recipients = configs['email_to'].split(', ')

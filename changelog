@@ -3,7 +3,7 @@ Raspi-Sump Changelog
 
 Version 1.0.0
 Python 3 compatible
-
+Started adding some tests.  Very basic stuff.
 
 Version 0.8.0
 - Option to receive alerts on low water levels instead of high. This would allow
