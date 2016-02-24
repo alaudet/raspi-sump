@@ -35,7 +35,7 @@ setup(name='raspisump',
       description='A sump pit monitoring system for Raspberry Pi',
       long_description=open("./README.md", "r").read(),
       classifiers=[
-          "Development Status :: 5 - Production/Stable",
+          "Development Status :: 4 - Beta",
           "Environment :: Console",
           "Intended Audience :: End Users/Desktop",
           "Natural Language :: English",
