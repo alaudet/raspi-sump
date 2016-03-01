@@ -15,6 +15,11 @@ New Version 1.0.0Beta Python3 compatible
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) 
 for changes to all versions.
 
+**Important information if using GMAIL to send alerts**
+
+See issue tracker;
+
+https://github.com/alaudet/raspi-sump/issues/6
 
 
 QUICK INSTALL 

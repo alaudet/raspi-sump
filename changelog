@@ -3,7 +3,8 @@ Raspi-Sump Changelog
 
 Version 1.0.0
 Python 3 compatible
-Started adding some tests.  Very basic stuff.
+Important info added for Gmail users to send alerts.  See issue tracker;
+https://github.com/alaudet/raspi-sump/issues/6
 
 Version 0.8.0
 - Option to receive alerts on low water levels instead of high. This would allow
