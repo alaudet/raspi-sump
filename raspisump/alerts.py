@@ -40,14 +40,12 @@ configs = {'email_to': config.get('email', 'email_to'),
 try:
     configs['alert_interval'] = config.getint('email', 'alert_interval')
 except configparser.NoOptionError:
-    print('no interval Except worked') # temporary line for testing
     configs['alert_interval'] = 5
 
 # same idea as above.
 try:
     configs['alert_when'] = config.get('pit', 'alert_when')
 except configparser.NoOptionError:
-    print('no alert_when Except worked') # temporary line for testing
     configs['alert_when'] = 'high'
 
 

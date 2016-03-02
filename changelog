@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.0.1
+- minor change to alerts.py that still had a line for testing code in it.
+
 Version 1.0.0
 - Python 3 compatible
 - This version has no new functionality.  It is given the first major version 1.0.0 as
