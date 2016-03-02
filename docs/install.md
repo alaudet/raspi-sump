@@ -5,8 +5,8 @@ If you choose to do this you do it at your own risk.
 
 Installation instructions assume Python3 on Raspbian
 
-To install for Python2 simply use pip instead of pip3 and for packages install
-with apt-get python-<package name> instead of python3-<package name>
+To install for Python2 simply use pip instead of pip3 and for package installs
+use with apt-get python-<package name> instead of python3-<package name>
 
 If using the older Raspbian Wheezy release I recommend you stick with the
 Python 2 install to avoid having to install Matplotlib with pip instead of

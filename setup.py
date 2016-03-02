@@ -1,6 +1,6 @@
 from setuptools import setup
 import os
-version = '1.0.0b5'
+version = '1.0.0'
 
 homedir = '/home/pi/raspi-sump/'
 
@@ -35,7 +35,7 @@ setup(name='raspisump',
       description='A sump pit monitoring system for Raspberry Pi',
       long_description=open("./README.md", "r").read(),
       classifiers=[
-          "Development Status :: 4 - Beta",
+          "Development Status :: 5 - Production/Stable",
           "Environment :: Console",
           "Intended Audience :: End Users/Desktop",
           "Natural Language :: English",

@@ -2,8 +2,10 @@ Raspi-Sump Changelog
 ====================
 
 Version 1.0.0
-Python 3 compatible
-Important info added for Gmail users to send alerts.  See issue tracker;
+- Python 3 compatible
+- This version has no new functionality.  It is given the first major version 1.0.0 as
+it is now fully Python2 and Python3 compatible.
+- Important info added for Gmail users to send alerts.  See issue tracker;
 https://github.com/alaudet/raspi-sump/issues/6
 
 Version 0.8.0

@@ -8,7 +8,7 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-New Version 1.0.0Beta Python3 compatible 
+New Version 1.0.0 Python3 compatible 
 =====================================
 
 
@@ -27,6 +27,7 @@ QUICK INSTALL
 
 Python 3 Recommended for Raspbian Jessie
 =====================================
+
 Install the pip package manager (if not present on your pi).
 
     sudo apt-get install python3-pip
