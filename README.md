@@ -129,5 +129,8 @@ improve it please let me know.
 Contributing
 ============
 If you add a useful feature please consider forking Raspi-Sump and contributing
-back by issuing a Pull Request.   Use the devel branch for adding new features
-and if it works I will merge them into Master.
+back by issuing a Pull Request.  Before issuing the pull request open an issue
+in the issue tracker.  
+
+New features should be applied against the devel branch and not master.
+Contributions against the master branch will be rejected.
