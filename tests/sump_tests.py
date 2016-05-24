@@ -19,7 +19,7 @@ except configparser.NoOptionError:
     configs['alert_when'] = 'high'
 
 def test_water_reading():
-
+    '''Test that a proper reading is being returned.'''
     pit_depth = configs['pit_depth']
     value = reading.water_reading()
     assert type(value) == float
@@ -27,7 +27,7 @@ def test_water_reading():
 
 
 def test_unit_types():
-    
+    '''Test that a proper unit type is being selected.'''        
     measurement = alerts.unit_types()
     assert type(measurement) == str
     try:
@@ -37,7 +37,7 @@ def test_unit_types():
 
 
 def test_email_content():
-    
+    '''Test that the right email alert is being returned.'''
     water_depth = 35 
     email_contents = alerts.email_content(water_depth)
     assert type(email_contents) == str
