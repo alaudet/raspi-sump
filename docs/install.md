@@ -82,7 +82,7 @@ The /home/pi/raspi-sump folder is setup as follows on install;
 * raspi-sump/csv (location of waterlevel readings to csv file)
 * raspi-sump/charts (location of charts if using rsumpchart.py)
 * raspi-sump/logs (location of rsumpmonitor.py logs if using raspisump as a continuous process)
-* raspi-sump/web (all files need if you install the web server)
+* raspi-sump/web (all files needed for the optional pi webserver install)
 * raspi-sump/cron (example crontab for scheduling readings)
 
 
@@ -107,7 +107,12 @@ Hardware
 
 Setup hardware (Please make sure you understand GPIO information on your pi).
 
-You must use two resistors to create a voltage divider from the Sensor to the Pi.  There are various combinations of resistors that you can use, a google search for Voltage Divider Calculator will allow you to calculate which combination you can use to bring the voltage down from the echo pin to 3.3V.  I used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to 3.4 which is within a tolerable 5% level. I could have also use a 1K and 2K resistor to give me 3.333V. 
+You must use two resistors to create a voltage divider from the Sensor to the
+Pi.  There are various combinations of resistors that you can use, a google
+search for Voltage Divider Calculator will allow you to calculate which
+combination you can use to bring the voltage down from the echo pin to 3.3V.  I
+used a 470 Ohm and 1K Ohm resistor to bring the voltage down on the GPIO pin to
+3.4 which is within a tolerable 5% level. I could have also used a 1K and 2K resistor to give me 3.333V. 
 
 
 Four wires connected as follows from the sensor to the pi (note, this will
@@ -132,7 +137,9 @@ Starting Raspi-Sump
 ===================
 To start raspi-sump manually issue the command;
 
-    sudo rsump.py
+(if python throws a memory access error run rsump.py with sudo)
+
+    rsump.py
 
 To run raspisump at 1 minute intervals enter the following line in crontab as follows;
 
@@ -162,9 +169,16 @@ access to /dev/mem requires elevated privileges then add sudo in front of
 If running as a continuous process 
 ==================================
 
+There may be times where you want to run Raspi-Sump more than once every
+minute.  The default setting is 0 which will run rsump.py for one reading and
+then exit. This allows you to use the linux Cron scheduler to run at a specific
+interval.  Unfortunately cron allows one minute as its minimum interval.  
+
+To take readings at shorter intervals you can specify the amount of seconds
+between readings in the raspisump.conf file.
+
 1) set reading_interval in raspisump.conf to desired interval in seconds (e.g.
-reading_interval = 30). The default setting is 0 which will not run rsump.py as
-a continuous process.
+reading_interval = 30).
 
 2) Add rsumpmonitor.py to crontab (see next section)
 
@@ -198,10 +212,7 @@ Add to pi user crontab as follows;
 
 2 - enter line in crontab as follows;
 
-    */5 * * * * /usr/local/bin/rsumpmonitor.py
-
-**Note: you may need to run the above command with sudo on Raspbian Wheezy as
-explained earlier.
+    */5 * * * * sudo /usr/local/bin/rsumpmonitor.py
 
 3 - Save crontab
 
