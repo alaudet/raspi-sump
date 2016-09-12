@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.0.2
+- minor addition to alerts.py.  Adds a timestamp to the alert message body. Thanks to Brian Heiland for the suggestion.
+
 Version 1.0.1
 - minor change to alerts.py that still had a line for testing code in it.
 

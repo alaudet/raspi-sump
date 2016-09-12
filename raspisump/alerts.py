@@ -63,6 +63,7 @@ def unit_types():
 def email_content(water_depth):
     '''Build the contents of email body which will be sent as an alert'''
 
+    time_of_day = time.strftime('%I:%M%P %Z')
     unit_type = unit_types()
     email_contents = {'subject_high': 'Subject: Sump Pump Alert!',
                       'subject_low': 'Subject: Low Water Level Alert!',
@@ -82,7 +83,7 @@ def email_content(water_depth):
         "To: {}".format(configs['email_to']),
         "{}".format(subject),
         "",
-        "{} {} {}.".format(message, str(water_depth), unit_type),
+        "{} - {} {} {}.".format(time_of_day, message, str(water_depth), unit_type),
         "Next alert in {} minutes".format(configs['alert_interval']),
         )
         )
