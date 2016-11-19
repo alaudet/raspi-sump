@@ -8,6 +8,7 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
+
 try:
     import ConfigParser as configparser # Python2
 except ImportError:

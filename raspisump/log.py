@@ -39,3 +39,13 @@ def log_alerts(notification):
     alert_log.write(notification),
     alert_log.write("\n")
     alert_log.close()
+
+
+def log_errors(notification):
+    '''Log all errors'''
+    error_log = open("/home/pi/raspi-sump/logs/error_log", 'a')
+    error_log.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
+    error_log.write(notification),
+    error_log.write("\n")
+    error_log.close()
+

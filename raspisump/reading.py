@@ -44,8 +44,13 @@ def water_reading():
     unit = configs['unit']
 
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit, round_to)
-    raw_distance = value.raw_distance(sample_wait=0.3)
-
+    
+    try:
+        raw_distance = value.raw_distance(sample_wait=0.3)
+    except SystemError:
+        log.log_errors("**ERROR - Signal not received. Possible cable or sensor problem.")
+        exit(0) 
+    
     if unit == 'imperial':
         return value.depth_imperial(raw_distance, pit_depth)
     if unit == 'metric':
