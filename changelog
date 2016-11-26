@@ -1,11 +1,25 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.1
+- Add error logging to identify possible faulty cables or sensors. Versions
+prior to this would only hang and consume 100% CPU.  As of this version a
+faulty cable or sensor will cause the application to exit gracefully and write
+a log to '/home/pi/raspi-sump/logs/error_log' alerting you to a faulty cable or
+sensor.
+
+Example;
+
+2016-11-26 10:26:42,**ERROR - Signal not received. Possible cable or sensor problem.
+
+
 Version 1.0.2
 - minor addition to alerts.py.  Adds a timestamp to the alert message body. Thanks to Brian Heiland for the suggestion.
 
+
 Version 1.0.1
 - minor change to alerts.py that still had a line for testing code in it.
+
 
 Version 1.0.0
 - Python 3 compatible
@@ -14,9 +28,11 @@ it is now fully Python2 and Python3 compatible.
 - Important info added for Gmail users to send alerts.  See issue tracker;
 https://github.com/alaudet/raspi-sump/issues/6
 
+
 Version 0.8.0
 - Option to receive alerts on low water levels instead of high. This would allow
 you to monitor a drinking water source for example.
+
 
 Version 0.7.0
 - Add option to limit SMS Email alerts to a defined interval to prevent
@@ -24,11 +40,14 @@ spamming yourself with alerts every minute or less.  Can now be set in the
 raspisum.conf file as alert_interval.  Default is 5 minutes if option is not
 set.
 
+
 Version 0.6.1.1
 - Bug fix.  Pypi download was failing
 
+
 Version 0.6.1
 - new instructions and configuration for local web server.
+
 
 Version 0.6.0
 - sensor module removed from raspisump and now uses hcsr04sensor library.
@@ -42,29 +61,36 @@ Version 0.6.0
 - add rsumpwebchart.py in bin folder to create a webchart from the command line or cron
 - add webchart.py module to create charts for web viewing on Pi local webserver (called from rsumpwebchart.py)
 
+
 Version 0.5.3
 - Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
 'GPIO.cleanup() unsets the current pin mode' 
 This version of Raspi-Sump is compatible with RPi.GPIO 0.5.11
 
+
 Version 0.5.2
 - Additional explanation on raspisump.conf
 - Documentation changes
+
 
 Version 0.5.1
 - Add option to send alerts to multiple recipients
 - Change to raspisump.conf
 
+
 Version 0.5.0
 First non beta release.
 Small changes to install instructions.
+
 
 Version 0.4.0beta1
 - Seperated program into scripts and modules.
 - Removed the manual install instructions in favor of packaged install only.
 
+
 Version 0.3.0beta3
 - fixed error in setup.py
+
 
 Version 0.3.0beta2
 - fix raspisump.conf getting deleted on upgrade
@@ -76,11 +102,13 @@ Version 0.3.0beta1
 - packaging with pip
 - new install instructions for automated and manual installs
 
+
 Version 0.2.1
 - Minor changes to some code.
   - no longer using my own code to round numbers. Using round() method instead
   - small corrections to License
   - eliminated some duplicate code around logging
+
 
 Version 0.2
 - Configuration file to store variables
@@ -94,12 +122,14 @@ process and restart it if stopped.
 - Added MIT License
 - Added changelog
 
+
 Version 0.1B
 - Report water level in pit as opposed to distance of water from sensor
 - todaychart.py to graph the water level
 - add simulations for testing functionality without using RPi.GPIO
 - Documentation for using raspisump
 - added rudimentary cron examples
+
 
 Verions 0.1A
 - 60 second interval monitoring of sump pit water level
