@@ -8,8 +8,12 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-New Version 1.0.0 Python3 compatible 
-=====================================
+New Version 1.1.0
+=================
+
+Python2 and 3 compatible.
+
+Better error logging to detect faulty sensors and/or cables.
 
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) 
@@ -20,7 +24,7 @@ for changes to all versions.
 See issue tracker;
 
 https://github.com/alaudet/raspi-sump/issues/6
-
+ 
 
 QUICK INSTALL 
 =============
