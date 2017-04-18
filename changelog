@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.1.1 
+- prevent application from logging negative waterlevels.
+
 Version 1.1
 - Add error logging to identify possible faulty cables or sensors. Versions
 prior to this would only hang and consume 100% CPU.  As of this version a
