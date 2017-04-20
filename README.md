@@ -8,7 +8,7 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-New Version 1.1.0
+New Version 1.1.1
 =================
 
 Python2 and 3 compatible.

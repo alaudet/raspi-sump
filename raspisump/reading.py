@@ -63,12 +63,10 @@ def water_depth():
     '''
 
     critical_water_level = configs['critical_water_level']
-    
     water_depth = water_reading()
 
     if water_depth < 0.0:
         water_depth = 0.0
-
     log.log_reading(water_depth)
     
     if water_depth > critical_water_level and configs['alert_when'] == 'high':
