@@ -138,3 +138,10 @@ in the issue tracker.
 
 New features should be applied against the devel branch and not master.
 Contributions against the master branch will be rejected.
+
+Donate
+======
+
+[Your Donation is Appreciated](https://www.linuxnorth.org/donate/)
+
+
