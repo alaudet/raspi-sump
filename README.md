@@ -8,6 +8,15 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
+
+Installing with pip9 (Raspbian Stretch)
+=======================================
+
+See the issue tracker for temporary install workaround until I fix the packaging.
+
+See [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
+
+
 New Version 1.1.1
 =================
 
