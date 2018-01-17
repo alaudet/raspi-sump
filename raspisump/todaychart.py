@@ -20,6 +20,13 @@ try:
 except ImportError:
     import configparser # Python3
 
+# correct date formatting if using matplotlib 2.x.x
+if int(mpl.__version__.split(".")[0]) > 1:
+    mpl.rcParams['date.autoformatter.hour'] = '%H:%M:%S'
+else:
+    pass
+
+
 
 config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
