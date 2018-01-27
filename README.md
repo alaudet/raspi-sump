@@ -12,13 +12,19 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 Installing with pip9 (Raspbian Stretch)
 =======================================
 
-See the issue tracker for temporary install workaround until I fix the packaging.
+Pip versions > 7 default to Wheels which omits some folder setup in setup.py.
+If using Raspbian Stretch install as follows;
 
-See [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
+    sudo pip3 install --no-binary :all: raspisump
+
+This is a workaround until I fix the packaging.
+
+For more information, see [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
 
 
-New Version 1.1.1
-=================
+New in Version 1.1.1 and greater
+================================
+
 
 Python2 and 3 compatible.
 

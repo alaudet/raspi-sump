@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.1.2
+- Fix charts displaying improper hour formatting on x axis when using matplotlib version 2 in Raspbian Stretch.
+
 Version 1.1.1 
 - prevent application from logging negative waterlevels.
 
