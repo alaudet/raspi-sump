@@ -21,10 +21,6 @@ except ImportError:
     import configparser # Python3
 
 # correct date formatting if using matplotlib 2.x.x
-if int(mpl.__version__.split(".")[0]) > 1:
-    mpl.rcParams['date.autoformatter.hour'] = '%H:%M:%S'
-else:
-    pass
 
 
 
@@ -33,7 +29,11 @@ config.read('/home/pi/raspi-sump/raspisump.conf')
 
 configs = {'unit': config.get('pit', 'unit')}
 
+MPL_VERSION = int(mpl.__version__.split(".")[0]) # Matplotlib major version
 
+if MPL_VERSION > 1:
+    rcParams['date.autoformatter.hour'] = '%H:%M:%S' # Matplotlib 2.0 changed time formatting
+    
 def bytesdate2str(fmt, encoding='utf-8'):
     '''Convert strpdate2num from bytes to string as required in Python3.
 
@@ -59,7 +59,13 @@ def graph(csv_file, filename, bytes2str):
                              converters={0: bytes2str}
                              )
     fig = plt.figure(figsize=(10, 3.5))
-    fig.add_subplot(111, axisbg='white', frameon=False)
+    
+    # axisbg is deprecated in matplotlib 2.x. Maintain 1.x compatibility
+    if MPL_VERSION > 1:
+        fig.add_subplot(111, facecolor='white', frameon=False)
+    else:
+        fig.add_subplot(111,axisbg='white', frameon=False)
+    
     rcParams.update({'font.size': 9})
     plt.plot_date(x=date, y=value, ls='solid', linewidth=2, color='#FB921D',
                   fmt=':'
