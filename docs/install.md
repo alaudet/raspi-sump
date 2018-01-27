@@ -69,6 +69,11 @@ installed on your Pi.
 
 This will copy all the files you need into /home/pi/raspi-sump
 
+NOTE: If using pip version greater than 7 (Raspbian Stretch) you will need to
+use the following command in order to get all the files in /home/pi/raspi-sump.
+
+    sudo pip3 install --no-binary :all: raspisump
+
 
 Navigate to /home/pi/raspi-sump/ and move the sample config file
 to this directory.
