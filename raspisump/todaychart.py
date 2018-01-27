@@ -20,13 +20,8 @@ try:
 except ImportError:
     import configparser # Python3
 
-# correct date formatting if using matplotlib 2.x.x
-
-
-
 config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
-
 configs = {'unit': config.get('pit', 'unit')}
 
 MPL_VERSION = int(mpl.__version__.split(".")[0]) # Matplotlib major version
