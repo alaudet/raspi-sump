@@ -47,3 +47,9 @@ def test_email_content():
         assert_equals(end[0:9], 'Low Water')
     except:
         assert_equals(end[0:9], 'Sump Pump')
+
+
+def test_hostname_return():
+    '''Test that hostname is being returned for alert.'''
+    hostname = alerts.host_name()
+    assert type(hostname) == str

@@ -11,6 +11,7 @@ import os
 import time
 import smtplib
 from datetime import datetime
+import socket
 try:
     import ConfigParser as configparser  # Python2
 except ImportError:
@@ -49,6 +50,9 @@ except configparser.NoOptionError:
     configs['alert_when'] = 'high'
 
 
+def host_name():
+    return socket.gethostname()
+
 def unit_types():
     '''Determine  if inches or centimeters'''
 
@@ -65,6 +69,7 @@ def email_content(water_depth):
 
     time_of_day = time.strftime('%I:%M%P %Z')
     unit_type = unit_types()
+    hostname = host_name()
     email_contents = {'subject_high': 'Subject: Sump Pump Alert!',
                       'subject_low': 'Subject: Low Water Level Alert!',
                       'message_high': 'Critical! The sump pit water level is',
@@ -83,7 +88,7 @@ def email_content(water_depth):
         "To: {}".format(configs['email_to']),
         "{}".format(subject),
         "",
-        "{} - {} {} {}.".format(time_of_day, message, str(water_depth), unit_type),
+        "{} - {} - {} {} {}.".format(hostname, time_of_day, message, str(water_depth), unit_type),
         "Next alert in {} minutes".format(configs['alert_interval']),
         )
         )
