@@ -31,21 +31,9 @@ configs = {'email_to': config.get('email', 'email_to'),
            'smtp_tls': config.getint('email', 'smtp_tls'),
            'smtp_server': config.get('email', 'smtp_server'),
            'username': config.get('email', 'username'),
-           'password': config.get('email', 'password')
+           'password': config.get('email', 'password'),
+           'heartbeat_interval': config.getint('email', 'heartbeat_interval')
            }
-
-# If item in raspisump.conf add to configs dict above.  If not then provide
-# a default value
-try:
-    configs['heartbeat'] = config.getint('email', 'heartbeat')
-except configparser.NoOptionError:
-    configs['heartbeat'] = 0
-
-
-try:
-    configs['heartbeat_interval'] = config.getint('email', 'heartbeat_interval')
-except configparser.NoOptionError:
-    configs['heartbeat_interval'] = 10080 # 1 week
 
 
 def heartbeat_email_content():
@@ -88,6 +76,7 @@ def heartbeat_alerts():
     else:
         pass
 
+    '''Will add code here to write to the error log if email fails'''
     server.sendmail(configs['email_from'], recipients, email_body)
     server.quit()
 
@@ -107,9 +96,9 @@ def determine_if_heartbeat():
     else:
         with open(heartbeat_log, 'rt') as f:
             last_row = deque(csv.reader(f), 1)[0]
-            #print('last row is {}').format(last_row)
+            print('last row is {}'.format(last_row))
             last_email_sent = last_row[0]
-            #print('last_row[0] is {} ').format(last_email_sent)
+            print('last_row[0] is {} '.format(last_email_sent))
             current_time = time.strftime('%Y-%m-%d %H:%M:%S')
             last_heartbeat_time = datetime.strptime(
                 last_email_sent, '%Y-%m-%d %H:%M:%S'
@@ -120,8 +109,8 @@ def determine_if_heartbeat():
             print(time_now)
             print(last_heartbeat_time)
             print(current_time)
-            #print('delta is {} .').format(delta)
-            minutes_passed = delta.seconds / 60
+            print('delta is {} .'.format(delta))
+            minutes_passed = int((delta).total_seconds() / 60)
             print(minutes_passed)
 
             if minutes_passed >= heartbeat_interval_time:
@@ -131,6 +120,3 @@ def determine_if_heartbeat():
             else:
                 #pass
                 print("interval hasn't passed, don't send")
-
-
-'''only calculating minutes, not dates'''
