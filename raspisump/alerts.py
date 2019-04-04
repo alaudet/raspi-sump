@@ -11,7 +11,8 @@ import os
 import time
 import smtplib
 from datetime import datetime
-import socket
+# import socket
+import platform
 try:
     import ConfigParser as configparser  # Python2
 except ImportError:
@@ -34,8 +35,7 @@ configs = {'email_to': config.get('email', 'email_to'),
            'username': config.get('email', 'username'),
            'password': config.get('email', 'password'),
            'unit': config.get('pit', 'unit')
-           }
-
+          }
 # If item in raspisump.conf add to configs dict above.  If not then provide
 # a default value
 try:
@@ -50,8 +50,14 @@ except configparser.NoOptionError:
     configs['alert_when'] = 'high'
 
 
+def current_time():
+    '''Return the current time as reported by the OS.'''
+    return time.strftime('%I:%M%P %Z')
+
 def host_name():
-    return socket.gethostname()
+    '''Return the Raspberry Pi's Hostname'''
+    #return socket.gethostname()
+    return platform.node()
 
 def unit_types():
     '''Determine  if inches or centimeters'''
@@ -67,7 +73,7 @@ def unit_types():
 def email_content(water_depth):
     '''Build the contents of email body which will be sent as an alert'''
 
-    time_of_day = time.strftime('%I:%M%P %Z')
+    time_of_day = current_time()
     unit_type = unit_types()
     hostname = host_name()
     email_contents = {'subject_high': 'Subject: Sump Pump Alert!',

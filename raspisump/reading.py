@@ -12,7 +12,7 @@ try:
 except ImportError:
     import configparser  # Python3
 from hcsr04sensor import sensor
-from raspisump import log, alerts
+from raspisump import log, alerts, heartbeat
 
 config = configparser.RawConfigParser()
 config.read('/home/pi/raspi-sump/raspisump.conf')
@@ -33,6 +33,19 @@ try:
 except configparser.NoOptionError:
     configs['alert_when'] = 'high'
 
+
+try:
+    configs['heartbeat'] = config.getint('email', 'heartbeat')
+except configparser.NoOptionError:
+    configs['heartbeat'] = 0
+
+
+def initiate_heartbeat():
+    '''Initiate the heartbeat email process if needed'''
+    if configs['heartbeat'] == 0:
+        pass
+    else:
+        heartbeat.determine_if_heartbeat()
 
 def water_reading():
     '''Initiate a water level reading.'''
@@ -65,6 +78,7 @@ def water_depth():
     critical_water_level = configs['critical_water_level']
     water_depth = water_reading()
 
+
     if water_depth < 0.0:
         water_depth = 0.0
     log.log_reading(water_depth)
@@ -76,3 +90,4 @@ def water_depth():
     else:
         pass
 
+    initiate_heartbeat()

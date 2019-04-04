@@ -49,3 +49,12 @@ def log_errors(notification):
     error_log.write("\n")
     error_log.close()
 
+
+def log_heartbeat(notification):
+    '''Log all email sms heartbeat notification failures'''
+    heartbeat_log = open("/home/pi/raspi-sump/logs/heartbeat_log", 'a')
+    heartbeat_log.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
+    heartbeat_log.write(notification),
+    heartbeat_log.write("\n")
+    heartbeat_log.close()
+

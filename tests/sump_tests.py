@@ -1,6 +1,8 @@
 from nose.tools import *
 import raspisump.reading as reading
 import raspisump.alerts as alerts
+import raspisump.heartbeat as heartbeat
+
 try:
     import ConfigParser as configparser  # Python2
 except ImportError:
@@ -48,6 +50,13 @@ def test_email_content():
     except:
         assert_equals(end[0:9], 'Sump Pump')
 
+def test_heartbeat_content():
+    '''Test that the right email hertbeat is being returned.'''
+    heartbeat_email_contents = heartbeat.heartbeat_email_content()
+    assert type(heartbeat_email_contents) == str
+    beg, sep, end = heartbeat_email_contents.partition('Subject: ')
+    assert_equals(beg[0:5], 'From:')
+    assert_equals(end[0:5], 'Raspi')
 
 def test_hostname_return():
     '''Test that hostname is being returned for alert.'''

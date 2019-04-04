@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.2
+- Add hostname to email alert body to better identify which instance of raspisump is alerting
+- Add a heartbeat email at a user defined interval  to ensure that email is working as intended
+
 Version 1.1.2
 - Fix charts displaying improper hour formatting on x axis when using matplotlib version 2 in Raspbian Stretch.
 
