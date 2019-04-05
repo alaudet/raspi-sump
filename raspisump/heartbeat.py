@@ -52,7 +52,7 @@ def heartbeat_email_content():
         "{}".format(subject),
         "",
         "{} - {} - {}.".format(hostname, time_of_day, message),
-        "Next alert in {} minutes".format(configs['heartbeat_interval']),
+        "Next email test in {} minutes".format(configs['heartbeat_interval']),
         )
         )
 
@@ -76,7 +76,6 @@ def heartbeat_alerts():
     else:
         pass
 
-    '''Will add code here to write to the error log if email fails'''
     server.sendmail(configs['email_from'], recipients, email_body)
     server.quit()
 
@@ -87,36 +86,24 @@ def determine_if_heartbeat():
 
     heartbeat_interval_time = configs['heartbeat_interval']
     heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
-    print(heartbeat_interval_time)
     if not os.path.isfile(heartbeat_log):
-        #heartbeat_alerts()
-        print("create file and send the email")
+        heartbeat_alerts()
         log.log_heartbeat("Heartbeat Email Sent")
 
     else:
         with open(heartbeat_log, 'rt') as f:
             last_row = deque(csv.reader(f), 1)[0]
-            print('last row is {}'.format(last_row))
             last_email_sent = last_row[0]
-            print('last_row[0] is {} '.format(last_email_sent))
             current_time = time.strftime('%Y-%m-%d %H:%M:%S')
             last_heartbeat_time = datetime.strptime(
                 last_email_sent, '%Y-%m-%d %H:%M:%S'
             )
             time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
             delta = (time_now - last_heartbeat_time)
-            print(delta)
-            print(time_now)
-            print(last_heartbeat_time)
-            print(current_time)
-            print('delta is {} .'.format(delta))
             minutes_passed = int((delta).total_seconds() / 60)
-            print(minutes_passed)
 
             if minutes_passed >= heartbeat_interval_time:
-                #heartbeat_alerts()
-                print("File created, send the email")
+                heartbeat_alerts()
                 log.log_heartbeat("Heartbeat Email Sent")
             else:
-                #pass
-                print("interval hasn't passed, don't send")
+                pass
