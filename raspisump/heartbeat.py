@@ -31,10 +31,13 @@ configs = {'email_to': config.get('email', 'email_to'),
            'smtp_tls': config.getint('email', 'smtp_tls'),
            'smtp_server': config.get('email', 'smtp_server'),
            'username': config.get('email', 'username'),
-           'password': config.get('email', 'password'),
-           'heartbeat_interval': config.getint('email', 'heartbeat_interval')
+           'password': config.get('email', 'password')
            }
 
+try:
+    configs['heartbeat_interval'] = config.getint('email', 'heartbeat_interval')
+except configparser.NoOptionError:
+    configs['heartbeat_interval'] = 10080
 
 def heartbeat_email_content():
 
