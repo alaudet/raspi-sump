@@ -22,24 +22,28 @@ This is a workaround until I fix the packaging.
 For more information, see [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
 
 
-New in Version 1.1.1 and greater
-================================
+New in Version 1.2 
+==================
+
+Added improvements to SMS/Email Alerts
+
+1 - Alerts now contain hostname to better identify which instance of Raspi-Sump is
+reporting.
+
+2 - Heartbeat SMS/Email notifications can be enabled to send at a user defined interval, to let you know
+that alerts are working.  
 
 
-Python2 and 3 compatible.
+Added to [Email] section of raspisump.conf
 
-Better error logging to detect faulty sensors and/or cables.
+    heartbeat = 0 or 1 (disabled or enabled)
+    heartbeat_interval = user defined number of minutes between notifications
+
+If configuration items are not present in raspisump.conf the default is set to
+off (no notifications)
 
 
-See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) 
-for changes to all versions.
-
-**Important information if using GMAIL to send alerts**
-
-See issue tracker;
-
-https://github.com/alaudet/raspi-sump/issues/6
- 
+For more information see [Issue 7](https://github.com/alaudet/raspi-sump/issues/7).
 
 QUICK INSTALL 
 =============

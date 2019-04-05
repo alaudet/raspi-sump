@@ -11,7 +11,6 @@ import os
 import time
 import smtplib
 from datetime import datetime
-# import socket
 import platform
 try:
     import ConfigParser as configparser  # Python2
@@ -43,7 +42,6 @@ try:
 except configparser.NoOptionError:
     configs['alert_interval'] = 5
 
-# same idea as above.
 try:
     configs['alert_when'] = config.get('pit', 'alert_when')
 except configparser.NoOptionError:
@@ -56,7 +54,6 @@ def current_time():
 
 def host_name():
     '''Return the Raspberry Pi's Hostname'''
-    #return socket.gethostname()
     return platform.node()
 
 def unit_types():
