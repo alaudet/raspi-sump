@@ -5,3 +5,8 @@ dist
 *egg-info
 notebook/
 ttt.py
+/temp
+nosetests.xml
+.noseids
+.vscode
+venv

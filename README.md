@@ -151,12 +151,8 @@ improve it please let me know.
 
 Contributing
 ============
-If you add a useful feature please consider forking Raspi-Sump and contributing
-back by issuing a Pull Request.  Before issuing the pull request open an issue
-in the issue tracker.  
 
-New features should be applied against the devel branch and not master.
-Contributions against the master branch will be rejected.
+Please refer to CONTRIBUTING.md in the root of the repository for contribution guidelines.
 
 Donate
 ======
