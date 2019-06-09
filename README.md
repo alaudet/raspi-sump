@@ -9,8 +9,8 @@ Currently the system monitors the water level in your pit at defined intervals. 
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
 
-Installing with pip9 (Raspbian Stretch)
-=======================================
+# Installing with pip9 (Raspbian Stretch)
+
 
 Pip versions > 7 default to Wheels which omits some folder setup in setup.py.
 If using Raspbian Stretch install as follows;
@@ -22,8 +22,8 @@ This is a workaround until I fix the packaging.
 For more information, see [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
 
 
-New in Version 1.2 
-==================
+# New in Version 1.2 
+
 
 Added improvements to SMS/Email Alerts
 
@@ -45,11 +45,11 @@ off (no notifications)
 
 For more information see [Issue 7](https://github.com/alaudet/raspi-sump/issues/7).
 
-QUICK INSTALL 
-=============
+# QUICK INSTALL 
 
-Python 3 Recommended for Raspbian Jessie
-=====================================
+
+# Python 3 Recommended for Raspbian Jessie
+
 
 Install the pip package manager (if not present on your pi).
 
@@ -83,8 +83,8 @@ Read the configuration docs copied during setup on your pi at the following loca
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
-Upgrading from Python2 to Python3 (Raspbian Jessie)
-=================================
+# Upgrading from Python2 to Python3 (Raspbian Jessie)
+
 
     sudo pip uninstall raspisump
     sudo pip3 install raspisump
@@ -93,11 +93,11 @@ Upgrading from Python2 to Python3 (Raspbian Jessie)
 Your configuration file will be preserved in /home/pi/raspi-sump/
 
 
-Python2 install
-===============
+# Python2 install
 
-Recommended for Raspbian Wheezy
-===============================
+
+## Recommended for Raspbian Wheezy
+
 
 Raspi-sump was originally written in Python 2 and is still compatible with the
 older version.
@@ -122,15 +122,15 @@ All apt-get installs should be done with;
 
     sudo apt-get install python-<package name>
 
-More Info
-=========
+# More Info
+
 Further details provided at http://www.linuxnorth.org/raspi-sump/
 
 An example hourly updating graph is available for view.
 http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
-Disclaimer
-==========
+# Disclaimer
+
 You are welcome to use Raspi-Sump but there is no guarantee it will work. Your house may still flood if your sump pump fails. This software comes with no warranty. See License details.
 
 This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
@@ -144,18 +144,18 @@ Best practices should also include:
 
 Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
 
-License
-=======
+# License
+
 MIT License.  I want you to do whatever you want with Raspi-Sump.  If you
 improve it please let me know.
 
-Contributing
-============
+# Contributing
+
 
 Please refer to CONTRIBUTING.md in the root of the repository for contribution guidelines.
 
-Donate
-======
+# Donate
+
 
 [Your Donation is Appreciated](https://www.linuxnorth.org/donate/)
 
