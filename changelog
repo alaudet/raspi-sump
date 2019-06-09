@@ -1,6 +1,11 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.2.1
+- Add section to conf file to change line color in the charts.
+  [charts]
+  line_color = FB921D  #default
+
 Version 1.2
 - Add hostname to email alert body to better identify which instance of raspisump is alerting
 - Add a heartbeat email at a user defined interval to ensure that email is working as intended
