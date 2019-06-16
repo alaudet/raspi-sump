@@ -17,13 +17,13 @@ If using Raspbian Stretch install as follows;
 
     sudo pip3 install --no-binary :all: raspisump
 
-This is a workaround until I fix the packaging.
-
-For more information, see [Issue #23](https://github.com/alaudet/raspi-sump/issues/23) raspisump installs improperly with PIP9
 
 
 # New in Version 1.2 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
 Added improvements to SMS/Email Alerts
 
@@ -46,10 +46,15 @@ off (no notifications)
 For more information see [Issue 7](https://github.com/alaudet/raspi-sump/issues/7).
 
 # QUICK INSTALL 
+<<<<<<< HEAD
+
+## Python 3 Recommended for Raspbian Jessie and Stretch
+=======
 
 
 # Python 3 Recommended for Raspbian Jessie
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
 Install the pip package manager (if not present on your pi).
 
@@ -58,7 +63,7 @@ Install the pip package manager (if not present on your pi).
 
 Install Raspi-Sump.
 
-    sudo pip3 install raspisump
+    sudo pip3 install --no-binary :all: raspisump
 
 Upgrading an existing version
 
@@ -84,7 +89,10 @@ They are also available on github https://github.com/alaudet/raspi-sump/blob/mas
 
 
 # Upgrading from Python2 to Python3 (Raspbian Jessie)
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
     sudo pip uninstall raspisump
     sudo pip3 install raspisump
@@ -93,11 +101,22 @@ They are also available on github https://github.com/alaudet/raspi-sump/blob/mas
 Your configuration file will be preserved in /home/pi/raspi-sump/
 
 
+<<<<<<< HEAD
+# Python2 install (End of Life is January 1, 2020)
+
+Python2 installs of Raspi-Sump will no longer be supported.
+
+# Recommended for Raspbian Wheezy
+
+Note:  Please upgrade to Raspbian Stretch.  I will no longer be testing
+Raspi-Sump on Wheezy effective January 1, 2020.
+=======
 # Python2 install
 
 
 ## Recommended for Raspbian Wheezy
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
 Raspi-sump was originally written in Python 2 and is still compatible with the
 older version.
@@ -150,13 +169,17 @@ MIT License.  I want you to do whatever you want with Raspi-Sump.  If you
 improve it please let me know.
 
 # Contributing
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
 Please refer to CONTRIBUTING.md in the root of the repository for contribution guidelines.
 
 # Donate
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0e288cad60cb7516886f5edb05d8ba2e94d230b7
 
 [Your Donation is Appreciated](https://www.linuxnorth.org/donate/)
-
-
