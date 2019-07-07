@@ -2,7 +2,7 @@ Raspi-Sump Changelog
 ====================
 
 Version 1.2.2
-- hcsr04sensor v1.6 module no longer handles rounding of readings.  Now handled by the raspi-sump
+- hcsr04sensor v1.6 module no longer handles rounding of readings.  Now handled by Raspi-Sump
 - reading.py now using depth method in hcsr04sensor as depth_metric and depth_imperial are deprecated.
 
 Version 1.2.1

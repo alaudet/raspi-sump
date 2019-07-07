@@ -51,7 +51,6 @@ def water_reading():
     pit_depth = configs["pit_depth"]
     trig_pin = configs["trig_pin"]
     echo_pin = configs["echo_pin"]
-    # round_to = 1
     temperature = configs["temperature"]
     unit = configs["unit"]
 
@@ -66,10 +65,6 @@ def water_reading():
         exit(0)
 
     return round(value.depth(raw_distance, pit_depth), 1)
-    # if unit == "imperial":
-    #     return round(value.depth_imperial(raw_distance, pit_depth), 1)
-    # if unit == "metric":
-    #     return round(value.depth_metric(raw_distance, pit_depth), 1)
 
 
 def water_depth():
