@@ -47,6 +47,7 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Home Automation",
         "License :: OSI Approved :: MIT License",
     ],
