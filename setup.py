@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.2.2"
+version = "1.2.3"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -36,7 +36,7 @@ setup(
     name="raspisump",
     version=version,
     description="A sump pit monitoring system for Raspberry Pi",
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     long_description=open("./README.md", "r").read(),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -60,7 +60,7 @@ setup(
     packages=["raspisump"],
     scripts=raspi_sump_files,
     data_files=add_files,
-    install_requires=["hcsr04sensor"],
+    install_requires=["hcsr04sensor>=1.6"],
 )
 
 if os.path.isdir(homedir):
