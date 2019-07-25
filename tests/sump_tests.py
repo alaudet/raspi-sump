@@ -16,11 +16,6 @@ configs = {
     "unit": config.get("pit", "unit"),
 }
 
-try:
-    configs["alert_when"] = config.get("pit", "alert_when")
-except configparser.NoOptionError:
-    configs["alert_when"] = "high"
-
 
 def test_water_reading():
     """Test that a proper reading is being returned."""

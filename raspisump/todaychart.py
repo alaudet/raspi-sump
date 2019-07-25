@@ -26,11 +26,6 @@ config = configparser.RawConfigParser()
 config.read("/home/pi/raspi-sump/raspisump.conf")
 configs = {"unit": config.get("pit", "unit")}
 
-try:
-    configs["line_color"] = config.get("charts", "line_color")
-except configparser.NoSectionError:
-    configs["line_color"] = "FB921D"
-
 
 MPL_VERSION = int(mpl.__version__.split(".")[0])  # Matplotlib major version
 
