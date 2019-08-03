@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 2 Alpha
+- 
+
 Version 1.2.3
 - pinned to hcsr04sensor dependency >=1.6 in setup.py
 

@@ -1,3 +1,8 @@
+# VERSION 2 ALPHA
+V2 branches are development/alpha for upcoming 2.0 release
+
+
+
 Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
 Ultrasonic Sensor (HC-SR04)
 

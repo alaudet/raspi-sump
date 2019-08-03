@@ -26,17 +26,6 @@ configs = {
     "unit": config.get("pit", "unit"),
 }
 
-# If item in raspisump.conf add to configs dict. If not provide defaults.
-try:
-    configs["alert_when"] = config.get("pit", "alert_when")
-except configparser.NoOptionError:
-    configs["alert_when"] = "high"
-
-try:
-    configs["heartbeat"] = config.getint("email", "heartbeat")
-except configparser.NoOptionError:
-    configs["heartbeat"] = 0
-
 
 def initiate_heartbeat():
     """Initiate the heartbeat email process if needed"""

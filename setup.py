@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.2.3"
+version = "2.0.1alpha"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -39,16 +39,12 @@ setup(
     long_description_content_type="text/markdown",
     long_description=open("./README.md", "r").read(),
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 1 - Planning",
         "Environment :: Console",
         "Intended Audience :: End Users/Desktop",
         "Natural Language :: English",
         "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.2",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3",
         "Topic :: Home Automation",
         "License :: OSI Approved :: MIT License",
     ],
