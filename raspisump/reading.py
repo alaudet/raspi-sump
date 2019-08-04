@@ -24,7 +24,19 @@ configs = {
     "trig_pin": config.getint("gpio_pins", "trig_pin"),
     "echo_pin": config.getint("gpio_pins", "echo_pin"),
     "unit": config.get("pit", "unit"),
+    "database": config.get("use_database", "database_name"),
 }
+
+# If item in raspisump.conf add to configs dict. If not provide defaults.
+try:
+    configs["alert_when"] = config.get("pit", "alert_when")
+except configparser.NoOptionError:
+    configs["alert_when"] = "high"
+
+try:
+    configs["heartbeat"] = config.getint("email", "heartbeat")
+except configparser.NoOptionError:
+    configs["heartbeat"] = 0
 
 
 def initiate_heartbeat():
@@ -42,6 +54,7 @@ def water_reading():
     echo_pin = configs["echo_pin"]
     temperature = configs["temperature"]
     unit = configs["unit"]
+    database_name = configs["database_name"]
 
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit)
 
@@ -67,6 +80,9 @@ def water_depth():
     if water_depth < 0.0:
         water_depth = 0.0
     log.log_reading(water_depth)
+
+    if configs["use_database"] == 1:
+        log.log_database(water_depth, database_name)
 
     if water_depth > critical_water_level and configs["alert_when"] == "high":
         alerts.determine_if_alert(water_depth)

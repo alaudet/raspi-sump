@@ -8,7 +8,7 @@
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-
+import database
 
 def log_reading(water_depth):
     '''Log time and water depth reading.'''
@@ -58,3 +58,6 @@ def log_heartbeat(notification):
     heartbeat_log.write("\n")
     heartbeat_log.close()
 
+def log_database(water_depth, database_name):
+    '''Log time and water depth reading to sqlite3 database.'''
+    def write_database(water_depth, database_name)
