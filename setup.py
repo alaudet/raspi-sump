@@ -30,6 +30,7 @@ add_files = [
     (homedir + "web/images", ["conf/web/images/logo.png"]),
     (homedir + "web/css", ["conf/web/css/index.html"]),
     (homedir + "web/css", ["conf/web/css/raspi.css"]),
+    (homedir + "data", ["conf/data/README.md"]),
 ]
 
 setup(
