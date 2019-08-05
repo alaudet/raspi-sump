@@ -67,7 +67,7 @@ def write_database(water_depth, databasename):
 	print ( '\t      >>>----> ERROR: PK violation...' )
 
 # Committing changes...
-conn.commit()
-#   End DB insert...
+    conn.commit()
 
-conn.close
+#   End DB insert & close connection
+    conn.close
