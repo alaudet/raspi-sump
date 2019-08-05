@@ -58,7 +58,7 @@ def log_heartbeat(notification):
     heartbeat_log.write("\n")
     heartbeat_log.close()
 
-def log_database(water_depth, database_name)
+def log_database(water_depth, database_name):
     '''Log time and water depth reading to sqlite3 database.'''
     write_database(water_depth, database_name)
 
