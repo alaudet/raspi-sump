@@ -60,9 +60,9 @@ def write_database(water_depth, databasename):
     sqlStmt = 'insert into ' + databasename + ' values ( (DATETIME('now'), ' + waterdepth + ');'
     #print 'sqlStmt: ', sqlStmt
 
-try:
+    try:
 	c.execute( sqlStmt)
-except sqlite3.IntegrityError:
+    except sqlite3.IntegrityError:
 	True
 	print ( '\t      >>>----> ERROR: PK violation...' )
 
