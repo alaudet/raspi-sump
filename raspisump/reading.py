@@ -54,7 +54,6 @@ def water_reading():
     echo_pin = configs["echo_pin"]
     temperature = configs["temperature"]
     unit = configs["unit"]
-    database_name = configs["database_name"]
 
     value = sensor.Measurement(trig_pin, echo_pin, temperature, unit)
 
