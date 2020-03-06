@@ -17,14 +17,11 @@ of Python3 matplolib.
 Install Dependencies
 ====================
 
-1) Check to ensure that Python3 is installed on Raspbian Linux (Jessie).
+1) Check to ensure that Python3 is installed on Raspbian Linux.
 
     python3
 
-You should see the interpreter open and the version of Python3.  Raspbian
-Wheezy uses Version 3.2 and Jessie uses 3.4 at the time of this writing. If
-you are running Wheezy I recommend installing the Python2 version of
-Raspi-Sump.
+You should see the interpreter open and the version of Python3.  
 
 To exit the interpreter;
 
@@ -43,8 +40,6 @@ as follows;
 
     sudo apt-get install python3-matplotlib
 
-    **Note this assumes Raspbian Jessie as Wheezy does not provide an packaged
-    version of python3-matplotlib.
 
 Matplotlib should install Numpy as a dependency but if you need to install
 it manually;
@@ -134,8 +129,6 @@ Google soldering resistors for good information on how to do this if you have ne
 Starting Raspi-Sump
 ===================
 To start raspi-sump manually issue the command;
-
-(if python throws a memory access error run rsump.py with sudo)
 
     rsump.py
 

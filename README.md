@@ -9,11 +9,11 @@ Currently the system monitors the water level in your pit at defined intervals. 
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
 
-# Installing with pip9 (Raspbian Stretch)
+# Installing with pip version 9 or greater
 
 
 Pip versions > 7 default to Wheels which omits some folder setup in setup.py.
-If using Raspbian Stretch install as follows;
+If using Raspbian Stretch or later versions install as follows;
 
     sudo pip3 install --no-binary :all: raspisump
 
@@ -42,8 +42,6 @@ off (no notifications)
 For more information see [Issue 7](https://github.com/alaudet/raspi-sump/issues/7).
 
 # QUICK INSTALL 
-
-## Python 3 Recommended for Raspbian Jessie and Stretch
 
 
 Install the pip package manager (if not present on your pi).
@@ -89,41 +87,8 @@ Your configuration file will be preserved in /home/pi/raspi-sump/
 
 # Python2 install (End of Life is January 1, 2020)
 
-Python2 installs of Raspi-Sump will no longer be supported.
+Python2 installs of Raspi-Sump are no longer be supported.
 
-# Recommended for Raspbian Wheezy
-
-Note:  Please upgrade to Raspbian Stretch.  I will no longer be testing
-Raspi-Sump on Wheezy effective January 1, 2020.
-
-# Python2 install
-
-
-## Recommended for Raspbian Wheezy
-
-
-Raspi-sump was originally written in Python 2 and is still compatible with the
-older version.
-
-On Raspbian Wheezy it may be better to just stick with Python 2 as there are no
-packaged versions of python3-matplotlib.  You will have to install it manually
-with pip3.2.
-
-Matplotlib can be a little tricky when installing with pip.  It depends on many
-packages and requires some fiddling to get to work.  It's just easier to use
-apt-get.  However it will work fine with Python3 if you manage to install
-matplotlib.  There is no extra functionality in the Python3 version of
-Raspi-Sump, it's just a compatibility upgrade.  If Python2 version is working
-fine for you right now you could just stick with it as it will continue to be
-identical.
-
-To run in python 2 install with pip instead of pip3
-
-    sudo pip install raspisump
-
-All apt-get installs should be done with;
-
-    sudo apt-get install python-<package name>
 
 # More Info
 
