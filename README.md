@@ -10,7 +10,7 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 
 # Discord Group 30 day trial
 
-21-03-2020  - We are currently doing a 30 trial on Discord for Raspi-Sump users. If you are interested send me an email (alaudet@linuxnorth.org) and I will send you an invite link.
+21-03-2020  - We are currently doing a 30 day trial on Discord for Raspi-Sump users. If you are interested send me an email (alaudet@linuxnorth.org) and I will send you an invite link.
 
 Discuss and get support from other users.
 
