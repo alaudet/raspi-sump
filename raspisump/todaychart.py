@@ -36,7 +36,7 @@ MPL_VERSION = int(mpl.__version__.split(".")[0])  # Matplotlib major version
 
 if MPL_VERSION > 1:
     rcParams[
-        "date.autoformatter.hour"
+        "date.autoformatter.minute"
     ] = "%H:%M:%S"  # Matplotlib 2.0 changed time formatting
 
 
