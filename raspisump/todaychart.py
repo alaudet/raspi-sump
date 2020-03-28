@@ -95,6 +95,10 @@ def graph(csv_file, filename, bytes2str):
     plt.xlabel("Time of Day")
     plt.xticks(rotation=30)
     plt.grid(True, color="#ECE5DE", linestyle="solid")
-    plt.tick_params(axis="x", bottom="off", top="off")
-    plt.tick_params(axis="y", left="off", right="off")
+    if MPL_VERSION < 3:
+        plt.tick_params(axis="x", bottom="off", top="off")
+        plt.tick_params(axis="y", left="off", right="off")
+    else:
+        plt.tick_params(axis="x", bottom=False, top=False)
+        plt.tick_params(axis="y", left=False, right=False)
     plt.savefig(filename, dpi=72)
