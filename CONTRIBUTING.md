@@ -9,9 +9,16 @@ Contributions are welcome.
 
 3) All additions to version 1.x must work for the user without modifying the raspisump.conf file.  You can add items to the conf but the code must provide a default value if the conf file value is missing.  Version 2 will refactor the changes if/when it is released.
 
-4) All code submitted must be your own or be allowable to distribute under the MIT license.
+4) All code submitted must be your own or be allowable to re-distribute under the MIT License.  
 
-5) I can't promise that all new features will be accepted.  However the MIT license allows/welcomes you to fork the code and release an altered version under any license that you like.  Please see the requirements under the MIT license when doing so.
+5) Raspi-Sump should not have a dependency on external services that require a login in order to use.  Please use available Python3 libraries when adding new functionality.  Example: Services like Twilio for alerts will not be included in the official version of Raspi-Sump.  You are free to fork the 
+project and distribute under a different name if that is the direction you would like to go.
 
-6) Make sure your changes work before issuing the pull request.  Adding a nosetest is welcome.  Make sure any current nosetests pass.
+6) Please reasonably follow PEP8 guidelines for your code.  For example, if you create a function, give it a docstring so others know what you are doing.  Add comments to make your code clearer to others reading it. If your code is a mess it will not be included.  
+
+7) I can't promise that all new features will be accepted.  However the MIT license allows/welcomes you to fork the code and release an altered version under any license that you like.  Please see the requirements under the MIT license when doing so.
+
+8) Make sure your changes work before issuing the pull request.  Adding a nosetest is welcome.  Make sure any current nosetests pass.
+
+9) If you want to contribute we have a Discord group with a #code-discussion forum.  It is not mandatory to join but highly encouraged and makes collaboration much easier.  Email alaudet@linuxnorth.org to request an invite link.
 
