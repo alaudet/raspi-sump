@@ -283,9 +283,34 @@ Enable directory listing for historical charts
 
     sudo lighttpd-enable-mod dir-listing
 
-Restart the web server
+Restart the web server Raspian < 10
 
     sudo /etc/init.d/lighttpd force-reload
+
+The lighttpd web server software that ships on Raspbian Buster made a change to the naming of a file for mime.types.
+There are two ways you can address this issue, only select one of them;
+
+A. Create a softlink to the new file with the old naming convention;
+    
+	cd /usr/share/lighttpd
+	sudo ln -s create-mime.conf.pl create-mime.assign.pl
+	sudo /etc/init.d/lighttpd stop
+	sudo /etc/init.d/lighttpd stop
+
+B. Modify the lighttpd.conf file with the proper entry and restart the webserver.
+
+	sudo nano /etc/lighttpd/lighttpd.conf
+    
+	Replace the following line;
+	include_shell "/usr/share/lighttpd/create-mime.assign.pl"
+    
+	With this line;
+	include_shell "/usr/share/lighttpd/create-mime.conf.pl"
+
+Save the file and restart the webserver
+
+    sudo /etc/init.d/lighttpd stop
+    sudo /etc/init.d/lighttpd start
 
 
 Create a cron job to generate an hourly graph of your sump pit activity for
