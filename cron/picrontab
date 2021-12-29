@@ -1,5 +1,5 @@
-*/1 * * * *  sudo /usr/local/bin/rsump.py
-59 * * * * * /usr/local/bin/rsumpwebchart.py
+*/1 * * * *  sudo /usr/local/bin/rsump.py &> /dev/null
+59 * * * * * /usr/local/bin/rsumpwebchart.py &> /dev/null
 
 # if running raspisump as a continuous process run rsumpmonitor.py every 5 minutes
-*/5 * * * * sudo /usr/local/bin/rsumpmonitor.py
+*/5 * * * * sudo /usr/local/bin/rsumpmonitor.py &> /dev/null

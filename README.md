@@ -8,11 +8,16 @@ Ultrasonic Sensor (HC-SR04)
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-# Discord Group 30 day trial
+# Supported Versions of Raspbian
 
-21-03-2020  - We are currently doing a 30 day trial on Discord for Raspi-Sump users. If you are interested send me an email (alaudet@linuxnorth.org) and I will send you an invite link.
+Raspi-Sump is currently supported on Raspbian OS (Buster or Stretch).
+It is not yet supported on Raspberry Pi OS (Bullseye) but will be in the near future.
 
-Discuss and get support from other users.
+# Discord Group
+
+Discuss and get support from other users. Email (alaudet@linuxnorth.org) for an invite link.
+
+
 
 
 # Installing with pip version 9 or greater

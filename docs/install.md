@@ -5,14 +5,6 @@ If you choose to do this you do it at your own risk.
 
 Installation instructions assume Python3 on Raspbian
 
-To install for Python2 simply use pip instead of pip3 and for package installs
-use with apt-get python-<package name> instead of python3-<package name>
-
-If using the older Raspbian Wheezy release I recommend you stick with the
-Python 2 install to avoid having to install Matplotlib with pip instead of
-apt-get. However it will still work under Wheezy with a pip installed version
-of Python3 matplolib.
-
 
 Install Dependencies
 ====================
@@ -138,14 +130,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 2 - enter line in crontab as follows;
 
-    */1 * * * * /usr/local/bin/rsump.py
-
-
-***Note: On Raspbian Wheezy it appears that you need to access GPIO pins with
-sudo even with version 0.6x of RPi.GPIO which was supposed to address that
-issue.  If you get a message stating that
-access to /dev/mem requires elevated privileges then add sudo in front of
-/usr/local/bin/rsump.py 
+    */1 * * * * /usr/local/bin/rsump.py &> /dev/null
 
 
 3 - Save crontab
