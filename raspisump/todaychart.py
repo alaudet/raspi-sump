@@ -40,32 +40,11 @@ if MPL_VERSION > 1:
     ] = "%H:%M:%S"  # Matplotlib 2.0 changed time formatting
 
 
-def bytesdate2str(fmt, encoding="utf-8"):
-    """Convert strpdate2num from bytes to string as required in Python3.
-
-    This is a workaround as described in the following tread;
-    https://github.com/matplotlib/matplotlib/issues/4126/
-
-    Credit to github user cimarronm for this workaround.
-    """
-
-    # strconverter = mdates.strpdate2num(fmt)
-    strconverter = mdates.datestr2num(fmt)
-
-    def bytesconverter(b):
-        s = b.decode(encoding)
-        return strconverter(s)
-
-    return bytesconverter
-
-
 def graph(csv_file, filename):
     """Create a line graph from a two column csv file."""
 
     unit = configs["unit"]
-    # date, value = np.loadtxt(
-    #    csv_file, delimiter=",", unpack=True, converters={0: bytes2str}
-    # )
+
     date, value = np.loadtxt(
         csv_file,
         delimiter=",",
