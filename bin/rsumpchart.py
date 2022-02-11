@@ -12,13 +12,15 @@ from raspisump import todaychart
 
 
 def main():
-    '''Initiate todaychart.py module to graph sump pit activity.'''
+    """Initiate todaychart.py module to graph sump pit activity."""
     csv_file = "/home/pi/raspi-sump/csv/waterlevel-{}.csv".format(
-        time.strftime('%Y%m%d')
-        )
+        time.strftime("%Y%m%d")
+    )
     filename = "/home/pi/raspi-sump/charts/today.png"
-    bytes2str = todaychart.bytesdate2str('%H:%M:%S')
-    todaychart.graph(csv_file, filename, bytes2str)
+    # bytes2str = todaychart.bytesdate2str('%H:%M:%S')
+    # todaychart.graph(csv_file, filename, bytes2str)
+    todaychart.graph(csv_file, filename)
+
 
 if __name__ == "__main__":
     main()

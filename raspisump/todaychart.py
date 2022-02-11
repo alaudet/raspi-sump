@@ -49,7 +49,8 @@ def bytesdate2str(fmt, encoding="utf-8"):
     Credit to github user cimarronm for this workaround.
     """
 
-    strconverter = mdates.strpdate2num(fmt)
+    # strconverter = mdates.strpdate2num(fmt)
+    strconverter = mdates.datestr2num(fmt)
 
     def bytesconverter(b):
         s = b.decode(encoding)
@@ -58,13 +59,20 @@ def bytesdate2str(fmt, encoding="utf-8"):
     return bytesconverter
 
 
-def graph(csv_file, filename, bytes2str):
+def graph(csv_file, filename):
     """Create a line graph from a two column csv file."""
 
     unit = configs["unit"]
+    # date, value = np.loadtxt(
+    #    csv_file, delimiter=",", unpack=True, converters={0: bytes2str}
+    # )
     date, value = np.loadtxt(
-        csv_file, delimiter=",", unpack=True, converters={0: bytes2str}
+        csv_file,
+        delimiter=",",
+        unpack=True,
+        converters={0: lambda x: mdates.datestr2num(x.decode("utf8"))},
     )
+
     fig = plt.figure(figsize=(10, 3.5))
 
     # axisbg is deprecated in matplotlib 2.x. Maintain 1.x compatibility
