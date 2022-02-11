@@ -3,16 +3,15 @@ Install
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
 
-Installation instructions assume Python3 on Raspbian.
+Installation instructions assume Python3 on Raspberry Pi OS 11 or Raspbian version 10 or 9.
 
 Supported OS Versions
 =====================
+Raspberry Pi OS 11 (Bullseye)
 
 Raspbian OS 10 (Buster)
 
 Raspbian OS 9 (Stretch) - Support ends June 30, 2022
-
-Note: Raspberry Pi OS 11 (Bullseye) is not yet supported but will be in the near future.
 
 
 Install Dependencies

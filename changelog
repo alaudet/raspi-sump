@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.3
+- Added support for Raspberry Pi OS 11 (codename bullseye)
+
 Version 1.2.3
 - pinned to hcsr04sensor dependency >=1.6 in setup.py
 

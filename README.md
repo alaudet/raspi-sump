@@ -1,23 +1,20 @@
-Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an 
-Ultrasonic Sensor (HC-SR04)
+Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an Ultrasonic Sensor (HC-SR04).
 
-
-![alt tag](http://www.linuxnorth.org/raspi-sump/images/raspi-chart.png)
+![Chart](https://www.linuxnorth.org/raspi-sump/images/raspi-chart.png)
 
 
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
-# Supported Versions of Raspbian
+# Supported Versions of Raspbian / Raspberry Pi OS
 
-Raspi-Sump is currently supported on Raspbian OS (Buster or Stretch).
-It is not yet supported on Raspberry Pi OS (Bullseye) but will be in the near future.
+Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster and Stretch).
+
+Raspian 9 (Stretch) support will be discontinued in June 2022.  Please upgrade to Raspberry Pi OS 11 Bullseye if you are currently using Stretch.
 
 # Discord Group
 
 Discuss and get support from other users. Email (alaudet@linuxnorth.org) for an invite link.
-
-
 
 
 # Installing with pip version 9 or greater
@@ -29,8 +26,11 @@ If using Raspbian Stretch or later versions install as follows;
     sudo pip3 install --no-binary :all: raspisump
 
 
+# New in Version 1.3
 
-# New in Version 1.2 
+Support for charts with Raspberry Pi OS 11 Bullseye.
+
+# New in Version 1.2
 
 Added improvements to SMS/Email Alerts
 
@@ -67,7 +67,7 @@ Install Raspi-Sump.
 Upgrading an existing version
 
 
-    sudo pip3 install -U raspisump
+    sudo pip3 install -U --no-binary :all: raspisump
 
 This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) and  RPi.GPIO modules if not present on your Pi.
 
@@ -90,7 +90,7 @@ They are also available on github https://github.com/alaudet/raspi-sump/blob/mas
 # Upgrading from Python2 to Python3 (Raspbian Jessie)
 
     sudo pip uninstall raspisump
-    sudo pip3 install raspisump
+    sudo pip3 install --no-binary :all: raspisump
 
 
 Your configuration file will be preserved in /home/pi/raspi-sump/
@@ -112,14 +112,14 @@ http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
 You are welcome to use Raspi-Sump but there is no guarantee it will work. Your house may still flood if your sump pump fails. This software comes with no warranty. See License details.
 
-This is not a replacement for remaining vigilant in maintaining your water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
+This is not a replacement for a properly maintained water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
 
-Best practices should also include:
+Best practices should include:
 
 * A backup pump that triggers at a slightly higher water level than your main pump.
 * The secondary pump should be connected to a seperate dedicated electrical breaker. 
 * You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
-* if you are building a new home, pay attention to the grade of your property, as you may even be able to let gravity empty your pit for you.  That would be the best approach with a backup pump just in case. 
+* if you are building a new home, pay attention to the grade of your property, as you may be able to let gravity empty your pit for you.  That would be the best approach with a backup pump for added protection.
 
 Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
 
@@ -130,7 +130,7 @@ improve it please let me know.
 
 # Contributing
 
-Please refer to CONTRIBUTING.md in the root of the repository for contribution guidelines.
+Please refer to the [Contributing Guidelines](https://github.com/alaudet/raspi-sump/blob/master/CONTRIBUTING.md) before issuing a pull request.
 
 # Donate
 
