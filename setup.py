@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.3"
+version = "1.3.1rc2"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -14,6 +14,7 @@ raspi_sump_files = [
     "bin/rsumpchart.py",
     "bin/rsumpmonitor.py",
     "bin/rsumpwebchart.py",
+    "bin/emailtest.py",
 ]
 
 add_files = [
@@ -46,6 +47,7 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Home Automation",
         "License :: OSI Approved :: MIT License",
     ],
