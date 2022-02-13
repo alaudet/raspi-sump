@@ -223,6 +223,34 @@ beginning of this file.
 You can also use the move_file.sh script provided as an example of how you
 transfer files offsite to a webserver or save historical chart information.
 
+Test Email Alerts
+=================
+
+### On Demand Email Test
+
+To test that emails are working run the command 'emailtest';
+
+    emailtest
+
+### Heartbeat Alerts
+
+Raspi-Sump can send email tests at predefined intervals.  See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
+
+In /home/pi/raspisump.conf, this will send an email heartbeat once per week.
+
+    # Set a heartbeat sms or email interval in order to regularly test that your
+    # notifications are working as intended.
+    # 0 = No notifications
+    # 1 = Send notifications
+    heartbeat = 1
+
+    # Set the frequency of the sms/email heartbeat notifications.
+    # Values can be set to any number and are in minutes.
+    # For reference;
+    # daily   = 1439 minutes
+    # weekly  = 10079 minutes
+    # Monthly = 43199 minutes
+    heartbeat_interval = 10079
 
 Optional - Setting Up a Local Web Server for easy Charts Viewing
 =================================================================

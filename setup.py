@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.3.1rc2"
+version = "1.4rc2"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -14,7 +14,7 @@ raspi_sump_files = [
     "bin/rsumpchart.py",
     "bin/rsumpmonitor.py",
     "bin/rsumpwebchart.py",
-    "bin/emailtest.py",
+    "bin/emailtest",
 ]
 
 add_files = [

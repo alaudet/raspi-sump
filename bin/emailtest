@@ -7,6 +7,8 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
+"""This script is for on demand testing of emails"""
+
 import email
 from raspisump import emailtest
 

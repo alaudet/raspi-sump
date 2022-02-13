@@ -1,10 +1,14 @@
 Raspi-sump is a sump pit water level monitoring system using a Raspberry Pi and an Ultrasonic Sensor (HC-SR04).
 
-![Chart](https://www.linuxnorth.org/raspi-sump/images/raspi-chart.png)
+![Chart](https://raspisump.linuxnorth.org/static/today.png)
 
 
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
+
+# What's New
+
+See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) for the latest information on Raspi-Sump features.
 
 # Supported Versions of Raspbian / Raspberry Pi OS
 
@@ -17,40 +21,14 @@ Raspian 9 (Stretch) support will be discontinued in June 2022.  Please upgrade t
 Discuss and get support from other users. Email (alaudet@linuxnorth.org) for an invite link.
 
 
-# Installing with pip version 9 or greater
+# Installing with Pip
 
 
-Pip versions > 7 default to Wheels which omits some folder setup in setup.py.
-If using Raspbian Stretch or later versions install as follows;
+Pip installs default to Wheels which omits some folder setup in setup.py.
+Always use the '--no-binary :all:' option when installing or upgrading Raspi-Sump with pip.
 
     sudo pip3 install --no-binary :all: raspisump
 
-
-# New in Version 1.3
-
-Support for charts with Raspberry Pi OS 11 Bullseye.
-
-# New in Version 1.2
-
-Added improvements to SMS/Email Alerts
-
-1 - Alerts now contain hostname to better identify which instance of Raspi-Sump is
-reporting.
-
-2 - Heartbeat SMS/Email notifications can be enabled to send at a user defined interval, to let you know
-that alerts are working.  
-
-
-Added to [Email] section of raspisump.conf
-
-    heartbeat = 0 or 1 (disabled or enabled)
-    heartbeat_interval = user defined number of minutes between notifications
-
-If configuration items are not present in raspisump.conf the default is set to
-off (no notifications)
-
-
-For more information see [Issue 7](https://github.com/alaudet/raspi-sump/issues/7).
 
 # QUICK INSTALL 
 
@@ -76,10 +54,6 @@ If you want to use charts install maplotlib.
     sudo apt-get install python3-matplotlib
 
 
-Matplotlib should install Numpy.  If you need to install Numpy seperately;
-
-    sudo apt-get install python3-numpy
-
 Read the configuration docs copied during setup on your pi at the following location;
 
     /home/pi/raspi-sump/docs
@@ -87,7 +61,7 @@ Read the configuration docs copied during setup on your pi at the following loca
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
 
-# Upgrading from Python2 to Python3 (Raspbian Jessie)
+# Upgrading from Python2 to Python3
 
     sudo pip uninstall raspisump
     sudo pip3 install --no-binary :all: raspisump
@@ -96,7 +70,7 @@ They are also available on github https://github.com/alaudet/raspi-sump/blob/mas
 Your configuration file will be preserved in /home/pi/raspi-sump/
 
 
-# Python2 install (End of Life is January 1, 2020)
+# Python2 (End of Life was January 1, 2020)
 
 Python2 installs of Raspi-Sump are no longer be supported.
 
