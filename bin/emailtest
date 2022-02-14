@@ -9,7 +9,6 @@
 
 """This script is for on demand testing of emails"""
 
-import email
 from raspisump import emailtest
 
 emailtest.test_email()

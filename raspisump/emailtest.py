@@ -7,16 +7,13 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-import os
-import time
 import smtplib
-from datetime import datetime
 
 try:
     import ConfigParser as configparser  # Python2
 except ImportError:
     import configparser  # Python3
-from raspisump import log, alerts
+from raspisump import alerts
 
 
 config = configparser.RawConfigParser()
