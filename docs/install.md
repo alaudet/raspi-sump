@@ -17,47 +17,18 @@ Raspbian OS 9 (Stretch) - Support ends June 30, 2022
 Install Dependencies
 ====================
 
-1) Check to ensure that Python3 is installed on Raspbian Linux.
+Install Pip, RPi.GPIO and Matplotlib
 
-    python3
+    sudo apt update && sudo apt -y upgrade
+    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
 
-You should see the interpreter open and the version of Python3.  
-
-To exit the interpreter;
-
-    quit()
-
-
-To install Python3 on your pi; (first command is optional and updates your
-repositories)
-
-    sudo apt-get update && sudo apt-get -y upgrade
-    sudo apt-get -y install python3 python3-dev
-
-
-2) If you want to create graphs of sump pit activity install Matplotlib and Numpy
-as follows; 
-
-    sudo apt-get install python3-matplotlib
-
-
-Matplotlib should install Numpy as a dependency but if you need to install
-it manually;
-
-    sudo apt-get install python3-numpy  
-
-
-3) Install PIP
-
-
-    sudo apt-get install python3-pip
-
-
+RPi.GPIO is the library that controls the sensor.  Matplotlib is used to generate charts.
+The Pip package manager is required to install Raspi-Sump in the next step.
 
 Install Raspi-Sump
 ==================
 
-The following will automatically install hcsr04sensor and RPi.GPIO if it is not already
+The following will automatically install hcsr04sensor if it is not already
 installed on your Pi.
 
     sudo pip3 install --no-binary :all: raspisump
@@ -146,7 +117,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 (See cron documentation for questions on configuring crontab)
 
 
-4) To monitor the log file in the csv folder while raspi-sump is running;
+1) To monitor the log file in the csv folder while raspi-sump is running;
 
     tail -f 'csvlogfilename'
 
@@ -358,5 +329,3 @@ You are only limited by your own imagination on how to view your charts.  I
 have setup a bash script that automatically creates the graph on my Pi and
 moves it to an offsite webserver where I can view today's readouts and
 historical data.
-
-Example: https://raspisump.linuxnorth.org

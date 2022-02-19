@@ -1,6 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.4.1
+- Unpinned Raspi-Sump to a specific version of hcsr04sensor in setup.py
+- Updated install instructions.
+
 Version 1.4
 - Add on demand email testing with command 'emailtest'
 

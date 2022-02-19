@@ -21,8 +21,11 @@ Raspian 9 (Stretch) support will be discontinued in June 2022.  Please upgrade t
 Discuss and get support from other users. Email (alaudet@linuxnorth.org) for an invite link.
 
 
-# Installing with Pip
+# Install Dependencies
 
+    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
+
+# Install Raspi-Sump
 
 Pip installs default to Wheels which omits some folder setup in setup.py.
 Always use the '--no-binary :all:' option when installing or upgrading Raspi-Sump with pip.
@@ -30,28 +33,13 @@ Always use the '--no-binary :all:' option when installing or upgrading Raspi-Sum
     sudo pip3 install --no-binary :all: raspisump
 
 
-# QUICK INSTALL 
-
-
-Install the pip package manager (if not present on your pi).
-
-    sudo apt-get install python3-pip
-
-
-Install Raspi-Sump.
-
-    sudo pip3 install --no-binary :all: raspisump
+# Upgrading Raspi-Sump 
 
 Upgrading an existing version
 
-
     sudo pip3 install -U --no-binary :all: raspisump
 
-This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) and  RPi.GPIO modules if not present on your Pi.
-
-If you want to use charts install maplotlib.
-
-    sudo apt-get install python3-matplotlib
+This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04sensor) 
 
 
 Read the configuration docs copied during setup on your pi at the following location;

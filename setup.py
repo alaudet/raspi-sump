@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.4"
+version = "1.4.1pre"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -59,7 +59,7 @@ setup(
     packages=["raspisump"],
     scripts=raspi_sump_files,
     data_files=add_files,
-    install_requires=["hcsr04sensor>=1.6"],
+    install_requires=["hcsr04sensor"],
 )
 
 if os.path.isdir(homedir):
