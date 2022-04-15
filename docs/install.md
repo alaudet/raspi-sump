@@ -25,8 +25,31 @@ Install Pip, RPi.GPIO and Matplotlib
 RPi.GPIO is the library that controls the sensor.  Matplotlib is used to generate charts.
 The Pip package manager is required to install Raspi-Sump in the next step.
 
+Default 'pi' User Account
+=========================
+
+Raspberry Pi OS have changed the automatic creation of the 'pi' user account on Raspberry Pi OS 11 (Bullseye).  Raspi-Sump depends on that account existing.  When installing Raspberry Pi OS for the first time, you must create a user named pi for Raspi-Sump to work.
+
+For more information see the [Raspberry PI OS Announcement](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/) on the default pi user account.
+
+
+Creating a pi user
+==================
+
+** Note (if user 'pi' already exists then skip this step)
+
+If you are installing Raspi-Sump on an existing Raspberry Pi OS that does not have a pi user, create it as follows. This command will also add the pi user to the sudo group.
+
+    sudo useradd -m -g users -G sudo -s /bin/bash pi
+
+Give the pi user a password
+
+    sudo passwd pi
+
 Install Raspi-Sump
 ==================
+
+Login as the pi user on Raspberry Pi OS.
 
 The following will automatically install hcsr04sensor if it is not already
 installed on your Pi.
