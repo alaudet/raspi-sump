@@ -14,17 +14,6 @@ Raspbian OS 10 (Buster)
 Raspbian OS 9 (Stretch) - Support ends June 30, 2022
 
 
-Install Dependencies
-====================
-
-Install Pip, RPi.GPIO and Matplotlib
-
-    sudo apt update && sudo apt -y upgrade
-    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
-
-RPi.GPIO is the library that controls the sensor.  Matplotlib is used to generate charts.
-The Pip package manager is required to install Raspi-Sump in the next step.
-
 Default 'pi' User Account
 =========================
 
@@ -46,10 +35,23 @@ Give the pi user a password
 
     sudo passwd pi
 
-Install Raspi-Sump
-==================
+Install Dependencies
+====================
 
 Login as the pi user on Raspberry Pi OS.
+
+Install Pip, RPi.GPIO and Matplotlib
+
+    sudo apt update && sudo apt -y upgrade
+    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
+
+RPi.GPIO is the library that controls the sensor.  Matplotlib is used to generate charts.
+The Pip package manager is required to install Raspi-Sump in the next step.
+
+
+
+Install Raspi-Sump
+==================
 
 The following will automatically install hcsr04sensor if it is not already
 installed on your Pi.
