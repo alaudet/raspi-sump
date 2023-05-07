@@ -27,9 +27,9 @@ Creating a pi user
 
 ** Note (if user 'pi' already exists then skip this step)
 
-If you are installing Raspi-Sump on an existing Raspberry Pi OS that does not have a pi user, create it as follows. This command will also add the pi user to the sudo and gpio groups, as well as other groups that can be useful.
+If you are installing Raspi-Sump on an existing Raspberry Pi OS that does not have a pi user, create it as follows. This command will also add the pi user to the sudo and gpio groups.  The gpio group is required for accessing the gpio pins as a regular user.
 
-    sudo useradd -m -g users -G sudo,gpio,adm,dialout,cdrom,audio,video,plugdev,games,input,render,netdev,i2c,spi -s /bin/bash pi
+    sudo useradd -m -g users -G sudo,gpio -s /bin/bash pi
 
 Give the pi user a password
 
