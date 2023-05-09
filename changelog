@@ -1,12 +1,16 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.5rc1
+- Fixed bug in rsumpmonitor.py that was not restarting the process
+- Fix lighttpd.conf for proper create-mime.conf.pl location
+
 Version 1.4.1
 - Unpinned Raspi-Sump to a specific version of hcsr04sensor in setup.py
 - Updated install instructions.
 
 Version 1.4
-- Add on demand email testing with command 'emailtest'
+- Add on demand email testing with command 'emailtest's
 
 Version 1.3
 - Add support for Raspberry Pi OS 11 (codename bullseye)

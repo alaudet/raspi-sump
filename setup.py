@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.4.1"
+version = "1.5rc2"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -45,7 +45,6 @@ setup(
         "Intended Audience :: End Users/Desktop",
         "Natural Language :: English",
         "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.9",
         "Topic :: Home Automation",
@@ -67,4 +66,3 @@ if os.path.isdir(homedir):
     os.system(cmd)
     cmd = "chmod 600 " + homedir + "raspisump.conf"
     os.system(cmd)
-
