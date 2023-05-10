@@ -18,7 +18,7 @@ project and distribute under a different name if that is the direction you would
 
 7) I can't promise that all new features will be accepted.  However the MIT license allows/welcomes you to fork the code and release an altered version under any license that you like.  Please see the requirements under the MIT license when doing so.
 
-8) Make sure your changes work before issuing the pull request.  Adding a nosetest is welcome.  Make sure any current nosetests pass.
+8) Make sure your changes work before issuing the pull request.  Adding a nosetest is highly encouraged.  Make sure any current nosetests pass.
 
 9) If you want to contribute we have a Discord group with a #code-discussion forum.  It is not mandatory to join but highly encouraged and makes collaboration much easier.  Email alaudet@linuxnorth.org to request an invite link.
 

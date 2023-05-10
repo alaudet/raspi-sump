@@ -10,3 +10,4 @@ include docs/*.md
 include docs/*.pdf
 include cron/*
 include README.md
+include VERSION

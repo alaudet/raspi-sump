@@ -274,7 +274,7 @@ This command updates repository information and then upgrades packages that are
 installed on your Pi.  If you did this already earlier in the instructions then
 it is not necessary to do again.
 
-    sudo apt-get update && sudo apt-get -y upgrade
+    sudo apt update && sudo apt -y upgrade
 
 
 Getting Started
@@ -290,7 +290,7 @@ These instructions will do the following
 To view your sump pit activity install the Lighttpd webserver on your
 Raspberry Pi as follows.
 
-    sudo apt-get install lighttpd
+    sudo apt install lighttpd
 
 Copy the provided lighttpd.conf as follows;
 

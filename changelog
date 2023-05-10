@@ -1,9 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
-Version 1.5rc1
+Version 1.5
 - Fixed bug in rsumpmonitor.py that was not restarting the process
 - Fix lighttpd.conf for proper create-mime.conf.pl location
+
 
 Version 1.4.1
 - Unpinned Raspi-Sump to a specific version of hcsr04sensor in setup.py

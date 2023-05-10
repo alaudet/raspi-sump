@@ -14,8 +14,6 @@ See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog)
 
 Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster and Stretch).
 
-Raspian 9 (Stretch) support will be discontinued in June 2022.  Please upgrade to Raspberry Pi OS 11 Bullseye if you are currently using Stretch.
-
 # Discord Group
 
 Discuss and get support from other users. Email (alaudet@linuxnorth.org) for an invite link.
@@ -47,15 +45,6 @@ Read the configuration docs copied during setup on your pi at the following loca
     /home/pi/raspi-sump/docs
 
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
-
-
-# Upgrading from Python2 to Python3
-
-    sudo pip uninstall raspisump
-    sudo pip3 install --no-binary :all: raspisump
-
-
-Your configuration file will be preserved in /home/pi/raspi-sump/
 
 
 # Python2 (End of Life was January 1, 2020)
