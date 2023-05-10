@@ -12,7 +12,7 @@ See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog)
 
 # Supported Versions of Raspbian / Raspberry Pi OS
 
-Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster and Stretch).
+Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster)
 
 # Discord Group
 
@@ -49,7 +49,7 @@ They are also available on github https://github.com/alaudet/raspi-sump/blob/mas
 
 # Python2 (End of Life was January 1, 2020)
 
-Python2 installs of Raspi-Sump are no longer be supported.
+Python2 installs of Raspi-Sump are no longer supported.
 
 
 # More Info
