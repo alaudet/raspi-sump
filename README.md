@@ -54,10 +54,10 @@ Python2 installs of Raspi-Sump are no longer supported.
 
 # More Info
 
-Further details provided at http://www.linuxnorth.org/raspi-sump/
+Further details provided at https://www.linuxnorth.org/raspi-sump/
 
 An example hourly updating graph is available for view.
-http://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
+https://www.linuxnorth.org/raspi-sump/raspi-sump-today.html
 
 # Disclaimer
 
