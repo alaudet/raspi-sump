@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.5"
+version = "1.6rc2"
 
 homedir = "/home/pi/raspi-sump/"
 
@@ -53,7 +53,7 @@ setup(
     ],
     author="Al Audet",
     author_email="alaudet@linuxnorth.org",
-    url="http://www.linuxnorth.org/raspi-sump/",
+    url="https://www.linuxnorth.org/raspi-sump/",
     download_url="https://github.com/alaudet/raspi-sump/releases",
     license="MIT License",
     packages=["raspisump"],
@@ -66,4 +66,6 @@ if os.path.isdir(homedir):
     cmd = "chown -R pi " + homedir
     os.system(cmd)
     cmd = "chmod 600 " + homedir + "raspisump.conf"
+    os.system(cmd)
+    cmd = "chmod 600 " + homedir + "sample_config/raspisump.conf"
     os.system(cmd)

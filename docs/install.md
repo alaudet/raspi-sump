@@ -3,7 +3,7 @@ Install
 Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
 If you choose to do this you do it at your own risk.
 
-Installation instructions assume Python3 on Raspberry Pi OS 11 or Raspbian version 10 or 9.
+Installation instructions assume Python3 on Raspberry Pi OS 11 (Bullseye) or Raspbian version 10 (Buster).
 
 Supported OS Versions
 =====================
@@ -11,13 +11,13 @@ Raspberry Pi OS 11 (Bullseye)
 
 Raspbian OS 10 (Buster)
 
-Raspbian OS 9 (Stretch) - Support ended on June 30, 2022.  Upgrade to Bullseye
+Raspbian OS 9 (Stretch) - Support ended on June 30, 2022.  Upgrade to Bullseye.
 
 
 Default 'pi' User Account
 =========================
 
-Raspberry Pi OS have changed the automatic creation of the 'pi' user account on Raspberry Pi OS 11 (Bullseye).  Raspi-Sump depends on that account existing.  When installing Raspberry Pi OS for the first time, you must create a user named pi for Raspi-Sump to work.
+Raspberry Pi OS have changed the automatic creation of the 'pi' user account on Raspberry Pi OS 11 (Bullseye).  Raspi-Sump depends on that account existing.  When installing Raspberry Pi OS for the first time, you must create a user named pi for Raspi-Sump to work. Future versions of Raspi-Sump will not have this requirement, but for the time being it is still required.
 
 For more information see the [Raspberry PI OS Announcement](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/) on the default pi user account.
 
