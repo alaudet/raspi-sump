@@ -9,11 +9,8 @@
 
 import time
 
-try:
-    import ConfigParser as configparser # Python2
-except ImportError:
-    import configparser # Python3
-from raspisump import reading
+import configparser
+from raspisump import reading, log
 
 config = configparser.RawConfigParser()
 
@@ -21,7 +18,11 @@ config.read('/home/pi/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')
 
 if reading_interval == 0:
-    reading.water_depth()
+    try:
+        reading.water_depth()
+    except RuntimeError:
+        print("ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.")
+        log.log_event("error_log", "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.")
 else:
     while True:
         reading.water_depth()

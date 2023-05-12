@@ -11,10 +11,7 @@ import os
 import time
 import smtplib
 from datetime import datetime
-try:
-    import ConfigParser as configparser  # Python2
-except ImportError:
-    import configparser  # Python3
+import configparser
 from collections import deque
 import csv
 from raspisump import log, alerts
@@ -35,9 +32,11 @@ configs = {'email_to': config.get('email', 'email_to'),
            }
 
 try:
-    configs['heartbeat_interval'] = config.getint('email', 'heartbeat_interval')
+    configs['heartbeat_interval'] = config.getint('email',
+                                                  'heartbeat_interval')
 except configparser.NoOptionError:
     configs['heartbeat_interval'] = 10080
+
 
 def heartbeat_email_content():
 
@@ -45,8 +44,8 @@ def heartbeat_email_content():
 
     time_of_day = alerts.current_time()
     hostname = alerts.host_name()
-    
-    subject = 'Subject: Raspi-Sump Heartbeat Notification' 
+
+    subject = 'Subject: Raspi-Sump Heartbeat Notification'
     message = 'Raspi-Sump Email Notifications Working'
 
     return "\r\n".join((
@@ -91,7 +90,7 @@ def determine_if_heartbeat():
     heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
     if not os.path.isfile(heartbeat_log):
         heartbeat_alerts()
-        log.log_heartbeat("Heartbeat Email Sent")
+        log.log_event("heartbeat_log", "Heartbeat Email Sent")
 
     else:
         with open(heartbeat_log, 'rt') as f:
@@ -107,6 +106,6 @@ def determine_if_heartbeat():
 
             if minutes_passed >= heartbeat_interval_time:
                 heartbeat_alerts()
-                log.log_heartbeat("Heartbeat Email Sent")
+                log.log_event("heartbeat_log", "Heartbeat Email Sent")
             else:
                 pass

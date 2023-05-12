@@ -12,10 +12,7 @@ import time
 import smtplib
 from datetime import datetime
 import platform
-try:
-    import ConfigParser as configparser  # Python2
-except ImportError:
-    import configparser  # Python3
+import configparser
 from collections import deque
 import csv
 from raspisump import log
@@ -33,8 +30,7 @@ configs = {'email_to': config.get('email', 'email_to'),
            'smtp_server': config.get('email', 'smtp_server'),
            'username': config.get('email', 'username'),
            'password': config.get('email', 'password'),
-           'unit': config.get('pit', 'unit')
-          }
+           'unit': config.get('pit', 'unit')}
 # If item in raspisump.conf add to configs dict above.  If not then provide
 # a default value
 try:
@@ -52,9 +48,11 @@ def current_time():
     '''Return the current time as reported by the OS.'''
     return time.strftime('%I:%M%P %Z')
 
+
 def host_name():
     '''Return the Raspberry Pi's Hostname'''
     return platform.node()
+
 
 def unit_types():
     '''Determine  if inches or centimeters'''
@@ -91,11 +89,13 @@ def email_content(water_depth):
         "To: {}".format(configs['email_to']),
         "{}".format(subject),
         "",
-        "{} - {} - {} {} {}.".format(hostname, time_of_day, message, str(water_depth), unit_type),
+        "{} - {} - {} {} {}.".format(hostname,
+                                     time_of_day,
+                                     message,
+                                     str(water_depth), unit_type),
         "Next alert in {} minutes".format(configs['alert_interval']),
         )
         )
-
 
 
 def smtp_alerts(water_depth):
@@ -132,7 +132,7 @@ def determine_if_alert(water_depth):
 
     if not os.path.isfile(alert_log):
         smtp_alerts(water_depth)
-        log.log_alerts('Email SMS Alert Sent')
+        log.log_event('alert_log', 'Email SMS Alert Sent')
 
     else:
         with open(alert_log, 'rt') as f:
@@ -145,10 +145,10 @@ def determine_if_alert(water_depth):
             time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
             delta = (time_now - last_alert_time)
             minutes_passed = delta.seconds / 60
-            
+
         if minutes_passed >= alert_interval:
             smtp_alerts(water_depth)
-            log.log_alerts('Email SMS Alert Sent')
+            log.log_event('alert_log', 'Email SMS Alert Sent')
 
         else:
             pass

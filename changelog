@@ -1,6 +1,9 @@
 Raspi-Sump Changelog
 ====================
 
+Version 1.6rc
+- streamline logging
+
 Version 1.5
 - Fixed bug in rsumpmonitor.py that was not restarting the process
 - Fix lighttpd.conf for proper create-mime.conf.pl location

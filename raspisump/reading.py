@@ -7,10 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
 
-try:
-    import ConfigParser as configparser  # Python2
-except ImportError:
-    import configparser  # Python3
+import configparser
 from hcsr04sensor import sensor
 from raspisump import log, alerts, heartbeat
 
@@ -59,9 +56,8 @@ def water_reading():
     try:
         raw_distance = value.raw_distance(sample_wait=0.3)
     except SystemError:
-        log.log_errors(
-            "**ERROR - Signal not received. Possible cable or sensor problem."
-        )
+        log.log_event("error_log",
+                      "SENSOR ERROR - Signal not received. Possible cable or sensor problem.")
         exit(0)
 
     return round(value.depth(raw_distance, pit_depth), 1)
@@ -74,9 +70,11 @@ def water_depth():
 
     critical_water_level = configs["critical_water_level"]
     water_depth = water_reading()
-
     if water_depth < 0.0:
         water_depth = 0.0
+        log.log_reading(water_depth)
+        log.log_event("error_log",
+                      "Sensor has a 0.0 reading. Possible degrading sensor")
     log.log_reading(water_depth)
 
     if water_depth > critical_water_level and configs["alert_when"] == "high":
