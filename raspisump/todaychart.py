@@ -2,10 +2,10 @@
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# http://www.linuxnorth.org/raspi-sump/
+# https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
-# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
+# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
 import numpy as np
@@ -17,10 +17,7 @@ import matplotlib.dates as mdates
 from matplotlib import rcParams
 
 rcParams.update({"figure.autolayout": True})
-try:
-    import ConfigParser as configparser  # Python2
-except ImportError:
-    import configparser  # Python3
+import configparser
 
 config = configparser.RawConfigParser()
 config.read("/home/pi/raspi-sump/raspisump.conf")
@@ -55,6 +52,7 @@ def graph(csv_file, filename):
     fig = plt.figure(figsize=(10, 3.5))
 
     # axisbg is deprecated in matplotlib 2.x. Maintain 1.x compatibility
+    # This if/else can now be removed
     if MPL_VERSION > 1:
         fig.add_subplot(111, facecolor="white", frameon=False)
     else:
@@ -82,6 +80,7 @@ def graph(csv_file, filename):
     plt.xlabel("Time of Day")
     plt.xticks(rotation=30)
     plt.grid(True, color="#ECE5DE", linestyle="solid")
+    # This if/else statement can be removed as buster and bullseye use > 2
     if MPL_VERSION < 3:
         plt.tick_params(axis="x", bottom="off", top="off")
         plt.tick_params(axis="y", left="off", right="off")

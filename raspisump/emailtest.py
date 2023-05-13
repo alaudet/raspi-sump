@@ -2,17 +2,13 @@
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# http://www.linuxnorth.org/raspi-sump/
+# https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import smtplib
-
-try:
-    import ConfigParser as configparser  # Python2
-except ImportError:
-    import configparser  # Python3
+import configparser
 from raspisump import alerts
 
 

@@ -2,7 +2,7 @@
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# http://www.linuxnorth.org/raspi-sump/
+# https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html

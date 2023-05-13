@@ -2,10 +2,10 @@
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
-# http://www.linuxnorth.org/raspi-sump/
+# https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
-# MIT License -- http://www.linuxnorth.org/raspi-sump/license.html
+# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
 
@@ -15,7 +15,6 @@ def log_event(logfile, notification):
     with open(_logfile, 'a') as f:
         f.write(time.strftime("%Y-%m-%d %H:%M:%S,")),
         f.write(notification + "\n"),
-        # f.write("\n")
 
 
 def log_reading(water_depth):
@@ -25,4 +24,4 @@ def log_reading(water_depth):
     with open(filename, 'a') as f:
         f.write(time.strftime("%H:%M:%S,")),
         f.write(str(water_depth) + "\n"),
-        # f.write("\n")
+
