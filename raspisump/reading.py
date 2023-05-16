@@ -57,7 +57,7 @@ def water_reading():
         raw_distance = value.raw_distance(sample_wait=0.3)
     except SystemError:
         log.log_event("error_log",
-                      "SENSOR ERROR - Signal not received. Possible cable or sensor problem.")
+                      "ERROR - Signal not received. Possible cable or sensor problem.")
         exit(0)
 
     return round(value.depth(raw_distance, pit_depth), 1)
@@ -74,7 +74,7 @@ def water_depth():
         water_depth = 0.0
         log.log_reading(water_depth)
         log.log_event("error_log",
-                      "Sensor has a 0.0 reading. Possible degrading sensor")
+                      "ERROR - Negative reading adjusted to 0.0. Possible degrading sensor.")
     log.log_reading(water_depth)
 
     if water_depth > critical_water_level and configs["alert_when"] == "high":

@@ -1,3 +1,4 @@
+import os
 from nose.tools import *
 import raspisump.reading as reading
 import raspisump.alerts as alerts
@@ -60,6 +61,17 @@ def test_heartbeat_content():
     beg, sep, end = heartbeat_email_contents.partition("Subject: ")
     assert_equals(beg[0:5], "From:")
     assert_equals(end[0:5], "Raspi")
+
+
+def test_heartbeat_last_row():
+    """Test last heartbeat time is correct"""
+    heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
+    if not os.path.isfile(heartbeat_log):
+        pass
+    else:
+        last_alert = heartbeat.get_last_alert_time()
+        assert type(last_alert) == str
+        assert len(last_alert) == 19
 
 
 def test_hostname_return():

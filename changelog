@@ -1,8 +1,10 @@
 Raspi-Sump Changelog
 ====================
 
-Version 1.6rc
-- streamline logging
+Version 1.6rc5
+- Streamline logging code
+- Better error messages to logfiles and stdout for troubleshooting
+- Heartbeat alert now displays date and time of next alert rather than minutes until next alert.
 
 Version 1.5
 - Fixed bug in rsumpmonitor.py that was not restarting the process

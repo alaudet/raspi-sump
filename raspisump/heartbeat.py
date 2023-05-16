@@ -10,7 +10,7 @@
 import os
 import time
 import smtplib
-from datetime import datetime
+from datetime import datetime, timedelta
 import configparser
 from collections import deque
 import csv
@@ -38,13 +38,29 @@ except configparser.NoOptionError:
     configs['heartbeat_interval'] = 10080
 
 
-def heartbeat_email_content():
+def get_last_alert_time():
+    '''Retrieve the last alert time string from logfile'''
+    heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
+    with open(heartbeat_log, 'rt') as f:
+        last_row = deque(csv.reader(f), 1)[0]
+        return last_row[0]
 
+
+def heartbeat_email_content():
     '''Build the contents of email body which will be sent as an alert'''
+    heartbeat_interval_time = configs['heartbeat_interval']
+    current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+    last_alert = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
+    future_date = last_alert + timedelta(minutes=heartbeat_interval_time + 1)
+
+    weekday = future_date.strftime('%A')[0:3]
+    month = future_date.strftime('%B')
+    hour = future_date.strftime('%I')
+    minute = future_date.strftime('%M')
+    am_pm = future_date.strftime('%p').lower()
 
     time_of_day = alerts.current_time()
     hostname = alerts.host_name()
-
     subject = 'Subject: Raspi-Sump Heartbeat Notification'
     message = 'Raspi-Sump Email Notifications Working'
 
@@ -54,13 +70,19 @@ def heartbeat_email_content():
         "{}".format(subject),
         "",
         "{} - {} - {}.".format(hostname, time_of_day, message),
-        "Next email test in {} minutes".format(configs['heartbeat_interval']),
+        "Next heartbeat: {} {} {} at {}:{} {}".format(weekday,
+                                                      month,
+                                                      future_date.day,
+                                                      hour,
+                                                      minute,
+                                                      am_pm),
         )
         )
 
 
 def heartbeat_alerts():
-    '''Send heartbeat email alert if water level greater than critical distance.'''
+    '''Send heartbeat email alert if water level greater
+    than critical distance.'''
     recipients = configs['email_to'].split(', ')
     email_body = heartbeat_email_content()
     server = smtplib.SMTP(configs['smtp_server'])
@@ -86,26 +108,23 @@ def determine_if_heartbeat():
     '''Determine if a heartbeat notification is required and if so, send
     the notification.'''
 
-    heartbeat_interval_time = configs['heartbeat_interval']
     heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
     if not os.path.isfile(heartbeat_log):
         heartbeat_alerts()
         log.log_event("heartbeat_log", "Heartbeat Email Sent")
 
     else:
-        with open(heartbeat_log, 'rt') as f:
-            last_row = deque(csv.reader(f), 1)[0]
-            last_email_sent = last_row[0]
-            current_time = time.strftime('%Y-%m-%d %H:%M:%S')
-            last_heartbeat_time = datetime.strptime(
-                last_email_sent, '%Y-%m-%d %H:%M:%S'
-            )
-            time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
-            delta = (time_now - last_heartbeat_time)
-            minutes_passed = int((delta).total_seconds() / 60)
+        heartbeat_interval_time = configs['heartbeat_interval']
+        last_email_sent = get_last_alert_time()
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        last_heartbeat_time = datetime.strptime(last_email_sent,
+                                                '%Y-%m-%d %H:%M:%S')
+        time_now = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
+        delta = (time_now - last_heartbeat_time)
+        minutes_passed = int((delta).total_seconds() / 60)
 
-            if minutes_passed >= heartbeat_interval_time:
-                heartbeat_alerts()
-                log.log_event("heartbeat_log", "Heartbeat Email Sent")
-            else:
-                pass
+        if minutes_passed >= heartbeat_interval_time:
+            heartbeat_alerts()
+            log.log_event("heartbeat_log", "Heartbeat Email Sent")
+        else:
+            pass
