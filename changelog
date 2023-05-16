@@ -1,7 +1,7 @@
 Raspi-Sump Changelog
 ====================
 
-Version 1.6rc5
+Version 1.6
 - Streamline logging code
 - Better error messages to logfiles and stdout for troubleshooting
 - Heartbeat alert now displays date and time of next alert rather than minutes until next alert.
