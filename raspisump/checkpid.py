@@ -37,12 +37,14 @@ def check_pid(process):
     part3.stdout.close()
     number_of_processes = int(part4.communicate()[0])
     if number_of_processes == 0:
-        log.log_errors('rsump.py process stopped, restarting')
+        log.log_event('error_log',
+                      'ERROR - rsump.py process stopped, restarting')
         restart(process)
     elif number_of_processes == 1:
         exit(0)
     else:
-        log.log_errors('Multiple rsump.py processes...killing and restarting')
+        log.log_event('error_log',
+                      'ERROR - Multiple rsump.py processes...killing all and restarting')
         kill_start(process)
 
 
