@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.7.rc1"
+version = "1.7.rc2"
 user = os.getlogin()
 
 homedir = "/home/" + user + "/raspi-sump/"
@@ -20,7 +20,6 @@ raspi_sump_files = [
 
 add_files = [
     (homedir + "sample_config", ["conf/raspisump.conf"]),
-    (homedir + "sample_config", ["conf/lighttpd.conf"]),
     (homedir + "csv", ["conf/csv/README.md"]),
     (homedir + "logs", ["conf/logs/README.md"]),
     (homedir + "charts", ["conf/charts/README.md"]),

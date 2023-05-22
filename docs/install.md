@@ -14,40 +14,33 @@ Raspbian OS 10 (Buster)
 Raspbian OS 9 (Stretch) - Support ended on June 30, 2022.  Upgrade to Bullseye.
 
 
-Default 'pi' User Account
-=========================
-
-Raspberry Pi OS have changed the automatic creation of the 'pi' user account on Raspberry Pi OS 11 (Bullseye).  Raspi-Sump depends on that account existing.  When installing Raspberry Pi OS for the first time, you must create a user named pi for Raspi-Sump to work. Future versions of Raspi-Sump will not have this requirement, but for the time being it is still required.
-
-For more information see the [Raspberry PI OS Announcement](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/) on the default pi user account.
-
-
-Creating a pi user
-==================
-
-** Note (if user 'pi' already exists then skip this step)
-
-If you are installing Raspi-Sump on an existing Raspberry Pi OS that does not have a pi user, create it as follows. This command will also add the pi user to the sudo and gpio groups.  The gpio group is required for accessing the gpio pins as a regular user.
-
-    sudo useradd -m -g users -G sudo,gpio -s /bin/bash pi
-
-Give the pi user a password
-
-    sudo passwd pi
-
-You must log out and log back in for the new groups to take effect.
-
 Install Dependencies
 ====================
 
-Login as the pi user on Raspberry Pi OS.
+**Note**:  Your account must have sudo access to install Raspi-Sump.
+
+Login to your Raspberry Pi running Raspberry Pi OS.
+
+Check that your user account is a member of the gpio group.  This is needed for accessing the gpio pins.
+
+    groups
+
+You should see all groups your account belongs to.  If gpio is not listed run the following command (where 'username' is your account name);
+
+    sudo usermod -aG gpio username
+
+Logout and log back into your account for the groups to take effect.
 
 Install Pip, RPi.GPIO and Matplotlib
 
     sudo apt update && sudo apt -y upgrade
     sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
 
-RPi.GPIO is the library that controls the sensor.  Matplotlib is used to generate charts.
+RPi.GPIO is the library that controls the sensor.  
+
+Matplotlib is used to generate charts.
+
+
 The Pip package manager is required to install Raspi-Sump in the next step.
 
 
@@ -55,19 +48,18 @@ The Pip package manager is required to install Raspi-Sump in the next step.
 Install Raspi-Sump
 ==================
 
-The following will automatically install hcsr04sensor if it is not already
-installed on your Pi.
+The following will automatically install hcsr04sensor if it is not already installed on your Pi.
 
     sudo pip3 install --no-binary :all: raspisump
 
 
-Navigate to /home/pi/raspi-sump/ and move the sample config file
+Navigate to /home/username/raspi-sump/ and move the sample config file
 to this directory.
 
-    cd /home/pi/raspi-sump
+    cd /home/username/raspi-sump
     mv sample_config/raspisump.conf .
 
-The /home/pi/raspi-sump folder is setup as follows on install;
+The /home/username/raspi-sump folder is setup as follows on install;
 
 * raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 * raspi-sump/csv (location of waterlevel readings to csv file)
@@ -87,7 +79,7 @@ the file automatically.
 Edit raspisump.conf 
 ====================
 
-All configurations are recorded in /home/pi/raspi-sump/raspisump.conf
+All configurations are recorded in /home/username/raspi-sump/raspisump.conf
 
 See the configuration file for explanations of variables.  You can choose to
 take imperial (inches) or metric (centimetres) water level readings.
@@ -234,7 +226,7 @@ To test that emails are working run the command 'emailtest';
 
 Raspi-Sump can send email tests at predefined intervals.  See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
 
-In /home/pi/raspisump.conf, this will send an email heartbeat once per week.
+In /home/username/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
 
     # Set a heartbeat sms or email interval in order to regularly test that your
     # notifications are working as intended.
@@ -259,9 +251,7 @@ Setting Up The Local Webserver on the Pi
 Purpose
 =======
 
-The following instructions allow you to configure your raspberry pi to view
-graphs of sump pit activity through your web browser.  This is accomplished by
-configuring a local webserver on your pi.
+The following instructions allow you to configure your raspberry pi to view graphs of sump pit activity through your web browser.  This is accomplished by configuring a local webserver on your pi.
 
 Once complete you will be able to view sump pump activity by connecting to
 http://ip_address_of_your_pi
@@ -282,20 +272,25 @@ Getting Started
 
 These instructions will do the following
 - install the Lighttpd webserver on your Pi
-- copy the provided index.html file to your webserver
-- link charts to web folder to view charts
+- create your webcharts folder structure
 - configure cron to run the script to create for graphs of sump pump activity
 
 
-To view your sump pit activity install the Lighttpd webserver on your
+Install the Lighttpd webserver on your
 Raspberry Pi as follows.
 
     sudo apt install lighttpd
 
-Copy the provided lighttpd.conf as follows;
+Create your first webcharts. This will create the needed folder under '/home/username/raspi-sump/charts/
 
+    rsumpwebchart.py
 
-    sudo cp /home/pi/raspi-sump/sample_config/lighttpd.conf /etc/lighttpd
+Create the symlinks for your folders to be viewable with the web server. Replace 'username' with your account name.
+    
+    cd /var/www/html
+    sudo ln -s /home/username/raspi-sump/web/css css
+    sudo ln -s /home/username/raspi-sump/web/images images
+    sudo ln -s /home/username/raspi-sump/charts chart
 
 
 Enable directory listing for historical charts
@@ -304,11 +299,10 @@ Enable directory listing for historical charts
 
 Restart the web server
 
-    sudo /etc/init.d/lighttpd force-reload
+    sudo systemctl restart lighttpd
 
 
-Create a cron job to generate an hourly graph of your sump pit activity for
-viewing on your pi webserver
+Create a cron job to generate an hourly graph of your sump pit activity for viewing on your pi webserver.
 
     1 - crontab -e
 
@@ -318,16 +312,15 @@ viewing on your pi webserver
 
     3 - Save crontab
 
-    4 - run the script manually to create the first chart
-        
-        rsumpwebchart.py
 
 Open a web browser to http://ip_of_your_pi.  At the 59th minute of every hour
 you will create a chart of sump pit activity for the day which will be viewable
 on this page.  It will also copy historical information that you can access
 from the link in the web page.
 
-You are only limited by your own imagination on how to view your charts.  I
-have setup a bash script that automatically creates the graph on my Pi and
-moves it to an offsite webserver where I can view today's readouts and
-historical data.
+Support
+==========
+
+For support open an issue on the Github Issue Tracker or consider joining our discord server.  
+
+For Discord simply send an email to alaudet@linuxnorth.org and request an invite link.

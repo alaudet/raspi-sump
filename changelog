@@ -2,6 +2,7 @@ Raspi-Sump Changelog
 ====================
 Version 1.7.rc
 - Raspi-Sump is no longer dependant on the pi user account.  Can be installed and run as any user that is a member of the gpio group.
+- Made changes to the install instructions related to the lighttpd webserver for chart viewing.
 
 Version 1.6.1
 - Fixed error logging when running rsumpmonitor.py.
