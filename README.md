@@ -42,7 +42,7 @@ This will also install the [HCSR04sensor](https://github.com/alaudet/hcsr04senso
 
 Read the configuration docs copied during setup on your pi at the following location;
 
-    /home/pi/raspi-sump/docs
+    /home/username/raspi-sump/docs
 
 They are also available on github https://github.com/alaudet/raspi-sump/blob/master/docs/install.md
 
