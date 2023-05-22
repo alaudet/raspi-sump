@@ -8,13 +8,13 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-
+import os
 import configparser
 from raspisump import reading, log
 
 config = configparser.RawConfigParser()
-
-config.read('/home/pi/raspi-sump/raspisump.conf')
+user = os.getlogin()
+config.read('/home/' + user + '/raspi-sump/raspisump.conf')
 reading_interval = config.getint('pit', 'reading_interval')
 
 if reading_interval == 0:

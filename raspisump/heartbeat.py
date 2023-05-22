@@ -18,8 +18,8 @@ from raspisump import log, alerts
 
 
 config = configparser.RawConfigParser()
-
-config.read('/home/pi/raspi-sump/raspisump.conf')
+user = os.getlogin()
+config.read('/home/' + user + '/raspi-sump/raspisump.conf')
 
 configs = {'email_to': config.get('email', 'email_to'),
            'email_from': config.get('email', 'email_from'),
@@ -40,7 +40,7 @@ except configparser.NoOptionError:
 
 def get_last_alert_time():
     '''Retrieve the last alert time string from logfile'''
-    heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
+    heartbeat_log = '/home/' + user + '/raspi-sump/logs/heartbeat_log'
     with open(heartbeat_log, 'rt') as f:
         last_row = deque(csv.reader(f), 1)[0]
         return last_row[0]
@@ -108,7 +108,7 @@ def determine_if_heartbeat():
     '''Determine if a heartbeat notification is required and if so, send
     the notification.'''
 
-    heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
+    heartbeat_log = '/home/' + user + '/raspi-sump/logs/heartbeat_log'
     if not os.path.isfile(heartbeat_log):
         heartbeat_alerts()
         log.log_event("heartbeat_log", "Heartbeat Email Sent")

@@ -1,9 +1,10 @@
 from setuptools import setup
 import os
 
-version = "1.6.1"
+version = "1.7.rc1"
+user = os.getlogin()
 
-homedir = "/home/pi/raspi-sump/"
+homedir = "/home/" + user + "/raspi-sump/"
 
 if os.path.isfile(homedir + "raspisump.conf"):
     cmd = "cp -u " + homedir + "raspisump.conf " + homedir + "raspisump.conf.save"
@@ -63,7 +64,7 @@ setup(
 )
 
 if os.path.isdir(homedir):
-    cmd = "chown -R pi " + homedir
+    cmd = "chown -R " + user + " " + homedir
     os.system(cmd)
     cmd = "chmod 600 " + homedir + "raspisump.conf"
     os.system(cmd)

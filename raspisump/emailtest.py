@@ -7,14 +7,15 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
+import os
 import smtplib
 import configparser
 from raspisump import alerts
 
 
 config = configparser.RawConfigParser()
-
-config.read("/home/pi/raspi-sump/raspisump.conf")
+user = os.getlogin()
+config.read("/home/" + user + "/raspi-sump/raspisump.conf")
 
 configs = {
     "email_to": config.get("email", "email_to"),

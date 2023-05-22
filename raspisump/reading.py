@@ -7,12 +7,14 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
+import os
 import configparser
 from hcsr04sensor import sensor
 from raspisump import log, alerts, heartbeat
 
 config = configparser.RawConfigParser()
-config.read("/home/pi/raspi-sump/raspisump.conf")
+user = os.getlogin()
+config.read("/home/" + user + "/raspi-sump/raspisump.conf")
 
 configs = {
     "critical_water_level": config.getint("pit", "critical_water_level"),

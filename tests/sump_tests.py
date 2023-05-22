@@ -10,7 +10,8 @@ except ImportError:
     import configparser  # Python3
 
 config = configparser.RawConfigParser()
-config.read("/home/pi/raspi-sump/raspisump.conf")
+user = os.getlogin()
+config.read("/home/" + user + "/raspi-sump/raspisump.conf")
 
 configs = {
     "pit_depth": config.getint("pit", "pit_depth"),
@@ -65,7 +66,7 @@ def test_heartbeat_content():
 
 def test_heartbeat_last_row():
     """Test last heartbeat time is correct"""
-    heartbeat_log = '/home/pi/raspi-sump/logs/heartbeat_log'
+    heartbeat_log = '/home/' + user + '/raspi-sump/logs/heartbeat_log'
     if not os.path.isfile(heartbeat_log):
         pass
     else:

@@ -8,6 +8,7 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
+import os
 import numpy as np
 import matplotlib as mpl
 
@@ -20,7 +21,8 @@ rcParams.update({"figure.autolayout": True})
 import configparser
 
 config = configparser.RawConfigParser()
-config.read("/home/pi/raspi-sump/raspisump.conf")
+user = os.getlogin()
+config.read("/home/" + user + "/raspi-sump/raspisump.conf")
 configs = {"unit": config.get("pit", "unit")}
 
 try:

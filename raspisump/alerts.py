@@ -19,8 +19,8 @@ from raspisump import log
 
 
 config = configparser.RawConfigParser()
-
-config.read('/home/pi/raspi-sump/raspisump.conf')
+user = os.getlogin()
+config.read('/home/' + user + '/raspi-sump/raspisump.conf')
 
 configs = {'email_to': config.get('email', 'email_to'),
            'email_from': config.get('email', 'email_from'),
@@ -128,7 +128,7 @@ def determine_if_alert(water_depth):
 
     alert_interval = configs['alert_interval']
 
-    alert_log = '/home/pi/raspi-sump/logs/alert_log'
+    alert_log = '/home/' + user + '/raspi-sump/logs/alert_log'
 
     if not os.path.isfile(alert_log):
         smtp_alerts(water_depth)
