@@ -1,5 +1,8 @@
 Raspi-Sump Changelog
 ====================
+Version 1.7.1rc
+- Fixed bug in date autoformatters on todaychart.py.  Should have proper date settings now (HH:MM:SS)
+
 Version 1.7
 - Raspi-Sump is no longer dependant on the pi user account.  Can be installed and run as any user that is a member of the gpio group.
 - Made changes to the install instructions related to the lighttpd webserver for chart viewing.

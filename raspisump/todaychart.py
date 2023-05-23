@@ -31,12 +31,8 @@ except configparser.NoSectionError:
     configs["line_color"] = "FB921D"
 
 
-MPL_VERSION = int(mpl.__version__.split(".")[0])  # Matplotlib major version
-
-if MPL_VERSION > 1:
-    rcParams[
-        "date.autoformatter.minute"
-    ] = "%H:%M:%S"  # Matplotlib 2.0 changed time formatting
+rcParams["date.autoformatter.minute"] = "%H:%M:%S"
+rcParams["date.autoformatter.hour"] = "%H:%M:%S"
 
 
 def graph(csv_file, filename):
@@ -53,12 +49,7 @@ def graph(csv_file, filename):
 
     fig = plt.figure(figsize=(10, 3.5))
 
-    # axisbg is deprecated in matplotlib 2.x. Maintain 1.x compatibility
-    # This if/else can now be removed
-    if MPL_VERSION > 1:
-        fig.add_subplot(111, facecolor="white", frameon=False)
-    else:
-        fig.add_subplot(111, axisbg="white", frameon=False)
+    fig.add_subplot(111, facecolor="white", frameon=False)
 
     rcParams.update({"font.size": 9})
     plt.plot_date(
@@ -82,11 +73,6 @@ def graph(csv_file, filename):
     plt.xlabel("Time of Day")
     plt.xticks(rotation=30)
     plt.grid(True, color="#ECE5DE", linestyle="solid")
-    # This if/else statement can be removed as buster and bullseye use > 2
-    if MPL_VERSION < 3:
-        plt.tick_params(axis="x", bottom="off", top="off")
-        plt.tick_params(axis="y", left="off", right="off")
-    else:
-        plt.tick_params(axis="x", bottom=False, top=False)
-        plt.tick_params(axis="y", left=False, right=False)
+    plt.tick_params(axis="x", bottom=False, top=False)
+    plt.tick_params(axis="y", left=False, right=False)
     plt.savefig(filename, dpi=72)
