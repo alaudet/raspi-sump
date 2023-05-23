@@ -71,8 +71,7 @@ The /home/username/raspi-sump folder is setup as follows on install;
 
 **Note take care with your raspisump.conf file if you are using Gmail or any
 other mail system that requires authentication.  Your username and password
-will be viewable in the file. You should change the default pi and root
-passwords on your RaspberryPi.  The installer also tightens file security on
+will be viewable in the file. You should have a strong password on your account..  The installer also tightens file security on
 the file automatically.
 
 
@@ -118,7 +117,7 @@ Google soldering resistors for good information on how to do this if you have ne
 
 Starting Raspi-Sump
 ===================
-To start raspi-sump manually issue the command;
+To start raspi-sump manually and take your first waterlevel reading issue the command;
 
     rsump.py
 
@@ -126,7 +125,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 1 - crontab -e
 
-2 - enter line in crontab as follows;
+2 - enter line at the end of the crontab as follows;
 
     */1 * * * * /usr/local/bin/rsump.py &> /dev/null
 
@@ -138,7 +137,7 @@ To run raspisump at 1 minute intervals enter the following line in crontab as fo
 
 1) To monitor the log file in the csv folder while raspi-sump is running;
 
-    tail -f 'csvlogfilename'
+    e.g.   tail -f 'waterlevel-20230523.csv'
 
 If running as a continuous process 
 ==================================
@@ -173,7 +172,7 @@ Note*** Do not forget the ampersand '&' as this will run the script as a backgro
 
 7) To monitor the log file in the csv folder while raspi-sump is running;
 
-    tail -f 'csvlogfilename'
+    e.g.    tail -f 'waterlevel-20230523.csv'
 
 Health check with rsumpmonitor.py. If checking level more than once per minute only.
 ================================================================================
@@ -184,7 +183,7 @@ Add to pi user crontab as follows;
 
 1 - crontab -e
 
-2 - enter line in crontab as follows;
+2 - enter line at the end of the crontab as follows;
 
     */5 * * * * /usr/local/bin/rsumpmonitor.py &> /dev/null
 
@@ -206,8 +205,8 @@ You can make a daily chart of sump pump activity by using rsumpchart.py.
 This will create a line chart of sump pump activity.  You can easily modify the file to save to a different location with another name.
 Combined with a scheduled cron job it is an easy way to see the latest activity graphically.
 
-**Note that this requires matplotlib and numpy on your RaspberryPi which can be
-installed with the apt-get command.  See the Install Dependencies section at the
+**Note that this requires matplotlib on your RaspberryPi which can be
+installed with the apt command.  See the Install Dependencies section at the
 beginning of this file.
 
 You can also use the move_file.sh script provided as an example of how you
@@ -285,12 +284,18 @@ Create your first webcharts. This will create the needed folder under '/home/use
 
     rsumpwebchart.py
 
-Create the symlinks for your folders to be viewable with the web server. Replace 'username' with your account name.
     
+Change to the web server root folder at /var/www/html    
+
     cd /var/www/html
+
+
+Create the symlinks for your folders to be viewable with the web server. Replace 'username' with your account name.
+
+    sudo ln -s /home/username/raspi-sump/web/index.html index.html
     sudo ln -s /home/username/raspi-sump/web/css css
     sudo ln -s /home/username/raspi-sump/web/images images
-    sudo ln -s /home/username/raspi-sump/charts chart
+    sudo ln -s /home/username/raspi-sump/charts charts
 
 
 Enable directory listing for historical charts
@@ -306,7 +311,7 @@ Create a cron job to generate an hourly graph of your sump pit activity for view
 
     1 - crontab -e
 
-    2 - enter line in crontab as follows;
+    2 - enter line at the end of the crontab as follows;
 
     59 * * * * /usr/local/bin/rsumpwebchart.py &> /dev/null
 
