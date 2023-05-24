@@ -1,6 +1,6 @@
 Raspi-Sump Changelog
 ====================
-Version 1.7.1rc
+Version 1.7.1
 - Fixed bug in date autoformatters on todaychart.py.  Should have proper date settings now (HH:MM:SS)
 
 Version 1.7
