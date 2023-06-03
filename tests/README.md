@@ -1,12 +1,3 @@
-Tried adding some simple tests. Still some work to do but its a start.
+# Unittests
 
-Python2
-========
-
-    nosetests -v
-
-
-python 3
-========
-
-    python3 -m "nose" -v
+Please ensure all unittests pass
