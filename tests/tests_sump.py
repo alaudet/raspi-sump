@@ -1,5 +1,5 @@
 import os
-import unittest
+from unittest import TestCase
 import raspisump.reading as reading
 import raspisump.alerts as alerts
 import raspisump.heartbeat as heartbeat
@@ -20,7 +20,7 @@ except configparser.NoOptionError:
     configs["alert_when"] = "high"
 
 
-class TestRaspisump(unittest.TestCase):
+class TestRaspisump(TestCase):
     def test_water_reading(self):
         """Test that a proper reading is being returned."""
         pit_depth = configs["pit_depth"]
@@ -61,9 +61,3 @@ class TestRaspisump(unittest.TestCase):
         """Test that hostname is being returned for alert."""
         hostname = alerts.host_name()
         self.assertIsInstance(hostname, str)
-
-
-"""
-if __name__ == "__main__":
-    unittest.main()
-"""
