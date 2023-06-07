@@ -29,7 +29,6 @@ configs = {
 
 
 def test_email_content():
-
     """Build the contents of test email body."""
 
     time_of_day = alerts.current_time()
@@ -40,11 +39,11 @@ def test_email_content():
 
     return "\r\n".join(
         (
-            "From: {}".format(configs["email_from"]),
-            "To: {}".format(configs["email_to"]),
-            "{}".format(subject),
+            f"From: {configs['email_from']}",
+            f"To: {configs['email_to']}",
+            f"{subject}",
             "",
-            "{} - {} - {}.".format(hostname, time_of_day, message),
+            f"{hostname} - {time_of_day} - {message}.",
         )
     )
 

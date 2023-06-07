@@ -60,7 +60,7 @@ def graph(csv_file, filename):
         color="#" + configs["line_color"],
         fmt=":",
     )
-    title = "Sump Pit Water Level {}".format(time.strftime("%Y-%m-%d %H:%M"))
+    title = f"Sump Pit Water Level {time.strftime('%Y-%m-%d %H:%M')}"
     title_set = plt.title(title)
     title_set.set_y(1.09)
     plt.subplots_adjust(top=0.86)

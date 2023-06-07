@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.7.1"
+version = "1.7.2rc1"
 user = os.getlogin()
 
 homedir = "/home/" + user + "/raspi-sump/"
@@ -31,7 +31,7 @@ add_files = [
     (homedir + "web/images", ["conf/web/images/logo.png"]),
     (homedir + "web/css", ["conf/web/css/index.html"]),
     (homedir + "web/css", ["conf/web/css/raspi.css"]),
-    (homedir, ["VERSION"])
+    (homedir, ["VERSION"]),
 ]
 
 setup(
