@@ -14,15 +14,20 @@ from raspisump import reading, log
 
 config = configparser.RawConfigParser()
 user = os.getlogin()
-config.read('/home/' + user + '/raspi-sump/raspisump.conf')
-reading_interval = config.getint('pit', 'reading_interval')
+config.read("/home/" + user + "/raspi-sump/raspisump.conf")
+reading_interval = config.getint("pit", "reading_interval")
 
 if reading_interval == 0:
     try:
         reading.water_depth()
     except RuntimeError:
-        print("ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.")
-        log.log_event("error_log", "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.")
+        print(
+            "ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group."
+        )
+        log.log_event(
+            "error_log",
+            "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
+        )
 else:
     while True:
         reading.water_depth()

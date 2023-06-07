@@ -1,5 +1,12 @@
 Raspi-Sump Changelog
 ====================
+Version 1.7.2
+Note: No new functionality in this release.  Simply a refactoring of code and
+a change to way code is tested.  Optional Upgrade.
+- Refactored code to use fstrings instead of .format for strings
+- Migrated to Unittests from Nose
+- Other refactoring for tests
+
 Version 1.7.1
 - Fixed bug in date autoformatters on todaychart.py.  Should have proper date settings now (HH:MM:SS)
 

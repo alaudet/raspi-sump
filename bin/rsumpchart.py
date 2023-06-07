@@ -13,12 +13,11 @@ from raspisump import todaychart
 
 user = os.getlogin()
 
+
 def main():
     """Initiate todaychart.py module to graph sump pit activity."""
-    csv_file = "/home/" + user + "/raspi-sump/csv/waterlevel-{}.csv".format(
-        time.strftime("%Y%m%d")
-    )
-    filename = "/home/" + user + "/raspi-sump/charts/today.png"
+    csv_file = f"/home/{user}/raspi-sump/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
+    filename = f"/home/{user}/raspi-sump/charts/today.png"
     todaychart.graph(csv_file, filename)
 
 
