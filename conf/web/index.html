@@ -1,33 +1,36 @@
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<META NAME="keywords" CONTENT="python, raspberry pi, raspi, raspi-sump, sump pump, alerts, sump pit,hc-sr04, monitoring, matplotlib, numpy, graph">
-<META NAME="description" CONTENT="Hourly graph of sump pit water level using Raspi-Sump">
-<meta name="author" content="Al Audet" >
-<META NAME="ROBOTS" CONTENT="ALL">
-<title>Raspi-Sump Current Water Level</title>
-<link rel="stylesheet" type="text/css" href="css/raspi.css">
+    <title>Raspi-Sump Current Water Level</title>
+    <meta name="author" content="Al Audet" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/raspi.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-
-<center>
 <body>
+    <div class="container">
+        <div class="text-center">
+            <img class="img-fluid" src="images/logo.png" alt="raspi-sump logo">
+        </div>
+        
+        <div class="text-center">
+            <h1>Current Water Level</h1>
+        </div>
+        
+        <div class="text-center">
+            <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
+            <br><br>
 
-<tr><td><img class="displayed" src="images/logo.png" alt="raspi-sump logo" border="1"><td></tr>
-
-<table>
-
-<tr>
-<td><H1>Raspi-Sump Current Water Level</H1></td>
-</tr>
-<tr>
-<p><td><img class="displayed" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib"></td>
-</tr>
-
-
-<td><center><br><br><a href="charts/">Past Water Level Readings</a></center></td>
-
-
+            <div class="container mt-3">
+                <a href="charts/" class="btn custom-btn">Historical Readings</a>
+                <a href="https://www.linuxnorth.org/raspi-sump/" class="btn custom-btn">Raspi-Sump</a>
+                <a href="https://github.com/alaudet/raspi-sump/" class="btn custom-btn">Source Code</a>
+                <a href="https://www.linuxnorth.org/raspi-sump/faq.html" class="btn custom-btn">FAQ</a>
+                <a href="https://www.linuxnorth.org/donate/" class="btn custom-btn">Donate</a>
+            </div>
+        </div>
+        
+        
+    </div>
 </body>
-</table>
-</center>
 </html>
