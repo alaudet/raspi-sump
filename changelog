@@ -1,5 +1,8 @@
 Raspi-Sump Changelog
 ====================
+Version 1.8rc
+- Added enhancements to the local website on the Raspberry Pi.
+
 Version 1.7.2
 Note: No new functionality in this release.  Simply a refactoring of code and
 a change to way code is tested.  Optional Upgrade.
