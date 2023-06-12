@@ -67,13 +67,13 @@ def graph(csv_file, filename):
     plt.subplots_adjust(top=0.86)
 
     if unit == "imperial":
-        plt.ylabel("inches")
+        plt.ylabel("inches", fontsize=16)
     if unit == "metric":
-        plt.ylabel("centimeters")
+        plt.ylabel("centimeters", fontsize=16)
 
-    plt.xlabel("Time of Day")
+    plt.xlabel("Time of Day", fontsize=16)
     plt.xticks(rotation=30)
     plt.grid(True, color="#ECE5DE", linestyle="solid")
     plt.tick_params(axis="x", bottom=False, top=False)
     plt.tick_params(axis="y", left=False, right=False)
-    plt.savefig(filename, dpi=72)
+    plt.savefig(filename, transparent=True, dpi=72)
