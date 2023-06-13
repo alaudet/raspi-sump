@@ -11,3 +11,6 @@ nosetests.xml
 .noseids
 .vscode
 venv
+test.html
+file1
+file2

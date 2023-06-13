@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.8rc3"
+version = "1.8rc4"
 user = os.getlogin()
 
 homedir = "/home/" + user + "/raspi-sump/"
@@ -31,6 +31,8 @@ add_files = [
     (homedir + "web/images", ["conf/web/images/logo.png"]),
     (homedir + "web/css", ["conf/web/css/index.html"]),
     (homedir + "web/css", ["conf/web/css/raspi.css"]),
+    (homedir + "web/css", ["conf/web/css/includes.js"]),
+    (homedir + "web/css/inc", ["conf/web/css/inc/copyright"]),
     (homedir, ["VERSION"]),
 ]
 
