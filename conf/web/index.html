@@ -13,23 +13,21 @@
 <body>
     <div class="container-fluid p-3 text-center topContainer">
         <h1>Raspi-Sump</h1>
-        <p>v1.8rc4<br>
-        Water Level Monitoring System</p> 
-        
+        <p>Water Level Monitoring System</p> 
       </div>
-      <br><br>
+    
       <div class="container">
         <div class="text-center">
-            
+            <br><br>
             
             <div class="btn-group" role="group" aria-label="Button group">               
                 
-                <a href="charts/" class="btn btn-secondary rounded-0">Past Readings</a>
-                <a href="https://www.linuxnorth.org/raspi-sump/" class="btn btn-secondary rounded-0">Raspi-Sump</a>
-                <a href="https://github.com/alaudet/raspi-sump/" class="btn btn-secondary rounded-0">Source Code</a>
-                <a href="https://www.linuxnorth.org/raspi-sump/faq.html" class="btn btn-secondary rounded-0">FAQ</a>
-                <!-- <a href="https://www.linuxnorth.org/raspi-sump/license.html" class="btn btn-secondary rounded-0">License</a>
-                -->
+                <a href="charts/" class="btn btn-secondary">Historical Readings</a>
+                <a href="https://www.linuxnorth.org/raspi-sump/" class="btn btn-secondary">Raspi-Sump</a>
+                <a href="https://github.com/alaudet/raspi-sump/" class="btn btn-secondary">Source Code</a>
+                <a href="https://www.linuxnorth.org/raspi-sump/faq.html" class="btn btn-secondary">FAQ</a>
+                <a href="https://www.linuxnorth.org/raspi-sump/license.html" class="btn btn-secondary">License</a>
+                
 
             </div>
             
@@ -37,15 +35,14 @@
         <div class="container pt-5">
             <div class="text-center">
             <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
-                <br><br>
-                <div id="copyright"></div>
-                <script>
-                    fetchInclude("css/inc/copyright", "copyright");
-                </script>
             </div>
         </div>
-        
     </div>
-    
+    <div class="container-fluid p-0 bottomContainer">
+        <div id="VERSION"></div>
+        <script>
+            fetchInclude("css/inc/VERSION", "VERSION");
+        </script>
+    </div>
 </body>
 </html>
