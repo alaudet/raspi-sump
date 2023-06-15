@@ -11,4 +11,3 @@ include cron/*
 include README.md
 include VERSION
 include conf/web/css/includes.js
-include conf/web/css/inc/copyright
