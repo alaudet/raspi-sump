@@ -36,6 +36,11 @@ try:
 except configparser.NoOptionError:
     configs["heartbeat_interval"] = 10080
 
+try:
+    configs["smtp_ssl"] = config.getint("email", "smtp_ssl")
+except configparser.NoSectionError:
+    configs["smtp_ssl"] = 0
+
 
 def get_last_alert_time():
     """Retrieve the last alert time string from logfile"""
@@ -80,20 +85,17 @@ def heartbeat_alerts():
     than critical distance."""
     recipients = configs["email_to"].split(", ")
     email_body = heartbeat_email_content()
-    server = smtplib.SMTP(configs["smtp_server"])
 
-    # Check if smtp server uses TLS
-    if configs["smtp_tls"] == 1:
+    if configs["smtp_ssl"] == 1:
+        server = smtplib.SMTP_SSL(configs["smtp_server"])
+    elif configs["smtp_tls"] == 1:
+        server = smtplib.SMTP(configs["smtp_server"])
         server.starttls()
     else:
-        pass
-    # Check if smtp server uses authentication
+        server = smtplib.SMTP(configs["smtp_server"])
+
     if configs["smtp_authentication"] == 1:
-        username = configs["username"]
-        password = configs["password"]
-        server.login(username, password)
-    else:
-        pass
+        server.login(configs["username"], configs["password"])
 
     server.sendmail(configs["email_from"], recipients, email_body)
     server.quit()
