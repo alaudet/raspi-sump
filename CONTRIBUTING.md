@@ -11,10 +11,9 @@ Contributions are welcome.
 
 4) All code submitted must be your own or be allowable to re-distribute under the MIT License.  
 
-5) Raspi-Sump should not have a dependency on external services that require a login in order to use.  Please use available Python3 libraries when adding new functionality.  Example: Services like Twilio for alerts will not be included in the official version of Raspi-Sump.  You are free to fork the 
-project and distribute under a different name if that is the direction you would like to go.
+5) Raspi-Sump should not have a dependency on external services that require a login in order to use.  Please use available Python3 libraries when adding new functionality.
 
-6) Please reasonably follow PEP8 guidelines for your code.  For example, if you create a function, give it a docstring so others know what you are doing.  Add comments to make your code clearer to others reading it. If your code is a mess it will not be included.  
+6) Please reasonably follow PEP8 guidelines for your code.  For example, if you create a function, give it a docstring so others know what you are doing.  Add comments to make your code clearer to others reading it. If your code is incomprehensible it will not be included.  
 
 7) I can't promise that all new features will be accepted.  However the MIT license allows/welcomes you to fork the code and release an altered version under any license that you like.  Please see the requirements under the MIT license when doing so.
 
