@@ -12,42 +12,14 @@ import time
 import smtplib
 from datetime import datetime
 import platform
-import configparser
 from collections import deque
 import csv
-from raspisump import log
+from raspisump import log, config_values
 
 
-config = configparser.RawConfigParser()
 user = os.getlogin()
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
 
-configs = {
-    "email_to": config.get("email", "email_to"),
-    "email_from": config.get("email", "email_from"),
-    "smtp_authentication": config.getint("email", "smtp_authentication"),
-    "smtp_tls": config.getint("email", "smtp_tls"),
-    "smtp_server": config.get("email", "smtp_server"),
-    "username": config.get("email", "username"),
-    "password": config.get("email", "password"),
-    "unit": config.get("pit", "unit"),
-}
-# If item in raspisump.conf add to configs dict above.  If not then provide
-# a default value
-try:
-    configs["alert_interval"] = config.getint("email", "alert_interval")
-except configparser.NoOptionError:
-    configs["alert_interval"] = 5
-
-try:
-    configs["alert_when"] = config.get("pit", "alert_when")
-except configparser.NoOptionError:
-    configs["alert_when"] = "high"
-
-try:
-    configs["smtp_ssl"] = config.getint("email", "smtp_ssl")
-except configparser.NoSectionError:
-    configs["smtp_ssl"] = 0
+configs = config_values.configuration()
 
 
 def current_time():

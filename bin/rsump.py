@@ -9,13 +9,11 @@
 
 import time
 import os
-import configparser
-from raspisump import reading, log
+from raspisump import reading, log, config_values
 
-config = configparser.RawConfigParser()
 user = os.getlogin()
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
-reading_interval = config.getint("pit", "reading_interval")
+configs = config_values.configuration()
+reading_interval = configs["reading_interval"]
 
 if reading_interval == 0:
     try:

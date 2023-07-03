@@ -7,34 +7,10 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-import os
-import configparser
 from hcsr04sensor import sensor
-from raspisump import log, alerts, heartbeat
+from raspisump import log, alerts, heartbeat, config_values
 
-config = configparser.RawConfigParser()
-user = os.getlogin()
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
-
-configs = {
-    "critical_water_level": config.getint("pit", "critical_water_level"),
-    "pit_depth": config.getint("pit", "pit_depth"),
-    "temperature": config.getint("pit", "temperature"),
-    "trig_pin": config.getint("gpio_pins", "trig_pin"),
-    "echo_pin": config.getint("gpio_pins", "echo_pin"),
-    "unit": config.get("pit", "unit"),
-}
-
-# If item in raspisump.conf add to configs dict. If not provide defaults.
-try:
-    configs["alert_when"] = config.get("pit", "alert_when")
-except configparser.NoOptionError:
-    configs["alert_when"] = "high"
-
-try:
-    configs["heartbeat"] = config.getint("email", "heartbeat")
-except configparser.NoOptionError:
-    configs["heartbeat"] = 0
+configs = config_values.configuration()
 
 
 def initiate_heartbeat():

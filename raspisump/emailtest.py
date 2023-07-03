@@ -7,32 +7,11 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-import os
-
-# import smtplib
 import smtplib
-import configparser
-from raspisump import alerts
+from raspisump import alerts, config_values
 
 
-config = configparser.RawConfigParser()
-user = os.getlogin()
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
-
-configs = {
-    "email_to": config.get("email", "email_to"),
-    "email_from": config.get("email", "email_from"),
-    "smtp_authentication": config.getint("email", "smtp_authentication"),
-    "smtp_tls": config.getint("email", "smtp_tls"),
-    "smtp_server": config.get("email", "smtp_server"),
-    "username": config.get("email", "username"),
-    "password": config.get("email", "password"),
-}
-
-try:
-    configs["smtp_ssl"] = config.getint("email", "smtp_ssl")
-except configparser.NoSectionError:
-    configs["smtp_ssl"] = 0
+configs = config_values.configuration()
 
 
 def test_email_content():

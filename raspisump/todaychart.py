@@ -8,7 +8,6 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import os
 import numpy as np
 import matplotlib as mpl
 
@@ -16,19 +15,12 @@ mpl.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib import rcParams
+from raspisump import config_values
 
 rcParams.update({"figure.autolayout": True})
-import configparser
 
-config = configparser.RawConfigParser()
-user = os.getlogin()
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
-configs = {"unit": config.get("pit", "unit")}
 
-try:
-    configs["line_color"] = config.get("charts", "line_color")
-except configparser.NoSectionError:
-    configs["line_color"] = "FB921D"
+configs = config_values.configuration()
 
 
 rcParams["date.autoformatter.minute"] = "%H:%M:%S"

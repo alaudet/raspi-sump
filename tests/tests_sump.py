@@ -3,21 +3,11 @@ from unittest import TestCase
 import raspisump.reading as reading
 import raspisump.alerts as alerts
 import raspisump.heartbeat as heartbeat
-import configparser  # Python3
+import raspisump.config_values as config_values
 
-config = configparser.RawConfigParser()
 user = os.getlogin()
-config.read(f"/home/{user}/raspi-sump/raspisump.conf")
 
-configs = {
-    "pit_depth": config.getint("pit", "pit_depth"),
-    "unit": config.get("pit", "unit"),
-}
-
-try:
-    configs["alert_when"] = config.get("pit", "alert_when")
-except configparser.NoOptionError:
-    configs["alert_when"] = "high"
+configs = config_values.configuration()
 
 
 class TestRaspisump(TestCase):
@@ -61,3 +51,64 @@ class TestRaspisump(TestCase):
         """Test that hostname is being returned for alert."""
         hostname = alerts.host_name()
         self.assertIsInstance(hostname, str)
+
+    def test_config_dict(self):
+        """Test that the config is returned as a dict with the expected length"""
+        self.assertIsInstance(configs, dict)
+        self.assertEqual(len(configs), 20)
+
+    def test_key_existence(self):
+        """Test that all keys are present in the dict"""
+        keys_to_check = [
+            "critical_water_level",
+            "pit_depth",
+            "reading_interval",
+            "temperature",
+            "trig_pin",
+            "echo_pin",
+            "unit",
+            "email_to",
+            "email_from",
+            "smtp_authentication",
+            "smtp_tls",
+            "smtp_server",
+            "username",
+            "password",
+            "alert_when",
+            "alert_interval",
+            "smtp_ssl",
+            "heartbeat",
+            "heartbeat_interval",
+            "line_color",
+        ]
+
+        for key in keys_to_check:
+            self.assertIn(key, configs.keys())
+
+    def test_dict_value_types(self):
+        """Test proper value types in returned dict"""
+        expected_values = {
+            "critical_water_level": int,
+            "pit_depth": int,
+            "reading_interval": int,
+            "temperature": int,
+            "trig_pin": int,
+            "echo_pin": int,
+            "unit": str,
+            "email_to": str,
+            "email_from": str,
+            "smtp_authentication": int,
+            "smtp_tls": int,
+            "smtp_server": str,
+            "username": str,
+            "password": str,
+            "alert_when": str,
+            "alert_interval": int,
+            "smtp_ssl": int,
+            "heartbeat": int,
+            "heartbeat_interval": int,
+            "line_color": str,
+        }
+
+        for key, expected_type in expected_values.items():
+            self.assertIsInstance(configs[key], expected_type)
