@@ -1,3 +1,12 @@
+"""Retrieve configuration from raspisump.conf"""
+
+# Raspi-sump, a sump pump monitoring system.
+# Al Audet
+# https://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
+
 import os
 import configparser
 
