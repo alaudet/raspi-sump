@@ -1,120 +1,143 @@
-Raspi-Sump Changelog
-====================
+# Raspi-Sump Changelog
+
+Version 1.8.2
+
+- Code refactoring around handling of configuration file
+- Pinned version 1.8.2 to hcsr04sensor version 1.7 or higher
+- Fixed some inaccurate info in the raspisump.conf comments
+
 Version 1.8.1
+
 - Added support for SSL email. Previously only supported TLS.
 
 Version 1.8
+
 - Added enhancements to the local raspberrypi website.
 - local raspberrypi website mobile friendly
 
 Version 1.7.2
-Note: No new functionality in this release.  Simply a refactoring of code and
-a change to way code is tested.  Optional Upgrade.
+Note: No new functionality in this release. Simply a refactoring of code and
+a change to way code is tested. Optional Upgrade.
+
 - Refactored code to use fstrings instead of .format for strings
 - Migrated to Unittests from Nose
 - Other refactoring for tests
 
 Version 1.7.1
-- Fixed bug in date autoformatters on todaychart.py.  Should have proper date settings now (HH:MM:SS)
+
+- Fixed bug in date autoformatters on todaychart.py. Should have proper date settings now (HH:MM:SS)
 
 Version 1.7
-- Raspi-Sump is no longer dependant on the pi user account.  Can be installed and run as any user that is a member of the gpio group.
+
+- Raspi-Sump is no longer dependant on the pi user account. Can be installed and run as any user that is a member of the gpio group.
 - Made changes to the install instructions related to the lighttpd webserver for chart viewing.
 
 Version 1.6.1
+
 - Fixed error logging when running rsumpmonitor.py.
 
 Version 1.6
+
 - Streamline logging code
 - Better error messages to logfiles and stdout for troubleshooting
 - Heartbeat alert now displays date and time of next alert rather than minutes until next alert.
 
 Version 1.5
+
 - Fixed bug in rsumpmonitor.py that was not restarting the process
 - Fix lighttpd.conf for proper create-mime.conf.pl location
 
-
 Version 1.4.1
+
 - Unpinned Raspi-Sump to a specific version of hcsr04sensor in setup.py
 - Updated install instructions.
 
 Version 1.4
+
 - Add on demand email testing with command 'emailtest's
 
 Version 1.3
+
 - Add support for Raspberry Pi OS 11 (codename bullseye)
 
 Version 1.2.3
+
 - pinned to hcsr04sensor dependency >=1.6 in setup.py
 
 Version 1.2.2
-- hcsr04sensor v1.6 module no longer handles rounding of readings.  Now handled by Raspi-Sump
+
+- hcsr04sensor v1.6 module no longer handles rounding of readings. Now handled by Raspi-Sump
 - reading.py now using depth method in hcsr04sensor as depth_metric and depth_imperial are deprecated.
 
 Version 1.2.1
+
 - Add section to conf file to change line color in the charts.
   [charts]
-  line_color = FB921D  #default
+  line_color = FB921D #default
 
 Version 1.2
+
 - Add hostname to email alert body to better identify which instance of raspisump is alerting
 - Add a heartbeat email at a user defined interval to ensure that email is working as intended
 
 Version 1.1.2
+
 - Fix charts displaying improper hour formatting on x axis when using matplotlib version 2 in Raspbian Stretch.
 
-Version 1.1.1 
+Version 1.1.1
+
 - prevent application from logging negative waterlevels.
 
 Version 1.1
+
 - Add error logging to identify possible faulty cables or sensors. Versions
-prior to this would only hang and consume 100% CPU.  As of this version a
-faulty cable or sensor will cause the application to exit gracefully and write
-a log to '/home/pi/raspi-sump/logs/error_log' alerting you to a faulty cable or
-sensor.
+  prior to this would only hang and consume 100% CPU. As of this version a
+  faulty cable or sensor will cause the application to exit gracefully and write
+  a log to '/home/pi/raspi-sump/logs/error_log' alerting you to a faulty cable or
+  sensor.
 
 Example;
 
-2016-11-26 10:26:42,**ERROR - Signal not received. Possible cable or sensor problem.
-
+2016-11-26 10:26:42,\*\*ERROR - Signal not received. Possible cable or sensor problem.
 
 Version 1.0.2
-- minor addition to alerts.py.  Adds a timestamp to the alert message body. Thanks to Brian Heiland for the suggestion.
 
+- minor addition to alerts.py. Adds a timestamp to the alert message body. Thanks to Brian Heiland for the suggestion.
 
 Version 1.0.1
+
 - minor change to alerts.py that still had a line for testing code in it.
 
-
 Version 1.0.0
-- Python 3 compatible
-- This version has no new functionality.  It is given the first major version 1.0.0 as
-it is now fully Python2 and Python3 compatible.
-- Important info added for Gmail users to send alerts.  See issue tracker;
-https://github.com/alaudet/raspi-sump/issues/6
 
+- Python 3 compatible
+- This version has no new functionality. It is given the first major version 1.0.0 as
+  it is now fully Python2 and Python3 compatible.
+- Important info added for Gmail users to send alerts. See issue tracker;
+  https://github.com/alaudet/raspi-sump/issues/6
 
 Version 0.8.0
-- Option to receive alerts on low water levels instead of high. This would allow
-you to monitor a drinking water source for example.
 
+- Option to receive alerts on low water levels instead of high. This would allow
+  you to monitor a drinking water source for example.
 
 Version 0.7.0
-- Add option to limit SMS Email alerts to a defined interval to prevent
-spamming yourself with alerts every minute or less.  Can now be set in the
-raspisum.conf file as alert_interval.  Default is 5 minutes if option is not
-set.
 
+- Add option to limit SMS Email alerts to a defined interval to prevent
+  spamming yourself with alerts every minute or less. Can now be set in the
+  raspisum.conf file as alert_interval. Default is 5 minutes if option is not
+  set.
 
 Version 0.6.1.1
-- Bug fix.  Pypi download was failing
 
+- Bug fix. Pypi download was failing
 
 Version 0.6.1
+
 - new instructions and configuration for local web server.
 
-
 Version 0.6.0
+
 - sensor module removed from raspisump and now uses hcsr04sensor library.
 - numerous changes to raspisump.conf
 - added unit variable
@@ -126,77 +149,77 @@ Version 0.6.0
 - add rsumpwebchart.py in bin folder to create a webchart from the command line or cron
 - add webchart.py module to create charts for web viewing on Pi local webserver (called from rsumpwebchart.py)
 
-
 Version 0.5.3
-- Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
-'GPIO.cleanup() unsets the current pin mode' 
-This version of Raspi-Sump is compatible with RPi.GPIO 0.5.11
 
+- Bug fix to address the change in RPi.GPIO 0.5.11 as follows;
+  'GPIO.cleanup() unsets the current pin mode'
+  This version of Raspi-Sump is compatible with RPi.GPIO 0.5.11
 
 Version 0.5.2
+
 - Additional explanation on raspisump.conf
 - Documentation changes
 
-
 Version 0.5.1
+
 - Add option to send alerts to multiple recipients
 - Change to raspisump.conf
-
 
 Version 0.5.0
 First non beta release.
 Small changes to install instructions.
 
-
 Version 0.4.0beta1
+
 - Seperated program into scripts and modules.
 - Removed the manual install instructions in favor of packaged install only.
 
-
 Version 0.3.0beta3
+
 - fixed error in setup.py
 
-
 Version 0.3.0beta2
+
 - fix raspisump.conf getting deleted on upgrade
 - upgrade makes a backup of raspisump.conf to raspisump.conf.save
 - Updated Instructions
 
 Version 0.3.0beta1
+
 - fix checkpid .py for raspisump_alternate.py process
 - packaging with pip
 - new install instructions for automated and manual installs
 
-
 Version 0.2.1
+
 - Minor changes to some code.
   - no longer using my own code to round numbers. Using round() method instead
   - small corrections to License
   - eliminated some duplicate code around logging
 
-
 Version 0.2
+
 - Configuration file to store variables
 - use cron to run the script at 1 minute intervals rather than in the script
-- use raspisump_alternate.py if you want to run raspisump as a continuous 
-process without cron.  Use only if you need to use intervals less than one minute.
+- use raspisump_alternate.py if you want to run raspisump as a continuous
+  process without cron. Use only if you need to use intervals less than one minute.
 - use checkpid.py if using as continuous process to monitor health of raspisump
-process and restart it if stopped.
+  process and restart it if stopped.
 - PEP8 changes to code
 - other code cleanup
 - Added MIT License
 - Added changelog
 
-
 Version 0.1B
+
 - Report water level in pit as opposed to distance of water from sensor
 - todaychart.py to graph the water level
 - add simulations for testing functionality without using RPi.GPIO
 - Documentation for using raspisump
 - added rudimentary cron examples
 
-
 Verions 0.1A
+
 - 60 second interval monitoring of sump pit water level
 - measures distance between sensor and water
 - Error handling to compensate for fringe readings
