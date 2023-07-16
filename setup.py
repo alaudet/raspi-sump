@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.9rc2"
+version = "1.9rc3"
 user = os.getlogin()
 
 
@@ -78,7 +78,7 @@ if os.path.isdir(homedir):
     os.system(cmd)
 
 if os.path.isdir("/home/" + user + "/.config/systemd"):
-    cmd = "chown -R " + user + " " + configdir + "systemd"
+    cmd = "chown -R " + user + " " + "/.config/systemd"
     os.system(cmd)
-    cmd = "chgrp -R " + user + " " + configdir + "systemd"
+    cmd = "chgrp -R " + user + " " + "/.config/systemd"
     os.system(cmd)
