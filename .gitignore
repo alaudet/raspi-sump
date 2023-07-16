@@ -10,4 +10,5 @@ ttt.py
 nosetests.xml
 .noseids
 .vscode
+docs/add.txt
 venv/
