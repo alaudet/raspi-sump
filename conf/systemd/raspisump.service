@@ -1,0 +1,9 @@
+[Unit]
+Description=RaspiSump Service
+
+[Service]
+ExecStart=/usr/local/bin/rsump.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

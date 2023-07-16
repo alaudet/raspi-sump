@@ -1,0 +1,8 @@
+[Unit]
+Description=RaspiSump Webchart Service
+
+[Service]
+ExecStart=/usr/local/bin/rsumpwebchart.py
+
+[Install]
+WantedBy=multi-user.target

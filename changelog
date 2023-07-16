@@ -1,5 +1,9 @@
 # Raspi-Sump Changelog
 
+Version 1.9
+
+- Added systemd functionality for rsump.py and rsumpwebchart.py
+
 Version 1.8.2
 
 - Code refactoring around handling of configuration file

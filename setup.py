@@ -1,10 +1,11 @@
 from setuptools import setup
 import os
 
-version = "1.8.2"
+version = "1.9rc1"
 user = os.getlogin()
 
 homedir = "/home/" + user + "/raspi-sump/"
+configdir = "/home/" + user + "/.config/"
 
 if os.path.isfile(homedir + "raspisump.conf"):
     cmd = "cp -u " + homedir + "raspisump.conf " + homedir + "raspisump.conf.save"
@@ -34,6 +35,9 @@ add_files = [
     (homedir + "web/css", ["conf/web/css/includes.js"]),
     (homedir, ["VERSION"]),
     (homedir + "web/css/inc", ["VERSION"]),
+    (configdir + "systemd/user", ["conf/systemd/raspisump.service"]),
+    (configdir + "systemd/user", ["conf/systemd/rsumpwebchart.service"]),
+    (configdir + "systemd/user", ["conf/systemd/rsumpwebchart.timer"]),
 ]
 
 setup(
@@ -70,4 +74,10 @@ if os.path.isdir(homedir):
     cmd = "chmod 600 " + homedir + "raspisump.conf"
     os.system(cmd)
     cmd = "chmod 600 " + homedir + "sample_config/raspisump.conf"
+    os.system(cmd)
+
+if os.path.isdir(configdir + "systemd/user"):
+    cmd = "chown -R " + user + " " + configdir + "systemd"
+    os.system(cmd)
+    cmd = "chgrp -R " + user + " " + configdir + "systemd"
     os.system(cmd)

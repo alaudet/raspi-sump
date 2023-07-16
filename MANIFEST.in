@@ -11,3 +11,6 @@ include cron/*
 include README.md
 include VERSION
 include conf/web/css/includes.js
+include conf/systemd/raspisump.service
+include conf/systemd/rsumpwebchart.service
+include conf/systemd/rsumpwebchart.timer
