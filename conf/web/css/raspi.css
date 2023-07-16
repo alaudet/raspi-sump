@@ -1,30 +1,41 @@
-.topContainer {
+
+.navbar {
   background-color: #007f7f;
   color: #FFFFFF; 
-  text-align: center;
   padding: 15px;
 }
-
-.topContainer h1 {
-  font-family: Arial, sans-serif; 
-  font-size: 28px; 
+/*
+.navbar-brand {
+  color: #FFFFFF;
 }
 
-.topContainer h3 {
-  font-family: Arial, sans-serif; 
-  font-size: 10px; 
+*/
+
+.dropdown-menu {
+  background-color: #007f7f;
 }
 
-.topContainer p {
-  font-family: Arial, sans-serif; 
-  font-size: 16px; 
-}
-
-.bottomContainer {
+.nav-item a {
   background-color: #007f7f;
   color: #FFFFFF; 
-  text-align: center;
-  position: absolute;
-  left: 0%;
-  bottom:0;
+}
+
+.nav-item a:focus {
+  background-color: #007f7f;
+  color: #FFFFFF;
+}
+
+.nav-item a:hover {
+  background-color: #005a5a;
+  color: #FFFFFF;
+}
+
+.nav-link a {
+  background-color: #007f7f;
+  color: #FFFFFF;
+}
+
+.nav-link a:hover {
+  background-color: #005a5a;
+  color: #FFFFFF;
 }
