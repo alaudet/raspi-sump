@@ -5,52 +5,63 @@
     <meta name="author" content="Al Audet" >
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/raspi.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/raspi.css"> 
     <script src="css/includes.js"></script>
 </head>
 <body>
-    <div class="container-fluid p-3 text-center topContainer">
-        <h1>Raspi-Sump</h1>
-        <p>Water Level Monitoring System</p> 
-      </div>
+
+<!-- begin navbar -->
+<div class="container-fluid p-3 text-center topContainer">
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Raspi-Sump</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="charts/">Historical Readings</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Project
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/">Home</a></li>
+            <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/faq.html">FAQ</a></li>
+            <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/changelog.txt">Changelog</a></li>
+            <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/license.html">License</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Source Code
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://github.com/alaudet/raspi-sump/">Raspi-Sump</a></li>
+            <li><a class="dropdown-item" href="https://github.com/alaudet/hcsr04sensor/">HCSR04Sensor</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a class="btn btn-primary btn-outline-light" href="https://www.linuxnorth.org/donate/" role="button">Donate</a>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+    <p>Water Level Monitoring System</p> 
+  </div>
+</div>
+<!-- end navbar -->
     
-      <div class="container">
-        <div class="text-center">
-            <br><br>
-            
-            <div class="btn-group" role="group" aria-label="Button group">               
-                
-                <a href="charts/" class="btn btn-secondary">Historical Readings</a>
-            </div>
-            <div class="btn-group">    
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Raspi-Sump</button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/">Home</a></li>
-                  <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/faq.html">FAQ</a></li>
-                  <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/changelog.txt">Changelog</a></li>
-                  <li><a class="dropdown-item" href="https://www.linuxnorth.org/raspi-sump/license.html">License</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">    
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Source Code</button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="https://github.com/alaudet/raspi-sump/">Raspi-Sump</a></li>
-                  <li><a class="dropdown-item" href="https://github.com/alaudet/hcsr04sensor/"">HCSR04Sensor</a></li>
-                </ul>
-            </div> 
-            <div class="btn-group" role="group" aria-label="Button group">               
-                
-                <a href="https://www.linuxnorth.org/donate/" class="btn btn-secondary">Donate</a>
-            </div>
-            
-        </div>
-        <div class="container pt-5">
-            <div class="text-center">
-            <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
-            </div>
-        </div>
+    <div class="container pt-5">
+      <div class="text-center">
+        <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
+      </div>
+    </div>
     </div>
     <div class="container-fluid p-0 bottomContainer">
         <div id="VERSION"></div>
@@ -58,5 +69,6 @@
             fetchInclude("css/inc/VERSION", "VERSION");
         </script>
     </div>
+  
 </body>
 </html>
