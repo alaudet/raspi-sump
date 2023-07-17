@@ -103,7 +103,7 @@ All configurations are recorded in /home/username/raspi-sump/raspisump.conf
 See the configuration file for explanations of variables. You can choose to
 take imperial (inches) or metric (centimetres) water level readings.
 
-# Starting Raspi-Sump with Systemd
+# Start Raspi-Sump with Systemd
 
 To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/username/.config/systemd/user
 
@@ -121,9 +121,9 @@ To monitor the log file in the csv folder while raspi-sump is running;
 
     tail -f 'waterlevel-20230523.csv'
 
-# Making Line Charts of Sump Activity
+# Generate Line Charts of Sump Activity
 
-You can automate the creation of charts at 15 minute intervals with systemd for later viewing on the pi webserver which will be configured later in this document.
+You can automate the creation of charts at 15 minute intervals with systemd for later viewing on the pi webserver which will be configured later in this document. The first time it runs your webchart folder directory will be automatically created.
 
     systemctl --user start rsumpwebchart.timer
     systemctl --user enable rsumpwebchart.timer
@@ -176,11 +176,7 @@ it is not necessary to do again.
 
 # Getting Started
 
-These instructions will do the following
-
-- install the Lighttpd webserver on your Pi
-- create your webcharts folder structure
-- configure cron to run the script to create for graphs of sump pump activity
+These instructions will install the Lighttpd webserver on your Pi
 
 Install the Lighttpd webserver on your
 Raspberry Pi as follows.
