@@ -3,6 +3,7 @@
 Version 1.9
 
 - Added systemd functionality for rsump.py and rsumpwebchart.py
+- Update to local pi web page home
 
 Version 1.8.2
 

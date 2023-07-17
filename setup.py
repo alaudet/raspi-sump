@@ -1,16 +1,18 @@
 from setuptools import setup
 import os
 
-version = "1.9rc3"
+version = "1.9rc4"
 user = os.getlogin()
 
 
 homedir = "/home/" + user + "/raspi-sump/"
 systemd_configdir = "/home/" + user + "/.config/systemd/user/"
 
+
 if os.path.isfile(homedir + "raspisump.conf"):
     cmd = "cp -u " + homedir + "raspisump.conf " + homedir + "raspisump.conf.save"
     os.system(cmd)
+
 
 raspi_sump_files = [
     "bin/rsump.py",
@@ -78,7 +80,5 @@ if os.path.isdir(homedir):
     os.system(cmd)
 
 if os.path.isdir("/home/" + user + "/.config/systemd"):
-    cmd = "chown -R " + user + " " + "/.config/systemd"
-    os.system(cmd)
-    cmd = "chgrp -R " + user + " " + "/.config/systemd"
+    cmd = "chown -R " + user + " " + "/home/" + user + "/.config"
     os.system(cmd)
