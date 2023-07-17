@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.8.2"
+version = "1.8.3rc1"
 user = os.getlogin()
 
 homedir = "/home/" + user + "/raspi-sump/"
