@@ -2,14 +2,7 @@
 .navbar {
   background-color: #007f7f;
   color: #FFFFFF; 
-  padding: 15px;
 }
-/*
-.navbar-brand {
-  color: #FFFFFF;
-}
-
-*/
 
 .dropdown-menu {
   background-color: #007f7f;
@@ -37,5 +30,10 @@
 
 .nav-link a:hover {
   background-color: #005a5a;
+  color: #FFFFFF;
+}
+
+.footer {
+  background-color: #007f7f;
   color: #FFFFFF;
 }

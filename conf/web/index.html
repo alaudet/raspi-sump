@@ -13,9 +13,9 @@
 <body>
 
 <!-- begin navbar -->
-<div class="container-fluid p-3 text-center topContainer">
+<div class="container-fluid p-1 text-center topContainer">
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark">
+<nav class="navbar p-3 navbar-expand-lg bg-body-tertiary navbar-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Raspi-Sump</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,28 +47,34 @@
           </ul>
         </li>
       </ul>
-      <a class="btn btn-primary btn-outline-light" href="https://www.linuxnorth.org/donate/" role="button">Donate</a>
+      <a class="btn btn-warning text-dark" href="https://www.linuxnorth.org/donate/" role="button">Donate</a>
     </div>
   </div>
 </nav>
-  <div class="container">
-    <p>Water Level Monitoring System</p> 
-  </div>
 </div>
 <!-- end navbar -->
+
+<div class="container-fluid p-0 text-center">
+  <p>Water Level Monitoring System</p> 
+</div>
     
-    <div class="container pt-5">
-      <div class="text-center">
-        <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
-      </div>
+<div class="container-fluid p-2">
+  <div class="text-center">
+    <img class="img-fluid" src="charts/today.png" alt="Today's Water Level" longdesc="Generated with Matplotlib">
+  </div>
+</div>
+
+<!-- begin footer -->
+<div class="container-fluid pt-3 p-1 text-center">
+  <div class="footer small p-1">
+    <div id="VERSION">
+      <script>
+        fetchInclude("css/inc/VERSION", "VERSION");
+      </script>
     </div>
-    </div>
-    <div class="container-fluid p-0 bottomContainer">
-        <div id="VERSION"></div>
-        <script>
-            fetchInclude("css/inc/VERSION", "VERSION");
-        </script>
-    </div>
-  
+  </div>
+</div>
+<!-- end footer -->
+
 </body>
 </html>
