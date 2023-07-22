@@ -1,7 +1,4 @@
-# Install
-
-Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
-If you choose to do this you do it at your own risk.
+# Raspi-Sump Installation Instructions
 
 Installation instructions assume Python3 on Raspberry Pi OS 11 (Bullseye) or Raspbian version 10 (Buster).
 
@@ -15,7 +12,10 @@ Raspbian OS 9 (Stretch) - Support ended on June 30, 2022. Upgrade to Bullseye.
 
 # Hardware
 
-Before installing Raspi-Sump you must setup your hardware (Please make sure you understand GPIO information on your pi).
+_Disclaimer: You could damage your raspberry pi if you do not insert a voltage divider between the echo pin on the sensor and the GPIO pin on the Raspberry Pi.
+If you choose to do this you do it at your own risk. Please make sure you understand GPIO information on your pi._
+
+Before installing Raspi-Sump you must setup your hardware.
 
 Use two resistors to create a voltage divider from the Sensor to the
 Pi. There are various combinations of resistors that you can use, a google
@@ -51,9 +51,9 @@ Check that your user account is a member of the gpio group. This is needed for a
 
     groups
 
-You should see all groups your account belongs to. If gpio is not listed run the following command (where 'username' is your account name);
+You should see all groups your account belongs to. If gpio is not listed run the following command (where `username` is your account name);
 
-    sudo usermod -aG gpio username
+    sudo usermod -aG gpio `username`
 
 Logout and log back into your account for the groups to take effect.
 
@@ -74,13 +74,13 @@ The following will automatically install hcsr04sensor if it is not already insta
 
     sudo pip3 install --no-binary :all: raspisump
 
-Navigate to /home/username/raspi-sump/ and move the sample config file
+Navigate to /home/`username`/raspi-sump/ and move the sample config file
 to this directory.
 
-    cd /home/username/raspi-sump
+    cd /home/`username`/raspi-sump
     mv sample_config/raspisump.conf .
 
-The /home/username/raspi-sump folder is setup as follows on install;
+The /home/`username`/raspi-sump folder is setup as follows on install;
 
 - raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 - raspi-sump/csv (location of waterlevel readings to csv file)
@@ -92,20 +92,20 @@ The /home/username/raspi-sump folder is setup as follows on install;
   - NOTE that cron has been replaced with systemd.
 
 \*\*Note take care with your raspisump.conf file if you are using Gmail or any
-other mail system that requires authentication. Your username and password
+other mail system that requires authentication. Your `username` and password
 will be viewable in the file. You should have a strong password on your account.. The installer also tightens file security on
 the file automatically.
 
 # Edit raspisump.conf
 
-All configurations are recorded in /home/username/raspi-sump/raspisump.conf
+All configurations are recorded in /home/`username`/raspi-sump/raspisump.conf
 
 See the configuration file for explanations of variables. You can choose to
 take imperial (inches) or metric (centimetres) water level readings.
 
 # Start Raspi-Sump with Systemd
 
-To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/username/.config/systemd/user
+To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/`username`/.config/systemd/user
 
     systemctl --user daemon-reload
 
@@ -121,12 +121,44 @@ To monitor the log file in the csv folder while raspi-sump is running;
 
     tail -f 'waterlevel-20230523.csv'
 
+## Extra systemd commands
+
+If you ever need to stop raspisump
+
+    systemctl --user stop raspisump
+
+Prevent Raspi-Sump from running at boot time
+
+    systemctl --user disable raspisump
+
+If you make a change to the raspisump.conf file, you must restart raspisump
+
+    systemctl --user restart raspisump
+
+View the current status of the raspisump process
+
+    systemctl --user status raspisump
+
 # Generate Line Charts of Sump Activity
 
 You can automate the creation of charts at 15 minute intervals with systemd for later viewing on the pi webserver which will be configured later in this document. The first time it runs your webchart folder directory will be automatically created.
 
     systemctl --user start rsumpwebchart.timer
     systemctl --user enable rsumpwebchart.timer
+
+## Extra systemd commands
+
+Prevent charts from being automatically created
+
+    systemctl --user stop rsumwebchart.timer
+
+Prevent charts from being activated at boot time
+
+    systemctl --user disable rsumpwebchart.timer
+
+View the current status of the chart timer
+
+    systemctl --user status rsumpwebchart.timer
 
 # Test Email Alerts
 
@@ -140,7 +172,7 @@ To test that emails are working run the command 'emailtest';
 
 Raspi-Sump can send email tests at predefined intervals. See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
 
-In /home/username/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
+In /home/`username`/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
 
     # Set a heartbeat sms or email interval in order to regularly test that your
     # notifications are working as intended.
@@ -187,12 +219,12 @@ Change to the web server root folder at /var/www/html
 
     cd /var/www/html
 
-Create the symlinks for your folders to be viewable with the web server. Replace 'username' with your account name.
+Create the symlinks for your folders to be viewable with the web server. Replace `username` with your account name.
 
-    sudo ln -s /home/username/raspi-sump/web/index.html index.html
-    sudo ln -s /home/username/raspi-sump/web/css css
-    sudo ln -s /home/username/raspi-sump/web/images images
-    sudo ln -s /home/username/raspi-sump/charts charts
+    sudo ln -s /home/`username`/raspi-sump/web/index.html index.html
+    sudo ln -s /home/`username`/raspi-sump/web/css css
+    sudo ln -s /home/`username`/raspi-sump/web/images images
+    sudo ln -s /home/`username`/raspi-sump/charts charts
 
 Enable directory listing for historical charts
 
