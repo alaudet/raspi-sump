@@ -1,10 +1,10 @@
 # Upgrade Raspi-Sump to use Systemd
 
-Raspi-Sump versions after 1.8 use systemd to manage the services related to sump monitoring and chart creation.
+Raspi-Sump versions later than 1.8 use `systemd` to manage the services related to sump monitoring and chart creation.
 
-`Systemd` replaces cron scheduling for taking readings, creating charts on a schedule. It also replaces `rsumpmonitor.py` for monitoring the status of the raspisump process when taking more than one reading per minute.
+`Systemd` replaces cron scheduling for taking readings and creating charts on a schedule. It also replaces `rsumpmonitor.py` for monitoring the status of the raspisump process when taking more than one reading per minute.
 
-`Systemd` will automatically restart the Raspi-Sump process if it stops and is a more robust way to handle failed processes the `rsumpmonitor.py`.
+`Systemd` will automatically restart the Raspi-Sump process if it stops and is a more robust way to handle failed processes than `rsumpmonitor.py`.
 
 ## If you currently take readings once per minute or more
 
@@ -55,7 +55,7 @@ One time only \*\* - Activate the services
 
         systemctl --user enable raspisump
 
-- Start the chart generation timer
+- Start the chart generation timer. Charts will generate every 15 minutes.
 
         systemctl --user start rsumpwebchart.timer
 
@@ -82,3 +82,59 @@ There are times you may want to stop the raspisump service or the rsumpwebchart.
 When you make changes to the raspisump.conf file you must restart the raspisump service
 
         systemctl --user restart raspisump
+
+### Check the status of the services
+
+You can check the status of the raspisump service and rsumpwebchart timer as follows;
+
+        systemctl --user status raspisump
+        systemctl --user status rsumpwebchart.timer
+
+# Making it easier to call systemctl
+
+If you find typing the systemctl commands cumbersome you can make it easier by creating aliases. An alias is shortcut you can type that will initiate a long command.
+
+Aliases are added to the `.bash_aliases` file in your home folder as follows
+
+        cd /home/__username__
+        nano .bash_aliases
+
+Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file.
+
+        alias sumpon="systemctl --user start raspisump && systemctl --user start rsumpwebchart.timer"
+        alias sumpoff="systemctl --user stop raspisump && systemctl --user stop rsumpwebchart.timer"
+        alias sumpstats="systemctl --user status raspisump"
+        alias sumpchartstats="systemctl --user status rsumpwebchart.timer"
+        alias sumpboot="systemctl --user enable raspisump && systemctl --user enable rsumpwebchart.timer"
+        alias sumpnoboot="systemctl --user disable raspisump && systemctl --user disable rsumpwebchart.timer"
+        alias sumprestart="systemctl --user restart raspisump"
+
+Save the file, logout and log back in for the aliases to activate.
+
+- Start raspisump and rsumpwebchar.timer
+
+        sumpon
+
+- Stop raspisump and rsumpwebchart.timer
+
+        sumpoff
+
+- Show status of the raspisump service
+
+        sumpstats
+
+- Show status of the rsumpwebchart timer
+
+        sumpchartstats
+
+- Enable raspisump and rsumpchart.timer on boot
+
+        sumpboot
+
+- Disable raspisump and rsumpchart.timer on boot
+
+        sumpnoboot
+
+- Restart raspisump after making a `raspisump.conf` file change
+
+        sumprestart
