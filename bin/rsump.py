@@ -35,8 +35,8 @@ else:
             print(
                 "ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group."
             )
-        log.log_event(
-            "error_log",
-            "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
-        )
-        exit(0)
+            log.log_event(
+                "error_log",
+                "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
+            )
+            exit(0)
