@@ -7,7 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-from raspisump import checkpid
+from raspisump import checkpid, log
 
 
 def main():
@@ -18,4 +18,10 @@ def main():
 
 
 if __name__ == "__main__":
+    print("rsumpmonitor.py is depracated.  Switch to systemd.")
+    print("https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade_systemd.md")
+    log.log_event(
+        "info_log",
+        "Deprecation Warning - rsumpmonitor.py is depracated. Switch to systemd",
+    )
     main()

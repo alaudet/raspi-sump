@@ -79,7 +79,7 @@ There are times you may want to stop the raspisump service or the rsumpwebchart.
 
 ### Restarting the raspisump service
 
-When you make changes to the raspisump.conf file you must restart the raspisump service
+When you make changes to the `raspisump.conf` file you must restart the raspisump service
 
         systemctl --user restart raspisump
 

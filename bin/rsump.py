@@ -28,5 +28,15 @@ if reading_interval == 0:
         )
 else:
     while True:
-        reading.water_depth()
-        time.sleep(reading_interval)
+        try:
+            reading.water_depth()
+            time.sleep(reading_interval)
+        except RuntimeError:
+            print(
+                "ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group."
+            )
+        log.log_event(
+            "error_log",
+            "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
+        )
+        exit(0)
