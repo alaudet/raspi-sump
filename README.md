@@ -7,6 +7,8 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 
 # What's New
 
+Version 1.9 - `Systemd` now replaces `rsumpmonitor.py`/`checkpid.py`. Control all Raspi-Sump services and Chart creation timers with `Systemd`.
+
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) for the latest information on Raspi-Sump features.
 
 # Supported Versions of Raspbian / Raspberry Pi OS
@@ -26,6 +28,8 @@ Full install instructions are located at https://github.com/alaudet/raspi-sump/b
 Upgrade an existing version
 
     sudo pip3 install -U --no-binary :all: raspisump
+
+If upgrading from version 1.8 or lower to version 1.9 see the [1.9 Upgrade Instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade_to_version_1.9.md)
 
 # More Info
 
@@ -48,8 +52,7 @@ Once you have done all of these things, then consider using a monitoring system 
 
 # License
 
-MIT License. I want you to do whatever you want with Raspi-Sump. If you
-improve it please let me know.
+Raspi-Sump is released under the [MIT License](https://github.com/alaudet/raspi-sump/blob/master/LICENSE).
 
 # Contribute
 

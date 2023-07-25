@@ -22,5 +22,5 @@ def main():
 
 
 if __name__ == "__main__":
-    print("Creating a one time chart reading")
+    print("Creating one time chart reading in the charts directory - today.png")
     main()

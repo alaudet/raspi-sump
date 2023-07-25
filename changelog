@@ -4,6 +4,8 @@ Version 1.9
 
 - Added systemd functionality for rsump.py and rsumpwebchart.py
 - Update to local pi web page home
+- Added full upgrade instructions for version 1.8 and lower to 1.9
+- deprecated rsumpmonitor.py/checkpid.py and replace with systemd
 
 Version 1.8.2
 
