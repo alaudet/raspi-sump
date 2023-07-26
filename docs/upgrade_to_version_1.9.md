@@ -1,4 +1,4 @@
-# Upgrade to Raspi-Sump Version 9 instructions.
+# Upgrade to Raspi-Sump Version 1.9 instructions.
 
 These instructions are for upgrading versions 1.8 and lower to version 1.9. If you are doing a new install, disregard these instructions and use the [Raspi-Sump New Install Instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) instead.
 
@@ -12,9 +12,9 @@ Raspi-Sump version 1.9 and later use `systemd` to manage the services related to
 
 ## If you currently take readings once per minute or more
 
-If you currently call `rsump.py` with cron every minute or more and are happy with this approach you can continue doing this. Nothing changes for you. However `systemd` makes it easier to stop and start processes.
+If you currently call `rsump.py` with cron every minute or more and are happy with this approach you can continue doing this. Nothing changes for you. However `systemd` makes it easier to stop and start processes. Some people are militant about deprecating cron in favour of systemd but cron is proven and works well in this situation. Nothing wrong with continuing to use as is.
 
-e.g. If `reading_interval = 0` in your `raspisump.conf` file and you use cron to call rsump.py every minute or more, you do not need to use `systemd`. It is recommended to switch but Raspi-Sump will continue working as normal.
+e.g. If `reading_interval = 0` in your `raspisump.conf` file and you use cron to call rsump.py every minute or more, you do not need to use `systemd`. It is an option to switch but Raspi-Sump will continue working as normal fine with cron when only taking one reading and exiting.
 
 # Setting up Systemd
 
