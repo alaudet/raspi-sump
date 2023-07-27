@@ -105,7 +105,7 @@ Aliases are added to the `.bash_aliases` file in your home folder as follows
         cd /home/__username__
         nano .bash_aliases
 
-Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file.
+Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file. Make sure there are no spaces at the beginning of each line after pasting.
 
         alias sumpon="systemctl --user start raspisump && systemctl --user start rsumpwebchart.timer"
         alias sumpoff="systemctl --user stop raspisump && systemctl --user stop rsumpwebchart.timer"

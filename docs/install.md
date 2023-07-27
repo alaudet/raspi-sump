@@ -238,6 +238,55 @@ Open a web browser to http://ip_of_your_pi. Having configured the rsumpwebchart.
 This will also copy historical information that you can access
 from the link in the web page.
 
+# Optional - Make it Easier to initiate systemd commands
+
+If you find typing the systemctl commands cumbersome you can make it easier by creating aliases. An alias is shortcut you can type that will initiate a long command.
+
+Aliases are added to the `.bash_aliases` file in your home folder as follows
+
+        cd /home/__username__
+        nano .bash_aliases
+
+Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file. Make sure there are no spaces at the beginning of each line after pasting.
+
+        alias sumpon="systemctl --user start raspisump && systemctl --user start rsumpwebchart.timer"
+        alias sumpoff="systemctl --user stop raspisump && systemctl --user stop rsumpwebchart.timer"
+        alias sumpstats="systemctl --user status raspisump"
+        alias sumpchartstats="systemctl --user status rsumpwebchart.timer"
+        alias sumpboot="systemctl --user enable raspisump && systemctl --user enable rsumpwebchart.timer"
+        alias sumpnoboot="systemctl --user disable raspisump && systemctl --user disable rsumpwebchart.timer"
+        alias sumprestart="systemctl --user restart raspisump"
+
+Save the file, logout and log back in to activate the new aliases.
+
+- Start raspisump and rsumpwebchart.timer
+
+        sumpon
+
+- Stop raspisump and rsumpwebchart.timer
+
+        sumpoff
+
+- Show status of the raspisump service
+
+        sumpstats
+
+- Show status of the rsumpwebchart timer
+
+        sumpchartstats
+
+- Enable raspisump and rsumpchart.timer on boot
+
+        sumpboot
+
+- Disable raspisump and rsumpchart.timer on boot
+
+        sumpnoboot
+
+- Restart raspisump after making a `raspisump.conf` file change
+
+        sumprestart
+
 # Support
 
 For support open an issue on the Github Issue Tracker or consider joining our discord server.
