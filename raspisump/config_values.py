@@ -49,7 +49,7 @@ def configuration():
 
     try:
         configs["smtp_ssl"] = config.getint("email", "smtp_ssl")
-    except configparser.NoSectionError:
+    except configparser.NoOptionError:
         configs["smtp_ssl"] = 0
 
     try:
