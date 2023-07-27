@@ -3,6 +3,7 @@
 Version 1.9.1
 
 - Bugfix. Error was getting thrown if missing an option for smtp_ssl in raspisump.conf
+- Bugfix. Error was getting thrown if missing an option for line_color in raspisump.conf
 
 Version 1.9
 

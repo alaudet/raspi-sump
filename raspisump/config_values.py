@@ -64,7 +64,7 @@ def configuration():
 
     try:
         configs["line_color"] = config.get("charts", "line_color")
-    except configparser.NoSectionError:
+    except configparser.NoOptionError:
         configs["line_color"] = "FB921D"
 
     return configs
