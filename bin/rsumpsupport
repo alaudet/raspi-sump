@@ -56,9 +56,9 @@ if __name__ == "__main__":
 
     # Paths
     home_folder = f"/home/{actual_user}"
-    raspi_sump_folder = f"/home/{actual_user}/raspi-sump"
-    support_folder = f"/home/{actual_user}/raspi-sump/support"
-    support_file_path = f"/home/{actual_user}/raspi-sump/support/support.txt"
+    raspi_sump_folder = f"{home_folder}/raspi-sump"
+    support_folder = f"{raspi_sump_folder}/support"
+    support_file_path = f"{support_folder}/support-{time.strftime('%Y%m%d_%H%M%S')}.txt"
     logfile = f"{raspi_sump_folder}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
 
     # Create support folder if it doesn't exist
@@ -185,5 +185,5 @@ journalctl -u raspisump:
     write_to_file(support_file_path, content)
 
     print(
-        f"Support information has been saved to /home/{actual_user}/raspi-sump/support/support.txt."
+        f"Support information has been saved to /home/{actual_user}/raspi-sump/support/support_date_time.txt."
     )
