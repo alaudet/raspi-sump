@@ -1,7 +1,19 @@
 #!/usr/bin/env python
+
+# Raspi-sump, a sump pump monitoring system.
+# Al Audet
+# https://www.linuxnorth.org/raspi-sump/
+#
+# All configuration changes should be done in raspisump.conf
+# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
+
+"""This script dumps the environment to /home/__user__/raspi-sump/support/support.txt
+for troublshooting"""
+
 import os
 import subprocess
 from datetime import datetime
+from raspisump import config_values
 
 
 def get_os_version():
@@ -56,6 +68,9 @@ if __name__ == "__main__":
     raspi_sump_version = get_raspi_sump_version(actual_user)
     python_version = get_python_version()
 
+    # Config values
+    configs = config_values.configuration()
+
     # Run commands with exception handling
     try:
         raspi_sump_status = run_command(["systemctl", "--user", "status", "raspisump"])
@@ -81,17 +96,22 @@ if __name__ == "__main__":
 
     try:
         logs_heartbeat_log = run_command(
-            ["tail", "-n", "10", f"{raspi_sump_folder}/logs/heartbeat.log"]
+            ["tail", "-n", "10", f"{raspi_sump_folder}/logs/heartbeat_log"]
         )
     except Exception as e:
-        logs_heartbeat_log = f"Error reading logs/heartbeat.log: {str(e)}"
+        logs_heartbeat_log = f"Error reading logs/heartbeat_log: {str(e)}"
 
     try:
         logs_alert_log = run_command(
-            ["tail", "-n", "10", f"{raspi_sump_folder}/logs/alert.log"]
+            ["tail", "-n", "10", f"{raspi_sump_folder}/logs/alert_log"]
         )
     except Exception as e:
-        logs_alert_log = f"Error reading logs/alert.log: {str(e)}"
+        logs_alert_log = f"Error reading logs/alert_log: {str(e)}"
+
+    try:
+        crontab = run_command(["crontab", "-l"])
+    except Exception as e:
+        crontab = f"Error reading crontab: {str(e)}"
 
     # Prepare the content for the support.txt file
     content = f"""\
@@ -105,6 +125,25 @@ Systemctl status for raspisump:
 
 Systemctl status for rsumpwebchart.timer:
 {rsumpwebchart_timer_status}
+
+Raspi-Sump Variables:
+critical_water_level: {configs["critical_water_level"]}
+pit_depth: {configs["pit_depth"]}
+reading_interval: {configs["reading_interval"]}
+temperature: {configs["temperature"]}
+trig_pin: {configs["trig_pin"]}
+echo_pin: {configs["echo_pin"]}
+unit: {configs["unit"]}
+smtp_tls: {configs["smtp_tls"]}
+smtp_ssl: {configs["smtp_ssl"]}
+alert_when: {configs["alert_when"]}
+alert_interval: {configs["alert_interval"]}
+heartbeat: {configs["heartbeat"]}
+heartbeat_interval: {configs["heartbeat_interval"]}
+line_color: {configs["line_color"]}
+
+User Crontab:
+{crontab}
 
 Logs/error_log content:
 {logs_error_log}

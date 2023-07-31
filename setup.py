@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.9.2"
+version = "1.9.3rc1"
 user = os.getlogin()
 
 
@@ -20,6 +20,7 @@ raspi_sump_files = [
     "bin/rsumpmonitor.py",
     "bin/rsumpwebchart.py",
     "bin/emailtest",
+    "bin/rsumpsupport",
 ]
 
 add_files = [
