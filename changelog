@@ -1,5 +1,9 @@
 # Raspi-Sump Changelog
 
+Version 1.9.3
+
+- Added rsumpsupport which creates a trace file of the user environment to help troubleshoot issues
+
 Version 1.9.2
 
 - Bugfix. Error was getting thrown if missing an option for line_color in raspisump.conf
