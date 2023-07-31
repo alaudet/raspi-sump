@@ -11,6 +11,7 @@
 for troublshooting"""
 
 import os
+import time
 import subprocess
 from datetime import datetime
 from raspisump import config_values
@@ -19,7 +20,7 @@ from raspisump import config_values
 def get_os_version():
     with open("/etc/os-release", "r") as file:
         for line in file:
-            if line.startswith("VERSION_ID="):
+            if line.startswith("VERSION="):
                 return line.strip().split("=")[1].strip('"')
 
 
@@ -58,6 +59,7 @@ if __name__ == "__main__":
     raspi_sump_folder = f"/home/{actual_user}/raspi-sump"
     support_folder = f"/home/{actual_user}/raspi-sump/support"
     support_file_path = f"/home/{actual_user}/raspi-sump/support/support.txt"
+    logfile = f"{raspi_sump_folder}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
 
     # Create support folder if it doesn't exist
     os.makedirs(support_folder, exist_ok=True)
@@ -113,6 +115,21 @@ if __name__ == "__main__":
     except Exception as e:
         crontab = f"Error reading crontab: {str(e)}"
 
+    try:
+        waterlevel_csv = run_command(["cat", f"{logfile}"])
+    except Exception as e:
+        waterlevel_csv = f"Error reading waterlevel_csv {str(e)}"
+
+    try:
+        journal = run_command(["journalctl", "-u", "raspisump"])
+    except Exception as e:
+        journal = f"Error reading journal: {str(e)}"
+
+    try:
+        journal = run_command(["journalctl", "-u", "raspisump"])
+    except Exception as e:
+        journal = f"Error reading journal: {str(e)}"
+
     # Prepare the content for the support.txt file
     content = f"""\
 Date file generated: {current_date}
@@ -156,9 +173,17 @@ Last 10 lines of logs/heartbeat.log:
 
 Last 10 lines of logs/alert.log:
 {logs_alert_log}
+
+waterlevel csv:
+{waterlevel_csv}
+
+journalctl -u raspisump:
+{journal}
 """
 
     # Write the content to the support.txt file
     write_to_file(support_file_path, content)
 
-    print("Support information has been gathered and saved to support.txt.")
+    print(
+        f"Support information has been saved to /home/{actual_user}/raspi-sump/support/support.txt."
+    )
