@@ -144,3 +144,15 @@ Save the file, logout and log back in to activate the new aliases.
 - Restart raspisump after making a `raspisump.conf` file change
 
         sumprestart
+
+# Support
+
+For help with any issues that may arise, run the following command;
+
+    rsumpsupport
+
+This will create a file `support_date_time.txt` in the `/home/__username__/raspi-sump/support` directory that can be attached to a support request.
+
+For support open an issue on the Github Issue Tracker or consider joining our discord server.
+
+For Discord simply send an email to alaudet@linuxnorth.org and request an invite link.
