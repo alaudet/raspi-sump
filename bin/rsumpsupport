@@ -7,8 +7,8 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-"""This script dumps the environment to /home/__user__/raspi-sump/support/support.txt
-for troublshooting"""
+"""This script dumps the raspi-sump environment to 
+/home/__user__/raspi-sump/support/support_date_time.txt for troublshooting"""
 
 import os
 import time
@@ -60,6 +60,7 @@ if __name__ == "__main__":
     support_folder = f"{raspi_sump_folder}/support"
     support_file_path = f"{support_folder}/support-{time.strftime('%Y%m%d_%H%M%S')}.txt"
     logfile = f"{raspi_sump_folder}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
+    chart_folder = f"{raspi_sump_folder}/charts"
 
     # Create support folder if it doesn't exist
     os.makedirs(support_folder, exist_ok=True)
@@ -130,6 +131,11 @@ if __name__ == "__main__":
     except Exception as e:
         journal = f"Error reading journal: {str(e)}"
 
+    try:
+        charts = run_command(["ls", "-alR", f"{chart_folder}"])
+    except Exception as e:
+        charts = f"Error reading journal: {str(e)}"
+
     # Prepare the content for the support.txt file
     content = f"""\
 Date file generated: {current_date}
@@ -179,6 +185,9 @@ waterlevel csv:
 
 journalctl -u raspisump:
 {journal}
+
+Charts directory:
+{charts}
 """
 
     # Write the content to the support.txt file
