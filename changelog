@@ -2,7 +2,7 @@
 
 Version 1.9.3
 
-- Added rsumpsupport which creates a trace file of the user environment to help troubleshoot issues
+- Added rsumpsupport script which creates a trace file of the application environment to help troubleshoot issues
 
 Version 1.9.2
 

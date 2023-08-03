@@ -19,7 +19,9 @@ def main():
 
 if __name__ == "__main__":
     print("rsumpmonitor.py is depracated.  Switch to systemd.")
-    print("https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade_systemd.md")
+    print(
+        "https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade_to_version_1.9.md"
+    )
     log.log_event(
         "info_log",
         "Deprecation Warning - rsumpmonitor.py is depracated. Switch to systemd",

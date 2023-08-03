@@ -15,28 +15,28 @@ user = os.getlogin()
 configs = config_values.configuration()
 reading_interval = configs["reading_interval"]
 
-if reading_interval == 0:
-    try:
-        reading.water_depth()
-    except RuntimeError:
-        print(
-            "ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group."
-        )
-        log.log_event(
-            "error_log",
-            "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
-        )
-else:
-    while True:
+
+def handle_gpio_error():
+    error_message = "ERROR -- Cannot access gpio pins. Make sure the user is part of the gpio group."
+    print(error_message)
+    log.log_event("error_log", error_message)
+
+
+def main():
+    if reading_interval == 0:
         try:
             reading.water_depth()
-            time.sleep(reading_interval)
         except RuntimeError:
-            print(
-                "ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group."
-            )
-            log.log_event(
-                "error_log",
-                "GPIO ERROR -- Cannot Access gpio pins.  Make sure user is part of the gpio group.",
-            )
-            exit(0)
+            handle_gpio_error()
+    else:
+        while True:
+            try:
+                reading.water_depth()
+                time.sleep(reading_interval)
+            except RuntimeError:
+                handle_gpio_error()
+                exit(0)
+
+
+if __name__ == "__main__":
+    main()
