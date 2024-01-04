@@ -7,13 +7,17 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 
 # What's New
 
-Version 1.9 - `Systemd` now replaces `rsumpmonitor.py`/`checkpid.py`. Control all Raspi-Sump services and Chart creation timers with `Systemd`.
+Version 1.9 - `Systemd` is now an option to replace crontab. Control all Raspi-Sump services and Chart creation timers with `Systemd`.
+
+You can continue using crontab if you prefer.
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) for the latest information on Raspi-Sump features.
 
 # Supported Versions of Raspbian / Raspberry Pi OS
 
 Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster)
+
+Plans are in the works for Raspberry Pi OS Bookworm. However changes to Python require a rethink on how Raspi-Sump is installed. More to come. For the time being, Bookworm is not supported.
 
 # Discord Group
 
