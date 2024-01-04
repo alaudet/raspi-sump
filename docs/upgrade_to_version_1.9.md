@@ -41,6 +41,14 @@ Save the crontab
 
 ## Configure Systemd
 
+Enable lingering. This will ensure the raspisump service you configure on the next step will remain running when you are logged out. This only needs to be done once.
+
+    sudo loginctl enable-linger $USER
+
+Reboot the pi to ensure logind has activated lingering.
+
+    sudo reboot
+
 In your `raspisump.conf` file, set the `reading_interval` time to the interval in seconds that Raspi-Sump should take a reading.
 
     reading_interval = 60

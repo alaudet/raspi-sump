@@ -105,6 +105,14 @@ take imperial (inches) or metric (centimetres) water level readings.
 
 # Start Raspi-Sump with Systemd
 
+Enable lingering. This will ensure the raspisump service you configure on the next step will remain running when you are logged out. This only needs to be done once.
+
+    sudo loginctl enable-linger $USER
+
+Reboot the pi to ensure logind has activated lingering.
+
+        sudo reboot
+
 To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/`username`/.config/systemd/user
 
     systemctl --user daemon-reload

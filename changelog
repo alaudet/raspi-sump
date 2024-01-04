@@ -1,5 +1,9 @@
 # Raspi-Sump Changelog
 
+Version 1.9.4
+
+- Fix configuration bug that was killing systemd raspisump.service on logout and not automatically starting the service on boot.
+
 Version 1.9.3
 
 - Added rsumpsupport script which creates a trace file of the application environment to help troubleshoot issues

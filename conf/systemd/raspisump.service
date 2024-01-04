@@ -6,4 +6,4 @@ ExecStart=/usr/local/bin/rsump.py
 Restart=always
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
