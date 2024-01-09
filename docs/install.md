@@ -51,9 +51,9 @@ Check that your user account is a member of the gpio group. This is needed for a
 
     groups
 
-You should see all groups your account belongs to. If gpio is not listed run the following command (where `username` is your account name);
+You should see all groups your account belongs to. If gpio is not listed run the following command ($USER will be replaced with your account name);
 
-    sudo usermod -aG gpio `username`
+    sudo usermod -aG gpio $USER
 
 Logout and log back into your account for the groups to take effect.
 
@@ -74,13 +74,13 @@ The following will automatically install hcsr04sensor if it is not already insta
 
     sudo pip3 install --no-binary :all: raspisump
 
-Navigate to /home/`username`/raspi-sump/ and move the sample config file
+Navigate to /home/$USER/raspi-sump/ and move the sample config file
 to this directory.
 
-    cd /home/`username`/raspi-sump
+    cd /home/$USER/raspi-sump
     mv sample_config/raspisump.conf .
 
-The /home/`username`/raspi-sump folder is setup as follows on install;
+The /home/$USER/raspi-sump folder is setup as follows on install;
 
 - raspi-sump/sample_config/raspisump.conf (all configurations for raspisump).
 - raspi-sump/csv (location of waterlevel readings to csv file)
@@ -92,13 +92,13 @@ The /home/`username`/raspi-sump folder is setup as follows on install;
   - NOTE that cron has been replaced with systemd.
 
 \*\*Note take care with your raspisump.conf file if you are using Gmail or any
-other mail system that requires authentication. Your `username` and password
+other mail system that requires authentication. Your username and password
 will be viewable in the file. You should have a strong password on your account.. The installer also tightens file security on
 the file automatically.
 
 # Edit raspisump.conf
 
-All configurations are recorded in /home/`username`/raspi-sump/raspisump.conf
+All configurations are recorded in /home/$USER/raspi-sump/raspisump.conf
 
 See the configuration file for explanations of variables. You can choose to
 take imperial (inches) or metric (centimetres) water level readings.
@@ -113,7 +113,7 @@ Reboot the pi to ensure logind has activated lingering.
 
         sudo reboot
 
-To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/`username`/.config/systemd/user
+To start Raspi-Sump you will need to enable it with systemd. The first time you install Raspi-Sump you will need to run this command for systemd to find the service files located in /home/$USER/.config/systemd/user
 
     systemctl --user daemon-reload
 
@@ -180,7 +180,7 @@ To test that emails are working run the command 'emailtest';
 
 Raspi-Sump can send email tests at predefined intervals. See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
 
-In /home/`username`/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
+In /home/$USER/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
 
     # Set a heartbeat sms or email interval in order to regularly test that your
     # notifications are working as intended.
@@ -227,12 +227,12 @@ Change to the web server root folder at /var/www/html
 
     cd /var/www/html
 
-Create the symlinks for your folders to be viewable with the web server. Replace `username` with your account name.
+Create the symlinks for your folders to be viewable with the web server. $USER will be replaced with your account name.
 
-    sudo ln -s /home/`username`/raspi-sump/web/index.html index.html
-    sudo ln -s /home/`username`/raspi-sump/web/css css
-    sudo ln -s /home/`username`/raspi-sump/web/images images
-    sudo ln -s /home/`username`/raspi-sump/charts charts
+    sudo ln -s /home/$USER/raspi-sump/web/index.html index.html
+    sudo ln -s /home/$USER/raspi-sump/web/css css
+    sudo ln -s /home/$USER/raspi-sump/web/images images
+    sudo ln -s /home/$USER/raspi-sump/charts charts
 
 Enable directory listing for historical charts
 
@@ -252,7 +252,7 @@ If you find typing the systemctl commands cumbersome you can make it easier by c
 
 Aliases are added to the `.bash_aliases` file in your home folder as follows
 
-        cd /home/__username__
+        cd /home/$USER
         nano .bash_aliases
 
 Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file. Make sure there are no spaces at the beginning of each line after pasting.
