@@ -257,39 +257,39 @@ Aliases are added to the `.bash_aliases` file in your home folder as follows
 
 Copy and paste the following aliases for Raspi-Sump `systemd` commands in the file. Make sure there are no spaces at the beginning of each line after pasting.
 
-        alias sumpon="systemctl --user start raspisump && systemctl --user start rsumpwebchart.timer"
-        alias sumpoff="systemctl --user stop raspisump && systemctl --user stop rsumpwebchart.timer"
-        alias sumpstats="systemctl --user status raspisump"
-        alias sumpchartstats="systemctl --user status rsumpwebchart.timer"
-        alias sumpboot="systemctl --user enable raspisump && systemctl --user enable rsumpwebchart.timer"
-        alias sumpnoboot="systemctl --user disable raspisump && systemctl --user disable rsumpwebchart.timer"
+        alias sumpstart="systemctl --user start raspisump && systemctl --user start rsumpwebchart.timer"
+        alias sumpstop="systemctl --user stop raspisump && systemctl --user stop rsumpwebchart.timer"
+        alias sumpstatus="systemctl --user status raspisump"
+        alias sumpchartstatus="systemctl --user status rsumpwebchart.timer"
+        alias sumpenable="systemctl --user enable raspisump && systemctl --user enable rsumpwebchart.timer"
+        alias sumpdisable="systemctl --user disable raspisump && systemctl --user disable rsumpwebchart.timer"
         alias sumprestart="systemctl --user restart raspisump"
 
 Save the file, logout and log back in to activate the new aliases.
 
 - Start raspisump and rsumpwebchart.timer
 
-        sumpon
+        sumpstart
 
 - Stop raspisump and rsumpwebchart.timer
 
-        sumpoff
+        sumpstop
 
 - Show status of the raspisump service
 
-        sumpstats
+        sumpstatus
 
 - Show status of the rsumpwebchart timer
 
-        sumpchartstats
+        sumpchartstatus
 
 - Enable raspisump and rsumpchart.timer on boot
 
-        sumpboot
+        sumpenable
 
 - Disable raspisump and rsumpchart.timer on boot
 
-        sumpnoboot
+        sumpdisable
 
 - Restart raspisump after making a `raspisump.conf` file change
 
