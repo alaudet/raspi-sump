@@ -15,9 +15,9 @@ See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog)
 
 # Supported Versions of Raspbian / Raspberry Pi OS
 
-Raspi-Sump is currently supported on Raspberry Pi OS (Bullseye) and Raspian (Buster)
+Raspi-Sump will support Raspberry Pi OS (Bookworm) as of version 1.10 which installs Raspi-Sump in a Virtualenv. Targeting March 2025 for release.
 
-Plans are in the works for Raspberry Pi OS Bookworm. However changes to Python require a rethink on how Raspi-Sump is installed. More to come. For the time being, Bookworm is not supported.
+Raspi-Sump is currently only supported on Raspberry Pi OS (Bullseye) and Raspian (Buster) with version 1.9.4
 
 # Discord Group
 
