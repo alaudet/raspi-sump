@@ -62,6 +62,7 @@ if __name__ == "__main__":
     logfile = f"{raspi_sump_folder}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
     chart_folder = f"{raspi_sump_folder}/charts"
     systemd_folder = f"{home_folder}/.config/systemd/user"
+    venv_folder = f"/opt/raspi-sump"
 
     # Create support folder if it doesn't exist
     os.makedirs(support_folder, exist_ok=True)
@@ -123,12 +124,19 @@ if __name__ == "__main__":
         waterlevel_csv = f"Error reading waterlevel_csv {str(e)}"
 
     try:
-        journal = run_command(["journalctl", "-u", "raspisump"])
-    except Exception as e:
-        journal = f"Error reading journal: {str(e)}"
-
-    try:
-        journal = run_command(["journalctl", "-u", "raspisump"])
+        journal = run_command(
+            [
+                "journalctl",
+                "--user",
+                "-u",
+                "raspisump.service",
+                "-u",
+                "rsumpwebchart.service",
+                "-u",
+                "rsumwebchart.timer",
+                "-b",
+            ]
+        )
     except Exception as e:
         journal = f"Error reading journal: {str(e)}"
 
@@ -160,6 +168,11 @@ if __name__ == "__main__":
         list_systemd_files = run_command(["ls", "-alR", f"{systemd_folder}"])
     except Exception as e:
         list_systemd_files = f"Error displaying systemd folder: {str(e)}"
+
+    try:
+        list_venv_files = run_command(["ls", "-alR", f"{venv_folder}"])
+    except Exception as e:
+        list_venv_files = f"Error displaying {venv_folder} folder: {str(e)}"
 
     # Prepare the content for the support.txt file
     content = f"""\
@@ -208,7 +221,7 @@ Last 10 lines of logs/alert.log:
 waterlevel csv:
 {waterlevel_csv}
 
-journalctl -u raspisump:
+journalctl --user -u raspisump.service -u rsumpwebchart.service -u rsumwebchart.timer -b:
 {journal}
 
 Charts directory:
@@ -217,15 +230,22 @@ Charts directory:
 Systemd files:
 ** Raspi-sump service file:
 {rsump_service}
+*************************************
 
 ** Raspi-sump webchart service file:
 {rsumpwebchart_service}
+*************************************
 
 ** Raspi-sump webchart timer file:
 {rsumpwebchart_timer}
+*************************************
 
-** List of files in systemd folder:
+List of files in systemd folder:
 {list_systemd_files}
+
+List of files in venv folder:
+{list_venv_files}
+
 
 """
 
