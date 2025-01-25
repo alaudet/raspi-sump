@@ -53,7 +53,7 @@ You should see all groups your account belongs to. If gpio is not listed run the
 
 Logout and log back into your account for the groups to take effect.
 
-Install Pip, RPi.GPIO and Matplotlib
+Install Pip, RPi.GPIO, Matplotlib and Virtualenv
 
     sudo apt update && sudo apt -y upgrade
 
@@ -74,9 +74,9 @@ Create a virtual environment called `raspi-sump` in the /opt folder. Raspi-sump 
     cd /opt/
     sudo virtualenv --system-site-packages raspi-sump
 
-Give your user write access to the new environment. Replace `your-username` with your actual user account name.
+Give your user write access to the new environment.
 
-    sudo chown -R you_username raspi-sump
+    sudo chown -R $USER raspi-sump
 
 Switch to newly created virtualenv
 
@@ -86,9 +86,11 @@ You will notice that your prompt now has the name of the raspi-sump virtualenv i
 
     (raspi-sump) pi@raspberry~ $
 
-The following will automatically install hcsr04sensor if it is not already installed on your Pi.
+The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment.
 
-    sudo pip3 install --no-binary :all: raspisump
+    pip3 install --no-binary :all: raspisump
+
+NOTE\*\*\* You will see some depracation warnings from pip, don't worry as these will be addressed in a future release. Proceed with configuration....
 
 Once the install is complete you can deactivate the virtual environment as follows.
 
@@ -202,7 +204,7 @@ View the current status of the chart timer
 
 To test that emails are working run the command 'emailtest';
 
-    emailtest
+    /opt/raspi-sump/bin/emailtest
 
 ### Heartbeat Alerts
 
@@ -296,6 +298,11 @@ Copy and paste the following aliases for Raspi-Sump `systemd` commands in the fi
         alias sumpenable="systemctl --user enable raspisump && systemctl --user enable rsumpwebchart.timer"
         alias sumpdisable="systemctl --user disable raspisump && systemctl --user disable rsumpwebchart.timer"
         alias sumprestart="systemctl --user restart raspisump"
+
+Two additional aliases will also come in handy. Add the following two aliases to .bash_aliases
+
+        alias rsumpsupport="/opt/raspi-sump/bin/rsumpsupport"
+        alias emailtest="/opt/raspi-sump/bin/emailtest"
 
 Save the file, logout and log back in to activate the new aliases.
 
