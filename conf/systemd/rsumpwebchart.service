@@ -2,7 +2,7 @@
 Description=RaspiSump Webchart Service
 
 [Service]
-ExecStart=/usr/local/bin/rsumpwebchart.py
+ExecStart=/opt/raspi-sump/bin/rsumpwebchart.py
 
 [Install]
 WantedBy=multi-user.target

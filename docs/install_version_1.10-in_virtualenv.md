@@ -69,18 +69,22 @@ Virtualenv is needed to install a virtual environment that will host the Raspi-S
 
 # Install Raspi-Sump
 
-Create a virtual environment called `venv` in your home folder to host Raspi-Sump and hcsr04sensor. The environment will be using the system wide libraries for RPi.GPIO and Matplotlib.
+Create a virtual environment called `raspi-sump` in the /opt folder. Raspi-sump will no longer install to the /usr/local/bin and python system folder areas. Everything will be contained within this new virtual environment. The environment will be using the system wide libraries for RPi.GPIO and Matplotlib.
 
-    cd /home/$USER
-    virtualenv --system-site-packages venv
+    cd /opt/
+    sudo virtualenv --system-site-packages raspi-sump
+
+Give your user write access to the new environment. Replace `your-username` with your actual user account name.
+
+    sudo chown -R you_username raspi-sump
 
 Switch to newly created virtualenv
 
-    source venv/bin/activate
+    source raspi-sump/bin/activate
 
-You will notice that your prompt now has the name of the virtualenv in it, which indicates that it is active.
+You will notice that your prompt now has the name of the raspi-sump virtualenv in it, which indicates that it is active.
 
-    (venv) pi@raspberry~ $
+    (raspi-sump) pi@raspberry~ $
 
 The following will automatically install hcsr04sensor if it is not already installed on your Pi.
 
@@ -250,6 +254,10 @@ Raspberry Pi as follows.
 Change to the web server root folder at /var/www/html
 
     cd /var/www/html
+
+Ensure that the web server can access your home folder location. Failing to do so could cause 403 Errors when trying to access the web page on the pi.
+
+    chmod o+x /home/$USER
 
 Create the symlinks for your folders to be viewable with the web server. $USER will be replaced with your account name.
 

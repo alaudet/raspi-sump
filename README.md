@@ -7,6 +7,8 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 
 # What's New
 
+Verison 1.10 - Raspi-Sump will now be installed in a virtualenv. This will require an uninstall of version 1.9 and a reinstall of Raspi-Sump with new install instructions
+
 Version 1.9 - `Systemd` is now an option to replace crontab. Control all Raspi-Sump services and Chart creation timers with `Systemd`.
 
 You can continue using crontab if you prefer.

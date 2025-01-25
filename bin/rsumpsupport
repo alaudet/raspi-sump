@@ -61,6 +61,7 @@ if __name__ == "__main__":
     support_file_path = f"{support_folder}/support-{time.strftime('%Y%m%d_%H%M%S')}.txt"
     logfile = f"{raspi_sump_folder}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
     chart_folder = f"{raspi_sump_folder}/charts"
+    systemd_folder = f"{home_folder}/.config/systemd/user"
 
     # Create support folder if it doesn't exist
     os.makedirs(support_folder, exist_ok=True)
@@ -136,6 +137,30 @@ if __name__ == "__main__":
     except Exception as e:
         charts = f"Error reading journal: {str(e)}"
 
+    try:
+        rsump_service = run_command(["cat", f"{systemd_folder}/raspisump.service"])
+    except Exception as e:
+        rsump_service = f"Error reading raspisump.service: {str(e)}"
+
+    try:
+        rsumpwebchart_service = run_command(
+            ["cat", f"{systemd_folder}/rsumpwebchart.service"]
+        )
+    except Exception as e:
+        rsumpwebchart_service = f"Error reading rsumpwebchart.service: {str(e)}"
+
+    try:
+        rsumpwebchart_timer = run_command(
+            ["cat", f"{systemd_folder}/rsumpwebchart.timer"]
+        )
+    except Exception as e:
+        rsumpwebchart_timer = f"Error reading rsumpwebchart.timer: {str(e)}"
+
+    try:
+        list_systemd_files = run_command(["ls", "-alR", f"{systemd_folder}"])
+    except Exception as e:
+        list_systemd_files = f"Error displaying systemd folder: {str(e)}"
+
     # Prepare the content for the support.txt file
     content = f"""\
 Date file generated: {current_date}
@@ -188,6 +213,20 @@ journalctl -u raspisump:
 
 Charts directory:
 {charts}
+
+Systemd files:
+** Raspi-sump service file:
+{rsump_service}
+
+** Raspi-sump webchart service file:
+{rsumpwebchart_service}
+
+** Raspi-sump webchart timer file:
+{rsumpwebchart_timer}
+
+** List of files in systemd folder:
+{list_systemd_files}
+
 """
 
     # Write the content to the support.txt file
