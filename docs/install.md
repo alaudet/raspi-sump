@@ -69,6 +69,10 @@ Virtualenv is needed to install a virtual environment that will host the Raspi-S
 
 # Install Raspi-Sump
 
+If you are running version 1.9 you must uninstall it first. You will no lose any of your configurations.
+
+    sudo pip3 uninstall raspisump hcsr04sensor
+
 Create a virtual environment called `raspi-sump` in the /opt folder. Raspi-sump will no longer install to the /usr/local/bin and python system folder areas. Everything will be contained within this new virtual environment. The environment will be using the system wide libraries for RPi.GPIO and Matplotlib as usual.
 
     cd /opt/
