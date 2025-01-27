@@ -7,19 +7,21 @@ email sms alerts if the water reaches a critical level, indicating a possible su
 
 # What's New
 
-Verison 1.10 - Raspi-Sump will now be installed in a virtualenv. This will require an uninstall of version 1.9 and a reinstall of Raspi-Sump with new install instructions
-
-Version 1.9 - `Systemd` is now an option to replace crontab. Control all Raspi-Sump services and Chart creation timers with `Systemd`.
-
-You can continue using crontab if you prefer.
+Verison 1.10 - Raspi-Sump is now installed in a virtual environment that uses Python3-virtualenv. This will require an uninstall of version 1.9 and a reinstall of Raspi-Sump with new [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md). You will not lose any of your configuration settings.
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) for the latest information on Raspi-Sump features.
 
-# Supported Versions of Raspbian / Raspberry Pi OS
+# Supported Versions of Raspberry Pi OS
 
-Raspi-Sump will support Raspberry Pi OS (Bookworm) as of version 1.10 which installs Raspi-Sump in a Virtualenv. Targeting March 2025 for release.
+Raspi-Sump now supports Raspberry Pi OS 12 (Bookworm) and Raspberry Pi OS 11 (Bullseye) as of version 1.10 which installs Raspi-Sump in a Python3 virtual environment.
 
-Raspi-Sump is currently only supported on Raspberry Pi OS (Bullseye) and Raspian (Buster) with version 1.9.4
+Raspi-Sump version 1.9.4 is still supported on Raspberry Pi OS 11 (Bullseye) but is now depracated in favour of version 1.10. No new features will be added to version 1.9.
+
+Support for Raspberry Pi OS 11 (Bullseye) ends on August 31st, 2026.
+
+Old versions of Raspbian OS (10 and below) are no longer supported.
+
+Raspi-Sump follows the Debian release schedule published on the [Debian Linux Wiki](https://wiki.debian.org/DebianReleases)
 
 # Discord Group
 
@@ -33,9 +35,9 @@ Full install instructions are located at https://github.com/alaudet/raspi-sump/b
 
 Upgrade an existing version
 
-    sudo pip3 install -U --no-binary :all: raspisump
-
-If upgrading from version 1.8 or lower to version 1.9 see the [1.9 Upgrade Instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade_to_version_1.9.md)
+    source /opt/raspi-sump/bin/activate
+    pip3 install -U --no-binary :all: raspisump
+    deactivate
 
 # More Info
 
@@ -45,16 +47,14 @@ Further details provided at https://www.linuxnorth.org/raspi-sump/
 
 You are welcome to use Raspi-Sump but there is no guarantee it will work. Your house may still flood if your sump pump fails. This software comes with no warranty. See License details.
 
-This is not a replacement for a properly maintained water pumping system. It is one tool you can use to give yourself extra piece-of-mind.
+This is not a replacement for a properly maintained water pumping system. It is a passive monitoring tool to give yourself extra peace-of-mind.
 
-Best practices should include:
+Best practices include:
 
 - A backup pump that triggers at a slightly higher water level than your main pump.
 - The secondary pump should be connected to a seperate dedicated electrical breaker.
-- You should also have a generator that can provide power should you have an extended outage during the spring or other unseasonally wet time of year.
-- if you are building a new home, pay attention to the grade of your property, as you may be able to let gravity empty your pit for you. That would be the best approach with a backup pump for added protection.
-
-Once you have done all of these things, then consider using a monitoring system like Raspi-Sump.
+- You should also have an alternate power source (generator or sump battery backup) that can provide power to your pump should you have an extended outage during the spring or other unseasonally wet time of year.
+- if you are building a new home, pay attention to the grade of your property, as you may be able to let gravity empty your pit for you. That would be the best approach with a sump pump for backup protection against pipe clogs and Raspi-Sump for monitoring.
 
 # License
 

@@ -100,7 +100,9 @@ Your cursor will now return to normal and you may proceed with configuration.
 
     pi@raspberry:~ $
 
-Add the newly created /opt/raspi-sump/bin folder to your Path. This will be important for later to easily access other utilies related to support and email health check.
+## Add the newly created /opt/raspi-sump/bin folder to your Path.
+
+This will be important for later to easily access other utilities related to support and email health check.
 
     nano ~/.bashrc
 
@@ -113,6 +115,8 @@ Logout and back in to initiate the new path.
 \*\* Note you can check your path by typing in the following command to verify that /opt/raspi-sump/bin is added;
 
     $PATH
+
+## Configure Raspi-Sump
 
 Navigate to /home/$USER/raspi-sump/ and move the sample config file
 to this directory.
