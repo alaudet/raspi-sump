@@ -1,10 +1,14 @@
-# Raspi-Sump v1.10 Installation Instructions
+# Announcement
 
-Installation instructions assume Python3 on Raspberry Pi OS 12 (Bookworm)
+These instructions are now deprecated. They can be used if using Raspberry Pi OS 11 (Bullseye) to install Raspi-Sump 1.9 series. Going forward version 1.10 has major changes in file locations and you are therefore encouraged to use version 1.10 for all supported realeases of Raspberry Pi OS 12 and 11 (i.e. Bookworm and Bullseye). Raspbian OS version 10 (Buster) is no longer supported.
+
+# Raspi-Sump Installation Instructions
+
+Installation instructions assume Python3 on Raspberry Pi OS 11 (Bullseye) or Raspbian version 10 (Buster).
 
 # Supported OS Versions
 
-Raspberry Pi OS 12 (Bookworm) and Raspberry Pi OS 11 (Bullseye)
+Raspberry Pi OS 11 (Bullseye)
 
 # Hardware
 
@@ -53,11 +57,10 @@ You should see all groups your account belongs to. If gpio is not listed run the
 
 Logout and log back into your account for the groups to take effect.
 
-Install Pip, RPi.GPIO, Matplotlib and Virtualenv
+Install Pip, RPi.GPIO and Matplotlib
 
     sudo apt update && sudo apt -y upgrade
-
-    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib python3-virtualenv
+    sudo apt install python3-pip python3-rpi.gpio python3-matplotlib
 
 RPi.GPIO is the library that controls the sensor.
 
@@ -65,54 +68,11 @@ Matplotlib is used to generate charts.
 
 The Pip package manager is required to install Raspi-Sump in the next step.
 
-Virtualenv is needed to install a virtual environment that will host the Raspi-Sump and hcsr04sensor libraries. This helps segragate custom libraries from the system wide python libraries which is a new requirement with the latest Python on Raspberry Pi OS 12 (Bookworm)
-
 # Install Raspi-Sump
 
-Create a virtual environment called `raspi-sump` in the /opt folder. Raspi-sump will no longer install to the /usr/local/bin and python system folder areas. Everything will be contained within this new virtual environment. The environment will be using the system wide libraries for RPi.GPIO and Matplotlib as usual.
+The following will automatically install hcsr04sensor if it is not already installed on your Pi.
 
-    cd /opt/
-    sudo virtualenv --system-site-packages raspi-sump
-
-Give your user write access to the new environment.
-
-    sudo chown -R $USER raspi-sump
-
-Switch to newly created virtualenv
-
-    source raspi-sump/bin/activate
-
-You will notice that your prompt now has the name of the raspi-sump virtualenv in it, which indicates that it is active.
-
-    (raspi-sump) pi@raspberry~ $
-
-The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment.
-
-    pip3 install --no-binary :all: raspisump
-
-NOTE\*\*\* You will see some depracation warnings from pip, don't worry as these will be addressed in a future release. Proceed with configuration....
-
-Once the install is complete you can deactivate the virtual environment as follows.
-
-    deactivate
-
-Your cursor will now return to normal and you may proceed with configuration.
-
-    pi@raspberry:~ $
-
-Add the newly created /opt/raspi-sump/bin folder to your Path. This will be important for later to easily access other utilies related to support and email health check.
-
-    nano ~/.bashrc
-
-Scroll to the end of the file and add this command. Save and exit the .bashrc file.
-
-    export PATH="/opt/raspi-sump/bin:$PATH"
-
-Logout and back in to initiate the new path.
-
-\*\* Note you can check your path by typing in the following command to verify that /opt/raspi-sump/bin is added;
-
-    $PATH
+    sudo pip3 install --no-binary :all: raspisump
 
 Navigate to /home/$USER/raspi-sump/ and move the sample config file
 to this directory.
@@ -143,7 +103,7 @@ All configurations are recorded in /home/$USER/raspi-sump/raspisump.conf
 See the configuration file for explanations of variables. You can choose to
 take imperial (inches) or metric (centimetres) water level readings.
 
-# Configure Raspi-Sump to use Systemd
+# Start Raspi-Sump with Systemd
 
 Enable lingering. This will ensure the raspisump service you configure on the next step will remain running when you are logged out. This only needs to be done once.
 
@@ -216,10 +176,6 @@ To test that emails are working run the command 'emailtest';
 
     emailtest
 
-    ** If you did not add /opt/raspi-sump/bin to your path as mentioned earlier you can type the full location of the command
-
-    /opt/raspi-sump/bin/emailtest
-
 ### Heartbeat Alerts
 
 Raspi-Sump can send email tests at predefined intervals. See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
@@ -270,10 +226,6 @@ Raspberry Pi as follows.
 Change to the web server root folder at /var/www/html
 
     cd /var/www/html
-
-Ensure that the web server can access your home folder location. Failing to do so could cause 403 Errors when trying to access the web page on the pi.
-
-    chmod o+x /home/$USER
 
 Create the symlinks for your folders to be viewable with the web server. $USER will be replaced with your account name.
 
@@ -349,13 +301,7 @@ For help with any issues that may arise, run the following command;
 
     rsumpsupport
 
-    ** If you did not add /opt/raspi-sump/bin to your path as mentioned earlier you can type the full location of the command
-
-    /opt/raspi-sump/bin/rsumpsupport
-
 This will create a file `support_date_time.txt` in the `/home/__username__/raspi-sump/support` directory that can be attached to a support request.
-
-This text file will provide key information to diagnose any issues when requesting support. There is no sensitive information in the file except the name of the /home/user folder. If you are uncomfortable posting this info you can email it to me instead.
 
 For support open an issue on the Github Issue Tracker or consider joining our discord server.
 
