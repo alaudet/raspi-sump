@@ -69,7 +69,7 @@ Virtualenv is needed to install a virtual environment that will host the Raspi-S
 
 # Install Raspi-Sump
 
-If you are running version 1.9 you must uninstall it first. You will no lose any of your configurations.
+If you are running version 1.9 you must uninstall it first. You will not lose any of your configurations.
 
     sudo pip3 uninstall raspisump hcsr04sensor
 
@@ -93,6 +93,10 @@ You will notice that your prompt now has the name of the raspi-sump virtualenv i
 The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment.
 
     pip3 install --no-binary :all: raspisump
+
+    **** REMINDER for Testers, use this command instead as this version has not been uploaded to the repo yet.
+
+        pip3 install --no-binary :all: https://github.com/alaudet/raspi-sump/archive/refs/heads/v1.10.zip
 
 NOTE\*\*\* You will see some depracation warnings from pip, don't worry as these will be addressed in a future release. Proceed with configuration....
 
