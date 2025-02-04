@@ -6,7 +6,7 @@ Do not upgrade version 1.9 to version 1.10. 1.10 is a new release which makes ch
 
 Raspi-sump is a sump pit water level monitoring system that uses a Raspberry Pi and an Ultrasonic Sensor (HC-SR04).
 
-![MobileScreenshot](https://www.linuxnorth.org/raspi-sump/images/rsump_mobile_1.9.jpg)
+![MobileScreenshot](https://www.linuxnorth.org/raspi-sump/images/rsump_mobile_1.10.jpg)
 
 Currently the system monitors the water level in your pit at defined intervals. It sends
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
@@ -39,11 +39,7 @@ Full install instructions are located at https://github.com/alaudet/raspi-sump/b
 
 # Upgrade Raspi-Sump
 
-Upgrade an existing version
-
-    source /opt/raspi-sump/bin/activate
-    pip3 install -U --no-binary :all: raspisump
-    deactivate
+Upgrade an existing version by using the official upgrade instructions at https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade.md
 
 # More Info
 
