@@ -12,3 +12,4 @@ nosetests.xml
 .vscode
 docs/add.txt
 venv/
+no-binary-deprecation-messsage.txt

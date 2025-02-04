@@ -1,3 +1,9 @@
+# IMPORTANT
+
+Do not upgrade version 1.9 to version 1.10. 1.10 is a new release which makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
+
+# What is Raspi-Sump?
+
 Raspi-sump is a sump pit water level monitoring system that uses a Raspberry Pi and an Ultrasonic Sensor (HC-SR04).
 
 ![MobileScreenshot](https://www.linuxnorth.org/raspi-sump/images/rsump_mobile_1.9.jpg)

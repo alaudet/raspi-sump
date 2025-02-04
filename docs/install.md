@@ -39,8 +39,6 @@ Google soldering resistors for good information on how to do this if you have ne
 
 # Install Dependencies
 
-**Note**: Your account must have sudo access to install Raspi-Sump.
-
 Now that your hardware is setup and properly connected to the gpio pins, login to your Raspberry Pi.
 
 Check that your user account is a member of the gpio group. This is needed for accessing the gpio pins.
