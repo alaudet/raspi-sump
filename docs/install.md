@@ -86,15 +86,11 @@ Switch to newly created virtualenv
 
 You will notice that your prompt now has the name of the raspi-sump virtualenv in it, which indicates that it is active.
 
-    (raspi-sump) pi@raspberry~ $
+`(raspi-sump) username@hostname~ $`
 
 The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment.
 
     pip3 install --no-binary :all: raspisump
-
-    **** REMINDER for Testers, use this command instead as this version has not been uploaded to the repo yet.
-
-        pip3 install --no-binary :all: https://github.com/alaudet/raspi-sump/archive/refs/heads/v1.10.zip
 
 NOTE\*\*\* You will see some depracation warnings from pip, don't worry as these will be addressed in a future release. Proceed with configuration....
 
@@ -104,7 +100,7 @@ Once the install is complete you can deactivate the virtual environment as follo
 
 Your cursor will now return to normal and you may proceed with configuration.
 
-    pi@raspberry:~ $
+`username@hostname:~ $`
 
 ## Add the newly created /opt/raspi-sump/bin folder to your Path.
 

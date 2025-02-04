@@ -41,7 +41,7 @@ Reload the systemd user daemon
 
 ## Step 4
 
-Check to make sure raspi-sump and resumpwebchart.timer are running
+Check to make sure raspi-sump and rsumpwebchart.timer are running
 
     systemctl --user status raspisump
     systemctl --user status rsumpwebchart.timer
