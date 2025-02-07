@@ -3,6 +3,7 @@
 Version 1.10
 
 - Compatible with Raspberry Pi OS 12 (Bookworm). Raspi-Sump now installed in a Virtual Environment.
+- rsumpsupport now dumps extra information for support purposes.
 
 Version 1.9.4
 

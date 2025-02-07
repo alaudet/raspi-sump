@@ -1,3 +1,7 @@
+# **_ These Instructions are now deprecated in favour of version 1.10. _**
+
+You should be installing version 1.10 at this point, but I will leave these instructions here for historical purposes for the next while.
+
 # Upgrade to Raspi-Sump Version 1.9 instructions.
 
 These instructions are for upgrading versions 1.8 and lower to version 1.9. If you are doing a new install, disregard these instructions and use the [Raspi-Sump New Install Instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) instead.
