@@ -65,7 +65,10 @@ def graph(csv_file, filename):
 
     # Format the x-axis to use the specified formats
     ax = plt.gca()
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
+    hours = mdates.HourLocator(interval=2)
+    fmt = mdates.DateFormatter("%H:%M:%S")
+    ax.xaxis.set_major_locator(hours)
+    ax.xaxis.set_major_formatter(fmt)
 
     title = f"Water Level {time.strftime('%Y-%m-%d %H:%M')}"
     title_set = plt.title(title)
