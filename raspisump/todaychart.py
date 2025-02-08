@@ -23,10 +23,6 @@ rcParams.update({"figure.autolayout": True})
 configs = config_values.configuration()
 
 
-# rcParams["date.autoformatter.minute"] = "%H:%M:%S"
-# rcParams["date.autoformatter.hour"] = "%H:%M:%S"
-
-
 def graph(csv_file, filename):
     """Create a line graph from a two column csv file."""
 
@@ -44,15 +40,6 @@ def graph(csv_file, filename):
     fig.add_subplot(111, facecolor="white", frameon=False)
 
     rcParams.update({"font.size": 9})
-    # plt.plot_date(
-    #     x=date,
-    #     y=value,
-    #     ls="solid",
-    #     linewidth=2,
-    #     color="#" + configs["line_color"],
-    #     # fmt=":",
-    #     marker="",
-    # )
 
     plt.plot(
         date,
@@ -63,7 +50,7 @@ def graph(csv_file, filename):
         marker="",
     )
 
-    # Format the x-axis to use the specified formats
+    # Format the x-axis to use the specified formats and interval
     ax = plt.gca()
     hours = mdates.HourLocator(interval=2)
     fmt = mdates.DateFormatter("%H:%M:%S")

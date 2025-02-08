@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.10.1pre6"
+version = "1.10.1pre7"
 user = os.getlogin()
 
 
