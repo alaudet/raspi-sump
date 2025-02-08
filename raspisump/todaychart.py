@@ -44,14 +44,25 @@ def graph(csv_file, filename):
     fig.add_subplot(111, facecolor="white", frameon=False)
 
     rcParams.update({"font.size": 9})
-    plt.plot_date(
-        x=date,
-        y=value,
+    # plt.plot_date(
+    #     x=date,
+    #     y=value,
+    #     ls="solid",
+    #     linewidth=2,
+    #     color="#" + configs["line_color"],
+    #     # fmt=":",
+    #     marker="",
+    # )
+
+    plt.plot(
+        date,
+        value,
         ls="solid",
         linewidth=2,
         color="#" + configs["line_color"],
-        fmt=":",
+        marker="",
     )
+
     title = f"Water Level {time.strftime('%Y-%m-%d %H:%M')}"
     title_set = plt.title(title)
     title_set.set_fontsize(20.0)
