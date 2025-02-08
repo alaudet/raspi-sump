@@ -23,8 +23,8 @@ rcParams.update({"figure.autolayout": True})
 configs = config_values.configuration()
 
 
-rcParams["date.autoformatter.minute"] = "%H:%M:%S"
-rcParams["date.autoformatter.hour"] = "%H:%M:%S"
+# rcParams["date.autoformatter.minute"] = "%H:%M:%S"
+# rcParams["date.autoformatter.hour"] = "%H:%M:%S"
 
 
 def graph(csv_file, filename):
@@ -62,6 +62,10 @@ def graph(csv_file, filename):
         color="#" + configs["line_color"],
         marker="",
     )
+
+    # Format the x-axis to use the specified formats
+    ax = plt.gca()
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
 
     title = f"Water Level {time.strftime('%Y-%m-%d %H:%M')}"
     title_set = plt.title(title)
