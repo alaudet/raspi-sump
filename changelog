@@ -1,5 +1,9 @@
 # Raspi-Sump Changelog
 
+Version 1.10.1 Pre
+
+- Updated deprecated matplotlib options in todaychart.py
+
 Version 1.10
 
 - Compatible with Raspberry Pi OS 12 (Bookworm). Raspi-Sump now installed in a Virtual Environment.
