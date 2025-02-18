@@ -17,6 +17,12 @@ Verison 1.10 - Raspi-Sump is now installed in a virtual environment that uses Py
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/changelog) for the latest information on Raspi-Sump features.
 
+# Supported Hardware
+
+All models up to and including RaspberryPi 4
+
+Raspberry Pi5 is not supported
+
 # Supported Versions of Raspberry Pi OS
 
 Raspi-Sump now supports Raspberry Pi OS 12 (Bookworm) and Raspberry Pi OS 11 (Bullseye) as of version 1.10 which installs Raspi-Sump in a Python3 virtual environment.
