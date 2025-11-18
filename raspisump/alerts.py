@@ -82,7 +82,7 @@ def mastodon_content(water_depth):
     hostname = host_name()
 
     body = f"Raspi-Sump {hostname} - {time_of_day} Critical: Water Level is {water_depth} {unit_type}. Next alert in {configs['alert_interval']} minutes"
-
+    print(body)
     return body
 
 
@@ -110,7 +110,7 @@ def mastodon_alerts(water_depth):
     """Bot sends alert to Mastodon user"""
     recipient = configs["handle"]
     mastodon_body = mastodon_content(water_depth)
-    toot = f"{recipient} {mastodon_content}"
+    toot = f"{recipient} {mastodon_body}"
 
     mastodon = Mastodon(
         client_id=configs["client_id"],
