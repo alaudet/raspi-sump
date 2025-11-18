@@ -14,6 +14,7 @@ from datetime import datetime
 import platform
 from collections import deque
 import csv
+from mastodon import Mastodon
 from raspisump import log, config_values
 
 
@@ -75,6 +76,16 @@ def email_content(water_depth):
     )
 
 
+def mastodon_content(water_depth):
+    time_of_day = current_time()
+    unit_type = unit_types()
+    hostname = host_name()
+
+    body = f"Raspi-Sump {hostname} - {time_of_day} Critical: Water Level is {water_depth} {unit_type}. Next alert in {configs['alert_interval']} minutes"
+
+    return body
+
+
 def smtp_alerts(water_depth):
     """Send email alert if water level greater than critical distance."""
     recipients = configs["email_to"].split(", ")
@@ -95,18 +106,40 @@ def smtp_alerts(water_depth):
     server.quit()
 
 
+def mastodon_alerts(water_depth):
+    """Bot sends alert to Mastodon user"""
+    recipient = configs["handle"]
+    mastodon_body = mastodon_content(water_depth)
+    toot = f"{recipient} {mastodon_content}"
+
+    mastodon = Mastodon(
+        client_id=configs["client_id"],
+        client_secret=configs["client_secret"],
+        access_token=configs["access_token"],
+        api_base_url=configs["api_base_url"],
+    )
+
+    try:
+        mastodon.status_post(
+            status=toot,
+            visibility="direct",
+        )
+    except Exception as e:
+        log.log_event("alert_log", "{e}")
+
+
 def determine_if_alert(water_depth):
     """Determine if an alert is required.  Only send if last alert has been
     sent more than the amount of time identified in the raspisump.conf file.
     Entry in conf file is alert_interval under the [email] section."""
-
+    alert_type = configs["alert_type"]
     alert_interval = configs["alert_interval"]
 
     alert_log = "/home/" + user + "/raspi-sump/logs/alert_log"
 
     if not os.path.isfile(alert_log):
         smtp_alerts(water_depth)
-        log.log_event("alert_log", "Email SMS Alert Sent")
+        log.log_event("alert_log", "Alert Notification Sent")
 
     else:
         with open(alert_log, "rt") as f:
@@ -119,8 +152,12 @@ def determine_if_alert(water_depth):
             minutes_passed = delta.seconds / 60
 
         if minutes_passed >= alert_interval:
-            smtp_alerts(water_depth)
-            log.log_event("alert_log", "Email SMS Alert Sent")
+            if alert_type == 1:
+                smtp_alerts(water_depth)
+                log.log_event("alert_log", "Email SMS Alert Sent")
+            elif alert_type == 2:
+                mastodon_alerts(water_depth)
+                log.log_event("alert_log", "Mastodon Alert Sent")
 
         else:
             pass

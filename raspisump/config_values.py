@@ -67,4 +67,35 @@ def configuration():
     except configparser.NoOptionError:
         configs["line_color"] = "FB921D"
 
+    try:
+        configs["alert_type"] = config.getint("email", "alert_type")
+    except configparser.NoOptionError:
+        configs["alert_type"] = 1
+
+        # client_id
+    try:
+        configs["client_id"] = config.get("email", "client_id")
+    except configparser.NoOptionError:
+        configs["client_id"] = None
+
+    try:
+        configs["client_secret"] = config.get("email", "client_secret")
+    except configparser.NoOptionError:
+        configs["client_secret"] = None
+
+    try:
+        configs["access_token"] = config.get("email", "access_token")
+    except configparser.NoOptionError:
+        configs["access_token"] = None
+
+    try:
+        configs["api_base_url"] = config.get("email", "api_base_url")
+    except configparser.NoOptionError:
+        configs["api_base_url"] = None
+
+    try:
+        configs["handle"] = config.get("email", "handle")
+    except configparser.NoOptionError:
+        configs["handle"] = None
+
     return configs

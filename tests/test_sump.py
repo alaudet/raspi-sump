@@ -55,7 +55,7 @@ class TestRaspisump(TestCase):
     def test_config_dict(self):
         """Test that the config is returned as a dict with the expected length"""
         self.assertIsInstance(configs, dict)
-        self.assertEqual(len(configs), 20)
+        self.assertEqual(len(configs), 26)
 
     def test_key_existence(self):
         """Test that all keys are present in the dict"""
@@ -80,6 +80,12 @@ class TestRaspisump(TestCase):
             "heartbeat",
             "heartbeat_interval",
             "line_color",
+            "alert_type",
+            "client_id",
+            "client_secret",
+            "access_token",
+            "api_base_url",
+            "handle",
         ]
 
         for key in keys_to_check:
@@ -108,6 +114,12 @@ class TestRaspisump(TestCase):
             "heartbeat": int,
             "heartbeat_interval": int,
             "line_color": str,
+            "alert_type": int,
+            "client_id": str,
+            "client_secret": str,
+            "access_token": str,
+            "api_base_url": str,
+            "handle": str,
         }
 
         for key, expected_type in expected_values.items():
