@@ -1,4 +1,4 @@
-# Upgrading Versions (v1.10)
+# Upgrading Versions (v1.10 and later)
 
 The following instructions will help you upgrade Raspi-Sump from version 1.10 to later decimal and major versions.
 
@@ -70,7 +70,7 @@ For help with any issues that may arise, run the following command;
 
 This will create a file `support_date_time.txt` in the `/home/__username__/raspi-sump/support` directory that can be attached to a support request.
 
-This text file will provide key information to diagnose any issues when requesting support. There is no sensitive information in the file except the name of the /home/user folder. If you are uncomfortable posting this info you can email it to me instead.
+This text file will provide key information to diagnose any issues when requesting support. There is no sensitive information in the file except the name of the /home/user folder. If you are uncomfortable posting this info you can email it to me instead. You can also encrypt the file with GPG using my [GPG Key](https://www.linuxnorth.org/gpgkey.html).
 
 For support open an issue on the Github Issue Tracker or consider joining our discord server.
 

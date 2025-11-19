@@ -1,8 +1,9 @@
 # Raspi-Sump Changelog
 
-Version 1.10.1 Pre
+Version 1.11
 
 - Updated deprecated matplotlib options in todaychart.py
+- Added support for Mastodon Direct Messages as an alert method
 
 Version 1.10
 

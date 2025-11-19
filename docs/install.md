@@ -214,21 +214,31 @@ View the current status of the chart timer
 
     systemctl --user status rsumpwebchart.timer
 
-# Test Email Alerts
+# Notifications
 
-### On Demand Email Test
+There are two methods to receive notifications with Raspi-Sump. You can send email alerts or use Mastodon direct messages. Email alerts allow you to send email to a SMS Mobile number.
 
-To test that emails are working run the command 'emailtest';
+[Mastodon](https://joinmastodon.org/) alerts allow you to receive Direct Messages in iOS or Android mobile devices with a compatible Mastodon app. This requires a Mastodon account with a server that supports Direct Messages.
 
-    emailtest
+While configuration of Mastodon servers is beyond the scope of this instruction set, you will be required to create a Mastodon account to host your application credentials and an account to receive messages. Mastodon will then provide credentials you can enter for ClientID in the raspisump.conf file.
+
+See raspisump.conf for details on how to enable options.
+
+# Test Notification Alerts
+
+### On Demand Email or Mastodon Direct Message Test
+
+To test that that notifications are working run the command 'alerttest';
+
+    alerttest
 
     ** If you did not add /opt/raspi-sump/bin to your path as mentioned earlier you can type the full location of the command
 
-    /opt/raspi-sump/bin/emailtest
+    /opt/raspi-sump/bin/alerttest
 
 ### Heartbeat Alerts
 
-Raspi-Sump can send email tests at predefined intervals. See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
+Raspi-Sump can send heartbeat notification tests at predefined intervals. See the raspisump.conf file option 'heartbeat' and 'heartbeat_interval'.
 
 In /home/$USER/raspi-sump/raspisump.conf, this section configures the email heartbeat once per week.
 

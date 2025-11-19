@@ -7,7 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-"""This script dumps the raspi-sump environment to 
+"""This script dumps the raspi-sump environment to
 /home/__user__/raspi-sump/support/support_date_time.txt for troublshooting"""
 
 import os
@@ -195,6 +195,7 @@ temperature: {configs["temperature"]}
 trig_pin: {configs["trig_pin"]}
 echo_pin: {configs["echo_pin"]}
 unit: {configs["unit"]}
+alert_type: {configs["alert_type"]}
 smtp_tls: {configs["smtp_tls"]}
 smtp_ssl: {configs["smtp_ssl"]}
 alert_when: {configs["alert_when"]}

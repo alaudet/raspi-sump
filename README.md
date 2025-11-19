@@ -1,6 +1,6 @@
 # IMPORTANT
 
-Do not upgrade version 1.9 to version 1.10. 1.10 is a new release which makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
+Do not upgrade to the latest version 1.11 from version 1.9. 1.10 and later makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
 
 # What is Raspi-Sump?
 
@@ -12,6 +12,8 @@ Currently the system monitors the water level in your pit at defined intervals. 
 email sms alerts if the water reaches a critical level, indicating a possible sump pump failure.
 
 # What's New
+
+Version 1.11 - A new option has been added to receive alerts via [Mastodon](https://joinmastodon.org/) Direct Messages instead of Email SMS. As telecom providers are discontinuing SMS, this is an alternative way to receive notifications from Raspi-Sump. See the documentation for details.
 
 Verison 1.10 - Raspi-Sump is now installed in a virtual environment that uses Python3-virtualenv. This will require an uninstall of version 1.9 and a reinstall of Raspi-Sump with new [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md). You will not lose any of your configuration settings.
 
