@@ -34,10 +34,14 @@ class TestRaspisump(TestCase):
 
     def test_heartbeat_content(self):
         """Test that the right email heartbeat is being returned."""
-        heartbeat_email_contents = heartbeat.heartbeat_email_content()
-        self.assertIsInstance(heartbeat_email_contents, str)
-        self.assertRegex(heartbeat_email_contents, r"^From:")
-        self.assertRegex(heartbeat_email_contents, r"Raspi")
+        heartbeat_contents = heartbeat.heartbeat_content()
+        self.assertIsInstance(heartbeat_contents, str)
+        if configs["alert_type"] == 1:
+            self.assertRegex(heartbeat_contents, r"^From:")
+            self.assertRegex(heartbeat_contents, r"Raspi")
+        elif configs["alert_type"] == 2:
+            # using Mastodon - No From: or Subject:
+            pass
 
     def test_heartbeat_last_row(self):
         """Test last heartbeat time is correct"""

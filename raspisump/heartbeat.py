@@ -13,6 +13,7 @@ import smtplib
 from datetime import datetime, timedelta
 from collections import deque
 import csv
+from mastodon import Mastodon
 from raspisump import log, alerts, config_values
 
 
@@ -29,7 +30,7 @@ def get_last_alert_time():
         return last_row[0]
 
 
-def heartbeat_email_content():
+def heartbeat_content():
     """Build the contents of email body which will be sent as an alert"""
     heartbeat_interval_time = configs["heartbeat_interval"]
     current_time = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -47,23 +48,34 @@ def heartbeat_email_content():
     subject = "Subject: Raspi-Sump Heartbeat Notification"
     message = "Raspi-Sump Email Notifications Working"
 
-    return "\r\n".join(
-        (
-            f"From: {configs['email_from']}",
-            f"To: {configs['email_to']}",
-            f"{subject}",
-            "",
-            f"{hostname} - {time_of_day} - {message}.",
-            f"Next heartbeat: {weekday} {month} {future_date.day} at {hour}:{minute} {am_pm}",
+    # Email
+    if configs["alert_type"] == 1:
+        return "\r\n".join(
+            (
+                f"From: {configs['email_from']}",
+                f"To: {configs['email_to']}",
+                f"{subject}",
+                "",
+                f"{hostname} - {time_of_day} - {message}.",
+                f"Next heartbeat: {weekday} {month} {future_date.day} at {hour}:{minute} {am_pm}",
+            )
         )
-    )
+
+    # Mastodon
+    elif configs["alert_type"] == 2:
+        return "\r\n".join(
+            (
+                f"{hostname} - {time_of_day} - {message}.",
+                f"Next heartbeat: {weekday} {month} {future_date.day} at {hour}:{minute} {am_pm}",
+            )
+        )
 
 
 def heartbeat_alerts():
     """Send heartbeat email alert if water level greater
     than critical distance."""
     recipients = configs["email_to"].split(", ")
-    email_body = heartbeat_email_content()
+    email_body = heartbeat_content()
 
     if configs["smtp_ssl"] == 1:
         server = smtplib.SMTP_SSL(configs["smtp_server"])
@@ -80,10 +92,32 @@ def heartbeat_alerts():
     server.quit()
 
 
+def mastodon_heartbeat_alerts():
+    """Send a heartbeat alert to Mastodon user"""
+    recipient = configs["handle"]
+    mastodon_body = heartbeat_content()
+    toot = f"{recipient} {mastodon_body}"
+
+    mastodon = Mastodon(
+        client_id=configs["client_id"],
+        client_secret=configs["client_secret"],
+        access_token=configs["access_token"],
+        api_base_url=configs["api_base_url"],
+    )
+
+    try:
+        mastodon.status_post(
+            status=toot,
+            visibility="direct",
+        )
+    except Exception as e:
+        log.log_event("heartbeat_log", "{e}")
+
+
 def determine_if_heartbeat():
     """Determine if a heartbeat notification is required and if so, send
     the notification."""
-
+    alert_type = configs["alert_type"]
     heartbeat_log = "/home/" + user + "/raspi-sump/logs/heartbeat_log"
     if not os.path.isfile(heartbeat_log):
         heartbeat_alerts()
@@ -99,7 +133,11 @@ def determine_if_heartbeat():
         minutes_passed = int((delta).total_seconds() / 60)
 
         if minutes_passed >= heartbeat_interval_time:
-            heartbeat_alerts()
-            log.log_event("heartbeat_log", "Heartbeat Email Sent")
-        else:
-            pass
+            if alert_type == 1:
+                heartbeat_alerts()
+                log.log_event("heartbeat_log", "Heartbeat Email Sent")
+            elif alert_type == 2:
+                mastodon_heartbeat_alerts()
+                log.log_event("heartbeat_log", "Heartbeat Mastodon Toot Sent")
+            else:
+                pass
