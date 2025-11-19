@@ -88,7 +88,7 @@ You will notice that your prompt now has the name of the raspi-sump virtualenv i
 
 `(raspi-sump) username@hostname~ $`
 
-The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment.
+The following will automatically install hcsr04sensor if it is not already installed on your Pi. We are not using sudo here because we gave our user account permissions to install to the virtual environment. \*\* Be patient, this can take a minute or two.
 
     pip3 install --no-binary :all: raspisump
 
