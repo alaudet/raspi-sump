@@ -120,8 +120,12 @@ def determine_if_heartbeat():
     alert_type = configs["alert_type"]
     heartbeat_log = "/home/" + user + "/raspi-sump/logs/heartbeat_log"
     if not os.path.isfile(heartbeat_log):
-        heartbeat_alerts()
-        log.log_event("heartbeat_log", "Heartbeat Email Sent")
+        if alert_type == 1:
+            heartbeat_alerts()
+            log.log_event("heartbeat_log", "Heartbeat Email Sent")
+        elif alert_type == 2:
+            mastodon_heartbeat_alerts()
+            log.log_event("heartbeat_log", "Heartbeat Mastodon Toot Sent")
 
     else:
         heartbeat_interval_time = configs["heartbeat_interval"]

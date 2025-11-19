@@ -82,7 +82,6 @@ def mastodon_content(water_depth):
     hostname = host_name()
 
     body = f"Raspi-Sump {hostname} - {time_of_day} Critical: Water Level is {water_depth} {unit_type}. Next alert in {configs['alert_interval']} minutes"
-    print(body)
     return body
 
 
