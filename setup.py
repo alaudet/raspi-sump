@@ -19,7 +19,7 @@ raspi_sump_files = [
     "bin/rsumpchart.py",
     "bin/rsumpmonitor.py",
     "bin/rsumpwebchart.py",
-    "bin/emailtest",
+    "bin/alerttest",
     "bin/rsumpsupport",
 ]
 
