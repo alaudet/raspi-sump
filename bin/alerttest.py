@@ -11,4 +11,4 @@
 
 from raspisump import emailtest
 
-emailtest.test_email()
+emailtest.test_notifications()
