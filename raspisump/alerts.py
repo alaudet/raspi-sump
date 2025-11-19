@@ -124,7 +124,7 @@ def mastodon_alerts(water_depth):
             visibility="direct",
         )
     except Exception as e:
-        log.log_event("alert_log", "{e}")
+        log.log_event("error_log", "{e}")
 
 
 def determine_if_alert(water_depth):

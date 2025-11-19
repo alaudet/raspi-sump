@@ -111,7 +111,7 @@ def mastodon_heartbeat_alerts():
             visibility="direct",
         )
     except Exception as e:
-        log.log_event("heartbeat_log", "{e}")
+        log.log_event("error_log", "{e}")
 
 
 def determine_if_heartbeat():

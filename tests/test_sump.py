@@ -24,7 +24,7 @@ class TestRaspisump(TestCase):
         self.assertIsInstance(measurement, str)
         self.assertIn(measurement, ["inches", "centimeters"])
 
-    def test_email_content(self):
+    def test_notification_content(self):
         """Test that the right email alert is being returned."""
         water_depth = 35
         email_contents = alerts.email_content(water_depth)
