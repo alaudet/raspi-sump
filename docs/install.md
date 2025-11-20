@@ -216,11 +216,12 @@ View the current status of the chart timer
 
 # Notifications
 
-There are two methods to receive notifications with Raspi-Sump. You can send email alerts or use Mastodon direct messages. Email alerts allow you to send email to a SMS Mobile number.
+There are two methods to receive notifications with Raspi-Sump. You can send email alerts or use Mastodon direct messages. Email alerts allow you to send email to a SMS Mobile number and can be configured in raspisump.conf.
 
 [Mastodon](https://joinmastodon.org/) alerts allow you to receive Direct Messages in iOS or Android mobile devices with a compatible Mastodon app. This requires a Mastodon account with a server that supports Direct Messages.
 
-While configuration of Mastodon servers is beyond the scope of this instruction set, you will be required to create a Mastodon account to host your application credentials and an account to receive messages. Mastodon will then provide credentials you can enter for ClientID in the raspisump.conf file.
+While configuration of Mastodon apps is beyond the scope of this instruction set, you will be required to create a Mastodon account to host your application credentials (which will send Direct Messages) and an account to receive messages. Mastodon will provide Oauth2 credentials in your "send" account. You will need these credentials to enter the `Client key` `Client secret` and `Access token` in the raspisump.conf file as well as the Receiving Account's username
+`handle`.
 
 See raspisump.conf for details on how to enable options.
 
