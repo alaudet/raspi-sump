@@ -31,7 +31,7 @@ def get_last_alert_time():
 
 
 def heartbeat_content():
-    """Build the contents of email body which will be sent as an alert"""
+    """Build the contents of a message which will be sent as an alert"""
     heartbeat_interval_time = configs["heartbeat_interval"]
     current_time = time.strftime("%Y-%m-%d %H:%M:%S")
     last_alert = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S")

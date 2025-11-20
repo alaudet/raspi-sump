@@ -16,7 +16,7 @@ configs = config_values.configuration()
 
 
 def test_notification_content():
-    """Build the contents of test email body."""
+    """Build the contents of test message body."""
 
     time_of_day = alerts.current_time()
     hostname = alerts.host_name()

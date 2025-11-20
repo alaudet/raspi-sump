@@ -77,6 +77,7 @@ def email_content(water_depth):
 
 
 def mastodon_content(water_depth):
+    """Return the contents of a message that can be used to send a Mastodon DM"""
     time_of_day = current_time()
     unit_type = unit_types()
     hostname = host_name()
@@ -106,7 +107,7 @@ def smtp_alerts(water_depth):
 
 
 def mastodon_alerts(water_depth):
-    """Bot sends alert to Mastodon user"""
+    """Bot sends DM alert to Mastodon user"""
     recipient = configs["handle"]
     mastodon_body = mastodon_content(water_depth)
     toot = f"{recipient} {mastodon_body}"
