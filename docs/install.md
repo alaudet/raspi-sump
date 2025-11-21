@@ -223,7 +223,7 @@ There are two methods to receive notifications with Raspi-Sump. You can send ema
 While configuration of Mastodon apps is beyond the scope of this instruction set, you will be required to create a Mastodon account to host your application credentials (which will send Direct Messages) and an account to receive messages. Mastodon will provide Oauth2 credentials in your "send" account. You will need these credentials to enter the `Client key` `Client secret` and `Access token` in the raspisump.conf file as well as the Receiving Account's username
 `handle`.
 
-See raspisump.conf for details on how to enable options.
+See `raspisump.conf` for details on how to enable options for Mastodon. If you do, then it is recommended that you replace your `raspisump.conf` file with the latest version of `raspisump.conf` as it adds options for Mastodon. You will need to re-enter all of your other values such as pit depth and critical water level etc etc.
 
 # Test Notification Alerts
 
