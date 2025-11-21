@@ -1,4 +1,4 @@
-# Raspi-Sump v1.10 Installation Instructions
+# Raspi-Sump v1.11 Installation Instructions
 
 Installation instructions assume Python3 on Raspberry Pi OS 12 (Bookworm)
 
