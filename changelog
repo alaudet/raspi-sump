@@ -4,6 +4,8 @@ Version 1.11
 
 - Updated deprecated matplotlib options in todaychart.py
 - Added support for Mastodon Direct Messages as an alert method
+- emailtest is now called alerttest
+- improved error logging for alerts
 
 Version 1.10
 
