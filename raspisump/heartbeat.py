@@ -77,19 +77,22 @@ def heartbeat_alerts():
     recipients = configs["email_to"].split(", ")
     email_body = heartbeat_content()
 
-    if configs["smtp_ssl"] == 1:
-        server = smtplib.SMTP_SSL(configs["smtp_server"])
-    elif configs["smtp_tls"] == 1:
-        server = smtplib.SMTP(configs["smtp_server"])
-        server.starttls()
-    else:
-        server = smtplib.SMTP(configs["smtp_server"])
+    try:
+        if configs["smtp_ssl"] == 1:
+            server = smtplib.SMTP_SSL(configs["smtp_server"])
+        elif configs["smtp_tls"] == 1:
+            server = smtplib.SMTP(configs["smtp_server"])
+            server.starttls()
+        else:
+            server = smtplib.SMTP(configs["smtp_server"])
 
-    if configs["smtp_authentication"] == 1:
-        server.login(configs["username"], configs["password"])
+        if configs["smtp_authentication"] == 1:
+            server.login(configs["username"], configs["password"])
 
-    server.sendmail(configs["email_from"], recipients, email_body)
-    server.quit()
+        server.sendmail(configs["email_from"], recipients, email_body)
+        server.quit()
+    except Exception as e:
+        log.log_event("error_log", f"{e}")
 
 
 def mastodon_heartbeat_alerts():
@@ -111,7 +114,7 @@ def mastodon_heartbeat_alerts():
             visibility="direct",
         )
     except Exception as e:
-        log.log_event("error_log", "{e}")
+        log.log_event("error_log", f"{e}")
 
 
 def determine_if_heartbeat():

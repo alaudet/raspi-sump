@@ -59,7 +59,7 @@ def test_email():
         server.quit()
 
     except Exception as e:
-        log.log_event("error_log", "{e}")
+        log.log_event("error_log", f"{e}")
 
 
 def test_mastodon():
@@ -81,7 +81,7 @@ def test_mastodon():
             visibility="direct",
         )
     except Exception as e:
-        log.log_event("error_log", "{e}")
+        log.log_event("error_log", f"{e}")
 
 
 def test_notifications():
