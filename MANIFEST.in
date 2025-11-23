@@ -10,6 +10,7 @@ include docs/*.pdf
 include cron/*
 include README.md
 include VERSION
+include LICENSE
 include conf/web/css/includes.js
 include conf/systemd/raspisump.service
 include conf/systemd/rsumpwebchart.service

@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.11pre7"
+version = "1.11pre8"
 user = os.getlogin()
 
 
@@ -38,6 +38,7 @@ add_files = [
     (homedir + "web/css", ["conf/web/css/raspi.css"]),
     (homedir + "web/css", ["conf/web/css/includes.js"]),
     (homedir, ["VERSION"]),
+    (homedir, ["LICENSE"]),
     (homedir + "web/css/inc", ["VERSION"]),
     (systemd_configdir, ["conf/systemd/rsumpwebchart.service"]),
     (systemd_configdir, ["conf/systemd/raspisump.service"]),
