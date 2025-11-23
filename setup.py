@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-version = "1.11pre8"
+version = "1.11pre9"
 user = os.getlogin()
 
 
@@ -70,7 +70,7 @@ setup(
     packages=["raspisump"],
     scripts=raspi_sump_files,
     data_files=add_files,
-    install_requires=["hcsr04sensor>=1.7", "mastodon.py"],
+    install_requires=["hcsr04sensor>=1.7", "Mastodon.py"],
 )
 
 if os.path.isdir(homedir):
