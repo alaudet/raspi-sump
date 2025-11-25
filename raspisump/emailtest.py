@@ -57,8 +57,10 @@ def test_email():
 
         server.sendmail(configs["email_from"], recipients, email_body)
         server.quit()
+        print("Email sent successfully")
 
     except Exception as e:
+        print(e)
         log.log_event("error_log", f"{e}")
 
 
@@ -80,7 +82,9 @@ def test_mastodon():
             status=toot,
             visibility="direct",
         )
+        print("Mastodon alert sent successfully")
     except Exception as e:
+        print(e)
         log.log_event("error_log", f"{e}")
 
 

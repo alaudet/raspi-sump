@@ -1,5 +1,9 @@
 # Raspi-Sump Changelog
 
+Version 1.11.1
+
+- Added error output to console when running alerttest
+
 Version 1.11
 
 - Updated deprecated matplotlib options in todaychart.py
