@@ -1,6 +1,6 @@
 # IMPORTANT
 
-Do not upgrade to the latest version 1.11 from version 1.9. 1.10 and later makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
+Do not upgrade to the latest version 1.11 from version 1.9. Version 1.10 and later makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
 
 # What is Raspi-Sump?
 

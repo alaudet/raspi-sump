@@ -2,7 +2,8 @@
 
 Version 1.11.1
 
-- Added error output to console when running alerttest
+- Added status output to console when running alerttest. If test fails you will now see the error code as to why
+  instead of having to dig out the issue in the error_log.
 
 Version 1.11
 
