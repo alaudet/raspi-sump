@@ -76,4 +76,4 @@ Please refer to the [Contributing Guidelines](https://github.com/alaudet/raspi-s
 
 # Donate
 
-[Your Donation is Appreciated](https://www.linuxnorth.org/donate/)
+[Your Donation is Appreciated](https://www.paypal.com/donate/?hosted_button_id=7DLCUXLC5TQSA)
