@@ -1,0 +1,6 @@
+[console_scripts]
+alerttest = raspisump.cli:alerttest
+rsump = raspisump.cli:rsump
+rsumpchart = raspisump.cli:rsumpchart
+rsumpsupport = raspisump.cli:rsumpsupport
+rsumpwebchart = raspisump.cli:rsumpwebchart

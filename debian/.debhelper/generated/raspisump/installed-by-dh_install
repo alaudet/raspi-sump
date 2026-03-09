@@ -1,0 +1,6 @@
+./conf/raspisump.conf
+./conf/credentials.conf
+./conf/systemd/raspisump.service
+./conf/systemd/rsumpwebchart.service
+./conf/systemd/rsumpwebchart.timer
+./conf/web

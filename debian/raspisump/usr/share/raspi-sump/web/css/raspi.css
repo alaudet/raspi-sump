@@ -1,0 +1,38 @@
+.navbar {
+  background-color: #007f7f;
+  color: #ffffff;
+}
+
+.dropdown-menu {
+  background-color: #007f7f;
+}
+
+.nav-item a {
+  background-color: #007f7f;
+  color: #ffffff;
+}
+
+.nav-item a:focus {
+  background-color: #007f7f;
+  color: #ffffff;
+}
+
+.nav-item a:hover {
+  background-color: #005a5a;
+  color: #ffffff;
+}
+
+.nav-link a {
+  background-color: #007f7f;
+  color: #ffffff;
+}
+
+.nav-link a:hover {
+  background-color: #005a5a;
+  color: #ffffff;
+}
+
+/* .footer { */
+/* background-color: #007f7f; */
+/* color: #FFFFFF; */
+/* } */

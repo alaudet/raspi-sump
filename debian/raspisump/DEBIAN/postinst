@@ -1,0 +1,125 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        # Create raspisump system user if not present
+        if ! getent passwd raspisump > /dev/null 2>&1; then
+            adduser --system --group --no-create-home \
+                    --home /var/lib/raspi-sump \
+                    --gecos "Raspi-Sump system user" \
+                    raspisump
+        fi
+
+        # Add raspisump to gpio group
+        if getent group gpio > /dev/null 2>&1; then
+            usermod -aG gpio raspisump
+        fi
+
+        # Lock down credentials file — only root and raspisump user can read it
+        chown root:raspisump /etc/raspi-sump/credentials.conf
+        chmod 0640 /etc/raspi-sump/credentials.conf
+
+        systemctl daemon-reload || true
+        systemctl enable raspisump.service || true
+        systemctl enable rsumpwebchart.timer || true
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+
+# Automatically added by dh_python3
+if command -v py3compile >/dev/null 2>&1; then
+	py3compile -p raspisump 
+fi
+if command -v pypy3compile >/dev/null 2>&1; then
+	pypy3compile -p raspisump  || true
+fi
+
+# End automatically added section
+# Automatically added by dh_installsystemd/13.24.2
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	# The following line should be removed in trixie or trixie+1
+	deb-systemd-helper unmask 'raspisump.service' >/dev/null || true
+
+	# was-enabled defaults to true, so new installations run enable.
+	if deb-systemd-helper --quiet was-enabled 'raspisump.service'; then
+		# Enables the unit on first installation, creates new
+		# symlinks on upgrades if the unit file has changed.
+		deb-systemd-helper enable 'raspisump.service' >/dev/null || true
+	else
+		# Update the statefile to add new symlinks (if any), which need to be
+		# cleaned up on purge. Also remove old symlinks.
+		deb-systemd-helper update-state 'raspisump.service' >/dev/null || true
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.24.2
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -d /run/systemd/system ]; then
+		systemctl --system daemon-reload >/dev/null || true
+		if [ -n "$2" ]; then
+			_dh_action=restart
+		else
+			_dh_action=start
+		fi
+		deb-systemd-invoke $_dh_action 'raspisump.service' >/dev/null || true
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.24.2
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if deb-systemd-helper debian-installed 'rsumpwebchart.service'; then
+		# The following line should be removed in trixie or trixie+1
+		deb-systemd-helper unmask 'rsumpwebchart.service' >/dev/null || true
+
+		if deb-systemd-helper --quiet was-enabled 'rsumpwebchart.service'; then
+			# Create new symlinks, if any.
+			deb-systemd-helper enable 'rsumpwebchart.service' >/dev/null || true
+		fi
+	fi
+
+	# Update the statefile to add new symlinks (if any), which need to be cleaned
+	# up on purge. Also remove old symlinks.
+	deb-systemd-helper update-state 'rsumpwebchart.service' >/dev/null || true
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.24.2
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if deb-systemd-helper debian-installed 'rsumpwebchart.timer'; then
+		# The following line should be removed in trixie or trixie+1
+		deb-systemd-helper unmask 'rsumpwebchart.timer' >/dev/null || true
+
+		if deb-systemd-helper --quiet was-enabled 'rsumpwebchart.timer'; then
+			# Create new symlinks, if any.
+			deb-systemd-helper enable 'rsumpwebchart.timer' >/dev/null || true
+		fi
+	fi
+
+	# Update the statefile to add new symlinks (if any), which need to be cleaned
+	# up on purge. Also remove old symlinks.
+	deb-systemd-helper update-state 'rsumpwebchart.timer' >/dev/null || true
+fi
+# End automatically added section
+# Automatically added by dh_installsystemd/13.24.2
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -d /run/systemd/system ]; then
+		systemctl --system daemon-reload >/dev/null || true
+		if [ -n "$2" ]; then
+			_dh_action=restart
+		else
+			_dh_action=start
+		fi
+		deb-systemd-invoke $_dh_action 'rsumpwebchart.service' 'rsumpwebchart.timer' >/dev/null || true
+	fi
+fi
+# End automatically added section
+
+exit 0

@@ -4,6 +4,10 @@ export PYBUILD_NAME=raspisump
 %:
 	dh $@ --with python3 --buildsystem=pybuild
 
+override_dh_auto_test:
+	# Tests require installed config files and system directories.
+	# Run manually on the Pi after installation: pytest tests/
+
 override_dh_installsystemd:
 	dh_installsystemd --name=raspisump
 	dh_installsystemd --name=rsumpwebchart --no-enable

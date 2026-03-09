@@ -1,0 +1,10 @@
+[Unit]
+Description=RaspiSump Webchart Service
+
+[Service]
+ExecStart=/usr/bin/rsumpwebchart
+User=raspisump
+Group=gpio
+
+[Install]
+WantedBy=multi-user.target

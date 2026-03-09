@@ -1,19 +1,12 @@
-Source: raspisump
+Package: raspisump
+Version: 2.0~a2
+Architecture: all
+Maintainer: Al Audet <alaudet@linuxnorth.org>
+Installed-Size: 145
+Depends: python3:any, python3-pinsource, python3-mastodon, python3-matplotlib, adduser
 Section: misc
 Priority: optional
-Maintainer: Al Audet <alaudet@linuxnorth.org>
-Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools, pybuild-plugin-pyproject
-Standards-Version: 4.6.2
 Homepage: https://www.linuxnorth.org/raspi-sump/
-Rules-Requires-Root: no
-
-Package: raspisump
-Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends},
- python3-pinsource,
- python3-mastodon,
- python3-matplotlib,
- adduser
 Description: Sump pit monitoring system for Raspberry Pi
  Raspi-Sump monitors a sump pit water level using an HC-SR04 ultrasonic
  distance sensor connected to a Raspberry Pi. It logs water levels,

@@ -1,5 +1,6 @@
 import os
 from unittest import TestCase
+from unittest.mock import patch
 import raspisump.reading as reading
 import raspisump.alerts as alerts
 import raspisump.heartbeat as heartbeat
@@ -9,8 +10,13 @@ configs = config_values.configuration()
 
 
 class TestRaspisump(TestCase):
-    def test_water_reading(self):
+    @patch("raspisump.reading.usonic.Measurement")
+    def test_water_reading(self, mock_measurement_class):
         """Test that a proper reading is being returned."""
+        mock_instance = mock_measurement_class.return_value
+        mock_instance.raw_distance.return_value = 50.0
+        mock_instance.depth.return_value = 22.0
+
         pit_depth = configs["pit_depth"]
         value = reading.water_reading()
         self.assertIsInstance(value, float)
