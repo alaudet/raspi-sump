@@ -17,14 +17,12 @@ from mastodon import Mastodon
 from raspisump import log, alerts, config_values
 
 
-user = os.getlogin()
-
 configs = config_values.configuration()
 
 
 def get_last_alert_time():
     """Retrieve the last alert time string from logfile"""
-    heartbeat_log = "/home/" + user + "/raspi-sump/logs/heartbeat_log"
+    heartbeat_log = "/var/log/raspi-sump/heartbeat_log"
     with open(heartbeat_log, "rt") as f:
         last_row = deque(csv.reader(f), 1)[0]
         return last_row[0]
@@ -121,7 +119,7 @@ def determine_if_heartbeat():
     """Determine if a heartbeat notification is required and if so, send
     the notification."""
     alert_type = configs["alert_type"]
-    heartbeat_log = "/home/" + user + "/raspi-sump/logs/heartbeat_log"
+    heartbeat_log = "/var/log/raspi-sump/heartbeat_log"
     if not os.path.isfile(heartbeat_log):
         if alert_type == 1:
             heartbeat_alerts()

@@ -5,8 +5,6 @@ import raspisump.alerts as alerts
 import raspisump.heartbeat as heartbeat
 import raspisump.config_values as config_values
 
-user = os.getlogin()
-
 configs = config_values.configuration()
 
 
@@ -45,7 +43,7 @@ class TestRaspisump(TestCase):
 
     def test_heartbeat_last_row(self):
         """Test last heartbeat time is correct"""
-        heartbeat_log = f"/home/{user}/raspi-sump/logs/heartbeat_log"
+        heartbeat_log = "/var/log/raspi-sump/heartbeat_log"
         if os.path.isfile(heartbeat_log):
             last_alert = heartbeat.get_last_alert_time()
             self.assertIsInstance(last_alert, str)

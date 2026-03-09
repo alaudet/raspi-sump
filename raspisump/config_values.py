@@ -7,95 +7,40 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-import os
 import configparser
 
 config = configparser.RawConfigParser()
-user = os.getlogin()
 
-config.read("/home/" + user + "/raspi-sump/raspisump.conf")
+config.read("/etc/raspi-sump/raspisump.conf")
 
 
 def configuration():
     """Return a dict of the configuration file"""
-
-    configs = {
+    return {
         "critical_water_level": config.getint("pit", "critical_water_level"),
         "pit_depth": config.getint("pit", "pit_depth"),
         "reading_interval": config.getint("pit", "reading_interval"),
         "temperature": config.getint("pit", "temperature"),
+        "unit": config.get("pit", "unit"),
+        "alert_when": config.get("pit", "alert_when"),
         "trig_pin": config.getint("gpio_pins", "trig_pin"),
         "echo_pin": config.getint("gpio_pins", "echo_pin"),
-        "unit": config.get("pit", "unit"),
+        "line_color": config.get("charts", "line_color"),
         "email_to": config.get("email", "email_to"),
         "email_from": config.get("email", "email_from"),
         "smtp_authentication": config.getint("email", "smtp_authentication"),
         "smtp_tls": config.getint("email", "smtp_tls"),
+        "smtp_ssl": config.getint("email", "smtp_ssl"),
         "smtp_server": config.get("email", "smtp_server"),
         "username": config.get("email", "username"),
         "password": config.get("email", "password"),
+        "alert_interval": config.getint("email", "alert_interval"),
+        "alert_type": config.getint("email", "alert_type"),
+        "heartbeat": config.getint("email", "heartbeat"),
+        "heartbeat_interval": config.getint("email", "heartbeat_interval"),
+        "client_id": config.get("email", "client_id"),
+        "client_secret": config.get("email", "client_secret"),
+        "access_token": config.get("email", "access_token"),
+        "api_base_url": config.get("email", "api_base_url"),
+        "handle": config.get("email", "handle"),
     }
-
-    # If not in raspisump.conf add to configs dict and provide a default value
-    try:
-        configs["alert_when"] = config.get("pit", "alert_when")
-    except configparser.NoOptionError:
-        configs["alert_when"] = "high"
-
-    try:
-        configs["alert_interval"] = config.getint("email", "alert_interval")
-    except configparser.NoOptionError:
-        configs["alert_interval"] = 5
-
-    try:
-        configs["smtp_ssl"] = config.getint("email", "smtp_ssl")
-    except configparser.NoOptionError:
-        configs["smtp_ssl"] = 0
-
-    try:
-        configs["heartbeat"] = config.getint("email", "heartbeat")
-    except configparser.NoOptionError:
-        configs["heartbeat"] = 0
-
-    try:
-        configs["heartbeat_interval"] = config.getint("email", "heartbeat_interval")
-    except configparser.NoOptionError:
-        configs["heartbeat_interval"] = 10080
-
-    try:
-        configs["line_color"] = config.get("charts", "line_color")
-    except configparser.NoOptionError:
-        configs["line_color"] = "FB921D"
-
-    try:
-        configs["alert_type"] = config.getint("email", "alert_type")
-    except configparser.NoOptionError:
-        configs["alert_type"] = 1
-
-        # client_id
-    try:
-        configs["client_id"] = config.get("email", "client_id")
-    except configparser.NoOptionError:
-        configs["client_id"] = None
-
-    try:
-        configs["client_secret"] = config.get("email", "client_secret")
-    except configparser.NoOptionError:
-        configs["client_secret"] = None
-
-    try:
-        configs["access_token"] = config.get("email", "access_token")
-    except configparser.NoOptionError:
-        configs["access_token"] = None
-
-    try:
-        configs["api_base_url"] = config.get("email", "api_base_url")
-    except configparser.NoOptionError:
-        configs["api_base_url"] = None
-
-    try:
-        configs["handle"] = config.get("email", "handle")
-    except configparser.NoOptionError:
-        configs["handle"] = None
-
-    return configs

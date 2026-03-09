@@ -18,8 +18,6 @@ from mastodon import Mastodon
 from raspisump import log, config_values
 
 
-user = os.getlogin()
-
 configs = config_values.configuration()
 
 
@@ -137,7 +135,7 @@ def determine_if_alert(water_depth):
     alert_type = configs["alert_type"]
     alert_interval = configs["alert_interval"]
 
-    alert_log = "/home/" + user + "/raspi-sump/logs/alert_log"
+    alert_log = "/var/log/raspi-sump/alert_log"
 
     if not os.path.isfile(alert_log):
         smtp_alerts(water_depth)

@@ -1,6 +1,6 @@
 *.sw*
 *.pyc
-*.csv
+*.
 dist
 *egg-info
 build/
@@ -13,3 +13,4 @@ nosetests.xml
 docs/add.txt
 venv/
 no-binary-deprecation-messsage.txt
+.claude

@@ -8,16 +8,13 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import os
 from raspisump import todaychart
-
-user = os.getlogin()
 
 
 def main():
     """Initiate todaychart.py module to graph sump pit activity."""
-    csv_file = f"/home/{user}/raspi-sump/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
-    filename = f"/home/{user}/raspi-sump/charts/today.png"
+    csv_file = f"/var/lib/raspi-sump/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
+    filename = "/var/lib/raspi-sump/charts/today.png"
     todaychart.graph(csv_file, filename)
 
 

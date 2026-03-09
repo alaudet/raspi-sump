@@ -8,10 +8,7 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import os
 from raspisump import webchart
-
-user = os.getlogin()
 
 
 def main():
@@ -19,10 +16,9 @@ def main():
     year = time.strftime("%Y")
     month = time.strftime("%m")
     today = time.strftime("%Y%m%d")
-    homedir = "/home/" + user + "/raspi-sump/"
-    webchart.create_folders(year, month, homedir)
-    webchart.create_chart(homedir)
-    webchart.copy_chart(year, month, today, homedir)
+    webchart.create_folders(year, month)
+    webchart.create_chart()
+    webchart.copy_chart(year, month, today)
 
 
 if __name__ == "__main__":

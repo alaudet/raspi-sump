@@ -8,35 +8,26 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.htmlimport os
 
 import os
-import subprocess
+import shutil
 import time
 from raspisump import todaychart
 
-
-def create_folders(year, month, homedir):
-    """Check if folders exist in charts folder and create them if they don't"""
-    if not os.path.isdir(f"{homedir}charts/{year}/"):
-        _year = f"mkdir {homedir}charts/{year}"
-        create_year = _year.split(" ")
-        subprocess.call(create_year)
-
-    if not os.path.isdir(f"{homedir}charts/{year}/{month}/"):
-        _month = f"mkdir {homedir}charts/{year}/{month}"
-        create_month = _month.split(" ")
-        subprocess.call(create_month)
+CHARTS_DIR = "/var/lib/raspi-sump/charts"
+CSV_DIR = "/var/lib/raspi-sump/csv"
 
 
-def create_chart(homedir):
+def create_folders(year, month):
+    """Create year/month subdirectories under the charts folder if needed"""
+    os.makedirs(f"{CHARTS_DIR}/{year}/{month}", exist_ok=True)
+
+
+def create_chart():
     """Create a chart of sump pit activity and save to web folder"""
-    csv_file = f"{homedir}csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
-    filename = f"{homedir}charts/today.png"
+    csv_file = f"{CSV_DIR}/waterlevel-{time.strftime('%Y%m%d')}.csv"
+    filename = f"{CHARTS_DIR}/today.png"
     todaychart.graph(csv_file, filename)
 
 
-def copy_chart(year, month, today, homedir):
+def copy_chart(year, month, today):
     """Copy today.png to year/month/day folder for web viewing"""
-    copy_cmd = (
-        f"cp {homedir}charts/today.png {homedir}charts/{year}/{month}/{today}.png"
-    )
-    copy_file = copy_cmd.split(" ")
-    subprocess.call(copy_file)
+    shutil.copy(f"{CHARTS_DIR}/today.png", f"{CHARTS_DIR}/{year}/{month}/{today}.png")

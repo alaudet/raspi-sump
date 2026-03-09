@@ -8,10 +8,8 @@
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import time
-import os
 from raspisump import reading, log, config_values
 
-user = os.getlogin()
 configs = config_values.configuration()
 reading_interval = configs["reading_interval"]
 

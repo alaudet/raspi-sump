@@ -4,11 +4,11 @@ from unittest import TestCase
 
 from raspisump import log
 
+LOG_DIR = "/var/log/raspi-sump"
+CSV_DIR = "/var/lib/raspi-sump/csv"
+
 
 class TestLoggingFunctions(TestCase):
-    def setUp(self):
-        self.test_user = os.getlogin()
-
     def test_log_event(self):
         """Test that notifications work correctly"""
         logfile = "test_log.csv"
@@ -16,7 +16,7 @@ class TestLoggingFunctions(TestCase):
 
         log.log_event(logfile, notification)
 
-        expected_logfile = f"/home/{self.test_user}/raspi-sump/logs/{logfile}"
+        expected_logfile = f"{LOG_DIR}/{logfile}"
         with open(expected_logfile) as f:
             log_content = f.read()
 
@@ -32,7 +32,7 @@ class TestLoggingFunctions(TestCase):
         logreading = "test-waterlevel"
         log.log_reading(logreading, water_depth)
 
-        expected_filename = f"/home/{self.test_user}/raspi-sump/csv/{logreading}-{datetime.now().strftime('%Y%m%d')}.csv"
+        expected_filename = f"{CSV_DIR}/{logreading}-{datetime.now().strftime('%Y%m%d')}.csv"
         with open(expected_filename) as f:
             csv_content = f.read()
 

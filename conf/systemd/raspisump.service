@@ -1,9 +1,14 @@
 [Unit]
 Description=RaspiSump Service
+After=network.target
 
 [Service]
-ExecStart=/opt/raspi-sump/bin/rsump.py
+ExecStart=/usr/bin/rsump.py
 Restart=always
+User=raspisump
+Group=gpio
+StateDirectory=raspi-sump
+LogsDirectory=raspi-sump
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

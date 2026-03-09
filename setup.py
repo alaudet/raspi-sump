@@ -1,18 +1,6 @@
 from setuptools import setup
-import os
 
 version = "1.11.1"
-user = os.getlogin()
-
-
-homedir = "/home/" + user + "/raspi-sump/"
-systemd_configdir = "/home/" + user + "/.config/systemd/user/"
-
-
-if os.path.isfile(homedir + "raspisump.conf"):
-    cmd = "cp -u " + homedir + "raspisump.conf " + homedir + "raspisump.conf.save"
-    os.system(cmd)
-
 
 raspi_sump_files = [
     "bin/rsump.py",
@@ -24,25 +12,20 @@ raspi_sump_files = [
 ]
 
 add_files = [
-    (homedir + "sample_config", ["conf/raspisump.conf"]),
-    (homedir + "csv", ["conf/csv/README.md"]),
-    (homedir + "logs", ["conf/logs/README.md"]),
-    (homedir + "charts", ["conf/charts/README.md"]),
-    (homedir + "docs", ["docs/README.md"]),
-    (homedir + "docs", ["docs/install.md"]),
-    (homedir + "cron", ["cron/README.md"]),
-    (homedir + "cron", ["cron/picrontab"]),
-    (homedir + "web", ["conf/web/index.html"]),
-    (homedir + "web/images", ["conf/web/images/logo.png"]),
-    (homedir + "web/css", ["conf/web/css/index.html"]),
-    (homedir + "web/css", ["conf/web/css/raspi.css"]),
-    (homedir + "web/css", ["conf/web/css/includes.js"]),
-    (homedir, ["VERSION"]),
-    (homedir, ["LICENSE"]),
-    (homedir + "web/css/inc", ["VERSION"]),
-    (systemd_configdir, ["conf/systemd/rsumpwebchart.service"]),
-    (systemd_configdir, ["conf/systemd/raspisump.service"]),
-    (systemd_configdir, ["conf/systemd/rsumpwebchart.timer"]),
+    ("/etc/raspi-sump", ["conf/raspisump.conf"]),
+    ("/usr/share/raspi-sump/web", ["conf/web/index.html"]),
+    ("/usr/share/raspi-sump/web/images", ["conf/web/images/logo.png"]),
+    ("/usr/share/raspi-sump/web/css", ["conf/web/css/index.html"]),
+    ("/usr/share/raspi-sump/web/css", ["conf/web/css/raspi.css"]),
+    ("/usr/share/raspi-sump/web/css", ["conf/web/css/includes.js"]),
+    ("/usr/share/raspi-sump/web/css/inc", ["VERSION"]),
+    ("/usr/share/doc/raspi-sump", ["README.md", "VERSION", "LICENSE"]),
+    ("/usr/share/doc/raspi-sump", ["docs/README.md", "docs/install.md"]),
+    ("/lib/systemd/system", [
+        "conf/systemd/raspisump.service",
+        "conf/systemd/rsumpwebchart.service",
+        "conf/systemd/rsumpwebchart.timer",
+    ]),
 ]
 
 setup(
@@ -72,15 +55,3 @@ setup(
     data_files=add_files,
     install_requires=["hcsr04sensor>=1.7", "Mastodon.py"],
 )
-
-if os.path.isdir(homedir):
-    cmd = "chown -R " + user + " " + homedir
-    os.system(cmd)
-    cmd = "chmod 600 " + homedir + "raspisump.conf"
-    os.system(cmd)
-    cmd = "chmod 600 " + homedir + "sample_config/raspisump.conf"
-    os.system(cmd)
-
-if os.path.isdir("/home/" + user + "/.config/systemd"):
-    cmd = "chown -R " + user + " " + "/home/" + user + "/.config"
-    os.system(cmd)
