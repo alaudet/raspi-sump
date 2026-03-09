@@ -1,17 +1,21 @@
-"""Retrieve configuration from raspisump.conf"""
+"""Retrieve configuration from raspisump.conf and credentials.conf"""
 
 # Raspi-sump, a sump pump monitoring system.
 # Al Audet
 # https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
+# Credentials should be stored in credentials.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import configparser
 
 config = configparser.RawConfigParser()
 
-config.read("/etc/raspi-sump/raspisump.conf")
+config.read([
+    "/etc/raspi-sump/raspisump.conf",
+    "/etc/raspi-sump/credentials.conf",
+])
 
 
 def configuration():
@@ -32,15 +36,15 @@ def configuration():
         "smtp_tls": config.getint("email", "smtp_tls"),
         "smtp_ssl": config.getint("email", "smtp_ssl"),
         "smtp_server": config.get("email", "smtp_server"),
-        "username": config.get("email", "username"),
-        "password": config.get("email", "password"),
         "alert_interval": config.getint("email", "alert_interval"),
         "alert_type": config.getint("email", "alert_type"),
         "heartbeat": config.getint("email", "heartbeat"),
         "heartbeat_interval": config.getint("email", "heartbeat_interval"),
-        "client_id": config.get("email", "client_id"),
-        "client_secret": config.get("email", "client_secret"),
-        "access_token": config.get("email", "access_token"),
-        "api_base_url": config.get("email", "api_base_url"),
-        "handle": config.get("email", "handle"),
+        "username": config.get("credentials", "username"),
+        "password": config.get("credentials", "password"),
+        "client_id": config.get("credentials", "client_id"),
+        "client_secret": config.get("credentials", "client_secret"),
+        "access_token": config.get("credentials", "access_token"),
+        "api_base_url": config.get("credentials", "api_base_url"),
+        "handle": config.get("credentials", "handle"),
     }

@@ -16,6 +16,10 @@ case "$1" in
             usermod -aG gpio raspisump
         fi
 
+        # Lock down credentials file — only root and raspisump user can read it
+        chown root:raspisump /etc/raspi-sump/credentials.conf
+        chmod 0640 /etc/raspi-sump/credentials.conf
+
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true

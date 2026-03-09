@@ -1,4 +1,5 @@
 conf/raspisump.conf etc/raspi-sump/
+conf/credentials.conf etc/raspi-sump/
 conf/systemd/raspisump.service lib/systemd/system/
 conf/systemd/rsumpwebchart.service lib/systemd/system/
 conf/systemd/rsumpwebchart.timer lib/systemd/system/
