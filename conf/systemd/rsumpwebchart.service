@@ -2,7 +2,7 @@
 Description=RaspiSump Webchart Service
 
 [Service]
-ExecStart=/usr/bin/rsumpwebchart.py
+ExecStart=/usr/bin/rsumpwebchart
 User=raspisump
 Group=gpio
 

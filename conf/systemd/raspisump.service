@@ -3,7 +3,7 @@ Description=RaspiSump Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/rsump.py
+ExecStart=/usr/bin/rsump
 Restart=always
 User=raspisump
 Group=gpio

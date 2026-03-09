@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "raspisump"
+version = "2.0a1"
+description = "A sump pit monitoring system for Raspberry Pi"
+readme = "README.md"
+license = {text = "MIT License"}
+authors = [{name = "Al Audet", email = "alaudet@linuxnorth.org"}]
+requires-python = ">=3.9"
+dependencies = [
+    "hcsr04sensor>=1.7",
+    "Mastodon.py",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Home Automation",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Homepage = "https://www.linuxnorth.org/raspi-sump/"
+Download = "https://github.com/alaudet/raspi-sump/releases"
+
+[project.scripts]
+rsump = "raspisump.cli:rsump"
+rsumpchart = "raspisump.cli:rsumpchart"
+rsumpwebchart = "raspisump.cli:rsumpwebchart"
+alerttest = "raspisump.cli:alerttest"
+rsumpsupport = "raspisump.cli:rsumpsupport"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["raspisump*"]
