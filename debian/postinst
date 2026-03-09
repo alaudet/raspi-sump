@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        # Create raspisump system user if not present
+        if ! getent passwd raspisump > /dev/null 2>&1; then
+            adduser --system --group --no-create-home \
+                    --home /var/lib/raspi-sump \
+                    --gecos "Raspi-Sump system user" \
+                    raspisump
+        fi
+
+        # Add raspisump to gpio group
+        if getent group gpio > /dev/null 2>&1; then
+            usermod -aG gpio raspisump
+        fi
+
+        systemctl daemon-reload || true
+        systemctl enable raspisump.service || true
+        systemctl enable rsumpwebchart.timer || true
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+exit 0

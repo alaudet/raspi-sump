@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+export PYBUILD_NAME=raspisump
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_installsystemd:
+	dh_installsystemd --name=raspisump
+	dh_installsystemd --name=rsumpwebchart --no-enable
+	dh_installsystemd --name=rsumpwebchart.timer

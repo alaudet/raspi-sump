@@ -1,0 +1,10 @@
+raspisump (2.0~a1) unstable; urgency=medium
+
+  * Version 2.0 alpha release
+  * Migrated to pyproject.toml (PEP 517/518)
+  * Migrated from hcsr04sensor to pinsource (lgpio, Raspberry Pi 5 compatible)
+  * Migrated all paths to Linux FHS conventions
+  * Removed os.getlogin() calls for systemd compatibility
+  * Added console script entry points via cli.py
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 09 Mar 2026 00:00:00 +0000

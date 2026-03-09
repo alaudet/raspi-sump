@@ -9,19 +9,16 @@ description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "MIT License"}
 authors = [{name = "Al Audet", email = "alaudet@linuxnorth.org"}]
-requires-python = ">=3.9"
-dependencies = [
-    "hcsr04sensor>=1.7",
-    "Mastodon.py",
-]
+requires-python = ">=3.11"
+dependencies = []
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
     "Intended Audience :: End Users/Desktop",
     "Natural Language :: English",
     "Operating System :: POSIX :: Linux",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Home Automation",
     "License :: OSI Approved :: MIT License",
 ]

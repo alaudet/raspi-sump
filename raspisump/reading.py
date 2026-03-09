@@ -7,7 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
 
-from hcsr04sensor import sensor
+from pinsource import usonic
 from raspisump import log, alerts, heartbeat, config_values
 
 configs = config_values.configuration()
@@ -29,7 +29,7 @@ def water_reading():
     temperature = configs["temperature"]
     unit = configs["unit"]
 
-    value = sensor.Measurement(trig_pin, echo_pin, temperature, unit)
+    value = usonic.Measurement(trig_pin, echo_pin, temperature, unit)
 
     try:
         raw_distance = value.raw_distance(sample_wait=0.3)
