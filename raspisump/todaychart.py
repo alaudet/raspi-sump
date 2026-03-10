@@ -32,7 +32,7 @@ def graph(csv_file, filename):
         csv_file,
         delimiter=",",
         unpack=True,
-        converters={0: lambda x: mdates.datestr2num(x.decode("utf8"))},
+        converters={0: lambda x: mdates.datestr2num(x)},
     )
 
     fig = plt.figure(figsize=(10, 3.5))

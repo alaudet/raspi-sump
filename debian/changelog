@@ -1,3 +1,15 @@
+raspisump (2.0~a10) unstable; urgency=medium
+
+  * Fix webchart: use umask 0002 when creating chart dirs and PNG so group members can read/write
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a9) unstable; urgency=medium
+
+  * Fix todaychart: remove .decode("utf8") from numpy converter (NumPy >= 1.23 passes str not bytes)
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a8) unstable; urgency=medium
 
   * Install configs to /usr/share/raspi-sump/examples/ — never overwrite on upgrade
