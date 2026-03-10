@@ -20,7 +20,7 @@ def create_folders(year, month):
     """Create year/month subdirectories under the charts folder if needed"""
     old_umask = os.umask(0o002)
     try:
-        os.makedirs(f"{CHARTS_DIR}/{year}/{month}", mode=0o770, exist_ok=True)
+        os.makedirs(f"{CHARTS_DIR}/{year}/{month}", mode=0o775, exist_ok=True)
     finally:
         os.umask(old_umask)
 
