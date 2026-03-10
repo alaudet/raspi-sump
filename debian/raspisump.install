@@ -4,3 +4,4 @@ conf/systemd/raspisump.service lib/systemd/system/
 conf/systemd/rsumpwebchart.service lib/systemd/system/
 conf/systemd/rsumpwebchart.timer lib/systemd/system/
 conf/web usr/share/raspi-sump/
+conf/nginx/raspi-sump etc/nginx/sites-available/

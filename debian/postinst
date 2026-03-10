@@ -26,7 +26,7 @@ case "$1" in
         # Create state subdirectories (systemd StateDirectory only creates the top level)
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/csv
-        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/charts
+        install -d -o raspisump -g raspisump -m 0775 /var/lib/raspi-sump/charts
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/support
 
         # Create log directory (systemd LogsDirectory may not be present before first start)
@@ -40,17 +40,19 @@ case "$1" in
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
         find /var/lib/raspi-sump/csv \
-             /var/lib/raspi-sump/charts \
              /var/lib/raspi-sump/support \
              /var/log/raspi-sump \
              -type d -exec chmod g+rwxs {} \;
+        find /var/lib/raspi-sump/charts \
+             -type d -exec chmod g+rwxs,o+rx {} \;
 
         # Set setgid bit on top-level shared dirs so new files/dirs inherit group 'raspisump'.
         chmod g+s \
             /var/lib/raspi-sump/csv \
-            /var/lib/raspi-sump/charts \
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
+        # Charts dir is world-readable so nginx can serve files without group membership.
+        chmod g+s,o+rx /var/lib/raspi-sump/charts
 
         # Install config files from examples only on first install (never overwrite on upgrade)
         install -d -o root -g root -m 0755 /etc/raspi-sump
@@ -65,6 +67,12 @@ case "$1" in
         # Lock down credentials file — only root and raspisump user can read it
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
+
+        # Enable nginx site if nginx is installed
+        if [ -d /etc/nginx/sites-enabled ] && [ ! -L /etc/nginx/sites-enabled/raspi-sump ]; then
+            ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+            systemctl reload nginx || true
+        fi
 
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
