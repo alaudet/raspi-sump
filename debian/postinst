@@ -40,6 +40,16 @@ case "$1" in
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
 
+        # Install config files from examples only on first install (never overwrite on upgrade)
+        install -d -o root -g root -m 0755 /etc/raspi-sump
+        if [ ! -f /etc/raspi-sump/raspisump.conf ]; then
+            cp /usr/share/raspi-sump/examples/raspisump.conf /etc/raspi-sump/raspisump.conf
+            chmod 0644 /etc/raspi-sump/raspisump.conf
+        fi
+        if [ ! -f /etc/raspi-sump/credentials.conf ]; then
+            cp /usr/share/raspi-sump/examples/credentials.conf /etc/raspi-sump/credentials.conf
+        fi
+
         # Lock down credentials file — only root and raspisump user can read it
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
@@ -48,16 +58,34 @@ case "$1" in
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true
 
-        echo ""
-        echo "raspisump has been installed and the service has been enabled."
-        echo ""
-        echo "Before starting the service, edit the configuration files:"
-        echo "  /etc/raspi-sump/raspisump.conf"
-        echo "  /etc/raspi-sump/credentials.conf"
-        echo ""
-        echo "Then start the service with:"
-        echo "  sudo systemctl start raspisump.service"
-        echo ""
+        if [ -z "$2" ]; then
+            # Fresh install
+            echo ""
+            echo "raspisump has been installed and the service has been enabled."
+            echo ""
+            echo "Before starting the service, edit the configuration files:"
+            echo "  /etc/raspi-sump/raspisump.conf"
+            echo "  /etc/raspi-sump/credentials.conf"
+            echo ""
+            echo "Then start the service with:"
+            echo "  sudo systemctl start raspisump.service"
+            echo ""
+        else
+            # Upgrade
+            echo ""
+            echo "raspisump has been upgraded from $2."
+            echo ""
+            echo "Your configuration files have NOT been modified:"
+            echo "  /etc/raspi-sump/raspisump.conf"
+            echo "  /etc/raspi-sump/credentials.conf"
+            echo ""
+            echo "Updated example configs are available at:"
+            echo "  /usr/share/raspi-sump/examples/raspisump.conf"
+            echo "  /usr/share/raspi-sump/examples/credentials.conf"
+            echo ""
+            echo "Review the examples for any new settings before restarting the service."
+            echo ""
+        fi
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

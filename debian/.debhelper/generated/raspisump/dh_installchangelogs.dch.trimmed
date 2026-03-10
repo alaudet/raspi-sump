@@ -1,3 +1,11 @@
+raspisump (2.0~a8) unstable; urgency=medium
+
+  * Install configs to /usr/share/raspi-sump/examples/ — never overwrite on upgrade
+  * postinst copies examples to /etc/raspi-sump/ on first install only
+  * Show upgrade message pointing to updated example configs
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a7) unstable; urgency=medium
 
   * Do not auto-start service on install; display config instructions instead
