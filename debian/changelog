@@ -1,3 +1,10 @@
+raspisump (2.0~a3) unstable; urgency=medium
+
+  * Add installing user to raspisump group during postinst
+  * Create /var/lib/raspi-sump/csv, charts and /var/log/raspi-sump in postinst
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a2) unstable; urgency=medium
 
   * Split credentials into /etc/raspi-sump/credentials.conf (mode 0640)

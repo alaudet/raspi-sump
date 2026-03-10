@@ -16,6 +16,21 @@ case "$1" in
             usermod -aG gpio raspisump
         fi
 
+        # Add the user who invoked sudo/dpkg to the raspisump group so they
+        # can run manual readings without switching to the service account.
+        INSTALL_USER="${SUDO_USER:-}"
+        if [ -n "$INSTALL_USER" ] && getent passwd "$INSTALL_USER" > /dev/null 2>&1; then
+            usermod -aG raspisump "$INSTALL_USER"
+        fi
+
+        # Create state subdirectories (systemd StateDirectory only creates the top level)
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/csv
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/charts
+
+        # Create log directory (systemd LogsDirectory may not be present before first start)
+        install -d -o raspisump -g raspisump -m 0770 /var/log/raspi-sump
+
         # Lock down credentials file — only root and raspisump user can read it
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
