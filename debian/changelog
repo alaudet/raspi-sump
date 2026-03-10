@@ -1,3 +1,29 @@
+raspisump (2.0~a7) unstable; urgency=medium
+
+  * Do not auto-start service on install; display config instructions instead
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a6) unstable; urgency=medium
+
+  * Set setgid bit on shared dirs so files inherit group raspisump
+  * Use umask 0002 when creating log/csv files so they are group-writable
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a5) unstable; urgency=medium
+
+  * Add UMask=0002 to service files so created files are group-writable
+  * Add /var/lib/raspi-sump/support to postinst directory creation
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a4) unstable; urgency=medium
+
+  * Remove Group=gpio from service files; raspisump user retains gpio as supplementary group
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 10 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a3) unstable; urgency=medium
 
   * Add installing user to raspisump group during postinst

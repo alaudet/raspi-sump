@@ -16,6 +16,30 @@ case "$1" in
             usermod -aG gpio raspisump
         fi
 
+        # Add the user who invoked sudo/dpkg to the raspisump group so they
+        # can run manual readings without switching to the service account.
+        INSTALL_USER="${SUDO_USER:-}"
+        if [ -n "$INSTALL_USER" ] && getent passwd "$INSTALL_USER" > /dev/null 2>&1; then
+            usermod -aG raspisump "$INSTALL_USER"
+        fi
+
+        # Create state subdirectories (systemd StateDirectory only creates the top level)
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/csv
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/charts
+        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/support
+
+        # Create log directory (systemd LogsDirectory may not be present before first start)
+        install -d -o raspisump -g raspisump -m 0770 /var/log/raspi-sump
+
+        # Set setgid bit so files created by any group member inherit group 'raspisump',
+        # allowing both the service user and human users to read/write shared files.
+        chmod g+s \
+            /var/lib/raspi-sump/csv \
+            /var/lib/raspi-sump/charts \
+            /var/lib/raspi-sump/support \
+            /var/log/raspi-sump
+
         # Lock down credentials file — only root and raspisump user can read it
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
@@ -23,6 +47,17 @@ case "$1" in
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true
+
+        echo ""
+        echo "raspisump has been installed and the service has been enabled."
+        echo ""
+        echo "Before starting the service, edit the configuration files:"
+        echo "  /etc/raspi-sump/raspisump.conf"
+        echo "  /etc/raspi-sump/credentials.conf"
+        echo ""
+        echo "Then start the service with:"
+        echo "  sudo systemctl start raspisump.service"
+        echo ""
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
@@ -63,19 +98,6 @@ fi
 # End automatically added section
 # Automatically added by dh_installsystemd/13.24.2
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
-	if [ -d /run/systemd/system ]; then
-		systemctl --system daemon-reload >/dev/null || true
-		if [ -n "$2" ]; then
-			_dh_action=restart
-		else
-			_dh_action=start
-		fi
-		deb-systemd-invoke $_dh_action 'raspisump.service' >/dev/null || true
-	fi
-fi
-# End automatically added section
-# Automatically added by dh_installsystemd/13.24.2
-if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
 	if deb-systemd-helper debian-installed 'rsumpwebchart.service'; then
 		# The following line should be removed in trixie or trixie+1
 		deb-systemd-helper unmask 'rsumpwebchart.service' >/dev/null || true
@@ -106,19 +128,6 @@ if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-decon
 	# Update the statefile to add new symlinks (if any), which need to be cleaned
 	# up on purge. Also remove old symlinks.
 	deb-systemd-helper update-state 'rsumpwebchart.timer' >/dev/null || true
-fi
-# End automatically added section
-# Automatically added by dh_installsystemd/13.24.2
-if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
-	if [ -d /run/systemd/system ]; then
-		systemctl --system daemon-reload >/dev/null || true
-		if [ -n "$2" ]; then
-			_dh_action=restart
-		else
-			_dh_action=start
-		fi
-		deb-systemd-invoke $_dh_action 'rsumpwebchart.service' 'rsumpwebchart.timer' >/dev/null || true
-	fi
 fi
 # End automatically added section
 

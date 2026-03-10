@@ -9,6 +9,6 @@ override_dh_auto_test:
 	# Run manually on the Pi after installation: pytest tests/
 
 override_dh_installsystemd:
-	dh_installsystemd --name=raspisump
-	dh_installsystemd --name=rsumpwebchart --no-enable
-	dh_installsystemd --name=rsumpwebchart.timer
+	dh_installsystemd --name=raspisump --no-start
+	dh_installsystemd --name=rsumpwebchart --no-enable --no-start
+	dh_installsystemd --name=rsumpwebchart.timer --no-start

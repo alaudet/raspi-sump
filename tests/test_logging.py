@@ -1,41 +1,38 @@
-import os
 from datetime import datetime
 from unittest import TestCase
+from unittest.mock import patch, mock_open
 
 from raspisump import log
-
-LOG_DIR = "/var/log/raspi-sump"
-CSV_DIR = "/var/lib/raspi-sump/csv"
 
 
 class TestLoggingFunctions(TestCase):
     def test_log_event(self):
-        """Test that notifications work correctly"""
-        logfile = "test_log.csv"
+        """Test that log_event writes timestamp and notification to the correct path."""
+        logfile = "test_log"
         notification = "Test notification"
+        m = mock_open()
 
-        log.log_event(logfile, notification)
+        with patch("builtins.open", m):
+            log.log_event(logfile, notification)
 
-        expected_logfile = f"{LOG_DIR}/{logfile}"
-        with open(expected_logfile) as f:
-            log_content = f.read()
-
-        expected_line = (
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S,") + notification + "\n"
-        )
-        self.assertIn(expected_line, log_content)
-        os.remove(expected_logfile)
+        m.assert_called_once_with(f"/var/log/raspi-sump/{logfile}", "a")
+        written = "".join(call.args[0] for call in m().write.call_args_list)
+        self.assertIn(notification, written)
+        self.assertRegex(written, r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},")
 
     def test_log_reading(self):
-        """Test that waterlevel readings work correctly"""
+        """Test that log_reading writes timestamp and water depth to the correct path."""
         water_depth = 10.5
         logreading = "test-waterlevel"
-        log.log_reading(logreading, water_depth)
+        m = mock_open()
 
-        expected_filename = f"{CSV_DIR}/{logreading}-{datetime.now().strftime('%Y%m%d')}.csv"
-        with open(expected_filename) as f:
-            csv_content = f.read()
+        with patch("builtins.open", m):
+            log.log_reading(logreading, water_depth)
 
-        expected_line = datetime.now().strftime("%H:%M:%S,") + str(water_depth) + "\n"
-        self.assertIn(expected_line, csv_content)
-        os.remove(expected_filename)
+        today = datetime.now().strftime("%Y%m%d")
+        m.assert_called_once_with(
+            f"/var/lib/raspi-sump/csv/{logreading}-{today}.csv", "a"
+        )
+        written = "".join(call.args[0] for call in m().write.call_args_list)
+        self.assertIn(str(water_depth), written)
+        self.assertRegex(written, r"\d{2}:\d{2}:\d{2},")

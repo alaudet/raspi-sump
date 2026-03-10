@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raspisump"
-version = "2.0a3"
+version = "2.0a7"
 description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "MIT License"}
@@ -37,3 +37,13 @@ rsumpsupport = "raspisump.cli:rsumpsupport"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["raspisump*"]
+
+[tool.pytest.ini_options]
+# DeprecationWarnings from lgpio's SWIG-generated C extension (SwigPyPacked,
+# SwigPyObject, swigvarlink missing __module__).  These are a known upstream
+# issue in lgpio and are not caused by raspisump code.
+filterwarnings = [
+    "ignore::DeprecationWarning:lgpio",
+    "ignore:builtin type Swig:DeprecationWarning",
+    "ignore:builtin type swig:DeprecationWarning",
+]
