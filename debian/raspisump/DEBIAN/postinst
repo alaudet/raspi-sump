@@ -32,8 +32,20 @@ case "$1" in
         # Create log directory (systemd LogsDirectory may not be present before first start)
         install -d -o raspisump -g raspisump -m 0770 /var/log/raspi-sump
 
-        # Set setgid bit so files created by any group member inherit group 'raspisump',
-        # allowing both the service user and human users to read/write shared files.
+        # Fix ownership and permissions recursively — catches any subdirs (e.g. charts/year/month)
+        # created by an older install with the wrong group or mode.
+        chown -R raspisump:raspisump \
+            /var/lib/raspi-sump/csv \
+            /var/lib/raspi-sump/charts \
+            /var/lib/raspi-sump/support \
+            /var/log/raspi-sump
+        find /var/lib/raspi-sump/csv \
+             /var/lib/raspi-sump/charts \
+             /var/lib/raspi-sump/support \
+             /var/log/raspi-sump \
+             -type d -exec chmod g+rwxs {} \;
+
+        # Set setgid bit on top-level shared dirs so new files/dirs inherit group 'raspisump'.
         chmod g+s \
             /var/lib/raspi-sump/csv \
             /var/lib/raspi-sump/charts \
