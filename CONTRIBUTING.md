@@ -8,13 +8,13 @@ Contributions are welcome.
 
 3. All additions to version 1.x must work for the user without modifying the raspisump.conf file. You can add items to the conf but the code must provide a default value in config_values.py if the conf file value is missing. Version 2 will refactor the changes if/when it is released.
 
-4. All code submitted must be your own or be allowable to re-distribute under the MIT License.
+4. All code submitted must be your own or be allowable to re-distribute under the Apache 2.0 License.
 
 5. Raspi-Sump should not have a dependency on external services that require a login in order to use. Please use available Python3 libraries when adding new functionality. The one exception to this rule is alerts with Mastodon. Mastodon has been allowed because it is based on Open Source software and allows any user to host their own Mastodon instance. External services like Twilio or Twitter (examples only, there are others) are not allowed because they are subject to short notice EULA and/or API changes that are not suitable for this freely available open source project.
 
 6. Please reasonably follow PEP8 guidelines for your code. For example, if you create a function, give it a docstring so others know what you are doing. Add comments to make your code clearer to others reading it. If your code is incomprehensible it will not be included.
 
-7. I can't promise that all new features will be accepted. However the MIT license allows/welcomes you to fork the code and release an altered version under any license that you like. Please see the requirements under the MIT license when doing so.
+7. I can't promise that all new features will be accepted. However the Apache 2.0 license allows/welcomes you to fork the code and release an altered version under any license that you like. Please see the requirements under the Apache 2.0 license when doing so.
 
 8. Make sure your changes work before issuing the pull request. Adding a unittest is highly encouraged. Make sure any current unittests pass.
 
