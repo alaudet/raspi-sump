@@ -1,3 +1,10 @@
+raspisump (2.0~a17) unstable; urgency=medium
+
+  * Fix raspisump.service: add StateDirectoryMode=0770 and LogsDirectoryMode=0770
+    so systemd does not reset /var/lib/raspi-sump to 0750 on every service restart
+
+ -- Al Audet <alaudet@linuxnorth.org>  Wed, 11 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a16) unstable; urgency=medium
 
   * Fix postinst: correct raspisump.db ownership/permissions on upgrade (0664 raspisump:raspisump)
