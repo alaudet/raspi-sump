@@ -1,8 +1,8 @@
 Package: raspisump
-Version: 2.0~rc3
+Version: 2.0~a14
 Architecture: all
 Maintainer: Al Audet <alaudet@linuxnorth.org>
-Installed-Size: 156
+Installed-Size: 158
 Depends: python3:any, python3-pinsource, python3-mastodon, python3-matplotlib, adduser, nginx
 Section: misc
 Priority: optional

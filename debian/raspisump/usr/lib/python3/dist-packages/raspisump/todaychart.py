@@ -7,6 +7,7 @@
 # All configuration changes should be done in raspisump.conf
 # Apache-2.0 License -- https://www.linuxnorth.org/raspi-sump/license.html
 
+import sqlite3
 import time
 import numpy as np
 import matplotlib as mpl
@@ -16,6 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib import rcParams
 from raspisump import config_values
+from raspisump.log import DB_PATH
 
 rcParams.update({"figure.autolayout": True})
 
@@ -23,17 +25,25 @@ rcParams.update({"figure.autolayout": True})
 configs = config_values.configuration()
 
 
-def graph(csv_file, filename):
-    """Create a line graph from a two column csv file."""
+def graph(filename):
+    """Create a line graph from today's readings in the SQLite database."""
 
     unit = configs["unit"]
 
-    date, value = np.loadtxt(
-        csv_file,
-        delimiter=",",
-        unpack=True,
-        converters={0: lambda x: mdates.datestr2num(x)},
-    )
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        rows = conn.execute(
+            """
+            SELECT ts, water_depth FROM readings
+            WHERE ts >= date('now', 'localtime') || ' 00:00:00'
+            ORDER BY ts ASC
+            """
+        ).fetchall()
+    finally:
+        conn.close()
+
+    date = np.array([mdates.datestr2num(row[0]) for row in rows])
+    value = np.array([row[1] for row in rows])
 
     fig = plt.figure(figsize=(10, 3.5))
 

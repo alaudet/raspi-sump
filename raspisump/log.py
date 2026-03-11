@@ -58,13 +58,17 @@ def log_reading(water_depth: float, unit: str) -> None:
     """Log a sensor reading to the SQLite database."""
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
     unit_label = _UNIT_LABELS.get(unit, unit)
-    conn = sqlite3.connect(DB_PATH)
+    old_umask = os.umask(0o002)
     try:
-        _init_db(conn)
-        conn.execute(
-            "INSERT INTO readings (ts, water_depth, unit) VALUES (?, ?, ?)",
-            (ts, water_depth, unit_label),
-        )
-        conn.commit()
+        conn = sqlite3.connect(DB_PATH)
+        try:
+            _init_db(conn)
+            conn.execute(
+                "INSERT INTO readings (ts, water_depth, unit) VALUES (?, ?, ?)",
+                (ts, water_depth, unit_label),
+            )
+            conn.commit()
+        finally:
+            conn.close()
     finally:
-        conn.close()
+        os.umask(old_umask)
