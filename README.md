@@ -68,7 +68,9 @@ Best practices include:
 
 # License
 
-Raspi-Sump is released under the [Apache 2.0 License](https://github.com/alaudet/raspi-sump/blob/V2/LICENSE).
+Raspi-Sump Version 2.0 is released under the [Apache 2.0 License](https://github.com/alaudet/raspi-sump/blob/V2/LICENSE).
+
+Old Version 1.x is released under the MIT License.
 
 # Contribute
 

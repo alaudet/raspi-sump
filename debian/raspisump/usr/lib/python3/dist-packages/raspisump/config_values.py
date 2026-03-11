@@ -6,7 +6,7 @@
 #
 # All configuration changes should be done in raspisump.conf
 # Credentials should be stored in credentials.conf
-# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
+# Apache-2.0 License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import configparser
 

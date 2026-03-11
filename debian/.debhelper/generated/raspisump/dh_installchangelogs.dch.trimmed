@@ -1,3 +1,10 @@
+raspisump (2.0~rc3) unstable; urgency=medium
+
+  * Change license from MIT to Apache 2.0
+  * Update LICENSE, pyproject.toml, debian/copyright, source headers, README, CONTRIBUTING
+
+ -- Al Audet <alaudet@linuxnorth.org>  Wed, 11 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~rc2) unstable; urgency=medium
 
   * First pre-release of 2.0

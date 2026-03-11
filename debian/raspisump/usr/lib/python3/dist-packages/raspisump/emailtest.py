@@ -5,7 +5,7 @@
 # https://www.linuxnorth.org/raspi-sump/
 #
 # All configuration changes should be done in raspisump.conf
-# MIT License -- https://www.linuxnorth.org/raspi-sump/license.html
+# Apache-2.0 License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import smtplib
 from mastodon import Mastodon

@@ -73,14 +73,32 @@ case "$1" in
         echo "Raspisump Version ${PKG_VERSION} | Copyright 2026 Al Audet" \
             > /usr/share/raspi-sump/web/css/inc/VERSION
 
-        # Enable nginx site if nginx is installed
-        if [ -d /etc/nginx/sites-enabled ]; then
-            if [ ! -L /etc/nginx/sites-enabled/raspi-sump ]; then
-                ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+        # nginx site handling
+        NGINX_SITE_ENABLED="/etc/nginx/sites-enabled/raspi-sump"
+
+        if [ -z "$2" ]; then
+            # Fresh install — check for port 80 conflicts before enabling
+            NGINX_CONFLICT_MSG=""
+            if systemctl is-active --quiet apache2 2>/dev/null; then
+                NGINX_CONFLICT_MSG="apache2 is active"
+            elif systemctl is-active --quiet lighttpd 2>/dev/null; then
+                NGINX_CONFLICT_MSG="lighttpd is active"
+            elif [ -L /etc/nginx/sites-enabled/default ]; then
+                NGINX_CONFLICT_MSG="the nginx default site is enabled (conflicts on port 80)"
             fi
-            # Disable the default site — it conflicts with raspi-sump on port 80
-            rm -f /etc/nginx/sites-enabled/default
-            systemctl reload nginx || true
+
+            if [ -z "$NGINX_CONFLICT_MSG" ]; then
+                ln -sf /etc/nginx/sites-available/raspi-sump "$NGINX_SITE_ENABLED"
+                systemctl reload nginx > /dev/null 2>&1 || true
+                NGINX_ENABLED=1
+            else
+                NGINX_ENABLED=0
+            fi
+        else
+            # Upgrade — respect whatever state the site is currently in
+            if [ -L "$NGINX_SITE_ENABLED" ]; then
+                systemctl reload nginx > /dev/null 2>&1 || true
+            fi
         fi
 
         systemctl daemon-reload || true
@@ -109,6 +127,18 @@ case "$1" in
             echo "Then start the service with:"
             echo "  sudo systemctl start raspisump.service"
             echo ""
+            if [ "$NGINX_ENABLED" -eq 1 ]; then
+                echo "The raspisump web interface is available at http://<your-pi-ip>/"
+                echo ""
+            else
+                echo "Web server conflict detected: ${NGINX_CONFLICT_MSG}."
+                echo "The raspisump nginx config has been installed but not activated:"
+                echo "  /etc/nginx/sites-available/raspi-sump"
+                echo "Resolve the conflict and enable it manually:"
+                echo "  sudo ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump"
+                echo "  sudo systemctl reload nginx"
+                echo ""
+            fi
         else
             # Upgrade
             echo ""

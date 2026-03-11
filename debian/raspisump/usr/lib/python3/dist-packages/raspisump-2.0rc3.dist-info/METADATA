@@ -1,9 +1,9 @@
 Metadata-Version: 2.4
 Name: raspisump
-Version: 2.0rc2
+Version: 2.0rc3
 Summary: A sump pit monitoring system for Raspberry Pi
 Author-email: Al Audet <alaudet@linuxnorth.org>
-License: MIT License
+License: Apache-2.0
 Project-URL: Homepage, https://www.linuxnorth.org/raspi-sump/
 Project-URL: Download, https://github.com/alaudet/raspi-sump/releases
 Classifier: Development Status :: 3 - Alpha
@@ -14,7 +14,7 @@ Classifier: Operating System :: POSIX :: Linux
 Classifier: Programming Language :: Python :: 3.11
 Classifier: Programming Language :: Python :: 3.13
 Classifier: Topic :: Home Automation
-Classifier: License :: OSI Approved :: MIT License
+Classifier: License :: OSI Approved :: Apache Software License
 Requires-Python: >=3.11
 Description-Content-Type: text/markdown
 License-File: LICENSE
@@ -90,7 +90,9 @@ Best practices include:
 
 # License
 
-Raspi-Sump is released under the [MIT License](https://github.com/alaudet/raspi-sump/blob/master/LICENSE).
+Raspi-Sump Version 2.0 is released under the [Apache 2.0 License](https://github.com/alaudet/raspi-sump/blob/V2/LICENSE).
+
+Old Version 1.x is released under the MIT License.
 
 # Contribute
 
