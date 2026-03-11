@@ -4,6 +4,11 @@
 dist
 *egg-info
 build/
+.pybuild/
+debian/raspisump/
+debian/files
+debian/*.debhelper
+debian/*.substvars
 notebook/
 ttt.py
 /temp
