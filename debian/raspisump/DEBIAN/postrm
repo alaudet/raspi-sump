@@ -3,6 +3,8 @@ set -e
 
 case "$1" in
     purge)
+        rm -f /etc/nginx/sites-enabled/raspi-sump
+        systemctl reload nginx > /dev/null 2>&1 || true
         systemctl daemon-reload || true
         rm -rf /etc/raspi-sump
         if getent passwd raspisump > /dev/null 2>&1; then
@@ -10,7 +12,13 @@ case "$1" in
         fi
         ;;
 
-    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    remove)
+        rm -f /etc/nginx/sites-enabled/raspi-sump
+        systemctl reload nginx > /dev/null 2>&1 || true
+        systemctl daemon-reload || true
+        ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
         systemctl daemon-reload || true
         ;;
 

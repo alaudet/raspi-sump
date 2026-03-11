@@ -4,3 +4,4 @@
 ./conf/systemd/rsumpwebchart.service
 ./conf/systemd/rsumpwebchart.timer
 ./conf/web
+./conf/nginx/raspi-sump

@@ -68,15 +68,34 @@ case "$1" in
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
 
+        # Write version string into the web footer file
+        PKG_VERSION=$(dpkg-query --showformat='${Version}' --show raspisump 2>/dev/null || echo "unknown")
+        echo "Raspisump Version ${PKG_VERSION} | Copyright 2026 Al Audet" \
+            > /usr/share/raspi-sump/web/css/inc/VERSION
+
         # Enable nginx site if nginx is installed
-        if [ -d /etc/nginx/sites-enabled ] && [ ! -L /etc/nginx/sites-enabled/raspi-sump ]; then
-            ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+        if [ -d /etc/nginx/sites-enabled ]; then
+            if [ ! -L /etc/nginx/sites-enabled/raspi-sump ]; then
+                ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+            fi
+            # Disable the default site — it conflicts with raspi-sump on port 80
+            rm -f /etc/nginx/sites-enabled/default
             systemctl reload nginx || true
         fi
 
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true
+
+        # On upgrade, restart any services that were already running
+        if [ -n "$2" ]; then
+            if systemctl is-active --quiet raspisump.service; then
+                systemctl restart raspisump.service || true
+            fi
+            if systemctl is-active --quiet rsumpwebchart.timer; then
+                systemctl restart rsumpwebchart.timer || true
+            fi
+        fi
 
         if [ -z "$2" ]; then
             # Fresh install
