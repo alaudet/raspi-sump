@@ -46,6 +46,12 @@ case "$1" in
         find /var/lib/raspi-sump/charts \
              -type d -exec chmod g+rwxs,o+rx {} \;
 
+        # Fix db file permissions if it already exists (created before umask fix).
+        if [ -f /var/lib/raspi-sump/raspisump.db ]; then
+            chown raspisump:raspisump /var/lib/raspi-sump/raspisump.db
+            chmod 664 /var/lib/raspi-sump/raspisump.db
+        fi
+
         # Set setgid bit on top-level dirs so new files/dirs inherit group 'raspisump'.
         # Includes /var/lib/raspi-sump itself so raspisump.db WAL files get the right group.
         chmod g+s \

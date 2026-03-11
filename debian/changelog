@@ -1,3 +1,10 @@
+raspisump (2.0~a16) unstable; urgency=medium
+
+  * Fix postinst: correct raspisump.db ownership/permissions on upgrade (0664 raspisump:raspisump)
+  * Fix .gitignore: add debian/.debhelper/ to prevent build artifacts from being tracked
+
+ -- Al Audet <alaudet@linuxnorth.org>  Wed, 11 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a15) unstable; urgency=medium
 
   * First working SQLite release — data confirmed writing and querying on device
