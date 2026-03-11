@@ -15,6 +15,7 @@ Depends: ${python3:Depends}, ${misc:Depends},
  python3-matplotlib,
  adduser,
  nginx
+Recommends: sqlite3
 Description: Sump pit monitoring system for Raspberry Pi
  Raspi-Sump monitors a sump pit water level using an HC-SR04 ultrasonic
  distance sensor connected to a Raspberry Pi. It logs water levels,

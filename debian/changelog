@@ -1,3 +1,13 @@
+raspisump (2.0~a15) unstable; urgency=medium
+
+  * First working SQLite release — data confirmed writing and querying on device
+  * Fix db file permissions: set umask before sqlite3.connect() so file is created 0664
+  * Fix /var/lib/raspi-sump/ permissions: add setgid bit so WAL files inherit raspisump group
+  * Add sqlite3 CLI as Recommends in debian/control
+  * Add pythonpath = ["."] to pytest config so tests use local source over installed package
+
+ -- Al Audet <alaudet@linuxnorth.org>  Tue, 11 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a14) unstable; urgency=medium
 
   * Complete SQLite migration — log.py, todaychart.py, webchart.py, reading.py

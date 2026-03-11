@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raspisump"
-version = "2.0a14"
+version = "2.0a15"
 description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "Apache-2.0"}

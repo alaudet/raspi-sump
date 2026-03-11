@@ -46,8 +46,10 @@ case "$1" in
         find /var/lib/raspi-sump/charts \
              -type d -exec chmod g+rwxs,o+rx {} \;
 
-        # Set setgid bit on top-level shared dirs so new files/dirs inherit group 'raspisump'.
+        # Set setgid bit on top-level dirs so new files/dirs inherit group 'raspisump'.
+        # Includes /var/lib/raspi-sump itself so raspisump.db WAL files get the right group.
         chmod g+s \
+            /var/lib/raspi-sump \
             /var/lib/raspi-sump/csv \
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
