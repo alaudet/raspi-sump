@@ -87,12 +87,12 @@ case "$1" in
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true
 
-        # On upgrade, restart any services that were already running
+        # On upgrade, restart any services that are enabled (prerm stops them before postinst runs)
         if [ -n "$2" ]; then
-            if systemctl is-active --quiet raspisump.service; then
+            if systemctl is-enabled --quiet raspisump.service; then
                 systemctl restart raspisump.service || true
             fi
-            if systemctl is-active --quiet rsumpwebchart.timer; then
+            if systemctl is-enabled --quiet rsumpwebchart.timer; then
                 systemctl restart rsumpwebchart.timer || true
             fi
         fi
