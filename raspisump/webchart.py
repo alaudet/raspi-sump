@@ -9,11 +9,9 @@
 
 import os
 import shutil
-import time
 from raspisump import todaychart
 
 CHARTS_DIR = "/var/lib/raspi-sump/charts"
-CSV_DIR = "/var/lib/raspi-sump/csv"
 
 
 def create_folders(year, month):
@@ -27,11 +25,10 @@ def create_folders(year, month):
 
 def create_chart():
     """Create a chart of sump pit activity and save to web folder"""
-    csv_file = f"{CSV_DIR}/waterlevel-{time.strftime('%Y%m%d')}.csv"
     filename = f"{CHARTS_DIR}/today.png"
     old_umask = os.umask(0o002)
     try:
-        todaychart.graph(csv_file, filename)
+        todaychart.graph(filename)
     finally:
         os.umask(old_umask)
 

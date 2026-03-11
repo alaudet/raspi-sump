@@ -1,3 +1,18 @@
+raspisump (2.0~a14) unstable; urgency=medium
+
+  * Complete SQLite migration — log.py, todaychart.py, webchart.py, reading.py
+  * Store unit as display label (cm/inches) rather than config key (metric/imperial)
+  * Rename water_cm column to water_depth for unit-agnostic schema
+
+ -- Al Audet <alaudet@linuxnorth.org>  Wed, 11 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a13) unstable; urgency=medium
+
+  * Begin SQLite migration branch — revert to alpha status
+  * CSV-based data store will be replaced with SQLite in upcoming releases
+
+ -- Al Audet <alaudet@linuxnorth.org>  Wed, 11 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~rc3) unstable; urgency=medium
 
   * Change license from MIT to Apache 2.0

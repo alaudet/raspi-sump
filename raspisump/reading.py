@@ -48,16 +48,17 @@ def water_depth():
     if needed.
     """
 
+    unit = configs["unit"]
     critical_water_level = configs["critical_water_level"]
     water_depth = water_reading()
     if water_depth < 0.0:
         water_depth = 0.0
-        log.log_reading("waterlevel", water_depth)
+        log.log_reading(water_depth, unit)
         log.log_event(
             "error_log",
             "ERROR - Negative reading adjusted to 0.0. Possible degrading sensor.",
         )
-    log.log_reading("waterlevel", water_depth)
+    log.log_reading(water_depth, unit)
 
     if water_depth > critical_water_level and configs["alert_when"] == "high":
         alerts.determine_if_alert(water_depth)
