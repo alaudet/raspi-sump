@@ -8,6 +8,7 @@
 # Apache-2.0 License -- https://www.linuxnorth.org/raspi-sump/license.html
 
 import os
+import re
 import sqlite3
 import time
 
@@ -77,6 +78,104 @@ def query_readings(date: str = None, last: int = None) -> list:
             " WHERE ts LIKE ? ORDER BY ts",
             (f"{target}%",),
         ).fetchall()
+    finally:
+        conn.close()
+
+
+def import_csv_files(paths: list, unit_label: str) -> tuple:
+    """Import readings from a list of CSV files into the database.
+
+    Each CSV line must be: YYYY-MM-DD HH:MM:SS,depth
+    (the format written by raspi-sump 1.x)
+
+    unit_label : display label to store — "cm" or "inches"
+
+    Returns (inserted, skipped, errors) where:
+      inserted : number of rows added
+      skipped  : number of rows whose timestamp already existed in the db
+      errors   : list of human-readable parse error strings
+    """
+    old_umask = os.umask(0o002)
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    finally:
+        os.umask(old_umask)
+
+    try:
+        _init_db(conn)
+
+        # Detect unit mismatch: if the database already contains readings,
+        # check whether they use a different unit than what is being imported.
+        # Mixing metric and imperial in one database produces nonsensical charts.
+        existing_unit_row = conn.execute(
+            "SELECT unit FROM readings LIMIT 1"
+        ).fetchone()
+        if existing_unit_row and existing_unit_row[0] != unit_label:
+            db_unit = existing_unit_row[0]
+            correct_flag = "metric" if db_unit == "cm" else "imperial"
+            raise ValueError(
+                f"Unit mismatch: database contains '{db_unit}' readings but "
+                f"you are importing '{unit_label}'. "
+                f"Use --unit {correct_flag} to match the existing data."
+            )
+
+        # Load existing timestamps once to detect duplicates without
+        # issuing a SELECT per row.
+        existing_ts = {
+            r[0]
+            for r in conn.execute("SELECT ts FROM readings").fetchall()
+        }
+
+        to_insert = []
+        skipped = 0
+        errors = []
+
+        for path in paths:
+            # Date comes from the filename: waterlevel-YYYYMMDD.csv
+            # Each line only contains HH:MM:SS,depth — no date.
+            m = re.search(r"waterlevel-(\d{4})(\d{2})(\d{2})\.csv$", path)
+            if not m:
+                errors.append(
+                    f"{path}: filename does not match waterlevel-YYYYMMDD.csv"
+                )
+                continue
+            date_prefix = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+
+            with open(path, "r") as f:
+                for lineno, line in enumerate(f, 1):
+                    line = line.strip()
+                    if not line:
+                        continue
+                    time_str, sep, depth_str = line.partition(",")
+                    if not sep:
+                        errors.append(f"{path}:{lineno}: no comma found")
+                        continue
+                    ts = f"{date_prefix} {time_str.strip()}"
+                    depth_str = depth_str.strip()
+                    try:
+                        depth = float(depth_str)
+                    except ValueError:
+                        errors.append(
+                            f"{path}:{lineno}: cannot parse depth {depth_str!r}"
+                        )
+                        continue
+                    if ts in existing_ts:
+                        skipped += 1
+                        continue
+                    to_insert.append((ts, depth, unit_label))
+                    existing_ts.add(ts)  # prevent duplicates within the batch
+
+        conn.executemany(
+            "INSERT INTO readings (ts, water_depth, unit) VALUES (?, ?, ?)",
+            to_insert,
+        )
+        conn.commit()
+        return len(to_insert), skipped, errors
+
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
         conn.close()
 

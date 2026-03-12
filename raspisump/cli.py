@@ -109,6 +109,72 @@ def rsumplog():
     print(f"\n{len(rows)} reading(s).")
 
 
+def rsumpimport():
+    """Import historical CSV readings into the SQLite database."""
+    import argparse
+    import glob as globmod
+    import os
+    from raspisump import log
+
+    parser = argparse.ArgumentParser(
+        prog="rsumpimport",
+        description="Import raspi-sump 1.x CSV files into the SQLite database.",
+    )
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument(
+        "--dir",
+        metavar="PATH",
+        help="Directory containing waterlevel-*.csv files",
+    )
+    source.add_argument(
+        "--file",
+        nargs="+",
+        metavar="FILE",
+        help="One or more CSV files to import",
+    )
+    parser.add_argument(
+        "--unit",
+        required=True,
+        choices=["metric", "imperial"],
+        help="Unit system the CSV data was recorded in",
+    )
+    args = parser.parse_args()
+
+    unit_label = log._UNIT_LABELS[args.unit]
+
+    if args.dir:
+        pattern = os.path.join(args.dir, "waterlevel-*.csv")
+        paths = sorted(globmod.glob(pattern))
+        if not paths:
+            print(f"No waterlevel-*.csv files found in {args.dir}")
+            return
+    else:
+        paths = args.file
+
+    print(f"Importing {len(paths)} file(s) as unit '{unit_label}' ...")
+
+    try:
+        inserted, skipped, errors = log.import_csv_files(paths, unit_label)
+    except OSError as e:
+        print(f"Error reading file: {e}")
+        return
+    except ValueError as e:
+        print(f"Error: {e}")
+        return
+    except Exception as e:
+        print(f"Database error — all changes rolled back: {e}")
+        return
+
+    for msg in errors:
+        print(f"  WARNING: {msg}")
+
+    print(f"\nDone.")
+    print(f"  Inserted : {inserted}")
+    print(f"  Skipped  : {skipped} (timestamp already in database)")
+    if errors:
+        print(f"  Warnings : {len(errors)} unparseable line(s) — see above")
+
+
 def alerttest():
     """Test alert notifications."""
     from raspisump import emailtest

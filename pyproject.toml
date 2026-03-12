@@ -32,6 +32,7 @@ rsump = "raspisump.cli:rsump"
 rsumpchart = "raspisump.cli:rsumpchart"
 rsumpwebchart = "raspisump.cli:rsumpwebchart"
 rsumplog = "raspisump.cli:rsumplog"
+rsumpimport = "raspisump.cli:rsumpimport"
 alerttest = "raspisump.cli:alerttest"
 rsumpsupport = "raspisump.cli:rsumpsupport"
 
