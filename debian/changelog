@@ -1,3 +1,12 @@
+raspisump (2.0~a18) unstable; urgency=medium
+
+  * Add rsumplog CLI command for querying readings from the SQLite database
+  * Supports --today (default), --date YYYY-MM-DD, and --last N options
+  * Add query_readings() to log.py for testable database queries
+  * Add tests/test_rsumplog.py with 6 tests covering all query modes
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 12 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a17) unstable; urgency=medium
 
   * Fix raspisump.service: add StateDirectoryMode=0770 and LogsDirectoryMode=0770

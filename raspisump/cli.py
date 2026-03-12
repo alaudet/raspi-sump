@@ -63,6 +63,52 @@ def rsumpwebchart():
     webchart.copy_chart(year, month, today)
 
 
+def rsumplog():
+    """Query sump pit readings from the SQLite database."""
+    import argparse
+    from raspisump import log
+
+    parser = argparse.ArgumentParser(
+        prog="rsumplog",
+        description="Query raspi-sump readings from the database.",
+    )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--today",
+        action="store_true",
+        help="Show today's readings (default when no option given)",
+    )
+    group.add_argument(
+        "--date",
+        metavar="YYYY-MM-DD",
+        help="Show readings for a specific date",
+    )
+    group.add_argument(
+        "--last",
+        type=int,
+        metavar="N",
+        help="Show the last N readings",
+    )
+    args = parser.parse_args()
+
+    if args.last:
+        rows = log.query_readings(last=args.last)
+    elif args.date:
+        rows = log.query_readings(date=args.date)
+    else:
+        rows = log.query_readings()
+
+    if not rows:
+        print("No readings found.")
+        return
+
+    print(f"{'Timestamp':<22} {'Depth':>8}  Unit")
+    print("-" * 38)
+    for ts, depth, unit in rows:
+        print(f"{ts:<22} {depth:>8.2f}  {unit}")
+    print(f"\n{len(rows)} reading(s).")
+
+
 def alerttest():
     """Test alert notifications."""
     from raspisump import emailtest

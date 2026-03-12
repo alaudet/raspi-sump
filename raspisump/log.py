@@ -54,6 +54,33 @@ def _init_db(conn: sqlite3.Connection) -> None:
     conn.execute("CREATE INDEX IF NOT EXISTS idx_ts ON readings (ts)")
 
 
+def query_readings(date: str = None, last: int = None) -> list:
+    """Return readings from the database.
+
+    date : "YYYY-MM-DD" — all readings for that calendar day (default: today)
+    last : int          — the N most recent readings (overrides date)
+
+    Returns a list of (ts, water_depth, unit) tuples in chronological order.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        if last is not None:
+            rows = conn.execute(
+                "SELECT ts, water_depth, unit FROM readings"
+                " ORDER BY id DESC LIMIT ?",
+                (last,),
+            ).fetchall()
+            return list(reversed(rows))
+        target = date if date is not None else time.strftime("%Y-%m-%d")
+        return conn.execute(
+            "SELECT ts, water_depth, unit FROM readings"
+            " WHERE ts LIKE ? ORDER BY ts",
+            (f"{target}%",),
+        ).fetchall()
+    finally:
+        conn.close()
+
+
 def log_reading(water_depth: float, unit: str) -> None:
     """Log a sensor reading to the SQLite database."""
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
