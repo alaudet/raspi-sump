@@ -1,3 +1,18 @@
+raspisump (2.0~a20) unstable; urgency=medium
+
+  * Fix raspisump.service: set StateDirectoryMode=0771 to match postinst,
+    preventing systemd from resetting /var/lib/raspi-sump to 0770 on every
+    service start and clobbering nginx traversal permissions
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 12 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a19) unstable; urgency=medium
+
+  * Fix postinst: set /var/lib/raspi-sump to 0771 so nginx can traverse
+    into charts/ directory without group membership
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 12 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a18) unstable; urgency=medium
 
   * Add rsumplog CLI command for querying readings from the SQLite database

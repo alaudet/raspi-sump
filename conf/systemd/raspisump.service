@@ -9,7 +9,7 @@ User=raspisump
 UMask=0002
 WorkingDirectory=/var/lib/raspi-sump
 StateDirectory=raspi-sump
-StateDirectoryMode=0770
+StateDirectoryMode=0771
 LogsDirectory=raspi-sump
 LogsDirectoryMode=0770
 

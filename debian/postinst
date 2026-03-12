@@ -24,7 +24,8 @@ case "$1" in
         fi
 
         # Create state subdirectories (systemd StateDirectory only creates the top level)
-        install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump
+        # 0771: group write for WAL files, world-execute so nginx can traverse into charts/
+        install -d -o raspisump -g raspisump -m 0771 /var/lib/raspi-sump
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/csv
         install -d -o raspisump -g raspisump -m 0775 /var/lib/raspi-sump/charts
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/support
