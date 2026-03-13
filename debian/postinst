@@ -23,6 +23,12 @@ case "$1" in
             usermod -aG raspisump "$INSTALL_USER"
         fi
 
+        # Add www-data to raspisump group so nginx can access the Flask Unix socket
+        # (/run/raspi-sump/ is mode 0750, owned by raspisump:raspisump)
+        if getent passwd www-data > /dev/null 2>&1; then
+            usermod -aG raspisump www-data
+        fi
+
         # Create state subdirectories (systemd StateDirectory only creates the top level)
         # 0771: group write for WAL files, world-execute so nginx can traverse into charts/
         install -d -o raspisump -g raspisump -m 0771 /var/lib/raspi-sump
@@ -82,6 +88,20 @@ case "$1" in
         echo "Raspisump Version ${PKG_VERSION} | Copyright 2026 Al Audet" \
             > /usr/share/raspi-sump/web/css/inc/VERSION
 
+        # Generate self-signed TLS certificate if not present (10-year, LAN only)
+        SSL_DIR="/etc/raspi-sump/ssl"
+        if [ ! -f "$SSL_DIR/raspi-sump.crt" ]; then
+            install -d -o root -g root -m 0755 "$SSL_DIR"
+            openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+                -keyout "$SSL_DIR/raspi-sump.key" \
+                -out    "$SSL_DIR/raspi-sump.crt" \
+                -subj   "/CN=raspi-sump/O=raspi-sump/C=CA" \
+                -quiet 2>/dev/null
+            chmod 0640 "$SSL_DIR/raspi-sump.key"
+            chmod 0644 "$SSL_DIR/raspi-sump.crt"
+            chown root:raspisump "$SSL_DIR/raspi-sump.key"
+        fi
+
         # nginx site handling
         NGINX_SITE_ENABLED="/etc/nginx/sites-enabled/raspi-sump"
 
@@ -113,6 +133,7 @@ case "$1" in
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
         systemctl enable rsumpwebchart.timer || true
+        systemctl enable rsumpweb.service || true
 
         # On upgrade, restart any services that are enabled (prerm stops them before postinst runs)
         if [ -n "$2" ]; then
@@ -121,6 +142,9 @@ case "$1" in
             fi
             if systemctl is-enabled --quiet rsumpwebchart.timer; then
                 systemctl restart rsumpwebchart.timer || true
+            fi
+            if systemctl is-enabled --quiet rsumpweb.service; then
+                systemctl restart rsumpweb.service || true
             fi
         fi
 
@@ -137,7 +161,8 @@ case "$1" in
             echo "  sudo systemctl start raspisump.service"
             echo ""
             if [ "$NGINX_ENABLED" -eq 1 ]; then
-                echo "The raspisump web interface is available at http://<your-pi-ip>/"
+                echo "The raspisump web interface is available at https://<your-pi-ip>/"
+                echo "(A self-signed certificate is used — accept the browser warning on first visit.)"
                 echo ""
             else
                 echo "Web server conflict detected: ${NGINX_CONFLICT_MSG}."

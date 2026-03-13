@@ -1,0 +1,285 @@
+/* ==========================================================================
+   Raspi-Sump stylesheet
+   Mobile-first. All colors via CSS custom properties (dark theme ready).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Custom properties (design tokens)
+   -------------------------------------------------------------------------- */
+:root {
+    --brand:        #007f7f;
+    --brand-dark:   #005a5a;
+    --brand-text:   #ffffff;
+
+    --bg:           #f4f6f8;
+    --surface:      #ffffff;
+    --text:         #222222;
+    --text-muted:   #666666;
+    --border:       #dddddd;
+
+    --nav-height:   3.5rem;
+    --radius:       4px;
+    --max-width:    1100px;
+
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset / base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--brand);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--brand-dark);
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navigation — mobile-first with checkbox hamburger (no JavaScript)
+   -------------------------------------------------------------------------- */
+.site-nav {
+    background: var(--brand);
+    color: var(--brand-text);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    height: var(--nav-height);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.nav-brand {
+    color: var(--brand-text);
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex: 1;
+    text-decoration: none;
+}
+
+.nav-brand:hover {
+    color: var(--brand-text);
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+/* Hide the checkbox — it exists only for state */
+.nav-check {
+    display: none;
+}
+
+/* Hamburger label (☰) — visible on mobile only */
+.nav-toggle-label {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--brand-text);
+    padding: 0.25rem 0.5rem;
+    user-select: none;
+}
+
+/* Nav links: hidden on mobile, slide down when checkbox checked */
+.nav-links {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--brand);
+    z-index: 200;
+    border-top: 2px solid var(--brand-dark);
+    padding: 0.5rem 0;
+}
+
+.nav-check:checked ~ .nav-links {
+    display: block;
+}
+
+/* Top-level nav items */
+.nav-links > li > a,
+.nav-links > li > details.nav-dropdown > summary {
+    display: block;
+    padding: 0.65rem 1.25rem;
+    color: var(--brand-text);
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;       /* remove <summary> triangle in some browsers */
+    user-select: none;
+}
+
+.nav-links > li > a:hover,
+.nav-links > li > details.nav-dropdown > summary:hover {
+    background: var(--brand-dark);
+    text-decoration: none;
+}
+
+/* Remove default <summary> marker */
+.nav-links summary::-webkit-details-marker { display: none; }
+.nav-links summary { list-style: none; }
+
+/* Sub-dropdown lists (mobile: indented below summary) */
+.nav-dropdown > ul {
+    list-style: none;
+    background: var(--brand-dark);
+}
+
+.nav-dropdown > ul a {
+    display: block;
+    padding: 0.5rem 1.25rem 0.5rem 2.25rem;
+    color: var(--brand-text);
+    text-decoration: none;
+}
+
+.nav-dropdown > ul a:hover {
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+/* Donate button */
+.btn-donate {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    margin: 0.4rem 1.25rem;
+    background: var(--surface);
+    color: var(--brand) !important;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+}
+
+.btn-donate:hover {
+    background: #e8e8e8;
+}
+
+/* --------------------------------------------------------------------------
+   4. Desktop navigation (≥ 768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+    /* Hide hamburger label on desktop */
+    .nav-toggle-label {
+        display: none;
+    }
+
+    /* Always show nav links as a horizontal row */
+    .nav-links {
+        display: flex !important;
+        position: static;
+        background: transparent;
+        border: none;
+        padding: 0;
+        align-items: center;
+        gap: 0.1rem;
+        flex: none;
+    }
+
+    .nav-links > li {
+        position: relative;
+    }
+
+    .nav-links > li > a,
+    .nav-links > li > details.nav-dropdown > summary {
+        padding: 0.45rem 0.75rem;
+        border-radius: var(--radius);
+        white-space: nowrap;
+    }
+
+    /* Sub-dropdown: absolute, appears on open */
+    .nav-dropdown > ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 175px;
+        border-radius: 0 0 var(--radius) var(--radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        z-index: 200;
+    }
+
+    .nav-dropdown[open] > ul {
+        display: block;
+    }
+
+    .nav-dropdown > ul a {
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+    }
+
+    .btn-donate {
+        margin: 0 0.25rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. Main layout
+   -------------------------------------------------------------------------- */
+main {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    max-width: var(--max-width);
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   6. Chart card
+   -------------------------------------------------------------------------- */
+.chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.chart-card h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+}
+
+.chart-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+}
+
+.chart-missing {
+    padding: 2.5rem 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 1.25rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}

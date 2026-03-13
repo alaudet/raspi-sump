@@ -1,0 +1,16 @@
+[Unit]
+Description=Raspi-Sump Flask Web Interface
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/rsumpweb
+Restart=on-failure
+User=raspisump
+UMask=0002
+RuntimeDirectory=raspi-sump
+RuntimeDirectoryMode=0750
+WorkingDirectory=/var/lib/raspi-sump
+Environment=FLASK_ENV=production
+
+[Install]
+WantedBy=multi-user.target

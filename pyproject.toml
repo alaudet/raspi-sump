@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raspisump"
-version = "2.0a20"
+version = "2.0a21"
 description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "Apache-2.0"}
@@ -35,10 +35,14 @@ rsumplog = "raspisump.cli:rsumplog"
 rsumpimport = "raspisump.cli:rsumpimport"
 alerttest = "raspisump.cli:alerttest"
 rsumpsupport = "raspisump.cli:rsumpsupport"
+rsumpweb = "raspisump.web:serve"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["raspisump*"]
+
+[tool.setuptools.package-data]
+raspisump = ["templates/**/*", "templates/*", "static/*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

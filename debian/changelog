@@ -1,3 +1,11 @@
+raspisump (2.0~a21) unstable; urgency=medium
+
+  * Phase 1 Flask web interface: homepage with today's chart, mobile-first
+    CSS, HTTPS via self-signed cert, nginx proxy to Flask Unix socket,
+    rsumpweb systemd service
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a20) unstable; urgency=medium
 
   * Fix raspisump.service: set StateDirectoryMode=0771 to match postinst,

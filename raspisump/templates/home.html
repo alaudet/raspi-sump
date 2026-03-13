@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Raspi-Sump — Water Level Monitor{% endblock %}
+
+{% block content %}
+<section class="chart-card">
+    <h2>Today &mdash; {{ today }}</h2>
+    {% if chart_url %}
+        <img src="{{ chart_url }}" alt="Today's water level chart">
+    {% else %}
+        <p class="chart-missing">No chart available yet. The chart is generated every few minutes once the service is running.</p>
+    {% endif %}
+</section>
+{% endblock %}
