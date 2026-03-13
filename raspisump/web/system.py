@@ -1,6 +1,9 @@
-"""Helpers for querying systemd service status."""
+"""Helpers for querying systemd service status and system configuration."""
 
+import configparser
 import subprocess
+
+_CONF_PATH = "/etc/raspi-sump/raspisump.conf"
 
 
 _PROPERTIES = [
@@ -59,3 +62,16 @@ def get_service_status(service):
 def all_service_statuses():
     """Return a list of (service_name, props_dict_or_None) for SERVICES."""
     return [(svc, get_service_status(svc)) for svc in SERVICES]
+
+
+def get_raspisump_config():
+    """Read raspisump.conf and return a list of (section, [(key, value)]) tuples.
+
+    Reads only raspisump.conf — credentials.conf is never touched.
+    Returns None if the file cannot be read.
+    """
+    cp = configparser.RawConfigParser()
+    read = cp.read(_CONF_PATH)
+    if not read:
+        return None
+    return [(section, list(cp.items(section))) for section in cp.sections()]

@@ -456,6 +456,45 @@ main {
 .badge-activating,
 .badge-deactivating { background: #fff3cd; color: #856404; }
 
+/* Config viewer */
+.conf-path {
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.conf-section-heading {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--brand);
+    margin: 1.25rem 0 0.4rem;
+}
+
+.conf-section-heading:first-of-type {
+    margin-top: 0;
+}
+
+.conf-table {
+    margin-bottom: 0.5rem;
+}
+
+.conf-key {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    width: 40%;
+}
+
+.conf-value {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
 /* --------------------------------------------------------------------------
    8b. Admin login card
    -------------------------------------------------------------------------- */

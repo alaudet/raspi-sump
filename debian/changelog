@@ -1,3 +1,10 @@
+raspisump (2.0~a27) unstable; urgency=medium
+
+  * Phase 5b Flask admin: config viewer displays raspisump.conf sections and
+    values read-only; credentials.conf never read
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a26) unstable; urgency=medium
 
   * Phase 5a Flask admin: service status panel showing ActiveState, SubState,

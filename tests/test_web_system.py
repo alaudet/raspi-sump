@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import subprocess
 
-from raspisump.web.system import get_service_status, all_service_statuses, SERVICES
+from raspisump.web.system import get_service_status, all_service_statuses, SERVICES, get_raspisump_config
 
 
 SAMPLE_OUTPUT = (
@@ -81,6 +81,46 @@ class TestAllServiceStatuses(unittest.TestCase):
         for name, props in results:
             self.assertIsInstance(name, str)
             self.assertEqual(props, fake_props)
+
+
+_SAMPLE_CONF = """
+[pit]
+unit = metric
+pit_depth = 72
+
+[gpio_pins]
+trig_pin = 17
+echo_pin = 27
+"""
+
+
+class TestGetRaspisumpConfig(unittest.TestCase):
+
+    def _read(self, content):
+        """Patch configparser.RawConfigParser.read to load *content* instead."""
+        def fake_read(self_cp, paths):
+            self_cp.read_string(content)
+            return paths
+        with patch("raspisump.web.system.configparser.RawConfigParser.read", fake_read):
+            return get_raspisump_config()
+
+    def test_returns_list_of_section_tuples(self):
+        result = self._read(_SAMPLE_CONF)
+        self.assertIsNotNone(result)
+        sections = [s for s, _ in result]
+        self.assertIn("pit", sections)
+        self.assertIn("gpio_pins", sections)
+
+    def test_section_items_are_key_value_pairs(self):
+        result = self._read(_SAMPLE_CONF)
+        pit = dict(next(items for s, items in result if s == "pit"))
+        self.assertEqual(pit["unit"], "metric")
+        self.assertEqual(pit["pit_depth"], "72")
+
+    def test_returns_none_when_file_missing(self):
+        with patch("raspisump.web.system.configparser.RawConfigParser.read", return_value=[]):
+            result = get_raspisump_config()
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":
