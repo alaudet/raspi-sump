@@ -1,3 +1,10 @@
+raspisump (2.0~a24) unstable; urgency=medium
+
+  * Fix postinst: drop -quiet flag from openssl (not available on all
+    platforms); try -noenc before -nodes for OpenSSL 3.x compatibility
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a23) unstable; urgency=medium
 
   * Phase 3 Flask web interface: historical readings page with date picker,

@@ -91,15 +91,26 @@ case "$1" in
         # Generate self-signed TLS certificate if not present (10-year, LAN only)
         SSL_DIR="/etc/raspi-sump/ssl"
         if [ ! -f "$SSL_DIR/raspi-sump.crt" ]; then
-            install -d -o root -g root -m 0755 "$SSL_DIR"
-            openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
-                -keyout "$SSL_DIR/raspi-sump.key" \
-                -out    "$SSL_DIR/raspi-sump.crt" \
-                -subj   "/CN=raspi-sump/O=raspi-sump/C=CA" \
-                -quiet 2>/dev/null
-            chmod 0640 "$SSL_DIR/raspi-sump.key"
-            chmod 0644 "$SSL_DIR/raspi-sump.crt"
-            chown root:raspisump "$SSL_DIR/raspi-sump.key"
+            if command -v openssl > /dev/null 2>&1; then
+                install -d -o root -g root -m 0755 "$SSL_DIR"
+                # -noenc is the OpenSSL 3.x replacement for -nodes; try both
+                if openssl req -x509 -noenc -days 3650 -newkey rsa:2048 \
+                    -keyout "$SSL_DIR/raspi-sump.key" \
+                    -out    "$SSL_DIR/raspi-sump.crt" \
+                    -subj   "/CN=raspi-sump/O=raspi-sump/C=CA" 2>/dev/null || \
+                   openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+                    -keyout "$SSL_DIR/raspi-sump.key" \
+                    -out    "$SSL_DIR/raspi-sump.crt" \
+                    -subj   "/CN=raspi-sump/O=raspi-sump/C=CA" 2>/dev/null; then
+                    chmod 0640 "$SSL_DIR/raspi-sump.key"
+                    chmod 0644 "$SSL_DIR/raspi-sump.crt"
+                    chown root:raspisump "$SSL_DIR/raspi-sump.key"
+                else
+                    echo "Warning: TLS certificate generation failed. HTTPS will not work until a cert is in place." >&2
+                fi
+            else
+                echo "Warning: openssl not found. Skipping TLS certificate generation." >&2
+            fi
         fi
 
         # nginx site handling
