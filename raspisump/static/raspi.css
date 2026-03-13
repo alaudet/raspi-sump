@@ -350,7 +350,114 @@ main {
 }
 
 /* --------------------------------------------------------------------------
-   8. Admin login card
+   8a. Admin dashboard
+   -------------------------------------------------------------------------- */
+.admin-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.admin-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.btn-logout {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+}
+
+.btn-logout:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    text-decoration: none;
+}
+
+/* Service status table */
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.status-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.status-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.status-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.svc-name {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.svc-ts {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.svc-unavailable {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Active state badges */
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.badge-active   { background: #d4edda; color: #155724; }
+.badge-inactive { background: #f8f9fa; color: #6c757d; border: 1px solid var(--border); }
+.badge-failed   { background: #f8d7da; color: #721c24; }
+.badge-activating,
+.badge-deactivating { background: #fff3cd; color: #856404; }
+
+/* --------------------------------------------------------------------------
+   8b. Admin login card
    -------------------------------------------------------------------------- */
 .login-card {
     background: var(--surface);

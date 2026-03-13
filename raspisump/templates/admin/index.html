@@ -3,11 +3,44 @@
 {% block title %}Admin — Raspi-Sump{% endblock %}
 
 {% block content %}
-<section class="chart-card">
-    <h2>Admin Interface</h2>
-    <p style="padding: 1.5rem 0; color: var(--text-muted);">
-        Admin features coming soon.
-    </p>
-    <p><a href="/admin/logout">Logout</a></p>
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Admin</h2>
+        <a href="/admin/logout" class="btn-logout">Logout</a>
+    </div>
+</section>
+
+<section class="admin-card">
+    <h3 class="admin-section-title">Service Status</h3>
+    <table class="status-table">
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>State</th>
+                <th>Sub-state</th>
+                <th>Startup</th>
+                <th>PID</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name, props in services %}
+            <tr>
+                <td class="svc-name">{{ name }}</td>
+                {% if props %}
+                    <td>
+                        <span class="badge badge-{{ props.ActiveState }}">
+                            {{ props.ActiveState }}
+                        </span>
+                    </td>
+                    <td>{{ props.SubState }}</td>
+                    <td class="svc-ts">{{ props.ExecMainStartTimestamp or "—" }}</td>
+                    <td>{{ props.MainPID if props.MainPID else "—" }}</td>
+                {% else %}
+                    <td colspan="4" class="svc-unavailable">systemd unavailable</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </section>
 {% endblock %}

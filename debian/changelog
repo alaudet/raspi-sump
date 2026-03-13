@@ -1,3 +1,10 @@
+raspisump (2.0~a26) unstable; urgency=medium
+
+  * Phase 5a Flask admin: service status panel showing ActiveState, SubState,
+    start timestamp, and PID for raspisump, rsumpweb, and rsumpwebchart services
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a25) unstable; urgency=medium
 
   * Phase 4 Flask web interface: password-protected admin stub with
