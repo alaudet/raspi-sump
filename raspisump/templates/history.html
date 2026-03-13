@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Historical Readings — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="chart-card">
+    <h2>Historical Readings</h2>
+
+    <form class="date-form" method="get" action="/history/">
+        <input type="date" name="date" value="{{ date or '' }}" required>
+        <button type="submit">View</button>
+    </form>
+
+    {% if error %}
+        <p class="chart-missing">{{ error }}</p>
+    {% elif chart_url %}
+        <img src="{{ chart_url }}" alt="Water level chart for {{ date }}">
+    {% elif not date %}
+        <p class="chart-missing">Select a date to view historical readings.</p>
+    {% endif %}
+</section>
+
+{% if stats %}
+<section class="stat-grid">
+    <div class="stat-card">
+        <span class="stat-label">Min Level</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.min) }}</span>
+        <span class="stat-unit">{{ stats.unit }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Max Level</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.max) }}</span>
+        <span class="stat-unit">{{ stats.unit }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Readings</span>
+        <span class="stat-value">{{ stats.count }}</span>
+        <span class="stat-unit">that day</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Last Reading</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
+        <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -55,7 +55,7 @@ class TestTodayChart(TestCase):
                 todaychart.graph("/tmp/test_chart.png")
 
             call_args = mock_plt.plot.call_args[0]
-            self.assertEqual(len(call_args[0]), 1)
+            self.assertEqual(len(call_args[0]), 1)  # date_vals array has 1 entry
             self.assertAlmostEqual(call_args[1][0], 10.5)
         finally:
             os.unlink(db_path)

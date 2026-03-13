@@ -273,7 +273,42 @@ main {
 }
 
 /* --------------------------------------------------------------------------
-   7. Stat cards
+   7. Date picker form (history page)
+   -------------------------------------------------------------------------- */
+.date-form {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.date-form input[type="date"] {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font);
+    background: var(--surface);
+    color: var(--text);
+}
+
+.date-form button {
+    padding: 0.4rem 1rem;
+    background: var(--brand);
+    color: var(--brand-text);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.date-form button:hover {
+    background: var(--brand-dark);
+}
+
+/* --------------------------------------------------------------------------
+   8. Stat cards
    -------------------------------------------------------------------------- */
 .stat-grid {
     display: grid;

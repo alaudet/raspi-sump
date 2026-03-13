@@ -25,24 +25,30 @@ rcParams.update({"figure.autolayout": True})
 configs = config_values.configuration()
 
 
-def graph(filename):
-    """Create a line graph from today's readings in the SQLite database."""
+def graph(filename, date=None):
+    """Create a line graph from readings in the SQLite database.
+
+    If date is None, graphs today's readings.
+    If date is a YYYY-MM-DD string, graphs that specific day.
+    """
 
     unit = configs["unit"]
+    target = date if date is not None else time.strftime("%Y-%m-%d")
 
     conn = sqlite3.connect(DB_PATH)
     try:
         rows = conn.execute(
             """
             SELECT ts, water_depth FROM readings
-            WHERE ts >= date('now', 'localtime') || ' 00:00:00'
+            WHERE ts LIKE ?
             ORDER BY ts ASC
-            """
+            """,
+            (f"{target}%",),
         ).fetchall()
     finally:
         conn.close()
 
-    date = np.array([mdates.datestr2num(row[0]) for row in rows])
+    date_vals = np.array([mdates.datestr2num(row[0]) for row in rows])
     value = np.array([row[1] for row in rows])
 
     fig = plt.figure(figsize=(10, 3.5))
@@ -52,7 +58,7 @@ def graph(filename):
     rcParams.update({"font.size": 9})
 
     plt.plot(
-        date,
+        date_vals,
         value,
         ls="solid",
         linewidth=2,
@@ -67,7 +73,10 @@ def graph(filename):
     ax.xaxis.set_major_locator(hours)
     ax.xaxis.set_major_formatter(fmt)
 
-    title = f"Water Level {time.strftime('%Y-%m-%d %H:%M')}"
+    if date is None:
+        title = f"Water Level {time.strftime('%Y-%m-%d %H:%M')}"
+    else:
+        title = f"Water Level {date}"
     title_set = plt.title(title)
     title_set.set_fontsize(20.0)
     title_set.set_y(1.09)
