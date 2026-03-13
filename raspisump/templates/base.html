@@ -16,5 +16,21 @@
     <footer>
         <p>Raspi-Sump {{ version }} &mdash; &copy; 2026 Al Audet</p>
     </footer>
+
+    <script>
+    // Nav dropdown behaviour: close siblings on open; close on link click
+    document.querySelectorAll('details.nav-dropdown').forEach(function(el) {
+        el.addEventListener('toggle', function() {
+            if (el.open) {
+                document.querySelectorAll('details.nav-dropdown').forEach(function(other) {
+                    if (other !== el) other.open = false;
+                });
+            }
+        });
+        el.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() { el.open = false; });
+        });
+    });
+    </script>
 </body>
 </html>

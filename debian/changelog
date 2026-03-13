@@ -1,3 +1,12 @@
+raspisump (2.0~a29) unstable; urgency=medium
+
+  * Phase 5d Flask admin: CSV import page with file upload, unit selection,
+    stop-service warning, and inserted/skipped/error result display
+  * Fix nav dropdowns: close siblings on open, close on link click (JS)
+  * Nav: Administration dropdown replaces plain Admin link
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a28) unstable; urgency=medium
 
   * Phase 5c Flask admin: backup/export downloads zip of database and

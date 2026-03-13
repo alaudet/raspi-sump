@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Import CSV — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Import CSV</h2>
+        <a href="/admin/logout" class="btn-logout">Logout</a>
+    </div>
+</section>
+
+<section class="admin-card">
+    <h3 class="admin-section-title">Upload CSV Files</h3>
+    <div class="import-warning">
+        <strong>Stop the raspisump service before importing.</strong>
+        Run <code>sudo systemctl stop raspisump.service</code> first,
+        then restart it when done: <code>sudo systemctl start raspisump.service</code>
+    </div>
+    <p class="backup-desc">
+        Select one or more <code>waterlevel-YYYYMMDD.csv</code> files to import into the database.
+        Duplicate readings are skipped automatically.
+    </p>
+
+    <form class="import-form" method="post" action="/admin/import" enctype="multipart/form-data">
+        <div class="import-field">
+            <label for="csvfiles">CSV files</label>
+            <input type="file" id="csvfiles" name="csvfiles" accept=".csv" multiple required>
+        </div>
+
+        <div class="import-field">
+            <label>Unit of measure</label>
+            <div class="import-radios">
+                <label class="radio-label">
+                    <input type="radio" name="unit" value="metric" checked> Metric (cm)
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="unit" value="imperial"> Imperial (inches)
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-download">Import</button>
+    </form>
+</section>
+
+{% if result %}
+<section class="admin-card">
+    <h3 class="admin-section-title">Result</h3>
+    {% if result.error %}
+        <p class="import-error">{{ result.error }}</p>
+    {% else %}
+        <div class="import-result">
+            <div class="import-stat">
+                <span class="import-stat-value">{{ result.inserted }}</span>
+                <span class="import-stat-label">Inserted</span>
+            </div>
+            <div class="import-stat">
+                <span class="import-stat-value">{{ result.skipped }}</span>
+                <span class="import-stat-label">Skipped (duplicates)</span>
+            </div>
+        </div>
+        {% if result.errors %}
+        <div class="import-errors">
+            <p class="import-errors-heading">Parse errors ({{ result.errors|length }}):</p>
+            <ul class="import-error-list">
+            {% for err in result.errors %}
+                <li>{{ err }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% endif %}
+</section>
+{% endif %}
+{% endblock %}

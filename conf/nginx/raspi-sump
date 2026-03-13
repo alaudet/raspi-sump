@@ -27,6 +27,16 @@ server {
         autoindex off;
     }
 
+    # CSV import — allow up to 64 MB for bulk file uploads
+    location /admin/import {
+        client_max_body_size 64m;
+        proxy_pass http://unix:/run/raspi-sump/flask.sock;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
     # All other requests proxied to the Flask app
     location / {
         proxy_pass http://unix:/run/raspi-sump/flask.sock;
