@@ -1,3 +1,10 @@
+raspisump (2.0~a25) unstable; urgency=medium
+
+  * Phase 4 Flask web interface: password-protected admin stub with
+    login/logout; admin password stored in credentials.conf [web] section
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a24) unstable; urgency=medium
 
   * Fix postinst: drop -quiet flag from openssl (not available on all

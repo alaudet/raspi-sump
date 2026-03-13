@@ -350,7 +350,70 @@ main {
 }
 
 /* --------------------------------------------------------------------------
-   8. Footer
+   8. Admin login card
+   -------------------------------------------------------------------------- */
+.login-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    max-width: 360px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.login-card h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.login-form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.login-form input[type="password"] {
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font);
+    background: var(--surface);
+    color: var(--text);
+    width: 100%;
+}
+
+.login-form button {
+    padding: 0.5rem;
+    background: var(--brand);
+    color: var(--brand-text);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.25rem;
+}
+
+.login-form button:hover {
+    background: var(--brand-dark);
+}
+
+.login-error {
+    color: #c0392b;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. Footer
    -------------------------------------------------------------------------- */
 footer {
     text-align: center;

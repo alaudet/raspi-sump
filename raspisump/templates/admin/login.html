@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="login-card">
+    <h2>Admin Login</h2>
+    {% if error %}
+        <p class="login-error">{{ error }}</p>
+    {% endif %}
+    <form class="login-form" method="post" action="/admin/login">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autofocus required>
+        <button type="submit">Login</button>
+    </form>
+</section>
+{% endblock %}
