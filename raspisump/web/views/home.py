@@ -5,6 +5,8 @@ import time
 
 from flask import Blueprint, render_template
 
+from raspisump.web.stats import day_stats
+
 bp = Blueprint("home", __name__)
 
 # Patchable in tests
@@ -21,4 +23,5 @@ def index():
         chart_url = None
 
     today = time.strftime("%Y-%m-%d")
-    return render_template("home.html", chart_url=chart_url, today=today)
+    stats = day_stats()
+    return render_template("home.html", chart_url=chart_url, today=today, stats=stats)

@@ -11,4 +11,29 @@
         <p class="chart-missing">No chart available yet. The chart is generated every few minutes once the service is running.</p>
     {% endif %}
 </section>
+
+{% if stats %}
+<section class="stat-grid">
+    <div class="stat-card">
+        <span class="stat-label">Min Level</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.min) }}</span>
+        <span class="stat-unit">{{ stats.unit }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Max Level</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.max) }}</span>
+        <span class="stat-unit">{{ stats.unit }}</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Readings</span>
+        <span class="stat-value">{{ stats.count }}</span>
+        <span class="stat-unit">today</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Last Reading</span>
+        <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
+        <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
+    </div>
+</section>
+{% endif %}
 {% endblock %}
