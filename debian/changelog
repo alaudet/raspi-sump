@@ -1,3 +1,10 @@
+raspisump (2.0~a28) unstable; urgency=medium
+
+  * Phase 5c Flask admin: backup/export downloads zip of database and
+    raspisump.conf; credentials excluded; Administration nav dropdown added
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 13 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a27) unstable; urgency=medium
 
   * Phase 5b Flask admin: config viewer displays raspisump.conf sections and

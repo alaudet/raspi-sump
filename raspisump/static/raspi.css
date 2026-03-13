@@ -495,6 +495,30 @@ main {
     color: var(--text-muted);
 }
 
+/* Backup / Export */
+.backup-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.btn-download {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    background: var(--brand);
+    color: var(--brand-text);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-download:hover {
+    background: var(--brand-dark);
+    color: var(--brand-text);
+    text-decoration: none;
+}
+
 /* --------------------------------------------------------------------------
    8b. Admin login card
    -------------------------------------------------------------------------- */
