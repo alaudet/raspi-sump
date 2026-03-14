@@ -34,12 +34,12 @@ def create_app():
     from raspisump.web.views.history import bp as history_bp
     from raspisump.web.views.admin import bp as admin_bp
     from raspisump.web.views.backup import bp as backup_bp
-    from raspisump.web.views.csvimport import bp as csvimport_bp
+    from raspisump.web.views.csvdata import bp as csvdata_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(history_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(backup_bp)
-    app.register_blueprint(csvimport_bp)
+    app.register_blueprint(csvdata_bp)
 
     return app
 

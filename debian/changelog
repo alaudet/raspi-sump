@@ -1,3 +1,19 @@
+raspisump (2.0~a31) unstable; urgency=medium
+
+  * Combine CSV import and export into single /admin/csv page
+  * Add Clear button to export form to reset date/time fields
+  * Nav: Import/Export (csv) replaces separate Import CSV and Export CSV items
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a30) unstable; urgency=medium
+
+  * Phase 5e Flask admin: CSV export with date range and optional time range;
+    single day returns waterlevel-YYYYMMDD.csv; multiple days return zip archive
+  * Add query_readings_range() to log module
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a29) unstable; urgency=medium
 
   * Phase 5d Flask admin: CSV import page with file upload, unit selection,

@@ -180,6 +180,34 @@ def import_csv_files(paths: list, unit_label: str) -> tuple:
         conn.close()
 
 
+def query_readings_range(
+    start_date: str,
+    end_date: str = None,
+    start_time: str = None,
+    end_time: str = None,
+) -> list:
+    """Return readings across a date range with optional time-of-day filtering.
+
+    start_date, end_date : "YYYY-MM-DD"  (end_date defaults to start_date)
+    start_time, end_time : "HH:MM"       (optional; only meaningful for single-day exports)
+
+    Returns a list of (ts, water_depth, unit) tuples in chronological order.
+    """
+    if end_date is None:
+        end_date = start_date
+    start_ts = f"{start_date} {start_time}:00" if start_time else f"{start_date} 00:00:00"
+    end_ts = f"{end_date} {end_time}:59" if end_time else f"{end_date} 23:59:59"
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        return conn.execute(
+            "SELECT ts, water_depth, unit FROM readings"
+            " WHERE ts >= ? AND ts <= ? ORDER BY ts",
+            (start_ts, end_ts),
+        ).fetchall()
+    finally:
+        conn.close()
+
+
 def log_reading(water_depth: float, unit: str) -> None:
     """Log a sensor reading to the SQLite database."""
     ts = time.strftime("%Y-%m-%d %H:%M:%S")

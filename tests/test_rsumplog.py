@@ -88,3 +88,52 @@ class TestQueryReadings(TestCase):
         self.assertIsInstance(ts, str)
         self.assertIsInstance(depth, float)
         self.assertIsInstance(unit, str)
+
+
+class TestQueryReadingsRange(TestCase):
+    def setUp(self):
+        self.rows = [
+            ("2026-03-10 08:00:00", 10.5, "cm"),
+            ("2026-03-10 09:00:00", 11.0, "cm"),
+            ("2026-03-11 08:00:00", 9.5, "cm"),
+            ("2026-03-11 14:30:00", 12.0, "cm"),
+        ]
+        self.db_path = _make_db(self.rows)
+
+    def tearDown(self):
+        os.unlink(self.db_path)
+
+    def test_single_day_returns_only_that_day(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2026-03-10")
+        self.assertEqual(len(rows), 2)
+        for ts, _, _ in rows:
+            self.assertTrue(ts.startswith("2026-03-10"))
+
+    def test_date_range_returns_all_matching(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2026-03-10", "2026-03-11")
+        self.assertEqual(len(rows), 4)
+
+    def test_time_range_filters_within_day(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2026-03-11", start_time="14:00", end_time="23:59")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0][0], "2026-03-11 14:30:00")
+
+    def test_start_time_only_excludes_earlier(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2026-03-10", start_time="09:00")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0][0], "2026-03-10 09:00:00")
+
+    def test_no_results_returns_empty_list(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2099-01-01")
+        self.assertEqual(rows, [])
+
+    def test_results_in_chronological_order(self):
+        with patch("raspisump.log.DB_PATH", self.db_path):
+            rows = log.query_readings_range("2026-03-10", "2026-03-11")
+        timestamps = [r[0] for r in rows]
+        self.assertEqual(timestamps, sorted(timestamps))
