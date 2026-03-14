@@ -2,8 +2,6 @@ conf/sudoers/raspisump-web usr/share/raspi-sump/sudoers/
 conf/raspisump.conf usr/share/raspi-sump/examples/
 conf/credentials.conf usr/share/raspi-sump/examples/
 conf/systemd/raspisump.service lib/systemd/system/
-conf/systemd/rsumpwebchart.service lib/systemd/system/
-conf/systemd/rsumpwebchart.timer lib/systemd/system/
 conf/systemd/rsumpweb.service lib/systemd/system/
 conf/web usr/share/raspi-sump/
 raspisump/static usr/share/raspi-sump/web/

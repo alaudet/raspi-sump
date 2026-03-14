@@ -26,18 +26,14 @@ class TestHistoryPage(unittest.TestCase):
         response = self.client.get("/history/")
         self.assertIn(b"Select a date", response.data)
 
-    def test_history_with_data_shows_chart(self):
-        with patch("raspisump.web.views.history.day_stats", return_value=_MOCK_STATS), \
-             patch("raspisump.web.views.history.chart_url_for_date",
-                   return_value="/charts/2026/02/20260207.png?t=1000"):
+    def test_history_with_data_shows_chart_container(self):
+        with patch("raspisump.web.views.history.day_stats", return_value=_MOCK_STATS):
             response = self.client.get("/history/?date=2026-02-07")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"20260207.png", response.data)
+        self.assertIn(b"chart-history", response.data)
 
     def test_history_with_data_shows_stats(self):
-        with patch("raspisump.web.views.history.day_stats", return_value=_MOCK_STATS), \
-             patch("raspisump.web.views.history.chart_url_for_date",
-                   return_value="/charts/2026/02/20260207.png?t=1000"):
+        with patch("raspisump.web.views.history.day_stats", return_value=_MOCK_STATS):
             response = self.client.get("/history/?date=2026-02-07")
         self.assertIn(b"10.0", response.data)   # min
         self.assertIn(b"15.0", response.data)   # max

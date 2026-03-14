@@ -22,6 +22,9 @@
     --max-width:    1100px;
 
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --chart-line:   #FB921D;
+    --chart-alert:  #c62828;
 }
 
 /* --------------------------------------------------------------------------
@@ -260,10 +263,29 @@ main {
     margin-bottom: 1rem;
 }
 
-.chart-card img {
-    max-width: 100%;
-    height: auto;
+.chart-container {
+    width: 100%;
+}
+
+.chart-actions {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.btn-chart-download {
+    padding: 0.3rem 0.8rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
+    font-size: 0.82rem;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+.btn-chart-download:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
 }
 
 .chart-missing {
@@ -922,6 +944,22 @@ main {
     background: #ffebee;
     color: #b71c1c;
     border: 1px solid #ef9a9a;
+}
+
+/* Journal log */
+.journal-log {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--text);
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.5;
+    max-height: 24rem;
+    overflow-y: auto;
 }
 
 /* --------------------------------------------------------------------------

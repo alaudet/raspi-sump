@@ -18,13 +18,11 @@ _PROPERTIES = [
 SERVICES = [
     "raspisump.service",
     "rsumpweb.service",
-    "rsumpwebchart.timer",
 ]
 
 CONTROLLABLE_SERVICES = [
     "raspisump.service",
     "rsumpweb.service",
-    "rsumpwebchart.timer",
 ]
 _VALID_ACTIONS = ("start", "stop", "restart")
 
@@ -89,6 +87,24 @@ def control_service(unit: str, action: str) -> tuple:
         return False, "systemctl timed out."
     except OSError as e:
         return False, str(e)
+
+
+def get_journal_log(unit: str = "raspisump.service", lines: int = 20) -> list:
+    """Return the last *lines* journal entries for *unit* as a list of strings.
+
+    Returns an empty list if journalctl is unavailable.
+    """
+    try:
+        result = subprocess.run(
+            ["journalctl", "-u", unit, "-n", str(lines),
+             "--no-pager", "--output=short"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        return result.stdout.splitlines()
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return []
 
 
 def get_raspisump_config():

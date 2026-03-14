@@ -21,12 +21,6 @@ server {
         expires 1h;
     }
 
-    # Charts (PNG files) — served directly from the state directory
-    location /charts/ {
-        alias /var/lib/raspi-sump/charts/;
-        autoindex off;
-    }
-
     # CSV import — allow up to 64 MB for bulk file uploads
     location /admin/import {
         client_max_body_size 64m;

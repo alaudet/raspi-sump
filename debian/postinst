@@ -152,16 +152,18 @@ case "$1" in
 
         systemctl daemon-reload || true
         systemctl enable raspisump.service || true
-        systemctl enable rsumpwebchart.timer || true
         systemctl enable rsumpweb.service || true
+
+        # On upgrade, disable and stop the retired rsumpwebchart units if present
+        if [ -n "$2" ]; then
+            systemctl disable rsumpwebchart.timer || true
+            systemctl stop rsumpwebchart.service || true
+        fi
 
         # On upgrade, restart any services that are enabled (prerm stops them before postinst runs)
         if [ -n "$2" ]; then
             if systemctl is-enabled --quiet raspisump.service; then
                 systemctl restart raspisump.service || true
-            fi
-            if systemctl is-enabled --quiet rsumpwebchart.timer; then
-                systemctl restart rsumpwebchart.timer || true
             fi
             if systemctl is-enabled --quiet rsumpweb.service; then
                 systemctl restart rsumpweb.service || true

@@ -39,30 +39,6 @@ def rsump():
                 exit(0)
 
 
-def rsumpchart():
-    """Generate a one-time chart of today's sump pit activity."""
-    import time
-    from raspisump import todaychart
-
-    print("Creating one time chart reading in the charts directory - today.png")
-    csv_file = f"/var/lib/raspi-sump/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
-    filename = "/var/lib/raspi-sump/charts/today.png"
-    todaychart.graph(csv_file, filename)
-
-
-def rsumpwebchart():
-    """Generate and archive web charts."""
-    import time
-    from raspisump import webchart
-
-    year = time.strftime("%Y")
-    month = time.strftime("%m")
-    today = time.strftime("%Y%m%d")
-    webchart.create_folders(year, month)
-    webchart.create_chart()
-    webchart.copy_chart(year, month, today)
-
-
 def rsumplog():
     """Query sump pit readings from the SQLite database."""
     import argparse

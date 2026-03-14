@@ -13,9 +13,15 @@
 
     {% if error %}
         <p class="chart-missing">{{ error }}</p>
-    {% elif chart_url %}
-        <img src="{{ chart_url }}" alt="Water level chart for {{ date }}">
-    {% elif not date %}
+    {% elif date %}
+        <div id="chart-history" class="chart-container"></div>
+        <div class="chart-actions">
+            <button class="btn-chart-download"
+                    onclick="downloadChart(chart, 'waterlevel-{{ date }}.png')">
+                Download PNG
+            </button>
+        </div>
+    {% else %}
         <p class="chart-missing">Select a date to view historical readings.</p>
     {% endif %}
 </section>
@@ -43,5 +49,13 @@
         <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
     </div>
 </section>
+{% endif %}
+
+{% if date %}
+<script src="/static/uplot.iife.min.js"></script>
+<script src="/static/sumpChart.js"></script>
+<script>
+    initChart('chart-history', '{{ date }}');
+</script>
 {% endif %}
 {% endblock %}

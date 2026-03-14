@@ -1,3 +1,16 @@
+raspisump (2.0~a39) unstable; urgency=medium
+
+  * Replace matplotlib PNG charts with uPlot client-side rendering:
+    JSON API endpoint (/api/readings), bundled uplot.iife.min.js + uplot.min.css,
+    sumpChart.js with alert level line, Download PNG button, ResizeObserver;
+    home and history pages updated; matplotlib dependency removed; rsumpwebchart
+    service/timer retired; /charts/ nginx alias removed
+  * System Status page: add raspisump.service journal log (last 20 lines)
+  * Remove rsumpwebchart.timer from SERVICES; remove rsumpchart/rsumpwebchart
+    CLI entry points; remove obsolete test files
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a38) unstable; urgency=medium
 
   * Phase 5h Flask admin: Security page (/admin/security) to edit

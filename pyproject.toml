@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raspisump"
-version = "2.0a38"
+version = "2.0a39"
 description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "Apache-2.0"}
@@ -29,8 +29,6 @@ Download = "https://github.com/alaudet/raspi-sump/releases"
 
 [project.scripts]
 rsump = "raspisump.cli:rsump"
-rsumpchart = "raspisump.cli:rsumpchart"
-rsumpwebchart = "raspisump.cli:rsumpwebchart"
 rsumplog = "raspisump.cli:rsumplog"
 rsumpimport = "raspisump.cli:rsumpimport"
 alerttest = "raspisump.cli:alerttest"
