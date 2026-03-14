@@ -1,3 +1,14 @@
+raspisump (2.0~a32) unstable; urgency=medium
+
+  * Phase 5f Flask admin: configuration editor at /admin/config; all
+    raspisump.conf sections editable with type-appropriate inputs; comments
+    preserved on write; raw config view; postinst sets raspisump.conf ownership
+    to raspisump user so web process can write it
+  * Move Flask import inside create_app() so raspisump.web is importable
+    without Flask (fixes dev-machine test discovery)
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a31) unstable; urgency=medium
 
   * Combine CSV import and export into single /admin/csv page

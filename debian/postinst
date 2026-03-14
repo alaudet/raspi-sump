@@ -73,8 +73,11 @@ case "$1" in
         install -d -o root -g root -m 0755 /etc/raspi-sump
         if [ ! -f /etc/raspi-sump/raspisump.conf ]; then
             cp /usr/share/raspi-sump/examples/raspisump.conf /etc/raspi-sump/raspisump.conf
-            chmod 0644 /etc/raspi-sump/raspisump.conf
         fi
+        # raspisump.conf is owned by the service user so the web admin can write it.
+        # No secrets are stored here (those are in credentials.conf).
+        chown raspisump:raspisump /etc/raspi-sump/raspisump.conf
+        chmod 0644 /etc/raspi-sump/raspisump.conf
         if [ ! -f /etc/raspi-sump/credentials.conf ]; then
             cp /usr/share/raspi-sump/examples/credentials.conf /etc/raspi-sump/credentials.conf
         fi

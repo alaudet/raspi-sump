@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Configuration — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Configuration</h2>
+        <a href="/admin/logout" class="btn-logout">Logout</a>
+    </div>
+    <p class="backup-desc">
+        Edit <code>/etc/raspi-sump/raspisump.conf</code>. Comments in the file are preserved.
+        <a href="/admin/config/raw" target="_blank" class="conf-raw-link">View raw file</a>
+    </p>
+</section>
+
+{% if success %}
+<section class="admin-card conf-success-banner">
+    <strong>Configuration saved.</strong>
+    Restart the raspisump service for changes to take effect:
+    <code>sudo systemctl restart raspisump.service</code>
+</section>
+{% endif %}
+
+{% if errors %}
+<section class="admin-card conf-error-banner">
+    <strong>Could not save — please fix the following:</strong>
+    <ul class="conf-error-list">
+    {% for err in errors %}
+        <li>{{ err }}</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<form method="post" action="/admin/config">
+
+{% for section, section_label, fields in schema %}
+<section class="admin-card">
+    <h3 class="admin-section-title">{{ section_label }}</h3>
+    <div class="conf-field-grid">
+    {% for key, label, widget, options, help_text in fields %}
+        {% set field_name = section ~ "__" ~ key %}
+        {% set field_id   = "f_" ~ section ~ "_" ~ key %}
+        {% set cur_val    = current.get(section, {}).get(key, "") %}
+        <div class="conf-field">
+            <label class="conf-field-label" for="{{ field_id }}">{{ label }}</label>
+            <div class="conf-field-input">
+                {% if widget == "select" %}
+                <select name="{{ field_name }}" id="{{ field_id }}" class="conf-select">
+                    {% for opt_val, opt_label in options %}
+                    <option value="{{ opt_val }}"
+                        {% if cur_val == opt_val %}selected{% endif %}>
+                        {{ opt_label }}
+                    </option>
+                    {% endfor %}
+                </select>
+                {% elif widget == "integer" %}
+                <input type="number" step="1" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% elif widget == "float" %}
+                <input type="number" step="any" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% else %}
+                <input type="text" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% endif %}
+                {% if help_text %}
+                <small class="conf-help">{{ help_text }}</small>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endfor %}
+
+<section class="admin-card conf-save-bar">
+    <button type="submit" class="btn-download">Save Configuration</button>
+    <span class="conf-save-note">
+        The raspisump service must be restarted for changes to take effect.
+    </span>
+</section>
+
+</form>
+{% endblock %}

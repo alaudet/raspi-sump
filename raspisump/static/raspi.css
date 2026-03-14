@@ -495,6 +495,104 @@ main {
     color: var(--text-muted);
 }
 
+/* Config editor */
+.conf-raw-link {
+    font-size: 0.85rem;
+    margin-left: 0.75rem;
+    color: var(--brand);
+}
+
+.conf-field-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.conf-field {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 0.5rem 1rem;
+    align-items: start;
+}
+
+@media (max-width: 600px) {
+    .conf-field {
+        grid-template-columns: 1fr;
+    }
+}
+
+.conf-field-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding-top: 0.35rem;
+    color: var(--text);
+}
+
+.conf-field-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.conf-input,
+.conf-select {
+    width: 100%;
+    max-width: 26rem;
+    padding: 0.35rem 0.55rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.conf-input:focus,
+.conf-select:focus {
+    outline: 2px solid var(--brand);
+    border-color: var(--brand);
+}
+
+.conf-help {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.conf-save-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.conf-save-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.conf-success-banner {
+    background: #1a3a1a;
+    border-color: #2d6a2d;
+    color: #7ecf7e;
+    font-size: 0.9rem;
+}
+
+.conf-success-banner code {
+    color: #a8e0a8;
+}
+
+.conf-error-banner {
+    background: #3a1a1a;
+    border-color: #6a2d2d;
+    color: #e07e7e;
+    font-size: 0.9rem;
+}
+
+.conf-error-list {
+    margin: 0.5rem 0 0 1.25rem;
+    font-size: 0.85rem;
+}
+
 /* CSV Import warning */
 .import-warning {
     background: #fff3cd;

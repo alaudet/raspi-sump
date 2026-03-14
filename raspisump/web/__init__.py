@@ -4,14 +4,13 @@ import importlib.metadata
 import os
 import secrets
 
-from flask import Flask
-
 
 def create_app():
     """Create and configure the Flask application."""
     # Templates and static files live in the raspisump package root (one level up from web/)
     _pkg_root = os.path.dirname(os.path.dirname(__file__))
 
+    from flask import Flask
     app = Flask(
         __name__,
         template_folder=os.path.join(_pkg_root, "templates"),
@@ -35,11 +34,13 @@ def create_app():
     from raspisump.web.views.admin import bp as admin_bp
     from raspisump.web.views.backup import bp as backup_bp
     from raspisump.web.views.csvdata import bp as csvdata_bp
+    from raspisump.web.views.config import bp as config_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(history_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(backup_bp)
     app.register_blueprint(csvdata_bp)
+    app.register_blueprint(config_bp)
 
     return app
 
