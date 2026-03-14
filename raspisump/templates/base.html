@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Raspi-Sump{% endblock %}</title>
+    <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
     <link rel="stylesheet" href="/static/raspi.css">
     <link rel="stylesheet" href="/static/uplot.min.css">
 </head>
@@ -40,6 +41,19 @@
         el.querySelectorAll('a').forEach(function(a) {
             a.addEventListener('click', function() { el.open = false; });
         });
+    });
+
+    // Dark mode toggle
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (dark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        document.dispatchEvent(new CustomEvent('themechange'));
     });
     </script>
 </body>

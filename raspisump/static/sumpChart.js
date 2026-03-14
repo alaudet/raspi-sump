@@ -5,9 +5,13 @@
  * Returns the uPlot instance (or null on error / no data).
  */
 
-var chart = null;  // module-level — Download PNG buttons reference this
+var chart = null;         // module-level — Download PNG buttons reference this
+var _containerId = null;  // stored for theme-change re-init
+var _date = null;
 
 function initChart(containerId, date) {
+    _containerId = containerId;
+    _date = date !== undefined ? date : null;
     var container = document.getElementById(containerId);
     if (!container) return null;
 
@@ -122,6 +126,11 @@ function _renderChart(container, json, date) {
     });
     ro.observe(container);
 }
+
+// Re-render chart with new theme colors when user toggles dark mode
+document.addEventListener('themechange', function() {
+    if (_containerId) initChart(_containerId, _date);
+});
 
 function downloadChart(chartInstance, filename) {
     if (!chartInstance) {

@@ -28,6 +28,18 @@
 }
 
 /* --------------------------------------------------------------------------
+   Dark theme tokens (applied via JS toggle + localStorage)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+    --bg:           #1a1a1a;
+    --surface:      #252525;
+    --text:         #e8e8e8;
+    --text-muted:   #909090;
+    --border:       #3a3a3a;
+    --chart-alert:  #ef5350;
+}
+
+/* --------------------------------------------------------------------------
    2. Reset / base
    -------------------------------------------------------------------------- */
 *, *::before, *::after {
@@ -961,6 +973,111 @@ main {
     max-height: 24rem;
     overflow-y: auto;
 }
+
+/* --------------------------------------------------------------------------
+   Theme toggle button
+   -------------------------------------------------------------------------- */
+.btn-theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius);
+    color: var(--brand-text);
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 1.15rem;
+    line-height: 1;
+    padding: 0.35rem 0.85rem;
+    margin: 0.4rem 1.25rem;
+    white-space: nowrap;
+}
+
+.btn-theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 768px) {
+    .btn-theme-toggle {
+        margin: 0 0.15rem;
+    }
+}
+
+/* Show/hide sun & moon icons via CSS — no JS text swap needed */
+.theme-icon-sun  { display: none; }
+.theme-icon-moon { display: inline; }
+
+[data-theme="dark"] .theme-icon-sun  { display: inline; }
+[data-theme="dark"] .theme-icon-moon { display: none; }
+
+/* --------------------------------------------------------------------------
+   Dark mode overrides for hardcoded-color elements
+   -------------------------------------------------------------------------- */
+
+/* Navigation */
+[data-theme="dark"] .site-nav {
+    background: #111111;
+    border-bottom: 2px solid var(--brand);
+}
+
+[data-theme="dark"] .nav-links {
+    background: #111111;
+    border-top-color: #2a2a2a;
+}
+
+[data-theme="dark"] .nav-links > li > a:hover,
+[data-theme="dark"] .nav-links > li > details.nav-dropdown > summary:hover {
+    background: #222222;
+}
+
+[data-theme="dark"] .nav-dropdown > ul {
+    background: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .nav-dropdown > ul a {
+    color: #aaaaaa;
+}
+
+[data-theme="dark"] .nav-dropdown > ul a:hover {
+    color: #e8e8e8;
+    background: #2a2a2a;
+    opacity: 1;
+}
+
+/* Active-state badges */
+[data-theme="dark"] .badge-active   { background: #1b3a20; color: #6fcf6f; }
+[data-theme="dark"] .badge-inactive { background: #2a2a2a; color: #909090; }
+[data-theme="dark"] .badge-failed   { background: #3a1a1a; color: #e07878; }
+[data-theme="dark"] .badge-activating,
+[data-theme="dark"] .badge-deactivating { background: #332700; color: #ffc107; }
+
+/* Flash messages */
+[data-theme="dark"] .flash-success {
+    background: #1b3a20;
+    color: #7ecf7e;
+    border-color: #2d6a2d;
+}
+[data-theme="dark"] .flash-error {
+    background: #3a1a1a;
+    color: #e07878;
+    border-color: #6a2d2d;
+}
+
+/* CSV import warning */
+[data-theme="dark"] .import-warning {
+    background: #332700;
+    color: #ffd54f;
+    border-color: #664d00;
+}
+[data-theme="dark"] .import-warning code {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Import error text */
+[data-theme="dark"] .import-error,
+[data-theme="dark"] .import-error-list { color: #e07878; }
+
+/* Donate button hover */
+[data-theme="dark"] .btn-donate:hover { background: #3a3a3a; }
 
 /* --------------------------------------------------------------------------
    9. Footer

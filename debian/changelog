@@ -1,3 +1,19 @@
+raspisump (2.0~a43) unstable; urgency=medium
+
+  * Dark mode: nav bar black with teal underline; dropdowns black with
+    grey text; toggle button enlarged
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a42) unstable; urgency=medium
+
+  * Dark mode toggle: nav button persists preference to localStorage;
+    no flash on load; uPlot chart re-renders with new colors on toggle
+  * Fix .gitignore to exclude debhelper build artifacts (*.debhelper*)
+  * Remove accidentally tracked debhelper files from git
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a41) unstable; urgency=medium
 
   * System Status page: add rsumpweb.service journal log (last 20 lines)
