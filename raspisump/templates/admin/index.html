@@ -55,8 +55,18 @@
 
 <section class="admin-card">
     <h3 class="admin-section-title">raspisump.service &mdash; Journal (last 20 lines)</h3>
-    {% if journal %}
-    <pre class="journal-log">{% for line in journal %}{{ line }}
+    {% if journal_rsump %}
+    <pre class="journal-log">{% for line in journal_rsump %}{{ line }}
+{% endfor %}</pre>
+    {% else %}
+    <p class="svc-unavailable">Journal unavailable.</p>
+    {% endif %}
+</section>
+
+<section class="admin-card">
+    <h3 class="admin-section-title">rsumpweb.service &mdash; Journal (last 20 lines)</h3>
+    {% if journal_web %}
+    <pre class="journal-log">{% for line in journal_web %}{{ line }}
 {% endfor %}</pre>
     {% else %}
     <p class="svc-unavailable">Journal unavailable.</p>

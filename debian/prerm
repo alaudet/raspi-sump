@@ -3,10 +3,8 @@ set -e
 
 case "$1" in
     remove|upgrade|deconfigure)
-        systemctl stop raspisump.service || true
-        systemctl stop rsumpwebchart.timer || true
-        systemctl disable raspisump.service || true
-        systemctl disable rsumpwebchart.timer || true
+        systemctl stop raspisump.service > /dev/null 2>&1 || true
+        systemctl disable raspisump.service > /dev/null 2>&1 || true
         ;;
 
     failed-upgrade)

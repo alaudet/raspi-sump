@@ -1,5 +1,7 @@
 """Admin interface views."""
 
+import subprocess
+
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 from raspisump.web.auth import check_password, login_required
@@ -12,8 +14,10 @@ bp = Blueprint("admin", __name__)
 @login_required
 def index():
     services = all_service_statuses()
-    journal = get_journal_log("raspisump.service", lines=20)
-    return render_template("admin/index.html", services=services, journal=journal)
+    journal_rsump = get_journal_log("raspisump.service", lines=20)
+    journal_web = get_journal_log("rsumpweb.service", lines=20)
+    return render_template("admin/index.html", services=services,
+                           journal_rsump=journal_rsump, journal_web=journal_web)
 
 
 @bp.route("/admin/login", methods=["GET"])
@@ -37,6 +41,18 @@ def login_post():
 def service_action():
     unit = request.form.get("unit", "")
     action = request.form.get("action", "")
+
+    # Restarting rsumpweb kills the process serving this request.
+    # Schedule the restart after a short delay so the response goes out first,
+    # then show a reconnecting page that auto-reloads once the service is back.
+    if unit == "rsumpweb.service" and action == "restart":
+        subprocess.Popen(
+            ["sh", "-c", "sleep 3 && sudo /usr/bin/systemctl restart rsumpweb.service"],
+            close_fds=True,
+            start_new_session=True,
+        )
+        return render_template("admin/restarting.html", redirect_to=url_for("admin.index"))
+
     success, message = control_service(unit, action)
     flash(message, "success" if success else "error")
     next_url = request.form.get("next", "")

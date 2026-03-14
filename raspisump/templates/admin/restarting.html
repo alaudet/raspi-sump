@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Restarting — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card" style="text-align:center; padding: 3rem 1.5rem;">
+    <h2 style="margin-bottom:1rem;">rsumpweb is restarting&hellip;</h2>
+    <p style="color:var(--text-muted); margin-bottom:2rem;">
+        The web service will be back in a few seconds.
+        This page will reconnect automatically.
+    </p>
+    <p id="countdown" style="font-size:1.5rem; font-weight:700; color:var(--brand);">8</p>
+</section>
+
+<script>
+(function() {
+    var target = {{ redirect_to | tojson }};
+    var n = 8;
+    var el = document.getElementById('countdown');
+    var iv = setInterval(function() {
+        n--;
+        el.textContent = n;
+        if (n <= 0) {
+            clearInterval(iv);
+            window.location.href = target;
+        }
+    }, 1000);
+})();
+</script>
+{% endblock %}

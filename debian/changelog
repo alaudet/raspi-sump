@@ -1,3 +1,20 @@
+raspisump (2.0~a41) unstable; urgency=medium
+
+  * System Status page: add rsumpweb.service journal log (last 20 lines)
+    below raspisump.service journal
+  * Suppress stderr from prerm/postinst rsumpwebchart disable/stop commands
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a40) unstable; urgency=medium
+
+  * Add raspisump to systemd-journal group in postinst so web process can
+    read the journal log on the System Status page
+  * Fix 502 Bad Gateway when restarting rsumpweb from admin: schedule restart
+    with 3s delay via detached Popen; show reconnecting countdown page
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a39) unstable; urgency=medium
 
   * Replace matplotlib PNG charts with uPlot client-side rendering:

@@ -16,6 +16,11 @@ case "$1" in
             usermod -aG gpio raspisump
         fi
 
+        # Add raspisump to systemd-journal group so the web process can read the journal
+        if getent group systemd-journal > /dev/null 2>&1; then
+            usermod -aG systemd-journal raspisump
+        fi
+
         # Add the user who invoked sudo/dpkg to the raspisump group so they
         # can run manual readings without switching to the service account.
         INSTALL_USER="${SUDO_USER:-}"
@@ -156,8 +161,8 @@ case "$1" in
 
         # On upgrade, disable and stop the retired rsumpwebchart units if present
         if [ -n "$2" ]; then
-            systemctl disable rsumpwebchart.timer || true
-            systemctl stop rsumpwebchart.service || true
+            systemctl disable rsumpwebchart.timer > /dev/null 2>&1 || true
+            systemctl stop rsumpwebchart.service > /dev/null 2>&1 || true
         fi
 
         # On upgrade, restart any services that are enabled (prerm stops them before postinst runs)
