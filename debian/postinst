@@ -86,6 +86,11 @@ case "$1" in
         chown root:raspisump /etc/raspi-sump/credentials.conf
         chmod 0640 /etc/raspi-sump/credentials.conf
 
+        # Install sudoers rule allowing the web process to control raspisump.service
+        install -o root -g root -m 0440 \
+            /usr/share/raspi-sump/sudoers/raspisump-web \
+            /etc/sudoers.d/raspisump-web
+
         # Write version string into the web footer file
         PKG_VERSION=$(dpkg-query --showformat='${Version}' --show raspisump 2>/dev/null || echo "unknown")
         echo "Raspisump Version ${PKG_VERSION} | Copyright 2026 Al Audet" \

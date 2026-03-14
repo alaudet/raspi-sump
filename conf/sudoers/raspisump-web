@@ -1,0 +1,11 @@
+# Allow the raspisump web service to control raspisump services without a password.
+raspisump ALL=(root) NOPASSWD: \
+    /usr/bin/systemctl start raspisump.service, \
+    /usr/bin/systemctl stop raspisump.service, \
+    /usr/bin/systemctl restart raspisump.service, \
+    /usr/bin/systemctl start rsumpweb.service, \
+    /usr/bin/systemctl stop rsumpweb.service, \
+    /usr/bin/systemctl restart rsumpweb.service, \
+    /usr/bin/systemctl start rsumpwebchart.timer, \
+    /usr/bin/systemctl stop rsumpwebchart.timer, \
+    /usr/bin/systemctl restart rsumpwebchart.timer

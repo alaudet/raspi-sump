@@ -1,9 +1,18 @@
 """Tests for the admin interface views."""
 
+import importlib
+import subprocess
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
-from raspisump.web import create_app
+from raspisump.web.system import control_service
+
+try:
+    importlib.import_module("flask")
+    from raspisump.web import create_app
+    FLASK_AVAILABLE = True
+except ImportError:
+    FLASK_AVAILABLE = False
 
 _FAKE_SERVICES = [
     ("raspisump.service", {
@@ -24,6 +33,7 @@ _FAKE_SERVICES = [
 ]
 
 
+@unittest.skipUnless(FLASK_AVAILABLE, "Flask not installed")
 class TestAdminAuth(unittest.TestCase):
 
     def setUp(self):
@@ -101,6 +111,108 @@ class TestAdminAuth(unittest.TestCase):
         self.assertIn(b"raspisump.service", response.data)
         self.assertIn(b"active", response.data)
         self.assertIn(b"Service Status", response.data)
+
+
+class TestControlService(unittest.TestCase):
+
+    def _mock_run(self, returncode=0, stderr=""):
+        m = MagicMock()
+        m.returncode = returncode
+        m.stderr = stderr
+        return m
+
+    def test_valid_restart_returns_success(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(0)) as mock_run:
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertTrue(ok)
+        self.assertIn("restart", msg)
+        mock_run.assert_called_once()
+
+    def test_valid_stop_returns_success(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(0)):
+            ok, msg = control_service("raspisump.service", "stop")
+        self.assertTrue(ok)
+
+    def test_invalid_unit_returns_error(self):
+        ok, msg = control_service("bad.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("bad.service", msg)
+
+    def test_invalid_action_returns_error(self):
+        ok, msg = control_service("raspisump.service", "enable")
+        self.assertFalse(ok)
+        self.assertIn("enable", msg)
+
+    def test_nonzero_exit_returns_error(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(1, "Failed to restart unit")):
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("Failed to restart unit", msg)
+
+    def test_timeout_returns_error(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   side_effect=subprocess.TimeoutExpired(["sudo"], 15)):
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("timed out", msg)
+
+    def test_os_error_returns_error(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   side_effect=OSError("sudo not found")):
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("sudo not found", msg)
+
+
+@unittest.skipUnless(FLASK_AVAILABLE, "Flask not installed")
+class TestServiceActionView(unittest.TestCase):
+
+    def setUp(self):
+        app = create_app()
+        app.config["TESTING"] = True
+        self.client = app.test_client()
+
+    def _auth(self):
+        with self.client.session_transaction() as sess:
+            sess["admin_logged_in"] = True
+
+    def _patch_control(self, success=True, message="raspisump.service restarted successfully."):
+        return patch("raspisump.web.views.admin.control_service",
+                     return_value=(success, message))
+
+    def test_service_action_redirects_when_not_authenticated(self):
+        response = self.client.post("/admin/service",
+                                    data={"unit": "raspisump.service", "action": "restart"})
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/admin/login", response.headers["Location"])
+
+    def test_valid_action_redirects_to_admin(self):
+        self._auth()
+        with self._patch_control(True, "raspisump.service restarted successfully."):
+            response = self.client.post("/admin/service",
+                                        data={"unit": "raspisump.service", "action": "restart"},
+                                        follow_redirects=False)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/admin/", response.headers["Location"])
+
+    def test_success_flash_appears_on_redirect(self):
+        self._auth()
+        with self._patch_control(True, "raspisump.service restarted successfully."):
+            response = self.client.post("/admin/service",
+                                        data={"unit": "raspisump.service", "action": "restart"},
+                                        follow_redirects=True)
+        self.assertIn(b"restarted successfully", response.data)
+
+    def test_error_flash_appears_on_redirect(self):
+        self._auth()
+        with self._patch_control(False, "Unknown unit: 'bad.service'"):
+            response = self.client.post("/admin/service",
+                                        data={"unit": "bad.service", "action": "restart"},
+                                        follow_redirects=True)
+        self.assertIn(b"Unknown unit", response.data)
 
 
 if __name__ == "__main__":

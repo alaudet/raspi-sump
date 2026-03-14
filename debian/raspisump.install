@@ -1,3 +1,4 @@
+conf/sudoers/raspisump-web usr/share/raspi-sump/sudoers/
 conf/raspisump.conf usr/share/raspi-sump/examples/
 conf/credentials.conf usr/share/raspi-sump/examples/
 conf/systemd/raspisump.service lib/systemd/system/

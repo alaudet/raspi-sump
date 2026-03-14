@@ -17,8 +17,16 @@
     <h3 class="admin-section-title">Import CSV</h3>
     <div class="import-warning">
         <strong>Stop the raspisump service before importing.</strong>
-        Run <code>sudo systemctl stop raspisump.service</code> first,
-        then restart it when done: <code>sudo systemctl start raspisump.service</code>
+        Start it again when done.
+        <form method="post" action="/admin/service" class="svc-btn-form import-svc-btns">
+            <input type="hidden" name="unit" value="raspisump.service">
+            <input type="hidden" name="next" value="/admin/csv">
+            <button type="submit" name="action" value="stop"  class="btn-svc btn-svc-stop">Stop</button>
+        </form>
+        <form method="post" action="/admin/service" class="svc-btn-form import-svc-btns">
+            <input type="hidden" name="unit" value="raspisump.service">
+            <button type="submit" name="action" value="start" class="btn-svc btn-svc-start">Start</button>
+        </form>
     </div>
     <p class="backup-desc">
         Select one or more <code>waterlevel-YYYYMMDD.csv</code> files to import

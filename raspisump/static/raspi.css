@@ -611,6 +611,11 @@ main {
     font-size: 0.85rem;
 }
 
+.import-svc-btns {
+    display: inline-flex;
+    margin-top: 0.5rem;
+}
+
 /* CSV Import */
 .import-form {
     display: flex;
@@ -833,6 +838,60 @@ main {
     color: #c0392b;
     margin-bottom: 0.75rem;
     font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   Service control buttons (System Status page)
+   -------------------------------------------------------------------------- */
+.svc-btn-form {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.btn-svc {
+    padding: 0.25rem 0.55rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    font-family: var(--font);
+    cursor: pointer;
+    color: #fff;
+}
+
+.btn-svc-start   { background: #2e7d32; }
+.btn-svc-start:hover { background: #1b5e20; }
+.btn-svc-stop    { background: #c62828; }
+.btn-svc-stop:hover  { background: #8e0000; }
+.btn-svc-restart { background: #e65100; }
+.btn-svc-restart:hover { background: #bf360c; }
+
+/* --------------------------------------------------------------------------
+   Flash messages
+   -------------------------------------------------------------------------- */
+.flash-container {
+    max-width: var(--max-width);
+    margin: 0.75rem auto 0;
+    padding: 0 1rem;
+}
+
+.flash {
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.flash-success {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+
+.flash-error {
+    background: #ffebee;
+    color: #b71c1c;
+    border: 1px solid #ef9a9a;
 }
 
 /* --------------------------------------------------------------------------

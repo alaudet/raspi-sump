@@ -20,6 +20,7 @@
                 <th>Sub-state</th>
                 <th>Startup</th>
                 <th>PID</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,14 @@
                 {% else %}
                     <td colspan="4" class="svc-unavailable">systemd unavailable</td>
                 {% endif %}
+                <td class="svc-actions">
+                    <form method="post" action="/admin/service" class="svc-btn-form">
+                        <input type="hidden" name="unit" value="{{ name }}">
+                        <button type="submit" name="action" value="start"   class="btn-svc btn-svc-start">Start</button>
+                        <button type="submit" name="action" value="stop"    class="btn-svc btn-svc-stop">Stop</button>
+                        <button type="submit" name="action" value="restart" class="btn-svc btn-svc-restart">Restart</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

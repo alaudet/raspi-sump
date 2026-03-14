@@ -1,3 +1,35 @@
+raspisump (2.0~a37) unstable; urgency=medium
+
+  * CSV import Stop button stays on import page; Start button returns to
+    status page (next= redirect field with /admin/ prefix guard)
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a36) unstable; urgency=medium
+
+  * Replace CSV import warning text with Stop/Start service control buttons
+    for raspisump.service inline in the import form
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a35) unstable; urgency=medium
+
+  * Extend service control to all three services (rsumpweb.service,
+    rsumpwebchart.timer); sudoers rule expanded to 9 commands
+  * Add Restart raspisump.service button to Configuration page
+  * Fix test_invalid_unit_returns_error to use non-existent unit
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a34) unstable; urgency=medium
+
+  * Phase 5g Flask admin: service control buttons (Start/Stop/Restart) for
+    raspisump.service on System Status page; sudoers rule installed to
+    /etc/sudoers.d/raspisump-web (scoped to 3 exact systemctl commands);
+    flash messages for success/error on redirect; postrm removes sudoers file
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a33) unstable; urgency=medium
 
   * Remove configuration view from System Status page (moved to /admin/config)

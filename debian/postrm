@@ -4,6 +4,7 @@ set -e
 case "$1" in
     purge)
         rm -f /etc/nginx/sites-enabled/raspi-sump
+        rm -f /etc/sudoers.d/raspisump-web
         systemctl reload nginx > /dev/null 2>&1 || true
         systemctl daemon-reload || true
         rm -rf /etc/raspi-sump
@@ -14,6 +15,7 @@ case "$1" in
 
     remove)
         rm -f /etc/nginx/sites-enabled/raspi-sump
+        rm -f /etc/sudoers.d/raspisump-web
         systemctl reload nginx > /dev/null 2>&1 || true
         systemctl daemon-reload || true
         ;;

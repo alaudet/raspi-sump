@@ -83,4 +83,12 @@
 </section>
 
 </form>
+
+<section class="admin-card conf-save-bar">
+    <form method="post" action="/admin/service">
+        <input type="hidden" name="unit" value="raspisump.service">
+        <button type="submit" name="action" value="restart" class="btn-svc btn-svc-restart">Restart raspisump.service</button>
+    </form>
+    <span class="conf-save-note">Restart the service to apply saved configuration changes.</span>
+</section>
 {% endblock %}
