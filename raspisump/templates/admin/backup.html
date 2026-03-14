@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Backup / Export — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <h2>Backup / Export</h2>
+    <p class="backup-desc">
+        Download a zip archive containing the database and configuration file.
+        Credentials are not included.
+    </p>
+    <a href="/admin/backup/download" class="btn-download">Download Backup</a>
+</section>
+{% endblock %}

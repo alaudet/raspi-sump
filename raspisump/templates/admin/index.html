@@ -44,35 +44,4 @@
     </table>
 </section>
 
-<section class="admin-card">
-    <h3 class="admin-section-title">Configuration
-        <span class="conf-path">/etc/raspi-sump/raspisump.conf</span>
-    </h3>
-    {% if config %}
-        {% for section, items in config %}
-        <h4 class="conf-section-heading">[{{ section }}]</h4>
-        <table class="status-table conf-table">
-            <tbody>
-            {% for key, value in items %}
-                <tr>
-                    <td class="conf-key">{{ key }}</td>
-                    <td class="conf-value">{{ value if value else "—" }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {% endfor %}
-    {% else %}
-        <p class="svc-unavailable">Configuration file not found.</p>
-    {% endif %}
-</section>
-
-<section class="admin-card" id="backup">
-    <h3 class="admin-section-title">Backup / Export</h3>
-    <p class="backup-desc">
-        Download a zip archive containing the database and configuration file.
-        Credentials are not included.
-    </p>
-    <a href="/admin/backup/download" class="btn-download">Download Backup</a>
-</section>
 {% endblock %}

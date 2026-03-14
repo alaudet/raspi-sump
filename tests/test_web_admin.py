@@ -5,11 +5,6 @@ from unittest.mock import patch
 
 from raspisump.web import create_app
 
-_FAKE_CONFIG = [
-    ("pit", [("unit", "metric"), ("pit_depth", "72")]),
-    ("gpio_pins", [("trig_pin", "17"), ("echo_pin", "27")]),
-]
-
 _FAKE_SERVICES = [
     ("raspisump.service", {
         "ActiveState": "active", "SubState": "running",
@@ -43,12 +38,6 @@ class TestAdminAuth(unittest.TestCase):
         return patch(
             "raspisump.web.views.admin.all_service_statuses",
             return_value=_FAKE_SERVICES,
-        )
-
-    def _patch_config(self):
-        return patch(
-            "raspisump.web.views.admin.get_raspisump_config",
-            return_value=_FAKE_CONFIG,
         )
 
     def test_admin_redirects_to_login_when_not_authenticated(self):
@@ -98,7 +87,7 @@ class TestAdminAuth(unittest.TestCase):
     def test_admin_accessible_when_authenticated(self):
         with self.client.session_transaction() as sess:
             sess["admin_logged_in"] = True
-        with self._patch_services(), self._patch_config():
+        with self._patch_services():
             response = self.client.get("/admin/")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Admin", response.data)
@@ -106,22 +95,12 @@ class TestAdminAuth(unittest.TestCase):
     def test_admin_shows_service_status_table(self):
         with self.client.session_transaction() as sess:
             sess["admin_logged_in"] = True
-        with self._patch_services(), self._patch_config():
+        with self._patch_services():
             response = self.client.get("/admin/")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"raspisump.service", response.data)
         self.assertIn(b"active", response.data)
         self.assertIn(b"Service Status", response.data)
-
-    def test_admin_shows_config_section(self):
-        with self.client.session_transaction() as sess:
-            sess["admin_logged_in"] = True
-        with self._patch_services(), self._patch_config():
-            response = self.client.get("/admin/")
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Configuration", response.data)
-        self.assertIn(b"pit", response.data)
-        self.assertIn(b"metric", response.data)
 
 
 if __name__ == "__main__":

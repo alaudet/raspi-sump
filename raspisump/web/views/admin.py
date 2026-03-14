@@ -3,7 +3,7 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
 from raspisump.web.auth import check_password, login_required
-from raspisump.web.system import all_service_statuses, get_raspisump_config
+from raspisump.web.system import all_service_statuses
 
 bp = Blueprint("admin", __name__)
 
@@ -12,8 +12,7 @@ bp = Blueprint("admin", __name__)
 @login_required
 def index():
     services = all_service_statuses()
-    config = get_raspisump_config()
-    return render_template("admin/index.html", services=services, config=config)
+    return render_template("admin/index.html", services=services)
 
 
 @bp.route("/admin/login", methods=["GET"])

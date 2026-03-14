@@ -4,7 +4,7 @@ import io
 import time
 import zipfile
 
-from flask import Blueprint, send_file
+from flask import Blueprint, render_template, send_file
 
 from raspisump.web.auth import login_required
 
@@ -30,6 +30,12 @@ def build_backup_zip():
                 pass  # file missing or unreadable — skip silently
     buf.seek(0)
     return buf
+
+
+@bp.route("/admin/backup")
+@login_required
+def index():
+    return render_template("admin/backup.html")
 
 
 @bp.route("/admin/backup/download")

@@ -1,3 +1,11 @@
+raspisump (2.0~a33) unstable; urgency=medium
+
+  * Remove configuration view from System Status page (moved to /admin/config)
+  * Move Backup / Export to its own page at /admin/backup
+  * Update admin tests to reflect removed config and backup sections
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a32) unstable; urgency=medium
 
   * Phase 5f Flask admin: configuration editor at /admin/config; all
