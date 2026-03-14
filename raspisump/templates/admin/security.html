@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Security — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Security</h2>
+        <a href="/admin/logout" class="btn-logout">Logout</a>
+    </div>
+    <p class="backup-desc">
+        Edit <code>/etc/raspi-sump/credentials.conf</code>.
+        Passwords and secrets are masked — click <strong>Show</strong> to reveal.
+        Comments in the file are preserved on save.
+    </p>
+</section>
+
+{% if success %}
+<section class="admin-card conf-success-banner">
+    <strong>Credentials saved.</strong>
+    Restart rsumpweb.service for a new admin password to take effect.
+</section>
+{% endif %}
+
+{% if errors %}
+<section class="admin-card conf-error-banner">
+    <strong>Could not save — please fix the following:</strong>
+    <ul class="conf-error-list">
+    {% for err in errors %}
+        <li>{{ err }}</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<form method="post" action="/admin/security">
+
+{% for section, section_label, fields in schema %}
+<section class="admin-card">
+    <h3 class="admin-section-title">{{ section_label }}</h3>
+    <div class="conf-field-grid">
+    {% for key, label, widget, help_text in fields %}
+        {% set field_name = section ~ "__" ~ key %}
+        {% set field_id   = "f_" ~ section ~ "_" ~ key %}
+        {% set cur_val    = current.get(section, {}).get(key, "") %}
+        <div class="conf-field">
+            <label class="conf-field-label" for="{{ field_id }}">{{ label }}</label>
+            <div class="conf-field-input">
+                {% if widget == "password" %}
+                <div class="pass-wrap">
+                    <input type="password" name="{{ field_name }}" id="{{ field_id }}"
+                           class="conf-input" value="{{ cur_val }}"
+                           autocomplete="new-password">
+                    <button type="button" class="btn-show-pass"
+                            onclick="togglePass(this)">Show</button>
+                </div>
+                {% else %}
+                <input type="text" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% endif %}
+                {% if help_text %}
+                <small class="conf-help">{{ help_text }}</small>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endfor %}
+
+<section class="admin-card conf-save-bar">
+    <button type="submit" class="btn-download">Save Credentials</button>
+    <span class="conf-save-note">
+        Restart rsumpweb.service after changing the admin password.
+    </span>
+</section>
+
+</form>
+
+<section class="admin-card conf-save-bar">
+    <form method="post" action="/admin/service" style="display:inline;">
+        <input type="hidden" name="unit" value="rsumpweb.service">
+        <button type="submit" name="action" value="restart"
+                class="btn-svc btn-svc-restart">Restart rsumpweb.service</button>
+    </form>
+    <form method="post" action="/admin/service" style="display:inline; margin-left:0.5rem;">
+        <input type="hidden" name="unit" value="raspisump.service">
+        <button type="submit" name="action" value="restart"
+                class="btn-svc btn-svc-restart">Restart raspisump.service</button>
+    </form>
+    <span class="conf-save-note">Restart services to apply saved credential changes.</span>
+</section>
+
+<script>
+function togglePass(btn) {
+    var input = btn.previousElementSibling;
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = 'Hide';
+    } else {
+        input.type = 'password';
+        btn.textContent = 'Show';
+    }
+}
+</script>
+{% endblock %}

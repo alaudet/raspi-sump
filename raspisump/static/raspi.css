@@ -867,6 +867,36 @@ main {
 .btn-svc-restart:hover { background: #bf360c; }
 
 /* --------------------------------------------------------------------------
+   Password show/hide
+   -------------------------------------------------------------------------- */
+.pass-wrap {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.pass-wrap .conf-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.btn-show-pass {
+    padding: 0.35rem 0.65rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    font-family: var(--font);
+    cursor: pointer;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.btn-show-pass:hover {
+    background: var(--bg);
+}
+
+/* --------------------------------------------------------------------------
    Flash messages
    -------------------------------------------------------------------------- */
 .flash-container {

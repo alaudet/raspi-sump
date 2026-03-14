@@ -1,3 +1,13 @@
+raspisump (2.0~a38) unstable; urgency=medium
+
+  * Phase 5h Flask admin: Security page (/admin/security) to edit
+    credentials.conf; password/secret fields masked with Show/Hide toggle;
+    admin password change supported; restart buttons for rsumpweb and
+    raspisump services; credentials.conf permissions changed to 0660
+    (root:raspisump) to allow web process to write
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a37) unstable; urgency=medium
 
   * CSV import Stop button stays on import page; Start button returns to

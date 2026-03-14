@@ -82,9 +82,10 @@ case "$1" in
             cp /usr/share/raspi-sump/examples/credentials.conf /etc/raspi-sump/credentials.conf
         fi
 
-        # Lock down credentials file — only root and raspisump user can read it
+        # credentials.conf: root:raspisump, group-writable so the web process
+        # (raspisump user) can update credentials via the admin Security page.
         chown root:raspisump /etc/raspi-sump/credentials.conf
-        chmod 0640 /etc/raspi-sump/credentials.conf
+        chmod 0660 /etc/raspi-sump/credentials.conf
 
         # Install sudoers rule allowing the web process to control raspisump.service
         install -o root -g root -m 0440 \
