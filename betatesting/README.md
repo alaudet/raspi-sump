@@ -16,6 +16,12 @@ bugs is very much appreciated.
 
 ---
 
+## Screenshots
+
+Screenshots of the web interface are available in the [screenshots folder](screenshots/README.md).
+
+---
+
 ## Download
 
 The packages are not yet in an APT repository. Download the `.deb` files directly:
