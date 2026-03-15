@@ -41,7 +41,7 @@ remove it before installing the new package.
 **1. Remove the old Python packages from the virtual environment:**
 
 ```bash
-source ~/raspi-sump-venv/bin/activate
+source /opt/raspi-sump/bin/activate
 pip uninstall raspisump hcsr04sensor
 deactivate
 ```
@@ -62,7 +62,7 @@ Raspi-Sump uses nginx. If lighttpd is running it will conflict on port 80.
 
 ```bash
 sudo systemctl stop lighttpd
-sudo apt-get remove --purge lighttpd
+sudo apt remove --purge lighttpd
 ```
 
 **4. Remove any old cron jobs:**
@@ -71,7 +71,7 @@ sudo apt-get remove --purge lighttpd
 crontab -e
 ```
 
-Remove any lines referencing `rsump`, `rsumpmonitor`, or `rsumpwebchart`.
+Remove any lines referencing `rsump`, `rsumpmonitor`, or `rsumpwebchart` and save.
 
 ---
 
@@ -112,10 +112,10 @@ Key settings to review:
 |---|---|
 | `trig_pin` | GPIO pin number for HC-SR04 trigger |
 | `echo_pin` | GPIO pin number for HC-SR04 echo |
-| `pit_depth` | Total depth of your pit in cm (or inches) |
+| `pit_depth` | Total depth of your pit in cm (or inches) from the sensor |
 | `critical_water_level` | Water depth that triggers an alert |
 | `unit` | `metric` (cm) or `imperial` (inches) |
-| `alert_type` | `1` = email, `2` = Mastodon, `3` = both |
+| `alert_type` | `1` = email, `2` = Mastodon, `3` = both | (3 not yet implemented)
 
 **5. Set the admin password:**
 

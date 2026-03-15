@@ -8,11 +8,11 @@ from flask import redirect, request, session, url_for
 def get_admin_password():
     """Return the admin password from credentials.conf.
 
-    Uses a fallback of 'changeme' if the [web] section is missing
+    Uses a fallback of 'admin' if the [web] section is missing
     (e.g. on an install that hasn't been upgraded yet).
     """
     from raspisump.config_values import config
-    return config.get("web", "admin_password", fallback="changeme")
+    return config.get("web", "admin_password", fallback="admin")
 
 
 def check_password(candidate):
