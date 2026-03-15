@@ -10,5 +10,4 @@ override_dh_auto_test:
 
 override_dh_installsystemd:
 	dh_installsystemd --name=raspisump --no-start
-	dh_installsystemd --name=rsumpwebchart --no-enable --no-start
-	dh_installsystemd --name=rsumpwebchart.timer --no-start
+	dh_installsystemd --name=rsumpweb --no-start

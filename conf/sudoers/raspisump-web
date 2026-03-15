@@ -5,7 +5,4 @@ raspisump ALL=(root) NOPASSWD: \
     /usr/bin/systemctl restart raspisump.service, \
     /usr/bin/systemctl start rsumpweb.service, \
     /usr/bin/systemctl stop rsumpweb.service, \
-    /usr/bin/systemctl restart rsumpweb.service, \
-    /usr/bin/systemctl start rsumpwebchart.timer, \
-    /usr/bin/systemctl stop rsumpwebchart.timer, \
-    /usr/bin/systemctl restart rsumpwebchart.timer
+    /usr/bin/systemctl restart rsumpweb.service

@@ -1,6 +1,6 @@
 *.sw*
 *.pyc
-*.
+.*
 dist
 *egg-info
 build/
@@ -10,15 +10,11 @@ debian/files
 debian/.debhelper/
 debian/*.debhelper*
 debian/*.substvars
-notebook/
 ttt.py
-/temp
 nosetests.xml
 .noseids
-.vscode
 docs/add.txt
 venv/
 no-binary-deprecation-messsage.txt
-.claude
 tmp/
 CLAUDE.md
