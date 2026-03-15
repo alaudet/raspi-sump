@@ -1,3 +1,32 @@
+raspisump (2.0~a49) unstable; urgency=medium
+
+  * Historical Readings: replace details/summary with always-visible
+    labeled sections (Single Day, Quick View, Custom Range); quick-view
+    buttons centered; section headers separated by borders
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sun, 15 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a48) unstable; urgency=medium
+
+  * Historical Readings: replace confusing tab UI with flat layout —
+    date picker always visible, quick-view links (7/14/30 days), custom
+    range in a <details> element that auto-opens when active
+  * Fix custom range silently failing on Python < 3.11: use strptime
+    instead of fromisoformat for datetime-local input format
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sun, 15 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a47) unstable; urgency=medium
+
+  * Historical Readings: add Last N Days (1-30, one chart per day) and
+    Custom Range (datetime pickers, single chart, Clear button) modes via
+    tab UI; /api/readings/range endpoint for arbitrary time spans
+  * sumpChart.js: refactor to charts{} dict supporting multiple charts per
+    page; downloadChart() now takes container id; initRangeChart() with
+    date+time X axis; data-chart-height attribute for compact multi-day charts
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sun, 15 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a46) unstable; urgency=medium
 
   * Persist admin login for 30 days via permanent session cookie

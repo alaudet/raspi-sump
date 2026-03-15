@@ -5,7 +5,7 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from raspisump.log import query_readings
+from raspisump.log import query_readings, query_readings_range
 
 bp = Blueprint("api", __name__)
 
@@ -51,6 +51,38 @@ def readings():
     return jsonify({
         "date": date,
         "unit": unit,
+        "critical_level": _critical_level(),
+        "data": [timestamps, depths],
+    })
+
+
+@bp.route("/api/readings/range")
+def readings_range():
+    start = request.args.get("start", "")  # YYYY-MM-DDTHH:MM
+    end   = request.args.get("end",   "")
+
+    try:
+        start_date, start_time = start.split("T")
+        end_date,   end_time   = end.split("T")
+    except (ValueError, AttributeError):
+        return jsonify({"error": "start and end required (YYYY-MM-DDTHH:MM)"}), 400
+
+    rows = query_readings_range(start_date, end_date, start_time, end_time)
+
+    if not rows:
+        return jsonify({
+            "start": start, "end": end,
+            "unit": None, "critical_level": None,
+            "data": [[], []],
+        })
+
+    timestamps = [int(time.mktime(time.strptime(ts, "%Y-%m-%d %H:%M:%S"))) for ts, _, _ in rows]
+    depths     = [d for _, d, _ in rows]
+
+    return jsonify({
+        "start": start,
+        "end":   end,
+        "unit":  rows[0][2],
         "critical_level": _critical_level(),
         "data": [timestamps, depths],
     })

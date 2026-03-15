@@ -6,56 +6,108 @@
 <section class="chart-card">
     <h2>Historical Readings</h2>
 
-    <form class="date-form" method="get" action="/history/">
-        <input type="date" name="date" value="{{ date or '' }}" required>
-        <button type="submit">View</button>
-    </form>
+    <div class="history-section">
+        <h3 class="history-section-label">Single Day</h3>
+        <form class="date-form" method="get" action="/history/">
+            <input type="date" name="date" value="{{ date or '' }}" required>
+            <button type="submit">View</button>
+        </form>
+    </div>
+
+    <div class="history-section">
+        <h3 class="history-section-label">Quick View</h3>
+        <div class="history-quicklinks">
+            <a href="/history/?days=7"  class="btn-quickview{% if days == 7  %} active{% endif %}">Last 7 days</a>
+            <a href="/history/?days=14" class="btn-quickview{% if days == 14 %} active{% endif %}">Last 14 days</a>
+            <a href="/history/?days=30" class="btn-quickview{% if days == 30 %} active{% endif %}">Last 30 days</a>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <h3 class="history-section-label">Custom Range</h3>
+        <form class="date-form range-form" method="get" action="/history/">
+            <input type="datetime-local" name="start" value="{{ start or '' }}" required>
+            <span class="range-to">to</span>
+            <input type="datetime-local" name="end" value="{{ end or '' }}" required>
+            <button type="submit">View</button>
+            <a href="/history/" class="btn-clear">Clear</a>
+        </form>
+    </div>
 
     {% if error %}
         <p class="chart-missing">{{ error }}</p>
-    {% elif date %}
-        <div id="chart-history" class="chart-container"></div>
-        <div class="chart-actions">
-            <button class="btn-chart-download"
-                    onclick="downloadChart(chart, 'waterlevel-{{ date }}.png')">
-                Download PNG
-            </button>
-        </div>
-    {% else %}
-        <p class="chart-missing">Select a date to view historical readings.</p>
     {% endif %}
 </section>
 
-{% if stats %}
-<section class="stat-grid">
-    <div class="stat-card">
-        <span class="stat-label">Min Level</span>
-        <span class="stat-value">{{ "%.1f"|format(stats.min) }}</span>
-        <span class="stat-unit">{{ stats.unit }}</span>
-    </div>
-    <div class="stat-card">
-        <span class="stat-label">Max Level</span>
-        <span class="stat-value">{{ "%.1f"|format(stats.max) }}</span>
-        <span class="stat-unit">{{ stats.unit }}</span>
-    </div>
-    <div class="stat-card">
-        <span class="stat-label">Readings</span>
-        <span class="stat-value">{{ stats.count }}</span>
-        <span class="stat-unit">that day</span>
-    </div>
-    <div class="stat-card">
-        <span class="stat-label">Last Reading</span>
-        <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
-        <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
-    </div>
-</section>
+{% if mode == 'day' and not error %}
+    <section class="chart-card">
+        <div id="chart-history" class="chart-container"></div>
+        <div class="chart-actions">
+            <button class="btn-chart-download"
+                    onclick="downloadChart('chart-history', 'waterlevel-{{ date }}.png')">
+                Download PNG
+            </button>
+        </div>
+    </section>
+
+    {% if stats %}
+    <section class="stat-grid">
+        <div class="stat-card">
+            <span class="stat-label">Min Level</span>
+            <span class="stat-value">{{ "%.1f"|format(stats.min) }}</span>
+            <span class="stat-unit">{{ stats.unit }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Max Level</span>
+            <span class="stat-value">{{ "%.1f"|format(stats.max) }}</span>
+            <span class="stat-unit">{{ stats.unit }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Readings</span>
+            <span class="stat-value">{{ stats.count }}</span>
+            <span class="stat-unit">that day</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Last Reading</span>
+            <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
+            <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
+        </div>
+    </section>
+    {% endif %}
+
+{% elif mode == 'multiday' %}
+    {% for d in dates %}
+    <section class="chart-card multiday-block">
+        <h3>{{ d }}</h3>
+        <div id="chart-{{ d }}" class="chart-container" data-chart-height="200"></div>
+    </section>
+    {% endfor %}
+
+{% elif mode == 'range' and not error %}
+    <section class="chart-card">
+        <div id="chart-range" class="chart-container"></div>
+        <div class="chart-actions">
+            <button class="btn-chart-download"
+                    onclick="downloadChart('chart-range', 'waterlevel-range.png')">
+                Download PNG
+            </button>
+        </div>
+    </section>
 {% endif %}
 
-{% if date %}
 <script src="/static/uplot.iife.min.js"></script>
 <script src="/static/sumpChart.js"></script>
 <script>
-    initChart('chart-history', '{{ date }}');
+(function() {
+    {% if mode == 'day' and not error %}
+        initChart('chart-history', '{{ date }}');
+    {% elif mode == 'multiday' %}
+        {% for d in dates %}
+        initChart('chart-{{ d }}', '{{ d }}');
+        {% endfor %}
+    {% elif mode == 'range' and not error %}
+        initRangeChart('chart-range', '{{ start }}', '{{ end }}');
+    {% endif %}
+})();
 </script>
-{% endif %}
 {% endblock %}

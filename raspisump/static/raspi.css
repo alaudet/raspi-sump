@@ -342,6 +342,93 @@ main {
     background: var(--brand-dark);
 }
 
+.date-form input[type="number"],
+.date-form input[type="datetime-local"] {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font);
+    background: var(--surface);
+    color: var(--text);
+}
+
+.date-form label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text);
+}
+
+.range-to {
+    color: var(--text-muted);
+    align-self: center;
+}
+
+.btn-clear {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.btn-clear:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+}
+
+/* History page sections */
+.history-section {
+    border-top: 1px solid var(--border);
+    padding: 1rem 0 0.25rem;
+}
+
+.history-section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.history-quicklinks {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.btn-quickview {
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-quickview:hover,
+.btn-quickview.active {
+    border-color: var(--brand);
+    color: var(--brand);
+}
+
+/* Multi-day charts */
+.multiday-block {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.multiday-block h3 {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
 /* --------------------------------------------------------------------------
    8. Stat cards
    -------------------------------------------------------------------------- */
