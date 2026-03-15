@@ -11,7 +11,7 @@ bugs is very much appreciated.
 ## Prerequisites
 
 - Raspberry Pi running **Raspberry Pi OS Trixie or Bookworm** (32-bit or 64-bit)
-- HC-SR04 ultrasonic sensor wired to the GPIO pins defined in `raspisump.conf`
+- HC-SR04 ultrasonic sensor (or compatible) wired to the GPIO pins (wire or breadboard) defined in `raspisump.conf`
 - Internet access during install (to download packages)
 
 ---
@@ -77,18 +77,16 @@ Remove any lines referencing `rsump`, `rsumpmonitor`, or `rsumpwebchart`.
 
 ## Fresh Install
 
-**1. Install the pinsource dependency first:**
+**1. Install the pinsource dependency first:** (./ indicates current folder)
 
 ```bash
-sudo dpkg -i python3-pinsource_*.deb
-sudo apt-get install -f
+sudo apt install ./python3-pinsource_*.deb
 ```
 
-**2. Install raspisump:**
+**2. Install raspisump:** (./indicates current folder)
 
 ```bash
-sudo dpkg -i raspisump_*.deb
-sudo apt-get install -f
+sudo apt install ./raspisump_*.deb
 ```
 
 The installer will:
@@ -156,8 +154,7 @@ To upgrade to a newer beta release:
 **2. Install over the existing version:**
 
 ```bash
-sudo dpkg -i python3-pinsource_*.deb raspisump_*.deb
-sudo apt-get install -f
+sudo apt install ./python3-pinsource_*.deb ./raspisump_*.deb
 ```
 
 Your configuration files (`raspisump.conf`, `credentials.conf`) are never
