@@ -47,7 +47,8 @@ function _renderChart(container, json, date) {
     var s           = getComputedStyle(document.documentElement);
     var textColor   = s.getPropertyValue('--text').trim()         || '#222';
     var borderColor = s.getPropertyValue('--border').trim()       || '#ddd';
-    var lineColor   = s.getPropertyValue('--chart-line').trim()   || '#FB921D';
+    var lineColor   = s.getPropertyValue('--chart-line').trim()   || '#000fff';
+    var fillColor   = s.getPropertyValue('--chart-fill').trim()   || 'rgba(92,92,251,0.25)';
     var alertColor  = s.getPropertyValue('--chart-alert').trim()  || '#c62828';
     var surfaceColor = s.getPropertyValue('--surface').trim()     || '#ffffff';
 
@@ -63,14 +64,14 @@ function _renderChart(container, json, date) {
         uplotData = [timestamps, depths, alertSeries];
         series = [
             {},
-            { label: 'Water Level', stroke: lineColor,  width: 2 },
-            { label: 'Alert Level', stroke: alertColor, width: 1, dash: [6, 3] },
+            { label: 'Water Level', stroke: lineColor,  width: 2, fill: fillColor },
+            { label: 'Alert Level', stroke: alertColor, width: 2, dash: [6, 3] },
         ];
     } else {
         uplotData = [timestamps, depths];
         series = [
             {},
-            { label: 'Water Level', stroke: lineColor, width: 2 },
+            { label: 'Water Level', stroke: lineColor, width: 2, fill: fillColor },
         ];
     }
 

@@ -63,7 +63,7 @@ class TestRaspisump(TestCase):
     def test_config_dict(self):
         """Test that the config is returned as a dict with the expected length"""
         self.assertIsInstance(configs, dict)
-        self.assertEqual(len(configs), 26)
+        self.assertEqual(len(configs), 25)
 
     def test_key_existence(self):
         """Test that all keys are present in the dict"""
@@ -87,7 +87,6 @@ class TestRaspisump(TestCase):
             "smtp_ssl",
             "heartbeat",
             "heartbeat_interval",
-            "line_color",
             "alert_type",
             "client_id",
             "client_secret",
@@ -121,7 +120,6 @@ class TestRaspisump(TestCase):
             "smtp_ssl": int,
             "heartbeat": int,
             "heartbeat_interval": int,
-            "line_color": str,
             "alert_type": int,
             "client_id": str,
             "client_secret": str,

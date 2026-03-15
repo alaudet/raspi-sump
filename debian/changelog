@@ -1,3 +1,23 @@
+raspisump (2.0~a45) unstable; urgency=medium
+
+  * Chart: blue line (#000fff) with light blue fill (#5c5cfb); wider alert line
+  * Remove line_color from raspisump.conf, config schema, and config editor;
+    chart colours now controlled via CSS custom properties
+  * Fix alert interval check using delta.seconds instead of delta.total_seconds();
+    alerts could silently skip if last alert was sent more than 24h ago
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a44) unstable; urgency=medium
+
+  * Fix nginx client_max_body_size location: /admin/import → /admin/csv
+  * postinst: remove nginx default site symlink to prevent port 80 conflict
+  * postinst: remove stale charts directory creation (charts are client-side)
+  * rsumpsupport: remove rsumpwebchart and charts references; add rsumpweb
+    status and journal
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 14 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a43) unstable; urgency=medium
 
   * Dark mode: nav bar black with teal underline; dropdowns black with

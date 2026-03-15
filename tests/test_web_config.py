@@ -35,9 +35,6 @@ reading_interval = 60
 temperature = 20
 alert_when = high
 
-[charts]
-line_color = FB921D
-
 [email]
 alert_interval = 5
 alert_type = 1
@@ -98,8 +95,7 @@ class TestValidateConfigForm(unittest.TestCase):
             "pit__reading_interval": "60",
             "pit__temperature": "20",
             "pit__alert_when": "high",
-            "charts__line_color": "FB921D",
-            "email__alert_interval": "5",
+"email__alert_interval": "5",
             "email__alert_type": "1",
             "email__smtp_authentication": "0",
             "email__smtp_tls": "0",
@@ -208,7 +204,6 @@ class TestWriteConfigValues(unittest.TestCase):
             content = f.read()
         self.assertIn("[gpio_pins]", content)
         self.assertIn("[pit]", content)
-        self.assertIn("[charts]", content)
         self.assertIn("[email]", content)
 
 
@@ -283,8 +278,7 @@ class TestConfigView(unittest.TestCase):
             "pit__reading_interval": "60",
             "pit__temperature": "20",
             "pit__alert_when": "high",
-            "charts__line_color": "FB921D",
-            "email__alert_interval": "5",
+"email__alert_interval": "5",
             "email__alert_type": "1",
             "email__smtp_authentication": "0",
             "email__smtp_tls": "0",

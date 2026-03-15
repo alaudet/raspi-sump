@@ -34,11 +34,7 @@ FIELD_SCHEMA = [
          [("high", "High — alert on high water (sump pit)"),
           ("low",  "Low — alert on low water (cistern)")], None),
     ]),
-    ("charts", "Charts", [
-        ("line_color", "Line Color", "text", None,
-         "Hex color without # — e.g. FB921D (orange), 0000ff (blue), 000000 (black)"),
-    ]),
-    ("email", "Alerts & Email", [
+("email", "Alerts & Email", [
         ("alert_interval", "Alert Interval (minutes)", "integer", None,
          "Minimum minutes between repeated alerts"),
         ("alert_type", "Alert Type", "select",

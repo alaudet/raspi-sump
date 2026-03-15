@@ -22,7 +22,7 @@ server {
     }
 
     # CSV import — allow up to 64 MB for bulk file uploads
-    location /admin/import {
+    location /admin/csv {
         client_max_body_size 64m;
         proxy_pass http://unix:/run/raspi-sump/flask.sock;
         proxy_set_header Host              $host;

@@ -25,7 +25,6 @@ def _make_config(include_credentials=True):
             "trig_pin": "17",
             "echo_pin": "27",
         },
-        "charts": {"line_color": "blue"},
         "email": {
             "email_to": "test@example.com",
             "email_from": "from@example.com",
@@ -61,7 +60,7 @@ class TestConfiguration(TestCase):
         with patch.object(cv, "config", _make_config(include_credentials=True)):
             result = cv.configuration()
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 26)
+        self.assertEqual(len(result), 25)
 
     def test_all_expected_keys_present(self):
         """All expected keys are present in the configuration dict."""
@@ -70,7 +69,7 @@ class TestConfiguration(TestCase):
             result = cv.configuration()
         expected_keys = [
             "critical_water_level", "pit_depth", "reading_interval", "temperature",
-            "unit", "alert_when", "trig_pin", "echo_pin", "line_color",
+            "unit", "alert_when", "trig_pin", "echo_pin",
             "email_to", "email_from", "smtp_authentication", "smtp_tls", "smtp_ssl",
             "smtp_server", "alert_interval", "alert_type", "heartbeat",
             "heartbeat_interval", "username", "password", "client_id",
@@ -90,7 +89,7 @@ class TestConfiguration(TestCase):
             "alert_interval", "alert_type", "heartbeat", "heartbeat_interval",
         ]
         str_keys = [
-            "unit", "alert_when", "line_color", "email_to", "email_from",
+            "unit", "alert_when", "email_to", "email_from",
             "smtp_server", "username", "password", "client_id", "client_secret",
             "access_token", "api_base_url", "handle",
         ]

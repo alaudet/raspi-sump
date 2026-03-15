@@ -149,7 +149,7 @@ def determine_if_alert(water_depth):
             last_alert_time = datetime.strptime(last_alert_sent, "%Y-%m-%d %H:%M:%S")
             time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S")
             delta = time_now - last_alert_time
-            minutes_passed = delta.seconds / 60
+            minutes_passed = delta.total_seconds() / 60
 
         if minutes_passed >= alert_interval:
             if alert_type == 1:

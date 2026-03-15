@@ -203,9 +203,6 @@ def rsumpsupport():
     support_file_path = (
         f"{support_folder}/support-{time.strftime('%Y%m%d_%H%M%S')}.txt"
     )
-    logfile = f"{STATE_DIR}/csv/waterlevel-{time.strftime('%Y%m%d')}.csv"
-    chart_folder = f"{STATE_DIR}/charts"
-
     os.makedirs(support_folder, exist_ok=True)
 
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -215,31 +212,21 @@ def rsumpsupport():
     configs = config_values.configuration()
 
     raspi_sump_status = run_command(["systemctl", "status", "raspisump"])
-    rsumpwebchart_timer_status = run_command(
-        ["systemctl", "status", "rsumpwebchart.timer"]
-    )
+    rsumpweb_status = run_command(["systemctl", "status", "rsumpweb"])
     logs_error_log = run_command(["cat", f"{LOG_DIR}/error_log"])
     logs_info_log = run_command(["cat", f"{LOG_DIR}/info_log"])
     logs_heartbeat_log = run_command(
         ["tail", "-n", "10", f"{LOG_DIR}/heartbeat_log"]
     )
     logs_alert_log = run_command(["tail", "-n", "10", f"{LOG_DIR}/alert_log"])
-    waterlevel_csv = run_command(["cat", logfile])
     journal = run_command([
         "journalctl",
         "-u", "raspisump.service",
-        "-u", "rsumpwebchart.service",
-        "-u", "rsumpwebchart.timer",
+        "-u", "rsumpweb.service",
         "-b",
     ])
-    charts = run_command(["ls", "-alR", chart_folder])
     rsump_service = run_command(["cat", f"{SYSTEMD_DIR}/raspisump.service"])
-    rsumpwebchart_service = run_command(
-        ["cat", f"{SYSTEMD_DIR}/rsumpwebchart.service"]
-    )
-    rsumpwebchart_timer = run_command(
-        ["cat", f"{SYSTEMD_DIR}/rsumpwebchart.timer"]
-    )
+    rsumpweb_service = run_command(["cat", f"{SYSTEMD_DIR}/rsumpweb.service"])
 
     content = f"""\
 Date file generated: {current_date}
@@ -250,8 +237,8 @@ python version on system: {python_version}
 Systemctl status for raspisump:
 {raspi_sump_status}
 
-Systemctl status for rsumpwebchart.timer:
-{rsumpwebchart_timer_status}
+Systemctl status for rsumpweb:
+{rsumpweb_status}
 
 Raspi-Sump Variables:
 critical_water_level: {configs["critical_water_level"]}
@@ -268,7 +255,6 @@ alert_when: {configs["alert_when"]}
 alert_interval: {configs["alert_interval"]}
 heartbeat: {configs["heartbeat"]}
 heartbeat_interval: {configs["heartbeat_interval"]}
-line_color: {configs["line_color"]}
 
 Logs/error_log content:
 {logs_error_log}
@@ -282,26 +268,16 @@ Last 10 lines of heartbeat_log:
 Last 10 lines of alert_log:
 {logs_alert_log}
 
-waterlevel csv:
-{waterlevel_csv}
-
-journalctl -u raspisump.service -u rsumpwebchart.service -u rsumpwebchart.timer -b:
+journalctl -u raspisump.service -u rsumpweb.service -b:
 {journal}
-
-Charts directory:
-{charts}
 
 Systemd files:
 ** Raspi-sump service file:
 {rsump_service}
 *************************************
 
-** Raspi-sump webchart service file:
-{rsumpwebchart_service}
-*************************************
-
-** Raspi-sump webchart timer file:
-{rsumpwebchart_timer}
+** Raspi-sump web service file:
+{rsumpweb_service}
 *************************************
 
 

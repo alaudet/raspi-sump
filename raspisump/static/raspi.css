@@ -23,7 +23,8 @@
 
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-    --chart-line:   #FB921D;
+    --chart-line:   #000fff;
+    --chart-fill:   rgba(92, 92, 251, 0.25);
     --chart-alert:  #c62828;
 }
 

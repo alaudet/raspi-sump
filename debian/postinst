@@ -38,7 +38,6 @@ case "$1" in
         # 0771: group write for WAL files, world-execute so nginx can traverse into charts/
         install -d -o raspisump -g raspisump -m 0771 /var/lib/raspi-sump
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/csv
-        install -d -o raspisump -g raspisump -m 0775 /var/lib/raspi-sump/charts
         install -d -o raspisump -g raspisump -m 0770 /var/lib/raspi-sump/support
 
         # Create log directory (systemd LogsDirectory may not be present before first start)
@@ -48,15 +47,12 @@ case "$1" in
         # created by an older install with the wrong group or mode.
         chown -R raspisump:raspisump \
             /var/lib/raspi-sump/csv \
-            /var/lib/raspi-sump/charts \
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
         find /var/lib/raspi-sump/csv \
              /var/lib/raspi-sump/support \
              /var/log/raspi-sump \
              -type d -exec chmod g+rwxs {} \;
-        find /var/lib/raspi-sump/charts \
-             -type d -exec chmod g+rwxs,o+rx {} \;
 
         # Fix db file permissions if it already exists (created before umask fix).
         if [ -f /var/lib/raspi-sump/raspisump.db ]; then
@@ -71,8 +67,6 @@ case "$1" in
             /var/lib/raspi-sump/csv \
             /var/lib/raspi-sump/support \
             /var/log/raspi-sump
-        # Charts dir is world-readable so nginx can serve files without group membership.
-        chmod g+s,o+rx /var/lib/raspi-sump/charts
 
         # Install config files from examples only on first install (never overwrite on upgrade)
         install -d -o root -g root -m 0755 /etc/raspi-sump
@@ -130,15 +124,18 @@ case "$1" in
         # nginx site handling
         NGINX_SITE_ENABLED="/etc/nginx/sites-enabled/raspi-sump"
 
+        # Remove the nginx default site if present — it conflicts on port 80
+        if [ -L /etc/nginx/sites-enabled/default ]; then
+            rm -f /etc/nginx/sites-enabled/default
+        fi
+
         if [ -z "$2" ]; then
-            # Fresh install — check for port 80 conflicts before enabling
+            # Fresh install — check for other web server conflicts before enabling
             NGINX_CONFLICT_MSG=""
             if systemctl is-active --quiet apache2 2>/dev/null; then
                 NGINX_CONFLICT_MSG="apache2 is active"
             elif systemctl is-active --quiet lighttpd 2>/dev/null; then
                 NGINX_CONFLICT_MSG="lighttpd is active"
-            elif [ -L /etc/nginx/sites-enabled/default ]; then
-                NGINX_CONFLICT_MSG="the nginx default site is enabled (conflicts on port 80)"
             fi
 
             if [ -z "$NGINX_CONFLICT_MSG" ]; then
