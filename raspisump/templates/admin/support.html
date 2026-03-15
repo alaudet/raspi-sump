@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Support — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Support</h2>
+        <a href="/admin/logout" class="btn-logout">Logout</a>
+    </div>
+</section>
+
+{% if error %}
+<section class="admin-card">
+    <p class="form-error">{{ error }}</p>
+</section>
+{% endif %}
+
+<section class="admin-card">
+    <h3 class="admin-section-title">Support File</h3>
+    <p class="support-description">
+        Generates a diagnostics file containing system info, service status,
+        configuration values, and recent journal logs.
+    </p>
+    <form method="post" action="/admin/support">
+        <input type="hidden" name="action" value="download">
+        <button type="submit" class="btn-download">Generate &amp; Download</button>
+    </form>
+</section>
+
+<section class="admin-card">
+    <h3 class="admin-section-title">Alert Test</h3>
+    <p class="support-description">
+        Sends a test notification using the alert method configured in
+        raspisump.conf (email or Mastodon).
+    </p>
+    <form method="post" action="/admin/support">
+        <input type="hidden" name="action" value="alerttest">
+        <button type="submit" class="btn-download">Send Test Alert</button>
+    </form>
+
+    {% if alert_result is not none %}
+    <div class="alert-result {{ 'alert-result-ok' if alert_success else 'alert-result-fail' }}">
+        <strong>{{ 'Success' if alert_success else 'Failed' }}</strong>
+        <p>{{ alert_result }}</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

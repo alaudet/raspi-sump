@@ -1,3 +1,14 @@
+raspisump (2.0~a50) unstable; urgency=medium
+
+  * Admin: add Support page (above Security) with Generate & Download
+    support file and Send Test Alert buttons; alert result shown inline
+    with success/failure styling
+  * waitress: increase thread count to 8 to reduce queue warnings under
+    burst load (multi-day chart view)
+  * rsumpsupport(): return file path for use by web view
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sun, 15 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a49) unstable; urgency=medium
 
   * Historical Readings: replace details/summary with always-visible

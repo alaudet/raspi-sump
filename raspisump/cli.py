@@ -286,3 +286,4 @@ Systemd files:
     with open(support_file_path, "w") as f:
         f.write(content)
     print(f"Support information has been saved to {support_file_path}.")
+    return support_file_path

@@ -516,6 +516,49 @@ main {
     text-decoration: none;
 }
 
+/* Support page */
+.support-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+
+.alert-result {
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    border-left: 4px solid;
+}
+
+.alert-result-ok {
+    border-color: #2e7d32;
+    background: rgba(46, 125, 50, 0.08);
+    color: #2e7d32;
+}
+
+.alert-result-fail {
+    border-color: #c62828;
+    background: rgba(198, 40, 40, 0.08);
+    color: #c62828;
+}
+
+[data-theme="dark"] .alert-result-ok  { color: #81c784; background: rgba(129,199,132,0.1); border-color: #81c784; }
+[data-theme="dark"] .alert-result-fail { color: #ef9a9a; background: rgba(239,154,154,0.1); border-color: #ef9a9a; }
+
+.alert-result p {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    font-family: monospace;
+    white-space: pre-wrap;
+    opacity: 0.9;
+}
+
+.form-error {
+    color: #c62828;
+    font-size: 0.95rem;
+}
+
 /* Service status table */
 .status-table {
     width: 100%;
