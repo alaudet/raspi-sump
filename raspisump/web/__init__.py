@@ -3,6 +3,21 @@
 import importlib.metadata
 import os
 import secrets
+from datetime import timedelta
+
+_SECRET_KEY_PATH = "/etc/raspi-sump/secret_key"
+
+
+def _load_secret_key():
+    """Return a stable secret key, falling back to a random one in dev."""
+    try:
+        with open(_SECRET_KEY_PATH) as f:
+            key = f.read().strip()
+        if key:
+            return key
+    except OSError:
+        pass
+    return secrets.token_hex(32)
 
 
 def create_app():
@@ -18,7 +33,8 @@ def create_app():
         static_url_path="/static",
     )
 
-    app.secret_key = secrets.token_hex(32)
+    app.secret_key = _load_secret_key()
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 
     try:
         app.config["VERSION"] = importlib.metadata.version("raspisump")

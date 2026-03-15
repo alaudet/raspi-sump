@@ -2,7 +2,7 @@
 
 from functools import wraps
 
-from flask import redirect, session, url_for
+from flask import redirect, request, session, url_for
 
 
 def get_admin_password():
@@ -25,6 +25,6 @@ def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         if not session.get("admin_logged_in"):
-            return redirect(url_for("admin.login_get"))
+            return redirect(url_for("admin.login_get", next=request.path))
         return f(*args, **kwargs)
     return decorated

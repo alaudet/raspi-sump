@@ -96,6 +96,13 @@ case "$1" in
         echo "Raspisump Version ${PKG_VERSION} | Copyright 2026 Al Audet" \
             > /usr/share/raspi-sump/web/css/inc/VERSION
 
+        # Generate Flask secret key if not present (stable across restarts — required for persistent sessions)
+        if [ ! -f /etc/raspi-sump/secret_key ]; then
+            openssl rand -hex 32 > /etc/raspi-sump/secret_key
+            chown root:raspisump /etc/raspi-sump/secret_key
+            chmod 0640 /etc/raspi-sump/secret_key
+        fi
+
         # Generate self-signed TLS certificate if not present (10-year, LAN only)
         SSL_DIR="/etc/raspi-sump/ssl"
         if [ ! -f "$SSL_DIR/raspi-sump.crt" ]; then

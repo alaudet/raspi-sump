@@ -24,16 +24,21 @@ def index():
 def login_get():
     if session.get("admin_logged_in"):
         return redirect(url_for("admin.index"))
-    return render_template("admin/login.html", error=None)
+    next_url = request.args.get("next", "")
+    return render_template("admin/login.html", error=None, next=next_url)
 
 
 @bp.route("/admin/login", methods=["POST"])
 def login_post():
     password = request.form.get("password", "")
+    next_url = request.form.get("next", "")
     if check_password(password):
         session["admin_logged_in"] = True
+        session.permanent = True
+        if next_url and next_url.startswith("/admin/"):
+            return redirect(next_url)
         return redirect(url_for("admin.index"))
-    return render_template("admin/login.html", error="Invalid password."), 401
+    return render_template("admin/login.html", error="Invalid password.", next=next_url), 401
 
 
 @bp.route("/admin/service", methods=["POST"])

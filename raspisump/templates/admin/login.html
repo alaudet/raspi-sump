@@ -9,6 +9,7 @@
         <p class="login-error">{{ error }}</p>
     {% endif %}
     <form class="login-form" method="post" action="/admin/login">
+        <input type="hidden" name="next" value="{{ next }}">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" autofocus required>
         <button type="submit">Login</button>

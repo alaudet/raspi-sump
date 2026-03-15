@@ -1,3 +1,13 @@
+raspisump (2.0~a46) unstable; urgency=medium
+
+  * Persist admin login for 30 days via permanent session cookie
+  * Redirect to originally requested admin page after login
+  * Generate stable Flask secret key in postinst (/etc/raspi-sump/secret_key)
+  * rsumpsupport: remove rsumpwebchart, chart dir, CSV, and line_color references;
+    add rsumpweb.service status and journal
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sun, 15 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a45) unstable; urgency=medium
 
   * Chart: blue line (#000fff) with light blue fill (#5c5cfb); wider alert line

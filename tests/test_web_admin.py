@@ -25,11 +25,6 @@ _FAKE_SERVICES = [
         "LoadState": "loaded", "UnitFileState": "enabled",
         "MainPID": 43, "ExecMainStartTimestamp": "Fri 2026-03-13 10:00:01 UTC",
     }),
-    ("rsumpwebchart.timer", {
-        "ActiveState": "active", "SubState": "waiting",
-        "LoadState": "loaded", "UnitFileState": "enabled",
-        "MainPID": 0, "ExecMainStartTimestamp": "",
-    }),
 ]
 
 
@@ -76,6 +71,40 @@ class TestAdminAuth(unittest.TestCase):
         self.assertIn("/admin/", response.headers["Location"])
         with self.client.session_transaction() as sess:
             self.assertTrue(sess.get("admin_logged_in"))
+
+    def test_login_success_marks_session_permanent(self):
+        with self._patch_password("changeme"):
+            self.client.post(
+                "/admin/login", data={"password": "changeme"}, follow_redirects=False
+            )
+        with self.client.session_transaction() as sess:
+            self.assertTrue(sess.permanent)
+
+    def test_login_next_redirects_to_admin_page(self):
+        with self._patch_password("changeme"):
+            response = self.client.post(
+                "/admin/login",
+                data={"password": "changeme", "next": "/admin/config"},
+                follow_redirects=False,
+            )
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/admin/config", response.headers["Location"])
+
+    def test_login_next_rejects_non_admin_path(self):
+        with self._patch_password("changeme"):
+            response = self.client.post(
+                "/admin/login",
+                data={"password": "changeme", "next": "/etc/passwd"},
+                follow_redirects=False,
+            )
+        self.assertEqual(response.status_code, 302)
+        self.assertNotIn("/etc/passwd", response.headers["Location"])
+        self.assertIn("/admin/", response.headers["Location"])
+
+    def test_unauthenticated_redirect_includes_next_param(self):
+        response = self.client.get("/admin/config")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("next=", response.headers["Location"])
 
     def test_login_failure_returns_401_with_error(self):
         with self._patch_password("changeme"):
