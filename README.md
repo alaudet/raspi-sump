@@ -1,6 +1,6 @@
 # Raspi-Sump
 
-Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
+Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
 
 ![Homepage screenshot](betatesting/screenshots/homepage%20dark.png)
 
@@ -9,7 +9,7 @@ Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It 
 ## Features
 
 - Continuous water level monitoring at configurable intervals
-- Email and/or [Mastodon](https://joinmastodon.org/) alerts when water reaches a critical level
+- Email (email to sms recommended) and/or [Mastodon](https://joinmastodon.org/) alerts when water reaches a critical level
 - Heartbeat notifications to confirm the system is running
 - Secure HTTPS web interface (self-signed certificate, nginx + Flask)
 - Interactive charts with dark mode support
@@ -23,7 +23,7 @@ Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It 
 ## Supported Hardware
 
 - Raspberry Pi 2, 3, 4, and 5
-- Ultrasonic sensors: HC-SR04, JSN-SR04T (waterproof, recommended)
+- Ultrasonic sensors: HC-SR04, JSN-SR04T 2.0 (waterproof).  JSN-SR04T 3.0 not recommended.
 
 ---
 
