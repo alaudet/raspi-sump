@@ -71,7 +71,7 @@ def serve():
     try:
         import waitress
         waitress.serve(app, unix_socket="/run/raspi-sump/flask.sock",
-                       unix_socket_perms="660")
+                       unix_socket_perms="660", threads=8)
     except ImportError:
         # Fallback if waitress is not installed
         app.run(host="127.0.0.1", port=5000, use_reloader=False, threaded=True)
