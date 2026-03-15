@@ -1,5 +1,29 @@
 <nav class="site-nav">
-    <a class="nav-brand" href="/">Raspi-Sump</a>
+
+    <!-- Left: brand + project/docs dropdown -->
+    <div class="nav-brand-group">
+        <a class="nav-brand" href="/">Raspi-Sump</a>
+        <details class="nav-dropdown nav-project-dd">
+            <summary aria-label="Project links">&#9660;</summary>
+            <ul>
+                <li class="nav-dd-section">Project</li>
+                <li><a href="https://www.linuxnorth.org/raspi-sump/" target="_blank">Home</a></li>
+                <li><a href="https://www.linuxnorth.org/raspi-sump/faq.html" target="_blank">FAQ</a></li>
+                <li><a href="https://github.com/alaudet/raspi-sump/blob/master/changelog" target="_blank">Changelog</a></li>
+                <li><a href="https://www.linuxnorth.org/raspi-sump/license.html" target="_blank">License</a></li>
+                <li class="nav-dd-section">Source Code</li>
+                <li><a href="https://github.com/alaudet/raspi-sump/" target="_blank">Raspi-Sump</a></li>
+                <li><a href="https://github.com/alaudet/pinsource" target="_blank">Pinsource</a></li>
+                <li class="nav-dd-section">Documentation</li>
+                <li><a href="https://www.linuxnorth.org/raspi-sump/" target="_blank">Coming Soon</a></li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- Theme toggle: always visible; centered on desktop via CSS -->
+    <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon-moon">&#9790;</span><span class="theme-icon-sun">&#9728;</span>
+    </button>
 
     <!-- Checkbox hamburger — no JavaScript required -->
     <input type="checkbox" id="nav-check" class="nav-check">
@@ -7,37 +31,6 @@
 
     <ul class="nav-links">
         <li><a href="/history/">Historical Readings</a></li>
-
-        <li>
-            <details class="nav-dropdown">
-                <summary>Project</summary>
-                <ul>
-                    <li><a href="https://www.linuxnorth.org/raspi-sump/" target="_blank">Home</a></li>
-                    <li><a href="https://www.linuxnorth.org/raspi-sump/faq.html" target="_blank">FAQ</a></li>
-                    <li><a href="https://github.com/alaudet/raspi-sump/blob/master/changelog" target="_blank">Changelog</a></li>
-                    <li><a href="https://www.linuxnorth.org/raspi-sump/license.html" target="_blank">License</a></li>
-                </ul>
-            </details>
-        </li>
-
-        <li>
-            <details class="nav-dropdown">
-                <summary>Source Code</summary>
-                <ul>
-                    <li><a href="https://github.com/alaudet/raspi-sump/" target="_blank">Raspi-Sump</a></li>
-                    <li><a href="https://github.com/alaudet/pinsource" target="_blank">Pinsource</a></li>
-                </ul>
-            </details>
-        </li>
-
-        <li>
-            <details class="nav-dropdown">
-                <summary>Documentation</summary>
-                <ul>
-                    <li><a href="https://www.linuxnorth.org/raspi-sump/" target="_blank">Coming Soon</a></li>
-                </ul>
-            </details>
-        </li>
 
         <li>
             <details class="nav-dropdown">
@@ -52,12 +45,6 @@
                     <li><a href="/admin/security">Security</a></li>
                 </ul>
             </details>
-        </li>
-
-        <li>
-            <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle dark mode">
-                <span class="theme-icon-moon">&#9790;</span><span class="theme-icon-sun">&#9728;</span>
-            </button>
         </li>
 
         <li>

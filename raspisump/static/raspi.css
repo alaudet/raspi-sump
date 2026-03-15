@@ -83,18 +83,97 @@ a:hover {
     flex-shrink: 0;
 }
 
+/* Brand group: brand name + project ▼ dropdown */
+.nav-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;            /* push theme-toggle + hamburger to the right on mobile */
+    position: relative; /* anchor for project dropdown */
+}
+
 .nav-brand {
     color: var(--brand-text);
     font-size: 1.2rem;
     font-weight: 700;
-    flex: 1;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .nav-brand:hover {
     color: var(--brand-text);
     text-decoration: none;
     opacity: 0.9;
+}
+
+/* Project ▼ dropdown button (always visible, next to brand) */
+.nav-project-dd > summary {
+    cursor: pointer;
+    color: var(--brand-text);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.3rem;
+    border-radius: var(--radius);
+    opacity: 0.75;
+    list-style: none;
+    user-select: none;
+}
+
+.nav-project-dd > summary::-webkit-details-marker { display: none; }
+.nav-project-dd summary { list-style: none; }
+
+.nav-project-dd > summary:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Project dropdown panel */
+.nav-project-dd > ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 300;
+    list-style: none;
+    padding: 0.4rem 0;
+    margin: 0;
+    min-width: 180px;
+    background: var(--brand-dark);
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.nav-project-dd[open] > ul {
+    display: block;
+}
+
+.nav-project-dd > ul a {
+    display: block;
+    padding: 0.4rem 1rem 0.4rem 1.5rem;
+    color: var(--brand-text);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-project-dd > ul a:hover {
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+/* Section headings inside the project dropdown */
+.nav-dd-section {
+    padding: 0.55rem 1rem 0.2rem;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--brand-text);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Divider above each section heading (except first) */
+.nav-dd-section + li:not(.nav-dd-section) {
+    /* no extra margin needed — heading provides it */
 }
 
 /* Hide the checkbox — it exists only for state */
@@ -195,6 +274,19 @@ a:hover {
         display: none;
     }
 
+    /* Brand group shrinks to natural width; theme-toggle centres itself */
+    .nav-brand-group {
+        flex: none;
+    }
+
+    /* Theme toggle: absolutely centred in the nav bar */
+    .btn-theme-toggle {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+
     /* Always show nav links as a horizontal row */
     .nav-links {
         display: flex !important;
@@ -205,6 +297,7 @@ a:hover {
         align-items: center;
         gap: 0.1rem;
         flex: none;
+        margin-left: auto;
     }
 
     .nav-links > li {
@@ -1126,11 +1219,6 @@ main {
     background: rgba(255, 255, 255, 0.12);
 }
 
-@media (min-width: 768px) {
-    .btn-theme-toggle {
-        margin: 0 0.15rem;
-    }
-}
 
 /* Show/hide sun & moon icons via CSS — no JS text swap needed */
 .theme-icon-sun  { display: none; }
@@ -1166,6 +1254,21 @@ main {
 
 [data-theme="dark"] .nav-dropdown > ul a {
     color: #aaaaaa;
+}
+
+[data-theme="dark"] .nav-project-dd > ul {
+    background: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .nav-project-dd > ul a {
+    color: #aaaaaa;
+}
+
+[data-theme="dark"] .nav-project-dd > ul a:hover {
+    color: #e8e8e8;
+    background: #2a2a2a;
+    opacity: 1;
 }
 
 [data-theme="dark"] .nav-dropdown > ul a:hover {
