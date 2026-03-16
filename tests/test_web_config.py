@@ -199,6 +199,21 @@ class TestWriteConfigValues(unittest.TestCase):
         cp.read(self.path)
         self.assertEqual(cp.get("email", "email_to"), "")
 
+    def test_missing_section_appended(self):
+        """Keys whose section doesn't exist in the file are appended at the end."""
+        write_config_values({("experimental", "cycle_detection"): "yes"}, self.path)
+        cp = configparser.RawConfigParser()
+        cp.read(self.path)
+        self.assertEqual(cp.get("experimental", "cycle_detection"), "yes")
+
+    def test_missing_section_preserves_existing(self):
+        """Appending a new section doesn't disturb existing values."""
+        write_config_values({("experimental", "cycle_detection"): "yes"}, self.path)
+        cp = configparser.RawConfigParser()
+        cp.read(self.path)
+        self.assertEqual(cp.get("gpio_pins", "trig_pin"), "17")
+        self.assertEqual(cp.get("pit", "unit"), "metric")
+
     def test_section_headers_preserved(self):
         write_config_values({("pit", "unit"): "imperial"}, self.path)
         with open(self.path) as f:

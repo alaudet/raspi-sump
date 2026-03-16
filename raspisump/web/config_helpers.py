@@ -112,7 +112,12 @@ def validate_config_form(form_data) -> tuple:
 
 
 def write_config_values(changes: dict, path: str = None) -> None:
-    """Write changed values into the config file, preserving all comments."""
+    """Write changed values into the config file, preserving all comments.
+
+    Keys that already exist in the file are updated in-place.
+    Keys whose section is missing from the file are appended at the end
+    (e.g. a new [experimental] section added by an upgrade).
+    """
     if path is None:
         path = _CONF_PATH
     with open(path, "r") as f:
@@ -120,6 +125,7 @@ def write_config_values(changes: dict, path: str = None) -> None:
 
     current_section = None
     out = []
+    written = set()
     for line in lines:
         stripped = line.strip()
 
@@ -141,9 +147,24 @@ def write_config_values(changes: dict, path: str = None) -> None:
             key = m.group(1)
             if (current_section, key) in changes:
                 out.append(f"{key} = {changes[(current_section, key)]}\n")
+                written.add((current_section, key))
                 continue
 
         out.append(line)
+
+    # Append any keys that were not found in the existing file,
+    # grouped by section (e.g. a new [experimental] section).
+    missing = {k: v for k, v in changes.items() if k not in written}
+    if missing:
+        by_section = {}
+        for (section, key), value in missing.items():
+            by_section.setdefault(section, {})[key] = value
+        out.append("\n")
+        for section, keys in by_section.items():
+            out.append(f"[{section}]\n")
+            for key, value in keys.items():
+                out.append(f"{key} = {value}\n")
+            out.append("\n")
 
     with open(path, "w") as f:
         f.writelines(out)
