@@ -95,6 +95,27 @@ class TestHistoryPage(unittest.TestCase):
         response = self.client.get("/history/?start=notadate&end=alsonotadate")
         self.assertIn(b"Invalid date", response.data)
 
+    def test_history_range_split_params_date_only_renders_chart(self):
+        """Split date+time params with no time should default to 00:00 / 23:59."""
+        response = self.client.get(
+            "/history/?start_date=2026-02-07&end_date=2026-02-08"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"chart-range", response.data)
+
+    def test_history_range_split_params_with_time_renders_chart(self):
+        response = self.client.get(
+            "/history/?start_date=2026-02-07&start_time=02:00&end_date=2026-02-07&end_time=03:00"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"chart-range", response.data)
+
+    def test_history_range_split_params_end_before_start_shows_error(self):
+        response = self.client.get(
+            "/history/?start_date=2026-02-08&end_date=2026-02-07"
+        )
+        self.assertIn(b"End must be after start", response.data)
+
 
 class TestReadingsRangeApi(unittest.TestCase):
 

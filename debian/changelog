@@ -1,3 +1,26 @@
+raspisump (2.0~a64) unstable; urgency=medium
+
+  * Fix overlapping x-axis labels on uPlot charts: set axis space property
+    to 110px for multi-day/range charts and 55px for single-day charts
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a63) unstable; urgency=medium
+
+  * Custom range: replace datetime-local inputs with separate date + optional
+    time inputs; time defaults to 00:00/23:59 when omitted
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a62) unstable; urgency=medium
+
+  * Fix custom range historical readings: accept bare dates without time,
+    silently defaulting start to 00:00 and end to 23:59
+  * Switch custom range form inputs from datetime-local to date type
+  * Add tests for bare-date range normalization
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a61) unstable; urgency=medium
 
   * Fix custom range form: remove required from datetime-local inputs to

@@ -26,9 +26,11 @@
     <div class="history-section">
         <h3 class="history-section-label">Custom Range</h3>
         <form class="date-form range-form" method="get" action="/history/">
-            <input type="datetime-local" name="start" value="{{ start or '' }}">
+            <input type="date" name="start_date" value="{{ (start or '')[:10] }}">
+            <input type="time" name="start_time" value="{{ (start or '')[11:16] }}">
             <span class="range-to">to</span>
-            <input type="datetime-local" name="end" value="{{ end or '' }}">
+            <input type="date" name="end_date" value="{{ (end or '')[:10] }}">
+            <input type="time" name="end_time" value="{{ (end or '')[11:16] }}">
             <button type="submit">View</button>
             <a href="/history/" class="btn-clear">Clear</a>
         </form>

@@ -13,8 +13,20 @@ bp = Blueprint("history", __name__)
 def index():
     date     = request.args.get("date")
     days_str = request.args.get("days")
-    start    = request.args.get("start")
-    end      = request.args.get("end")
+
+    # Support both old ?start=YYYY-MM-DDTHH:MM and new split date+time params
+    start = request.args.get("start")
+    end   = request.args.get("end")
+    if not start:
+        start_date = request.args.get("start_date", "")
+        start_time = request.args.get("start_time", "")
+        if start_date:
+            start = start_date + "T" + (start_time or "00:00")
+    if not end:
+        end_date = request.args.get("end_date", "")
+        end_time = request.args.get("end_time", "")
+        if end_date:
+            end = end_date + "T" + (end_time or "23:59")
 
     mode   = None
     stats  = None

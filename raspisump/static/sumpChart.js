@@ -117,6 +117,10 @@ function _renderChart(container, json, containerId, multiDay) {
 
     var height = parseInt(container.dataset.chartHeight) || 320;
 
+    // Minimum px between x-axis ticks — wider labels need more space so uPlot
+    // skips ticks automatically rather than letting them overlap.
+    var xSpace = (multiDay || xSpan > 86400) ? 110 : 55;
+
     var opts = {
         width:  container.clientWidth || 600,
         height: height,
@@ -127,6 +131,7 @@ function _renderChart(container, json, containerId, multiDay) {
                 ticks:  { stroke: borderColor },
                 grid:   { stroke: borderColor },
                 values: xValues,
+                space:  xSpace,
             },
             {
                 stroke: textColor,
