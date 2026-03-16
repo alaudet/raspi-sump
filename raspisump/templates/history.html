@@ -26,9 +26,9 @@
     <div class="history-section">
         <h3 class="history-section-label">Custom Range</h3>
         <form class="date-form range-form" method="get" action="/history/">
-            <input type="datetime-local" name="start" value="{{ start or '' }}" required>
+            <input type="datetime-local" name="start" value="{{ start or '' }}">
             <span class="range-to">to</span>
-            <input type="datetime-local" name="end" value="{{ end or '' }}" required>
+            <input type="datetime-local" name="end" value="{{ end or '' }}">
             <button type="submit">View</button>
             <a href="/history/" class="btn-clear">Clear</a>
         </form>
@@ -72,6 +72,13 @@
             <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
             <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
         </div>
+        {% if cycles is not none %}
+        <div class="stat-card">
+            <span class="stat-label">Pit Empties</span>
+            <span class="stat-value">{{ cycles }}</span>
+            <span class="stat-unit"><em>experimental</em></span>
+        </div>
+        {% endif %}
     </section>
     {% endif %}
 

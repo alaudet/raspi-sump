@@ -88,6 +88,11 @@
         <input type="hidden" name="unit" value="raspisump.service">
         <button type="submit" name="action" value="restart" class="btn-svc btn-svc-restart">Restart raspisump.service</button>
     </form>
-    <span class="conf-save-note">Restart the service to apply saved configuration changes.</span>
+    <form method="post" action="/admin/service">
+        <input type="hidden" name="unit" value="rsumpweb.service">
+        <input type="hidden" name="next" value="/admin/config">
+        <button type="submit" name="action" value="restart" class="btn-svc btn-svc-restart">Restart rsumpweb.service</button>
+    </form>
+    <span class="conf-save-note">Restart raspisump for sensor/alert changes; restart rsumpweb for web settings (e.g. cycle detection).</span>
 </section>
 {% endblock %}

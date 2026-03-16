@@ -16,17 +16,29 @@ def index():
     start    = request.args.get("start")
     end      = request.args.get("end")
 
-    mode  = None
-    stats = None
-    error = None
-    dates = []
-    days  = None
+    mode   = None
+    stats  = None
+    error  = None
+    dates  = []
+    days   = None
+    cycles = None
 
     if date:
         mode  = "day"
         stats = day_stats(date)
         if stats is None:
             error = f"No readings found for {date}."
+        else:
+            try:
+                from raspisump.config_values import config, cycle_detection_enabled
+                if cycle_detection_enabled():
+                    from raspisump.log import detect_cycles, query_readings
+                    alert_when = config.get("pit", "alert_when", fallback="high")
+                    readings = query_readings(date=date)
+                    cycles = len(detect_cycles(readings, alert_when))
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).warning("cycle detection error: %s", e)
 
     elif days_str:
         mode = "multiday"
@@ -60,6 +72,7 @@ def index():
         mode=mode,
         date=date,
         stats=stats,
+        cycles=cycles,
         error=error,
         dates=dates,
         days=days,

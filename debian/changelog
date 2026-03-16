@@ -1,3 +1,12 @@
+raspisump (2.0~a61) unstable; urgency=medium
+
+  * Fix custom range form: remove required from datetime-local inputs to
+    prevent confusing browser validation bubble on year field
+  * Historical readings single-day view: show Pit Empties stat card when
+    cycle detection is enabled; add rsumpweb restart button to config page
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a60) unstable; urgency=medium
 
   * write_config_values: append missing sections/keys to conf file instead
