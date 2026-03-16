@@ -42,6 +42,7 @@ def rsump():
 def rsumplog():
     """Query sump pit readings from the SQLite database."""
     import argparse
+    import time
     from raspisump import log
 
     parser = argparse.ArgumentParser(
@@ -65,7 +66,42 @@ def rsumplog():
         metavar="N",
         help="Show the last N readings",
     )
+    parser.add_argument(
+        "--cycles",
+        action="store_true",
+        help="Show pump cycle count instead of raw readings (requires cycle_detection = yes in raspisump.conf)",
+    )
     args = parser.parse_args()
+
+    if args.cycles and args.last:
+        parser.error("--cycles cannot be used with --last")
+
+    if args.cycles:
+        from raspisump.config_values import config, cycle_detection_enabled
+        if not cycle_detection_enabled():
+            print("Cycle detection is not enabled.")
+            print("Set cycle_detection = yes in the [experimental] section of raspisump.conf")
+            print("(Admin → Configuration in the web interface)")
+            return
+        date = args.date if args.date else time.strftime("%Y-%m-%d")
+        rows = log.query_readings(date=date)
+        if not rows:
+            print(f"No readings found for {date}.")
+            return
+        alert_when = config.get("pit", "alert_when", fallback="high")
+        cycles = log.detect_cycles(rows, alert_when)
+        print(f"\nPump cycles for {date}")
+        print("-" * 54)
+        if cycles:
+            print(f"  {'#':<4} {'Triggered':<22} {'Recovered':<22}")
+            print(f"  {'-'*4} {'-'*22} {'-'*22}")
+            for i, (arm_ts, reset_ts) in enumerate(cycles, 1):
+                print(f"  {i:<4} {arm_ts:<22} {reset_ts:<22}")
+        else:
+            print("  No cycles detected.")
+        print(f"\nTotal: {len(cycles)} pump empty(ies)  ({len(rows)} readings)")
+        print("Note: Experimental feature — results may vary. Feedback welcome.")
+        return
 
     if args.last:
         rows = log.query_readings(last=args.last)

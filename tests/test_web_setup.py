@@ -2,7 +2,7 @@
 
 import importlib
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 try:
     importlib.import_module("flask")
@@ -40,6 +40,7 @@ _VALID_FORM = {
     "credentials__access_token": "",
     "credentials__api_base_url": "",
     "credentials__handle": "",
+    "experimental__cycle_detection": "no",
 }
 
 
@@ -126,7 +127,7 @@ class TestSetupPost(unittest.TestCase):
     def test_password_is_hashed_in_cred_changes(self):
         captured = {}
 
-        def fake_write_creds(changes, path=None):
+        def fake_write_creds(changes, **_kwargs):
             captured.update(changes)
 
         with (

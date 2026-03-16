@@ -36,6 +36,13 @@
         <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
         <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
     </div>
+    {% if cycles is not none %}
+    <div class="stat-card">
+        <span class="stat-label">Pit Empties</span>
+        <span class="stat-value">{{ cycles }}</span>
+        <span class="stat-unit">today &mdash; <em>experimental</em></span>
+    </div>
+    {% endif %}
 </section>
 {% endif %}
 

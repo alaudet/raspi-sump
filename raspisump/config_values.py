@@ -18,6 +18,11 @@ config.read([
 ])
 
 
+def cycle_detection_enabled() -> bool:
+    """Return True if cycle_detection = yes in [experimental]."""
+    return config.get("experimental", "cycle_detection", fallback="no").lower() == "yes"
+
+
 def configuration():
     """Return a dict of the configuration file"""
     return {

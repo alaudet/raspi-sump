@@ -105,6 +105,7 @@ class TestValidateConfigForm(unittest.TestCase):
             "email__email_from": "",
             "email__heartbeat": "0",
             "email__heartbeat_interval": "10079",
+            "experimental__cycle_detection": "no",
         }
         if overrides:
             data.update(overrides)
@@ -288,6 +289,7 @@ class TestConfigView(unittest.TestCase):
             "email__email_from": "",
             "email__heartbeat": "0",
             "email__heartbeat_interval": "10079",
+            "experimental__cycle_detection": "no",
         }
         with self._patch_conf():
             response = self.client.post("/admin/config", data=form)

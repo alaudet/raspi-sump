@@ -60,6 +60,12 @@ FIELD_SCHEMA = [
         ("heartbeat_interval", "Heartbeat Interval (minutes)", "integer", None,
          "1439 = daily, 10079 = weekly, 43199 = monthly"),
     ]),
+    ("experimental", "Experimental Features", [
+        ("cycle_detection", "Cycle Detection", "select",
+         [("no", "No — disabled"), ("yes", "Yes — enabled")],
+         "Count daily pump empties. Uses the observed water level range to detect cycles. "
+         "Experimental — accuracy varies by setup. Enable, try it, and share feedback."),
+    ]),
 ]
 
 

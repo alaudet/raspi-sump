@@ -90,6 +90,101 @@ class TestQueryReadings(TestCase):
         self.assertIsInstance(unit, str)
 
 
+class TestDetectCycles(TestCase):
+
+    def _make_sump_readings(self, cycles=2, baseline=70.0, trough=35.0, pts_per_phase=10):
+        """Generate synthetic sump pit readings with a given number of cycles.
+
+        Each cycle: baseline → falls to trough → recovers to baseline.
+        """
+        rows = []
+        ts_counter = 0
+
+        def _ts(n):
+            h, m = divmod(n, 60)
+            return f"2026-03-15 {h:02d}:{m:02d}:00"
+
+        # Start at baseline
+        rows.append((_ts(ts_counter), baseline, "cm"))
+        ts_counter += 1
+
+        for _ in range(cycles):
+            # Fall to trough
+            step = (baseline - trough) / pts_per_phase
+            for i in range(1, pts_per_phase + 1):
+                rows.append((_ts(ts_counter), baseline - step * i, "cm"))
+                ts_counter += 1
+            # Rise back to baseline
+            for i in range(1, pts_per_phase + 1):
+                rows.append((_ts(ts_counter), trough + step * i, "cm"))
+                ts_counter += 1
+            rows.append((_ts(ts_counter), baseline, "cm"))
+            ts_counter += 1
+
+        return rows
+
+    def test_detects_correct_cycle_count(self):
+        for n in (1, 2, 3, 5):
+            with self.subTest(cycles=n):
+                rows = self._make_sump_readings(cycles=n)
+                result = log.detect_cycles(rows, alert_when="high")
+                self.assertEqual(len(result), n)
+
+    def test_returns_tuples_of_timestamps(self):
+        rows = self._make_sump_readings(cycles=1)
+        cycles = log.detect_cycles(rows, alert_when="high")
+        self.assertEqual(len(cycles), 1)
+        arm_ts, reset_ts = cycles[0]
+        self.assertIsInstance(arm_ts, str)
+        self.assertIsInstance(reset_ts, str)
+        self.assertLess(arm_ts, reset_ts)
+
+    def test_flat_readings_return_no_cycles(self):
+        rows = [("2026-03-15 00:00:00", 70.0, "cm")] * 20
+        result = log.detect_cycles(rows, alert_when="high")
+        self.assertEqual(result, [])
+
+    def test_too_few_readings_return_no_cycles(self):
+        rows = [("2026-03-15 00:00:00", 70.0, "cm")] * 3
+        result = log.detect_cycles(rows, alert_when="high")
+        self.assertEqual(result, [])
+
+    def test_insufficient_variation_returns_no_cycles(self):
+        # Less than 1 unit of variation — below the minimum span
+        rows = [("2026-03-15 00:00:00", 70.0 + (i % 3) * 0.3, "cm") for i in range(20)]
+        result = log.detect_cycles(rows, alert_when="high")
+        self.assertEqual(result, [])
+
+    def test_cistern_mode_detects_cycles(self):
+        """For alert_when='low', direction is inverted (depth increases when water drops)."""
+        rows = []
+        ts_counter = 0
+
+        def _ts(n):
+            h, m = divmod(n, 60)
+            return f"2026-03-15 {h:02d}:{m:02d}:00"
+
+        baseline = 20.0   # full cistern — sensor close to water
+        empty = 80.0      # empty cistern — sensor far from water
+        pts = 10
+        step = (empty - baseline) / pts
+
+        rows.append((_ts(ts_counter), baseline, "cm"))
+        ts_counter += 1
+        for _ in range(2):
+            for i in range(1, pts + 1):
+                rows.append((_ts(ts_counter), baseline + step * i, "cm"))
+                ts_counter += 1
+            for i in range(1, pts + 1):
+                rows.append((_ts(ts_counter), empty - step * i, "cm"))
+                ts_counter += 1
+            rows.append((_ts(ts_counter), baseline, "cm"))
+            ts_counter += 1
+
+        result = log.detect_cycles(rows, alert_when="low")
+        self.assertEqual(len(result), 2)
+
+
 class TestQueryReadingsRange(TestCase):
     def setUp(self):
         self.rows = [

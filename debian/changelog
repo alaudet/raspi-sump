@@ -1,3 +1,28 @@
+raspisump (2.0~a59) unstable; urgency=medium
+
+  * Fix cycle detection span threshold from 5 to 1 unit to support imperial
+    readings with narrow depth ranges; log warning on detection error instead
+    of silently swallowing exceptions in home view
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a58) unstable; urgency=medium
+
+  * Fix test_web_config and test_web_setup forms to include
+    experimental__cycle_detection field after FIELD_SCHEMA addition
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a57) unstable; urgency=medium
+
+  * Experimental cycle detection: add [experimental] cycle_detection = no
+    to raspisump.conf; detect_cycles() in log.py uses adaptive hysteresis on
+    observed data range; rsumplog --cycles shows cycle table (requires feature
+    enabled, errors clearly if not); homepage shows Pit Empties stat card when
+    enabled; config editor exposes the toggle under Experimental Features
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a56) unstable; urgency=medium
 
   * Setup wizard: move admin password field to top of form with prominent

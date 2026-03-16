@@ -208,6 +208,60 @@ def query_readings_range(
         conn.close()
 
 
+def detect_cycles(readings: list, alert_when: str = "high") -> list:
+    """Detect pump cycles from a list of (ts, water_depth, unit) readings.
+
+    Uses an adaptive hysteresis approach based on the observed data range:
+      - alert_when='high' (sump pit): arm when depth falls to the midpoint of
+        the day's range; reset when depth recovers to 80% of the range.
+      - alert_when='low' (cistern): direction inverted.
+
+    Returns a list of (arm_ts, reset_ts) tuples, one per detected cycle.
+
+    Experimental: accuracy depends on pit geometry and reading interval.
+    Requires at least 4 readings and at least 5 units of depth variation.
+    """
+    if len(readings) < 4:
+        return []
+
+    depths = [r[1] for r in readings]
+    min_depth = min(depths)
+    max_depth = max(depths)
+    span = max_depth - min_depth
+
+    if span < 1:
+        return []
+
+    cycles = []
+    armed = False
+    arm_ts = None
+
+    if alert_when == "high":
+        # Sump pit: water_depth DECREASES as water rises.
+        arm_threshold = min_depth + span * 0.5    # halfway down → water rising
+        reset_threshold = min_depth + span * 0.8  # 80% recovered → pit emptied
+        for ts, depth, _ in readings:
+            if not armed and depth <= arm_threshold:
+                armed = True
+                arm_ts = ts
+            elif armed and depth >= reset_threshold:
+                armed = False
+                cycles.append((arm_ts, ts))
+    else:
+        # Cistern: water_depth INCREASES as water drops.
+        arm_threshold = min_depth + span * 0.5    # halfway up → water dropping
+        reset_threshold = min_depth + span * 0.2  # back near full → refilled
+        for ts, depth, _ in readings:
+            if not armed and depth >= arm_threshold:
+                armed = True
+                arm_ts = ts
+            elif armed and depth <= reset_threshold:
+                armed = False
+                cycles.append((arm_ts, ts))
+
+    return cycles
+
+
 def log_reading(water_depth: float, unit: str) -> None:
     """Log a sensor reading to the SQLite database."""
     ts = time.strftime("%Y-%m-%d %H:%M:%S")
