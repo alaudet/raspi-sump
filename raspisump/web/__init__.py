@@ -54,6 +54,7 @@ def create_app():
     from raspisump.web.views.security import bp as security_bp
     from raspisump.web.views.support import bp as support_bp
     from raspisump.web.views.api import bp as api_bp
+    from raspisump.web.views.setup import bp as setup_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(history_bp)
     app.register_blueprint(admin_bp)
@@ -63,6 +64,19 @@ def create_app():
     app.register_blueprint(security_bp)
     app.register_blueprint(support_bp)
     app.register_blueprint(api_bp)
+    app.register_blueprint(setup_bp)
+
+    @app.before_request
+    def check_first_run():
+        if app.testing:
+            return None
+        from flask import redirect, request, url_for
+        if request.path.startswith("/setup") or request.path.startswith("/static"):
+            return None
+        from raspisump.web.views.setup import is_unconfigured
+        if is_unconfigured():
+            return redirect(url_for("setup.setup_get"))
+        return None
 
     return app
 

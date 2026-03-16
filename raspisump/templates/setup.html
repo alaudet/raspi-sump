@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}First-Run Setup — Raspi-Sump{% endblock %}
+
+{% block content %}
+<section class="admin-card">
+    <div class="admin-header">
+        <h2>Welcome to Raspi-Sump</h2>
+    </div>
+    <p class="backup-desc">
+        Complete this one-time setup to configure your sump pit monitor.
+        All settings can be changed later from the Admin panel.
+    </p>
+</section>
+
+{% if errors %}
+<section class="admin-card conf-error-banner">
+    <strong>Please fix the following before continuing:</strong>
+    <ul class="conf-error-list">
+    {% for err in errors %}
+        <li>{{ err }}</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<form method="post" action="/setup">
+
+{# Web Admin — admin password first, most prominent #}
+{% for section, section_label, fields in cred_schema %}
+{% if section == "web" %}
+<section class="admin-card">
+    <h3 class="admin-section-title">Set Admin Password</h3>
+    <p class="backup-desc" style="margin-bottom:1rem;">
+        Choose a secure password for the admin panel. The default password <strong>admin</strong> is not accepted.
+    </p>
+    <div class="conf-field-grid">
+    {% for key, label, widget, help_text in fields %}
+        {% set field_name = section ~ "__" ~ key %}
+        {% set field_id   = "f_" ~ section ~ "_" ~ key %}
+        <div class="conf-field">
+            <label class="conf-field-label" for="{{ field_id }}">{{ label }}</label>
+            <div class="conf-field-input">
+                <input type="password" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" autocomplete="new-password">
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endfor %}
+
+{# raspisump.conf sections #}
+{% for section, section_label, fields in conf_schema %}
+<section class="admin-card">
+    <h3 class="admin-section-title">{{ section_label }}</h3>
+    <div class="conf-field-grid">
+    {% for key, label, widget, options, help_text in fields %}
+        {% set field_name = section ~ "__" ~ key %}
+        {% set field_id   = "f_" ~ section ~ "_" ~ key %}
+        {% set cur_val    = current_conf.get(section, {}).get(key, "") %}
+        <div class="conf-field">
+            <label class="conf-field-label" for="{{ field_id }}">{{ label }}</label>
+            <div class="conf-field-input">
+                {% if widget == "select" %}
+                <select name="{{ field_name }}" id="{{ field_id }}" class="conf-select">
+                    {% for opt_val, opt_label in options %}
+                    <option value="{{ opt_val }}"
+                        {% if cur_val == opt_val %}selected{% endif %}>
+                        {{ opt_label }}
+                    </option>
+                    {% endfor %}
+                </select>
+                {% elif widget == "integer" %}
+                <input type="number" step="1" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% elif widget == "float" %}
+                <input type="number" step="any" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% else %}
+                <input type="text" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% endif %}
+                {% if help_text %}
+                <small class="conf-help">{{ help_text }}</small>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endfor %}
+
+{# Email / Mastodon credentials — optional #}
+{% for section, section_label, fields in cred_schema %}
+{% if section != "web" %}
+<section class="admin-card">
+    <h3 class="admin-section-title">
+        {{ section_label }}
+        <small class="conf-help"> — optional, configure later in Security if preferred</small>
+    </h3>
+    <div class="conf-field-grid">
+    {% for key, label, widget, help_text in fields %}
+        {% set field_name = section ~ "__" ~ key %}
+        {% set field_id   = "f_" ~ section ~ "_" ~ key %}
+        {% set cur_val    = current_creds.get(section, {}).get(key, "") %}
+        <div class="conf-field">
+            <label class="conf-field-label" for="{{ field_id }}">{{ label }}</label>
+            <div class="conf-field-input">
+                {% if widget == "password" %}
+                <input type="password" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}" autocomplete="off">
+                {% else %}
+                <input type="text" name="{{ field_name }}" id="{{ field_id }}"
+                       class="conf-input" value="{{ cur_val }}">
+                {% endif %}
+                {% if help_text %}
+                <small class="conf-help">{{ help_text }}</small>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endfor %}
+
+<section class="admin-card conf-save-bar">
+    <button type="submit" class="btn-download">Save and Start Raspi-Sump</button>
+    <span class="conf-save-note">Raspi-Sump will start automatically after saving.</span>
+</section>
+
+</form>
+{% endblock %}

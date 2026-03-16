@@ -1,3 +1,28 @@
+raspisump (2.0~a56) unstable; urgency=medium
+
+  * Setup wizard: move admin password field to top of form with prominent
+    heading; fix gear icon CSS specificity so border and padding render
+    correctly on desktop nav
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a55) unstable; urgency=medium
+
+  * Version bump
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a54) unstable; urgency=medium
+
+  * First-run setup wizard: before_request hook redirects to /setup when
+    admin_password is still 'admin'; GET pre-fills defaults from conf files;
+    POST validates all fields, rejects 'admin' password, hashes with argon2,
+    writes raspisump.conf and credentials.conf, starts raspisump.service,
+    delayed restart of rsumpweb; postinst starts rsumpweb on fresh install
+    and updates message to point to web UI
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a53) unstable; urgency=medium
 
   * Password hashing: argon2 for admin password; transparent migration

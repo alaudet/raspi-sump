@@ -1189,11 +1189,14 @@ main {
    Theme toggle button
    -------------------------------------------------------------------------- */
 
-/* Gear icon admin dropdown — match theme toggle size and border */
-.nav-admin-dd > summary {
+/* Gear icon admin dropdown — match theme toggle size, padding, and border.
+   Uses full path selector to beat .nav-links > li > details.nav-dropdown > summary */
+.nav-links > li > details.nav-admin-dd > summary {
     font-size: 1.15rem;
+    padding: 0.35rem 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius);
+    line-height: 1;
 }
 
 .btn-theme-toggle {
