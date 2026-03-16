@@ -176,6 +176,11 @@ a:hover {
     /* no extra margin needed — heading provides it */
 }
 
+.nav-dd-sep {
+    border-top: 1px solid var(--border);
+    margin: 0.25rem 0;
+}
+
 /* Hide the checkbox — it exists only for state */
 .nav-check {
     display: none;

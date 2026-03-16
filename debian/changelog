@@ -1,3 +1,11 @@
+raspisump (2.0~a65) unstable; urgency=medium
+
+  * Remove deprecated FLASK_ENV=production from rsumpweb.service
+  * Add separator lines in Project dropdown between License/Source Code
+    and Pinsource/Documentation
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a64) unstable; urgency=medium
 
   * Fix overlapping x-axis labels on uPlot charts: set axis space property

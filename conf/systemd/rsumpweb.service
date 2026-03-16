@@ -10,7 +10,6 @@ UMask=0002
 RuntimeDirectory=raspi-sump
 RuntimeDirectoryMode=0750
 WorkingDirectory=/var/lib/raspi-sump
-Environment=FLASK_ENV=production
 
 [Install]
 WantedBy=multi-user.target
