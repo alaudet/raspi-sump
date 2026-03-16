@@ -1,3 +1,20 @@
+raspisump (2.0~a53) unstable; urgency=medium
+
+  * Password hashing: argon2 for admin password; transparent migration
+    from plaintext on first login; hash on password change in Security page;
+    add python3-argon2 dependency; fix test_web_admin to patch check_password
+    directly
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a52) unstable; urgency=medium
+
+  * Admin nav: replace "Administration" with ⚙ gear icon; Login/Logout
+    toggled by session state; remove inline logout buttons from all admin
+    templates; remove .btn-logout CSS
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 16 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a51) unstable; urgency=medium
 
   * Navbar: move Project/Source Code/Documentation into a ▼ dropdown

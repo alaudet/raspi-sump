@@ -36,8 +36,8 @@ class TestAdminAuth(unittest.TestCase):
         app.config["TESTING"] = True
         self.client = app.test_client()
 
-    def _patch_password(self, password="changeme"):
-        return patch("raspisump.web.auth.get_admin_password", return_value=password)
+    def _patch_check_password(self, success=True):
+        return patch("raspisump.web.views.admin.check_password", return_value=success)
 
     def _patch_services(self):
         return patch(
@@ -63,7 +63,7 @@ class TestAdminAuth(unittest.TestCase):
         self.assertIn("/admin/", response.headers["Location"])
 
     def test_login_success_sets_session_and_redirects(self):
-        with self._patch_password("changeme"):
+        with self._patch_check_password(True):
             response = self.client.post(
                 "/admin/login", data={"password": "changeme"}, follow_redirects=False
             )
@@ -73,7 +73,7 @@ class TestAdminAuth(unittest.TestCase):
             self.assertTrue(sess.get("admin_logged_in"))
 
     def test_login_success_marks_session_permanent(self):
-        with self._patch_password("changeme"):
+        with self._patch_check_password(True):
             self.client.post(
                 "/admin/login", data={"password": "changeme"}, follow_redirects=False
             )
@@ -81,7 +81,7 @@ class TestAdminAuth(unittest.TestCase):
             self.assertTrue(sess.permanent)
 
     def test_login_next_redirects_to_admin_page(self):
-        with self._patch_password("changeme"):
+        with self._patch_check_password(True):
             response = self.client.post(
                 "/admin/login",
                 data={"password": "changeme", "next": "/admin/config"},
@@ -91,7 +91,7 @@ class TestAdminAuth(unittest.TestCase):
         self.assertIn("/admin/config", response.headers["Location"])
 
     def test_login_next_rejects_non_admin_path(self):
-        with self._patch_password("changeme"):
+        with self._patch_check_password(True):
             response = self.client.post(
                 "/admin/login",
                 data={"password": "changeme", "next": "/etc/passwd"},
@@ -107,7 +107,7 @@ class TestAdminAuth(unittest.TestCase):
         self.assertIn("next=", response.headers["Location"])
 
     def test_login_failure_returns_401_with_error(self):
-        with self._patch_password("changeme"):
+        with self._patch_check_password(False):
             response = self.client.post(
                 "/admin/login", data={"password": "wrongpassword"}
             )

@@ -595,19 +595,6 @@ main {
     margin-bottom: 1rem;
 }
 
-.btn-logout {
-    font-size: 0.85rem;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text-muted);
-}
-
-.btn-logout:hover {
-    border-color: var(--brand);
-    color: var(--brand);
-    text-decoration: none;
-}
 
 /* Support page */
 .support-description {
@@ -1201,6 +1188,14 @@ main {
 /* --------------------------------------------------------------------------
    Theme toggle button
    -------------------------------------------------------------------------- */
+
+/* Gear icon admin dropdown — match theme toggle size and border */
+.nav-admin-dd > summary {
+    font-size: 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius);
+}
+
 .btn-theme-toggle {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);

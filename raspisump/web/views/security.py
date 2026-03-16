@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, request
 
-from raspisump.web.auth import login_required
+from raspisump.web.auth import hash_password, login_required
 from raspisump.web.credentials_helpers import (
     CRED_SCHEMA,
     load_credentials,
@@ -42,6 +42,10 @@ def save():
         current = _form_values_from_post(request.form)
         return render_template("admin/security.html", schema=CRED_SCHEMA,
                                current=current, errors=errors, success=False)
+    if ("web", "admin_password") in changes:
+        changes[("web", "admin_password")] = hash_password(
+            changes[("web", "admin_password")]
+        )
     try:
         write_credentials(changes)
         current = load_credentials()

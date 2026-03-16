@@ -33,10 +33,14 @@
         <li><a href="/history/">Historical Readings</a></li>
 
         <li>
-            <details class="nav-dropdown">
-                <summary>Administration</summary>
+            <details class="nav-dropdown nav-admin-dd">
+                <summary aria-label="Administration">&#9881;</summary>
                 <ul>
+                    {% if session.get('admin_logged_in') %}
+                    <li><a href="/admin/logout">Logout</a></li>
+                    {% else %}
                     <li><a href="/admin/login">Login</a></li>
+                    {% endif %}
                     <li><a href="/admin/">System Status</a></li>
                     <li><a href="/admin/config">Configuration</a></li>
                     <li><a href="/admin/backup">Backup / Export</a></li>
