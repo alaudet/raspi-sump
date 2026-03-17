@@ -1,4 +1,34 @@
-# Raspi-Sump
+# Raspi-Sump Version 2
+
+Raspi-Sump Version 2 is ready for alpha testing.
+
+## Alpha Install (Unstable)
+
+Alpha releases are available via the Linuxnorth APT repository. This is an
+unstable channel intended for testers — use on a production system at your own risk.
+
+You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
+
+```bash
+# 1. Import the signing key
+curl -fsSL https://apt.linuxnorth.org/public_key.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/linuxnorth-archive-keyring.gpg
+
+# 2. Add the repository
+echo "deb [signed-by=/usr/share/keyrings/linuxnorth-archive-keyring.gpg] \
+  https://apt.linuxnorth.org unstable main" \
+  | sudo tee /etc/apt/sources.list.d/linuxnorth.list
+
+# 3. Install
+sudo apt update
+sudo apt install raspisump
+```
+
+Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sump/issues).
+
+---
+
+# About
 
 Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
 
@@ -51,19 +81,19 @@ Version 2.0 is a complete rewrite:
 - FHS-compliant paths (`/etc/raspi-sump/`, `/var/log/raspi-sump/`, `/var/lib/raspi-sump/`)
 - systemd services for both the monitor and web interface
 
-See the [changelog](https://github.com/alaudet/raspi-sump/blob/master/debian/changelog) for full details.
+See the [changelog](https://github.com/alaudet/raspi-sump/blob/main/debian/changelog) for full details.
 
 ---
 
 ## Install
 
-See the [install guide](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md).
+See the [install guide](https://github.com/alaudet/raspi-sump/blob/main/docs/install.md).
 
 ---
 
 ## Upgrade
 
-See the [upgrade guide](https://github.com/alaudet/raspi-sump/blob/master/docs/upgrade.md).
+See the [upgrade guide](https://github.com/alaudet/raspi-sump/blob/main/docs/upgrade.md).
 
 ---
 
@@ -95,15 +125,15 @@ Best practices:
 
 ## License
 
-Version 2.0 is released under the [Apache 2.0 License](https://github.com/alaudet/raspi-sump/blob/master/LICENSE).
+Version 2.0 is released under the [Apache 2.0 License](https://github.com/alaudet/raspi-sump/blob/main/LICENSE).
 
-Version 1.x was released under the MIT License.
+
 
 ---
 
 ## Contributing
 
-Please read the [Contributing Guidelines](https://github.com/alaudet/raspi-sump/blob/master/CONTRIBUTING.md) before submitting a pull request.
+Please read the [Contributing Guidelines](https://github.com/alaudet/raspi-sump/blob/main/CONTRIBUTING.md) before submitting a pull request.
 
 ---
 
