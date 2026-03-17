@@ -9,6 +9,8 @@ unstable channel intended for testers — use on a production system at your own
 
 You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
 
+There are removal instructions at https://github.com/alaudet/raspi-sump/blob/main/betatesting/README.md
+
 ```bash
 # 1. Import the signing key
 curl -fsSL https://apt.linuxnorth.org/public_key.asc \
