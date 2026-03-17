@@ -9,22 +9,7 @@ unstable channel intended for testers — use on a production system at your own
 
 You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
 
-There are removal instructions at https://github.com/alaudet/raspi-sump/blob/main/betatesting/README.md
-
-```bash
-# 1. Import the signing key
-curl -fsSL https://apt.linuxnorth.org/public_key.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/linuxnorth-archive-keyring.gpg
-
-# 2. Add the repository
-echo "deb [signed-by=/usr/share/keyrings/linuxnorth-archive-keyring.gpg] \
-  https://apt.linuxnorth.org unstable main" \
-  | sudo tee /etc/apt/sources.list.d/linuxnorth.list
-
-# 3. Install
-sudo apt update
-sudo apt install raspisump
-```
+There are full removal and install instructions at https://github.com/alaudet/raspi-sump/blob/main/betatesting/README.md
 
 Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sump/issues).
 
@@ -85,23 +70,6 @@ Version 2.0 is a complete rewrite:
 
 See the [changelog](https://github.com/alaudet/raspi-sump/blob/main/debian/changelog) for full details.
 
----
-
-## Install
-
-See the [install guide](https://github.com/alaudet/raspi-sump/blob/main/docs/install.md).
-
----
-
-## Upgrade
-
-See the [upgrade guide](https://github.com/alaudet/raspi-sump/blob/main/docs/upgrade.md).
-
----
-
-## More Info
-
-[https://www.linuxnorth.org/raspi-sump/](https://www.linuxnorth.org/raspi-sump/)
 
 ---
 
