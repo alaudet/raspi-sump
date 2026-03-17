@@ -1,3 +1,3 @@
-# Upgrading
+# Fresh Install
 
 *Documentation in progress.*

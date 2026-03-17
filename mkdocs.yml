@@ -1,0 +1,36 @@
+site_name: Raspi-Sump
+site_url: https://raspisumpdocs.linuxnorth.org/
+repo_url: https://github.com/alaudet/raspi-sump
+repo_name: alaudet/raspi-sump
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.action.edit
+
+nav:
+  - Home: index.md
+  - Installation:
+    - Fresh Install: installation.md
+    - Upgrading: upgrade.md
+  - Configuration: configuration.md
+  - Web Interface: web-interface.md
+  - Alerts: alerts.md
+  - CLI Tools: cli.md
+  - Hardware: hardware.md
+  - FAQ: faq.md
+  - Contributing: contributing.md

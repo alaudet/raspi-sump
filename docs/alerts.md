@@ -1,3 +1,3 @@
-# Upgrading
+# Alerts
 
 *Documentation in progress.*

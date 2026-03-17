@@ -1,3 +1,3 @@
-# Upgrading
+# Hardware
 
 *Documentation in progress.*

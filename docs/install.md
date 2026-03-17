@@ -1,1 +1,0 @@
-Placeholder for 2.x versions

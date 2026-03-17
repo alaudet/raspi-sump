@@ -1,3 +1,3 @@
-# Upgrading
+# FAQ
 
 *Documentation in progress.*

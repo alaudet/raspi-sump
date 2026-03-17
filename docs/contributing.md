@@ -1,3 +1,3 @@
-# Upgrading
+# Contributing
 
 *Documentation in progress.*

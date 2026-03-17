@@ -1,3 +1,3 @@
-# Upgrading
+# CLI Tools
 
 *Documentation in progress.*

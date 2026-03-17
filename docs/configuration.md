@@ -1,3 +1,3 @@
-# Upgrading
+# Configuration
 
 *Documentation in progress.*
