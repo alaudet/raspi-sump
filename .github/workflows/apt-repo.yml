@@ -1,0 +1,104 @@
+name: Build and Publish APT Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      distribution:
+        description: 'Target distribution'
+        required: true
+        default: 'unstable'
+        type: choice
+        options:
+          - unstable
+          - trixie
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout raspi-sump source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential debhelper dh-python \
+            python3-all python3-setuptools \
+            apt-utils gnupg devscripts
+
+      - name: Build raspisump .deb
+        run: |
+          dpkg-buildpackage -us -uc -b
+          mkdir -p built-debs
+          mv ../*.deb built-debs/
+
+      - name: Checkout alaudet/apt repo
+        uses: actions/checkout@v4
+        with:
+          repository: alaudet/apt
+          token: ${{ secrets.APT_REPO_TOKEN }}
+          path: apt-repo
+
+      - name: Copy .deb to pool
+        run: |
+          mkdir -p apt-repo/pool/r/raspisump
+          cp built-debs/raspisump_*.deb apt-repo/pool/r/raspisump/
+
+      - name: Generate Packages indices
+        run: |
+          DIST=${{ github.event.inputs.distribution }}
+          cd apt-repo
+          for ARCH in arm64 armhf; do
+            DIR="dists/${DIST}/main/binary-${ARCH}"
+            mkdir -p "$DIR"
+            dpkg-scanpackages -m --arch "$ARCH" pool/ /dev/null > "${DIR}/Packages"
+            gzip -9 -k "${DIR}/Packages"
+            xz   -9 -k "${DIR}/Packages"
+          done
+
+      - name: Generate Release file
+        run: |
+          DIST=${{ github.event.inputs.distribution }}
+          cd apt-repo
+          cat > /tmp/release.conf <<EOF
+          APT {
+            FTPArchive {
+              Release {
+                Origin "linuxnorth";
+                Label "linuxnorth";
+                Suite "${DIST}";
+                Codename "${DIST}";
+                Architectures "arm64 armhf";
+                Components "main";
+                Description "Linuxnorth Debian Package Repository";
+              };
+            };
+          };
+          EOF
+          apt-ftparchive -c /tmp/release.conf release "dists/${DIST}/" \
+            > "dists/${DIST}/Release"
+
+      - name: Import GPG key and sign Release
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE:  ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          DIST=${{ github.event.inputs.distribution }}
+          cd apt-repo
+          echo "$GPG_PRIVATE_KEY" | gpg --import --batch --no-tty
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 \
+            --clearsign -o "dists/${DIST}/InRelease" "dists/${DIST}/Release"
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 \
+            --detach-sign --armor -o "dists/${DIST}/Release.gpg" "dists/${DIST}/Release"
+
+      - name: Commit and push to alaudet/apt
+        run: |
+          cd apt-repo
+          git config user.name  "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "APT repo update $(date -u +'%Y-%m-%dT%H:%M:%SZ') [${{ github.event.inputs.distribution }}]" \
+            || echo "Nothing to commit"
+          git push
