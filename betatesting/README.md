@@ -1,13 +1,5 @@
 # Raspi-Sump Beta Testing Guide
 
-**Version: 2.0a51**
-
-Thank you for helping test Raspi-Sump 2.0. This is a complete rewrite targeting
-Raspberry Pi OS Trixie and Bookworm. Feedback on installation, usability, and
-bugs is very much appreciated.
-
----
-
 ## Prerequisites
 
 - Raspberry Pi running **Raspberry Pi OS Trixie or Bookworm** (32-bit or 64-bit)
@@ -19,17 +11,6 @@ bugs is very much appreciated.
 ## Screenshots
 
 Screenshots of the web interface are available in the [screenshots folder](screenshots/README.md).
-
----
-
-## Download
-
-The packages are not yet in an APT repository. Download the `.deb` files directly:
-
-| Package | Link |
-|---|---|
-| `python3-pinsource` | [python3-pinsource_0.0.4~a1_all.deb](https://github.com/alaudet/raspi-sump/raw/V2/betatesting/python3-pinsource_0.0.4~a1_all.deb) |
-| `raspisump` | [raspisump_2.0~a51_all.deb](https://github.com/alaudet/raspi-sump/raw/V2/betatesting/raspisump_2.0~a51_all.deb) |
 
 ---
 
@@ -75,87 +56,46 @@ Remove any lines referencing `rsump`, `rsumpmonitor`, or `rsumpwebchart` and sav
 
 ---
 
-## Fresh Install
+## Alpha install
 
-**1. Install the pinsource dependency first:** (./ indicates current folder)
+Alpha releases are available via the Linuxnorth APT repository. This is an
+unstable channel intended for testers — use on a production system at your own risk.
 
-```bash
-sudo apt install ./python3-pinsource_*.deb
-```
-
-**2. Install raspisump:** (./indicates current folder)
+You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
 
 ```bash
-sudo apt install ./raspisump_*.deb
+# 1. Import the signing key
+curl -fsSL https://apt.linuxnorth.org/public_key.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/linuxnorth-archive-keyring.gpg
+
+# 2. Add the repository
+echo "deb [signed-by=/usr/share/keyrings/linuxnorth-archive-keyring.gpg] \
+  https://apt.linuxnorth.org unstable main" \
+  | sudo tee /etc/apt/sources.list.d/linuxnorth.list
+
+# 3. Install
+sudo apt update
+sudo apt install raspisump
 ```
 
-The installer will:
-- Create the `raspisump` system user and set up all required directories
-- Install nginx and configure it for HTTPS with a self-signed certificate
-- Copy default config files to `/etc/raspi-sump/`
-- Enable `raspisump.service` and `rsumpweb.service`
+Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sump/issues).
+
 
 **3. Log out and back in:**
 
 Your user account is added to the `raspisump` group during install. You need to
 log out and back in for this to take effect.
 
+
+
 **4. Edit the configuration:**
 
-```bash
-sudo nano /etc/raspi-sump/raspisump.conf
-```
-
-Key settings to review:
-
-| Setting | Description |
-|---|---|
-| `trig_pin` | GPIO pin number for HC-SR04 trigger |
-| `echo_pin` | GPIO pin number for HC-SR04 echo |
-| `pit_depth` | Total depth of your pit in cm (or inches) from the sensor |
-| `critical_water_level` | Water depth that triggers an alert |
-| `unit` | `metric` (cm) or `imperial` (inches) |
-| `alert_type` | `1` = email, `2` = Mastodon, `3` = both | (3 not yet implemented)
-
-**5. Set the admin password:**
-
-```bash
-sudo nano /etc/raspi-sump/credentials.conf
-```
-
-Set the `password` field under `[web]` to your chosen admin password. This
-protects the Administration section of the web interface.
-
-**6. Start the service:**
-
-```bash
-sudo systemctl start raspisump.service
-```
-
-**7. Access the web interface:**
-
-Open a browser and go to:
-
-```
-https://<your-pi-ip>/
-```
+Access the config at https://<ip of your pi>
 
 Accept the browser warning for the self-signed certificate. The web interface
 shows live water level data and provides administration tools.
 
 ---
-
-## Upgrading
-
-To upgrade to a newer beta release:
-
-**1. Download the new `.deb` files.**
-
-**2. Install over the existing version:**
-
-```bash
-sudo apt install ./python3-pinsource_*.deb ./raspisump_*.deb
-```
 
 Your configuration files (`raspisump.conf`, `credentials.conf`) are never
 overwritten during an upgrade. Updated example configs are placed at:
