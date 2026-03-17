@@ -90,8 +90,10 @@ jobs:
           cd apt-repo
           echo "$GPG_PRIVATE_KEY" | gpg --import --batch --no-tty
           echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 \
+            --pinentry-mode loopback \
             --clearsign -o "dists/${DIST}/InRelease" "dists/${DIST}/Release"
           echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 \
+            --pinentry-mode loopback \
             --detach-sign --armor -o "dists/${DIST}/Release.gpg" "dists/${DIST}/Release"
 
       - name: Commit and push to alaudet/apt
