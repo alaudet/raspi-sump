@@ -38,6 +38,8 @@ The home page displays today's water level activity:
 The chart is rendered client-side using uPlot. Hover over the chart to see
 individual readings. The chart updates on page reload.
 
+![Raspiweb home page](./images/homepage%20dark.png)
+
 ---
 
 ## History
@@ -105,6 +107,10 @@ Duplicate entries are skipped automatically.
 
 **Export:** Select a date range and download readings as a CSV file (single
 day) or a zip of CSV files (multiple days).
+
+### Support
+
+- Get support for your installation when having problems.
 
 ### Security
 

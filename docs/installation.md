@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Raspberry Pi 2 or greater running **Raspberry Pi OS Bookworm (v12) or Trixie (v13)**
+- Raspberry Pi B or greater running **Raspberry Pi OS Bookworm (v12) or Trixie (v13)**
 - A compatible ultrasonic distance sensor (see below)
 - A voltage divider cable to reduce the echo pin signal from 5V to 3.3V
 - Internet access on the Pi for the initial package install
@@ -142,3 +142,4 @@ the top navigation bar.
 
 Please report any problems in the
 [issue tracker](https://github.com/alaudet/raspi-sump/issues).
+

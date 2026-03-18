@@ -38,6 +38,7 @@ nav:
   - Installation:
     - Fresh Install: installation.md
     - Upgrading: upgrade.md
+    - Full Uninstall: uninstall.md
   - Configuration: configuration.md
   - Web Interface: web-interface.md
   - Alerts: alerts.md

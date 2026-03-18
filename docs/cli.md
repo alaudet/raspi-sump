@@ -38,6 +38,7 @@ rsumplog [OPTIONS]
 | `--today` | Show today's readings |
 | `--date YYYY-MM-DD` | Show readings for a specific date |
 | `--last N` | Show the last N readings |
+| `--time START END` | Time range within the day (e.g. --time 9:00am 2:30pm). Use with --date or defaults to today. |
 | `--cycles` | Show pump cycle count (requires cycle detection enabled) |
 
 ### Examples
@@ -57,6 +58,9 @@ rsumplog --cycles
 
 # Pump cycles for a specific date (experimental)
 rsumplog --cycles --date 2026-03-15
+
+# Display readings for a specific time period
+rsumplog --date 2026-03-15 --time 12:05am 12:16am
 ```
 
 !!! note "Cycle detection"
