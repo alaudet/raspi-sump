@@ -55,8 +55,8 @@ jobs:
             DIR="dists/${DIST}/main/binary-${ARCH}"
             mkdir -p "$DIR"
             dpkg-scanpackages -m --arch "$ARCH" pool/ /dev/null > "${DIR}/Packages"
-            gzip -9 -k "${DIR}/Packages"
-            xz   -9 -k "${DIR}/Packages"
+            gzip -9 -kf "${DIR}/Packages"
+            xz   -9 -kf "${DIR}/Packages"
           done
 
       - name: Generate Release file
