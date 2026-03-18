@@ -11,6 +11,8 @@ You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing
 
 There are full removal and install instructions at https://github.com/alaudet/raspi-sump/blob/main/betatesting/README.md
 
+Full documentation is available at [raspisumpdocs.linuxnorth.org](https://raspisumpdocs.linuxnorth.org).
+
 Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sump/issues).
 
 ---

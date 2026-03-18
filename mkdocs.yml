@@ -4,14 +4,21 @@ repo_url: https://github.com/alaudet/raspi-sump
 repo_name: alaudet/raspi-sump
 edit_uri: edit/main/docs/
 
+extra_css:
+  - stylesheets/extra.css
+
 theme:
   name: material
   palette:
     - scheme: default
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -34,3 +41,4 @@ nav:
   - Hardware: hardware.md
   - FAQ: faq.md
   - Contributing: contributing.md
+  - Version History: versions.md

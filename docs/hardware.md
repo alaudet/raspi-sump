@@ -1,3 +1,83 @@
 # Hardware
 
-*Documentation in progress.*
+## Supported Sensors
+
+Raspi-Sump works with the **HC-SR04** ultrasonic distance sensor and
+compatible variants. For sump pit use, the **JSN-SR04T v2.0** waterproof
+version is strongly recommended.
+
+| Sensor | Notes |
+|--------|-------|
+| HC-SR04 | Standard sensor, not waterproof |
+| JSN-SR04T v2.0 | Waterproof, recommended for sump pit use |
+| JSN-SR04T v3.0 | **Not compatible** — different protocol |
+
+!!! danger "JSN-SR04T v3.0 — Do not use"
+    Version 3.0 uses a different communication protocol and is not compatible
+    with Raspi-Sump. Verify the version before purchasing.
+
+---
+
+## Voltage Divider Requirement
+
+The HC-SR04 and JSN-SR04T sensors operate at **5V** and return a 5V signal
+on the echo pin. The Raspberry Pi GPIO pins are **3.3V tolerant only** —
+a 5V echo signal connected directly will damage your Pi.
+
+A voltage divider on the echo pin is required to reduce the signal to 3.3V.
+
+### Simple Two-Resistor Divider
+
+```
+Sensor Echo ──┬── GPIO Echo Pin
+              │
+             R1 (1kΩ)
+              │
+             R2 (2kΩ)
+              │
+             GND
+```
+
+- **R1:** 1kΩ between the sensor echo pin and the GPIO pin
+- **R2:** 2kΩ between the GPIO pin and ground
+
+This divides the 5V echo signal to approximately 3.3V.
+
+The trig pin (Pi → sensor) does not require a divider — 3.3V is sufficient
+to trigger the sensor.
+
+---
+
+## GPIO Wiring
+
+Any available GPIO pins can be used for trig and echo. The defaults are:
+
+| Signal | Default GPIO | Pi Header Pin |
+|--------|-------------|---------------|
+| Trig | 17 | Pin 11 |
+| Echo | 27 | Pin 13 |
+| VCC (5V) | — | Pin 2 or 4 |
+| GND | — | Pin 6 |
+
+!!! note "BCM numbering"
+    Raspi-Sump uses BCM GPIO numbering, not the physical pin numbers printed
+    on the Pi header. Set your chosen pins in `raspisump.conf` under
+    `[gpio_pins]`.
+
+---
+
+## Sensor Placement
+
+- Mount the sensor at the top of the sump pit, facing downward
+- Set `pit_depth` in `raspisump.conf` to the distance from the sensor face
+  to the bottom of the pit
+- Ensure the sensor has a clear line of sight to the water surface — avoid
+  mounting near pipes or walls that could cause false reflections
+- The JSN-SR04T v2.0 has a minimum sensing distance of approximately 20cm —
+  do not mount closer than this to the maximum expected water level
+
+---
+
+## Recommended Raspberry Pi Models
+
+Raspi-Sump runs on any Raspberry Pi 2 or greater with Raspberry Pi OS Bookworm (v12) or Trixie (v13).

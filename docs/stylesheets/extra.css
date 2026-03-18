@@ -1,0 +1,47 @@
+/* Raspi-Sump brand colours */
+
+/* Light mode — teal header */
+[data-md-color-scheme="default"] {
+    --md-primary-fg-color:        #007f7f;
+    --md-primary-fg-color--light: #009999;
+    --md-primary-fg-color--dark:  #005a5a;
+    --md-accent-fg-color:         #007f7f;
+    --md-accent-fg-color--transparent: rgba(0, 127, 127, 0.1);
+}
+
+/* Dark mode — black header with teal accent line */
+[data-md-color-scheme="slate"] {
+    --md-primary-fg-color:        #000000;
+    --md-primary-fg-color--light: #1a1a1a;
+    --md-primary-fg-color--dark:  #000000;
+    --md-accent-fg-color:         #007f7f;
+    --md-accent-fg-color--transparent: rgba(0, 127, 127, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+    background-color: #000000 !important;
+    border-bottom: 3px solid #007f7f;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+    background-color: #000000 !important;
+}
+
+/* Body links in dark mode */
+[data-md-color-scheme="slate"] .md-content a {
+    color: #009999;
+}
+
+[data-md-color-scheme="slate"] .md-content a:hover {
+    color: #007f7f;
+}
+
+/* Active nav item in dark mode — teal text, readable */
+[data-md-color-scheme="slate"] .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav__link:is([data-md-state="blur"]) {
+    color: #007f7f !important;
+}
+
+[data-md-color-scheme="slate"] .md-nav__item--active > .md-nav__link {
+    color: #007f7f !important;
+}
