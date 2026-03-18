@@ -53,7 +53,10 @@
 </section>
 
 <section class="admin-card">
-    <h3 class="admin-section-title">raspisump.service &mdash; Journal (last 20 lines)</h3>
+    <div class="admin-section-title-row">
+        <h3 class="admin-section-title">raspisump.service &mdash; Journal (last 20 lines)</h3>
+        <a href="/admin/" class="btn-refresh">&#8635; Refresh</a>
+    </div>
     {% if journal_rsump %}
     <pre class="journal-log">{% for line in journal_rsump %}{{ line }}
 {% endfor %}</pre>
@@ -71,5 +74,14 @@
     <p class="svc-unavailable">Journal unavailable.</p>
     {% endif %}
 </section>
+
+{% if logfiles %}
+{% for filename, lines in logfiles %}
+<section class="admin-card">
+    <h3 class="admin-section-title">/var/log/raspi-sump/{{ filename }}</h3>
+    <pre class="journal-log">{% for line in lines %}{{ line }}{% endfor %}</pre>
+</section>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

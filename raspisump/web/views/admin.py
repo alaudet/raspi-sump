@@ -5,7 +5,7 @@ import subprocess
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 from raspisump.web.auth import check_password, login_required
-from raspisump.web.system import all_service_statuses, control_service, get_journal_log
+from raspisump.web.system import all_service_statuses, control_service, get_journal_log, get_logfile_contents
 
 bp = Blueprint("admin", __name__)
 
@@ -16,8 +16,10 @@ def index():
     services = all_service_statuses()
     journal_rsump = get_journal_log("raspisump.service", lines=20)
     journal_web = get_journal_log("rsumpweb.service", lines=20)
+    logfiles = get_logfile_contents()
     return render_template("admin/index.html", services=services,
-                           journal_rsump=journal_rsump, journal_web=journal_web)
+                           journal_rsump=journal_rsump, journal_web=journal_web,
+                           logfiles=logfiles)
 
 
 @bp.route("/admin/login", methods=["GET"])

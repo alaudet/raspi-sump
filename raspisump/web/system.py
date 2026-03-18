@@ -1,7 +1,11 @@
 """Helpers for querying systemd service status and system configuration."""
 
 import configparser
+import glob
+import os
 import subprocess
+
+_LOG_DIR = "/var/log/raspi-sump"
 
 _CONF_PATH = "/etc/raspi-sump/raspisump.conf"
 
@@ -105,6 +109,28 @@ def get_journal_log(unit: str = "raspisump.service", lines: int = 20) -> list:
         return result.stdout.splitlines()
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return []
+
+
+def get_logfile_contents(tail: int = 100) -> list:
+    """Return a list of (filename, lines) for each file in the log directory.
+
+    Each entry is (basename, list-of-strings). Returns at most *tail* lines per file.
+    """
+    result = []
+    try:
+        paths = sorted(glob.glob(os.path.join(_LOG_DIR, "*")))
+    except OSError:
+        return result
+    for path in paths:
+        if not os.path.isfile(path):
+            continue
+        try:
+            with open(path) as f:
+                lines = f.readlines()
+            result.append((os.path.basename(path), lines[-tail:]))
+        except OSError:
+            result.append((os.path.basename(path), ["(unable to read)"]))
+    return result
 
 
 def get_raspisump_config():

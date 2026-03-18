@@ -61,7 +61,7 @@ def index():
         today = dt_date.today()
         dates = [
             (today - timedelta(days=i)).isoformat()
-            for i in range(days - 1, -1, -1)
+            for i in range(days)
         ]
 
     elif start and end:

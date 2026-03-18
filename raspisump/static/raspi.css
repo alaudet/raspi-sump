@@ -600,6 +600,33 @@ main {
     margin-bottom: 1rem;
 }
 
+.admin-section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.admin-section-title-row .admin-section-title {
+    margin-bottom: 0;
+}
+
+.btn-refresh {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--brand);
+    border-radius: var(--radius);
+}
+
+.btn-refresh:hover {
+    background: var(--brand);
+    color: var(--brand-text);
+    text-decoration: none;
+}
+
 
 /* Support page */
 .support-description {
