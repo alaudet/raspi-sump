@@ -45,6 +45,18 @@ def rsumplog():
     import time
     from raspisump import log
 
+    def _parse_time(t):
+        """Parse a time string to HH:MM (24-hour). Accepts H:MMam/pm or HH:MM."""
+        from datetime import datetime
+        for fmt in ("%I:%M%p", "%I:%M %p", "%H:%M"):
+            try:
+                return datetime.strptime(t.upper(), fmt).strftime("%H:%M")
+            except ValueError:
+                continue
+        raise argparse.ArgumentTypeError(
+            f"Cannot parse time {t!r}. Use HH:MM or H:MMam/pm (e.g. 9:00am, 14:30)."
+        )
+
     parser = argparse.ArgumentParser(
         prog="rsumplog",
         description="Query raspi-sump readings from the database.",
@@ -67,12 +79,22 @@ def rsumplog():
         help="Show the last N readings",
     )
     parser.add_argument(
+        "--time",
+        nargs=2,
+        metavar=("START", "END"),
+        help="Time range within the day (e.g. --time 9:00am 2:30pm). Use with --date or defaults to today.",
+    )
+    parser.add_argument(
         "--cycles",
         action="store_true",
         help="Show pump cycle count instead of raw readings (requires cycle_detection = yes in raspisump.conf)",
     )
     args = parser.parse_args()
 
+    if args.time and args.last:
+        parser.error("--time cannot be used with --last")
+    if args.time and args.cycles:
+        parser.error("--time cannot be used with --cycles")
     if args.cycles and args.last:
         parser.error("--cycles cannot be used with --last")
 
@@ -103,17 +125,32 @@ def rsumplog():
         print("Note: Experimental feature — results may vary. Feedback welcome.")
         return
 
-    if args.last:
+    if args.time:
+        try:
+            start_time = _parse_time(args.time[0])
+            end_time   = _parse_time(args.time[1])
+        except argparse.ArgumentTypeError as e:
+            parser.error(str(e))
+        date = args.date if args.date else time.strftime("%Y-%m-%d")
+        rows = log.query_readings_range(date, start_time=start_time, end_time=end_time)
+        label = f"{date} {start_time} – {end_time}"
+    elif args.last:
         rows = log.query_readings(last=args.last)
+        label = None
     elif args.date:
         rows = log.query_readings(date=args.date)
+        label = None
     else:
         rows = log.query_readings()
+        label = None
 
     if not rows:
         print("No readings found.")
         return
 
+    if label:
+        print(f"\n{label}")
+        print("-" * 38)
     print(f"{'Timestamp':<22} {'Depth':>8}  Unit")
     print("-" * 38)
     for ts, depth, unit in rows:

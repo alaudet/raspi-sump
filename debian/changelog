@@ -1,3 +1,12 @@
+raspisump (2.0~a69) unstable; urgency=medium
+
+  * rsumplog: add --time START END option for time-of-day filtering within a day;
+    supports 12-hour (9:00am) and 24-hour (14:30) formats
+  * Tests: add tests/test_rsumplog_cli.py covering --time filtering, time
+    parsing, and argument conflict rules
+
+ -- Al Audet <alaudet@linuxnorth.org>  Tue, 18 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a68) unstable; urgency=medium
 
   * Admin login: replace always-on persistent session with opt-in
