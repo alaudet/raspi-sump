@@ -29,6 +29,10 @@ theme:
     - search.highlight
     - content.action.edit
 
+markdown_extensions:
+  - md_in_html
+  - attr_list
+
 nav:
   - Home: index.md
   - Installation:

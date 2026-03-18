@@ -19,7 +19,7 @@ version is strongly recommended.
 ---
 
 ## Voltage Divider Requirement
-
+This is a test
 The HC-SR04 and JSN-SR04T sensors operate at **5V** and return a 5V signal
 on the echo pin. The Raspberry Pi GPIO pins are **3.3V tolerant only** —
 a 5V echo signal connected directly will damage your Pi.
@@ -28,23 +28,20 @@ A voltage divider on the echo pin is required to reduce the signal to 3.3V.
 
 ### Simple Two-Resistor Divider
 
-```
-Sensor Echo ──┬── GPIO Echo Pin
-              │
-             R1 (1kΩ)
-              │
-             R2 (2kΩ)
-              │
-             GND
-```
+![Voltage Divider](images/raspi-sump-wiring.jpg){ width="600" }
 
-- **R1:** 1kΩ between the sensor echo pin and the GPIO pin
-- **R2:** 2kΩ between the GPIO pin and ground
+A 470 Ohm and 1K Ohn resitor divides the 5V echo signal to approximately 3.3V.
 
-This divides the 5V echo signal to approximately 3.3V.
+A 1K Ohm and 2K Ohm would accomplish the same things.  There are many online voltage divider calculators you can use to test various settings.
 
-The trig pin (Pi → sensor) does not require a divider — 3.3V is sufficient
-to trigger the sensor.
+### Real world example
+
+![Real World Voltage Divider](images/voltage_divider.jpg)
+
+The 470 Ohm resister is on top and the 1K resistor is on the bot tom. The wires to the right go to the Pi and the ones to the left go to the sensor. The orange wire is the Echo wire and you can see it is connected right at the center of the two connected resistors. The yellow wire goes to Ground on the Pi. 
+
+There are plenty of diagrams online explaining voltage dividers, but this picture provided by github user @rhiller was very helpful to see in practice. 
+
 
 ---
 
