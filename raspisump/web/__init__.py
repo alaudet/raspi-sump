@@ -34,7 +34,7 @@ def create_app():
     )
 
     app.secret_key = _load_secret_key()
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)  # only applies when remember is checked
 
     try:
         app.config["VERSION"] = importlib.metadata.version("raspisump")

@@ -36,7 +36,7 @@ def login_post():
     next_url = request.form.get("next", "")
     if check_password(password):
         session["admin_logged_in"] = True
-        session.permanent = True
+        session.permanent = request.form.get("remember") == "1"
         if next_url and next_url.startswith("/admin/"):
             return redirect(next_url)
         return redirect(url_for("admin.index"))

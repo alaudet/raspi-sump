@@ -72,13 +72,23 @@ class TestAdminAuth(unittest.TestCase):
         with self.client.session_transaction() as sess:
             self.assertTrue(sess.get("admin_logged_in"))
 
-    def test_login_success_marks_session_permanent(self):
+    def test_login_remember_me_marks_session_permanent(self):
+        with self._patch_check_password(True):
+            self.client.post(
+                "/admin/login",
+                data={"password": "changeme", "remember": "1"},
+                follow_redirects=False,
+            )
+        with self.client.session_transaction() as sess:
+            self.assertTrue(sess.permanent)
+
+    def test_login_without_remember_me_session_not_permanent(self):
         with self._patch_check_password(True):
             self.client.post(
                 "/admin/login", data={"password": "changeme"}, follow_redirects=False
             )
         with self.client.session_transaction() as sess:
-            self.assertTrue(sess.permanent)
+            self.assertFalse(sess.permanent)
 
     def test_login_next_redirects_to_admin_page(self):
         with self._patch_check_password(True):

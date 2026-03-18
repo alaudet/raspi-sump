@@ -1096,6 +1096,22 @@ main {
     width: 100%;
 }
 
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.login-remember input[type="checkbox"] {
+    margin: 0;
+}
+
+.login-remember label {
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
 .login-form button {
     padding: 0.5rem;
     background: var(--brand);

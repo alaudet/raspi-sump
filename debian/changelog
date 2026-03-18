@@ -1,3 +1,11 @@
+raspisump (2.0~a68) unstable; urgency=medium
+
+  * Admin login: replace always-on persistent session with opt-in
+    "Keep me logged in" checkbox; session expires on browser close by default
+  * Tests: update and add session permanence tests for login checkbox behaviour
+
+ -- Al Audet <alaudet@linuxnorth.org>  Tue, 18 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a67) unstable; urgency=medium
 
   * Web UI: add Discord community link to Support page
