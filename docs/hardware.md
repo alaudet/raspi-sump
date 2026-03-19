@@ -19,7 +19,7 @@ version is strongly recommended.
 ---
 
 ## Voltage Divider Requirement
-This is a test
+
 The HC-SR04 and JSN-SR04T sensors operate at **5V** and return a 5V signal
 on the echo pin. The Raspberry Pi GPIO pins are **3.3V tolerant only** —
 a 5V echo signal connected directly will damage your Pi.
