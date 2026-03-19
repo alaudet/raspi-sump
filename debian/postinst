@@ -217,7 +217,7 @@ case "$1" in
             echo "  /usr/share/raspi-sump/examples/raspisump.conf"
             echo "  /usr/share/raspi-sump/examples/credentials.conf"
             echo ""
-            echo "Review the examples for any new settings before restarting the service."
+            echo "New configuration options will be included in the example files."
             echo ""
         fi
         ;;
