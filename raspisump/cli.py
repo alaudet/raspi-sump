@@ -292,14 +292,24 @@ def rsumpsupport():
         ["tail", "-n", "10", f"{LOG_DIR}/heartbeat_log"]
     )
     logs_alert_log = run_command(["tail", "-n", "10", f"{LOG_DIR}/alert_log"])
-    journal = run_command([
-        "journalctl",
-        "-u", "raspisump.service",
-        "-u", "rsumpweb.service",
-        "-b",
+    journal_raspisump = run_command([
+        "journalctl", "-u", "raspisump.service", "-n", "50", "--no-pager",
+    ])
+    journal_rsumpweb = run_command([
+        "journalctl", "-u", "rsumpweb.service", "-n", "50", "--no-pager",
     ])
     rsump_service = run_command(["cat", f"{SYSTEMD_DIR}/raspisump.service"])
     rsumpweb_service = run_command(["cat", f"{SYSTEMD_DIR}/rsumpweb.service"])
+
+    from raspisump import log as _log
+    today = time.strftime("%Y-%m-%d")
+    today_rows = _log.query_readings(date=today)
+    if today_rows:
+        readings_lines = "\n".join(
+            f"  {ts}  {depth}  {unit}" for ts, depth, unit in today_rows
+        )
+    else:
+        readings_lines = "  No readings found for today."
 
     content = f"""\
 Date file generated: {current_date}
@@ -328,6 +338,7 @@ alert_when: {configs["alert_when"]}
 alert_interval: {configs["alert_interval"]}
 heartbeat: {configs["heartbeat"]}
 heartbeat_interval: {configs["heartbeat_interval"]}
+cycle_detection: {configs["cycle_detection"]}
 
 Logs/error_log content:
 {logs_error_log}
@@ -341,8 +352,11 @@ Last 10 lines of heartbeat_log:
 Last 10 lines of alert_log:
 {logs_alert_log}
 
-journalctl -u raspisump.service -u rsumpweb.service -b:
-{journal}
+Last 50 journal entries for raspisump.service:
+{journal_raspisump}
+
+Last 50 journal entries for rsumpweb.service:
+{journal_rsumpweb}
 
 Systemd files:
 ** Raspi-sump service file:
@@ -353,6 +367,8 @@ Systemd files:
 {rsumpweb_service}
 *************************************
 
+Today's readings ({today}):
+{readings_lines}
 
 """
 

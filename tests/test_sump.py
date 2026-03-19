@@ -63,7 +63,7 @@ class TestRaspisump(TestCase):
     def test_config_dict(self):
         """Test that the config is returned as a dict with the expected length"""
         self.assertIsInstance(configs, dict)
-        self.assertEqual(len(configs), 25)
+        self.assertEqual(len(configs), 26)
 
     def test_key_existence(self):
         """Test that all keys are present in the dict"""

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raspisump"
-version = "2.0a69"
+version = "2.0rc1"
 description = "A sump pit monitoring system for Raspberry Pi"
 readme = "README.md"
 license = {text = "Apache-2.0"}
@@ -12,7 +12,7 @@ authors = [{name = "Al Audet", email = "alaudet@linuxnorth.org"}]
 requires-python = ">=3.11"
 dependencies = []
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: End Users/Desktop",
     "Natural Language :: English",

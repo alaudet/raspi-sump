@@ -60,7 +60,7 @@ class TestConfiguration(TestCase):
         with patch.object(cv, "config", _make_config(include_credentials=True)):
             result = cv.configuration()
         self.assertIsInstance(result, dict)
-        self.assertEqual(len(result), 25)
+        self.assertEqual(len(result), 26)
 
     def test_all_expected_keys_present(self):
         """All expected keys are present in the configuration dict."""
@@ -72,7 +72,7 @@ class TestConfiguration(TestCase):
             "unit", "alert_when", "trig_pin", "echo_pin",
             "email_to", "email_from", "smtp_authentication", "smtp_tls", "smtp_ssl",
             "smtp_server", "alert_interval", "alert_type", "heartbeat",
-            "heartbeat_interval", "username", "password", "client_id",
+            "heartbeat_interval", "cycle_detection", "username", "password", "client_id",
             "client_secret", "access_token", "api_base_url", "handle",
         ]
         for key in expected_keys:

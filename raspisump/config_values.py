@@ -44,6 +44,7 @@ def configuration():
         "alert_type": config.getint("email", "alert_type"),
         "heartbeat": config.getint("email", "heartbeat"),
         "heartbeat_interval": config.getint("email", "heartbeat_interval"),
+        "cycle_detection": config.get("experimental", "cycle_detection", fallback="no"),
         "username": config.get("credentials", "username"),
         "password": config.get("credentials", "password"),
         "client_id": config.get("credentials", "client_id"),

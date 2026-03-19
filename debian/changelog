@@ -1,3 +1,20 @@
+raspisump (2.0~rc1) unstable; urgency=medium
+
+  * Release candidate 1 for raspi-sump 2.0
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 19 Mar 2026 00:00:00 +0000
+
+raspisump (2.0~a70) unstable; urgency=medium
+
+  * rsumpsupport: split journalctl into separate last-50 entries per service
+  * rsumpsupport: add cycle_detection to listed config variables
+  * rsumpsupport: append today's readings (rsumplog --today) at end of file
+  * config_values: add cycle_detection key to configuration() dict
+  * Tests: add tests/test_rsumpsupport.py; update length assertions in
+    test_config_values.py and test_sump.py; add cycle_detection to expected keys
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 19 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~a69) unstable; urgency=medium
 
   * rsumplog: add --time START END option for time-of-day filtering within a day;
