@@ -1,10 +1,18 @@
-# Raspi-Sump Version 2
+# About
 
-Raspi-Sump Version 2 is ready for alpha testing.
+Raspi-Sump V2.0 is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
 
-## Alpha Install (Unstable)
+![Homepage screenshot](betatesting/screenshots/homepage%20dark.png)
 
-Alpha releases are available via the Linuxnorth APT repository. This is an
+---
+
+# Raspi-Sump Version 2 (Release Candidates)
+
+Raspi-Sump Version 2 is ready for beta testing.
+
+## Release Candidate Installs (Unstable)
+
+RC releases are available via the Linuxnorth APT repository. This is an
 unstable channel intended for testers — use on a production system at your own risk.
 
 You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
@@ -17,13 +25,6 @@ Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sum
 
 ---
 
-# About
-
-Raspi-Sump is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
-
-![Homepage screenshot](betatesting/screenshots/homepage%20dark.png)
-
----
 
 ## Features
 
@@ -61,11 +62,11 @@ Raspi-Sump follows the [Debian release schedule](https://wiki.debian.org/DebianR
 
 Version 2.0 is a complete rewrite:
 
-- Installed as a `.deb` package — no virtual environment, no manual dependency management
+- Installed as a `.deb` package via apt — no virtual environment, no manual dependency management
 - SQLite database replaces per-day CSV files
 - Full HTTPS web interface with dark mode, interactive charts (uPlot), and a mobile-friendly layout
 - Admin panel with service control, config editor, backup/restore, CSV import/export, and support tools
-- Persistent admin login with 30-day session cookie
+- Optional persistent admin login with 30-day session cookie
 - Mastodon DM alerts as an alternative or complement to email
 - FHS-compliant paths (`/etc/raspi-sump/`, `/var/log/raspi-sump/`, `/var/lib/raspi-sump/`)
 - systemd services for both the monitor and web interface
@@ -74,6 +75,15 @@ See the [changelog](https://github.com/alaudet/raspi-sump/blob/main/debian/chang
 
 
 ---
+
+## Legacy 1.11.1 Version
+
+V1.11.1 is the latest and last version 1 release.  Only bug fixes will be applied going forward.  Support for v1.11.1 will cease with the debian release cycle and drop of support for Debian 11 - Bullseye on **August 31, 2026**
+
+The github source code is tagged **v1.11.1** at the following url;
+
+https://github.com/alaudet/raspi-sump/tree/legacyV1
+
 
 ## Community
 
