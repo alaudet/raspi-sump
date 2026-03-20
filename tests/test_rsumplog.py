@@ -155,6 +155,31 @@ class TestDetectCycles(TestCase):
         result = log.detect_cycles(rows, alert_when="high")
         self.assertEqual(result, [])
 
+    def test_in_progress_cycle_counted(self):
+        """A cycle that is armed but not yet reset should appear with reset_ts=None."""
+        # Two complete cycles + one that never recovers
+        rows = self._make_sump_readings(cycles=2)
+        # Append a drop that never recovers to baseline
+        last_ts = rows[-1][0]
+        h, m = int(last_ts[11:13]), int(last_ts[14:16])
+        def _next_ts():
+            nonlocal h, m
+            m += 1
+            if m >= 60:
+                m = 0
+                h += 1
+            return f"2026-03-15 {h:02d}:{m:02d}:00"
+
+        trough = 35.0
+        for _ in range(5):
+            rows.append((_next_ts(), trough, "cm"))
+
+        result = log.detect_cycles(rows, alert_when="high")
+        self.assertEqual(len(result), 3)
+        arm_ts, reset_ts = result[-1]
+        self.assertIsInstance(arm_ts, str)
+        self.assertIsNone(reset_ts)
+
     def test_cistern_mode_detects_cycles(self):
         """For alert_when='low', direction is inverted (depth increases when water drops)."""
         rows = []

@@ -247,7 +247,7 @@ def detect_cycles(readings: list, alert_when: str = "high") -> list:
             elif armed and depth >= reset_threshold:
                 armed = False
                 cycles.append((arm_ts, ts))
-    else:
+    else:  # cistern
         # Cistern: water_depth INCREASES as water drops.
         arm_threshold = min_depth + span * 0.5    # halfway up → water dropping
         reset_threshold = min_depth + span * 0.2  # back near full → refilled
@@ -258,6 +258,9 @@ def detect_cycles(readings: list, alert_when: str = "high") -> list:
             elif armed and depth <= reset_threshold:
                 armed = False
                 cycles.append((arm_ts, ts))
+
+    if armed and arm_ts is not None:
+        cycles.append((arm_ts, None))
 
     return cycles
 

@@ -1,3 +1,12 @@
+raspisump (2.0~rc2) unstable; urgency=medium
+
+  * cycle detection: count in-progress cycle (armed but not yet reset) so
+    rsumplog --cycles matches the visual count on the chart during live days
+  * rsumplog --cycles: display "In progress" for the reset timestamp of an
+    incomplete cycle
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 20 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~rc1) unstable; urgency=medium
 
   * Release candidate 1 for raspi-sump 2.0

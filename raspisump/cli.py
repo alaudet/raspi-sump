@@ -118,7 +118,8 @@ def rsumplog():
             print(f"  {'#':<4} {'Triggered':<22} {'Recovered':<22}")
             print(f"  {'-'*4} {'-'*22} {'-'*22}")
             for i, (arm_ts, reset_ts) in enumerate(cycles, 1):
-                print(f"  {i:<4} {arm_ts:<22} {reset_ts:<22}")
+                reset_display = reset_ts if reset_ts is not None else "In progress"
+                print(f"  {i:<4} {arm_ts:<22} {reset_display:<22}")
         else:
             print("  No cycles detected.")
         print(f"\nTotal: {len(cycles)} pump empty(ies)  ({len(rows)} readings)")
