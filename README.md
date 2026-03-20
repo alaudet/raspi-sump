@@ -1,6 +1,6 @@
 # About
 
-Raspi-Sump V2.0 is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
+[Raspi-Sump V2.0](https://www.linuxnorth.org/raspisumpv2) is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
 
 ![Homepage screenshot](betatesting/screenshots/homepage%20dark.png)
 
