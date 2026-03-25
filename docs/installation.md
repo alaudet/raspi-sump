@@ -38,13 +38,36 @@ to trigger the sensor.
 
 ---
 
-## Add the Linuxnorth APT Repository
+## Easy one line install
+
+!!! warning "Web server conflict"
+    Raspi-Sump installs and configures the nginx web server. Make sure no
+    existing web servers are listening on port 80 or 443 before running this
+    command.
+
+For ease of install, you can install Raspi-Sump with the following command;
+
+```sh
+curl -fsSL https://www.linuxnorth.org/raspisumpv2/install.sh | sudo sh
+```
+
+It is always a good idea to verify the contents of the file before invoking sudo.
+
+What this file does;
+
+- checks your OS version
+- checks for the existence of curl or wget and gpg
+- removes the unstable channel apt sources if they exist
+- adds stable channel apt sources and linuxnorth apt repo public key
+- invokes apt-get update and apt-get install raspisump
+
+Going forward, raspisump will be upgraded with your regular system upgrades.
+
+For those wanting a more hands on approach, see the following section to perform the install manually.
+
+## Manually Add the Linuxnorth APT Repository
 
 Raspi-Sump is distributed via the Linuxnorth APT repository.
-
-!!! warning "Alpha channel"
-    The repository is currently serving alpha releases on the `unstable` channel.
-    Use on a production system at your own risk.
 
 ### 1. Import the signing key
 
@@ -57,7 +80,7 @@ curl -fsSL https://apt.linuxnorth.org/public_key.asc \
 
 ```bash
 echo "deb [signed-by=/usr/share/keyrings/linuxnorth-archive-keyring.gpg] \
-  https://apt.linuxnorth.org unstable main" \
+  https://apt.linuxnorth.org trixie main" \
   | sudo tee /etc/apt/sources.list.d/linuxnorth.list
 ```
 
@@ -84,6 +107,17 @@ systemd services.
 The raspisump package automatically enables its nginx configuration and
 removes the default nginx site during install. No manual nginx configuration
 is required.
+
+!!! warning "Existing web server conflict"
+    If **apache2** or **lighttpd** is already running on the Pi, the installer
+    will skip enabling the nginx site to avoid a port conflict. You will see a
+    warning message at the end of the install. Resolve the conflict, then
+    enable the site manually:
+
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+    sudo systemctl reload nginx
+    ```
 
 ---
 
