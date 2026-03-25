@@ -35,6 +35,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Table of Contents: contents.md
   - Installation:
     - Fresh Install: installation.md
     - Upgrading: upgrade.md

@@ -1,0 +1,20 @@
+# Table of Contents
+
+### Installation
+- [Fresh Install](installation.md) — Add the APT repository and install Raspi-Sump
+- [Upgrading](upgrade.md) — Upgrade from a previous version
+- [Full Uninstall](uninstall.md) — Completely remove Raspi-Sump and its dependencies
+
+### Configuration & Usage
+- [Configuration](configuration.md) — All `raspisump.conf` settings explained
+- [Web Interface](web-interface.md) — Using the HTTPS web interface
+- [Alerts](alerts.md) — Setting up email and Mastodon alerts
+- [CLI Tools](cli.md) — Command line tools reference
+
+### Hardware
+- [Hardware](hardware.md) — Supported sensors, voltage divider wiring, and GPIO pinout
+
+### Reference
+- [FAQ](faq.md) — Frequently asked questions
+- [Contributing](contributing.md) — How to contribute to the project
+- [Version History](versions.md) — Changelog
