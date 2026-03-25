@@ -90,5 +90,6 @@ apt-get update -qq
 info "Installing raspisump..."
 apt-get install -y raspisump
 
-info "Installation complete. Follow the on-screen instructions above to finish setup."
-info "Advanced users: sensor settings can be configured manually in /etc/raspi-sump/raspisump.conf"
+info "Installation complete"
+info "You must log out and back in to add your user to the raspisump group before following the on-screen instructions above."
+info "Advanced users: As an alternative, sensor settings can be configured manually in /etc/raspi-sump/raspisump.conf"
