@@ -30,6 +30,7 @@ theme:
     - content.action.edit
 
 markdown_extensions:
+  - admonition
   - md_in_html
   - attr_list
 
