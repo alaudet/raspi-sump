@@ -71,12 +71,17 @@ For those wanting a more hands on approach, see the following section to perform
 
 Raspi-Sump is distributed via the Linuxnorth APT repository.
 
+
+
 ### 1. Import the signing key
 
 ```bash
 curl -fsSL https://apt.linuxnorth.org/public_key.asc \
   | sudo gpg --dearmor -o /usr/share/keyrings/linuxnorth-archive-keyring.gpg
 ```
+
+!!! info
+    GPG Signed install script is available at [Linuxnorth.org](https://www.linuxnorth.org/raspisumpv2/install).
 
 ### 2. Add the repository
 
@@ -113,12 +118,14 @@ is required.
     If **apache2** or **lighttpd** is already running on the Pi, the installer
     will skip enabling the nginx site to avoid a port conflict. You will see a
     warning message at the end of the install. Resolve the conflict, then
-    enable the site manually:
+    enable the site manually with the commands below:
 
-    ```bash
-    sudo ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
-    sudo systemctl reload nginx
-    ```
+```bash
+sudo ln -s /etc/nginx/sites-available/raspi-sump /etc/nginx/sites-enabled/raspi-sump
+```
+```bash    
+sudo systemctl reload nginx
+```        
 
 ---
 

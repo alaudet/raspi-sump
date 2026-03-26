@@ -2,26 +2,7 @@
 
 [Raspi-Sump V2.0](https://www.linuxnorth.org/raspisumpv2) is a sump pit water level monitoring system for the Raspberry Pi. It uses an ultrasonic sensor to continuously measure water depth, logs all readings to a local SQLite database, sends email (email to SMS recommended) or Mastodon alerts if the water reaches a critical level, and provides a built-in web interface for monitoring and administration.
 
-![Homepage screenshot](betatesting/screenshots/homepage%20dark.png)
-
----
-
-# Raspi-Sump Version 2 (Release Candidates)
-
-Raspi-Sump Version 2 is ready for beta testing.
-
-## Release Candidate Installs (Unstable)
-
-RC releases are available via the Linuxnorth APT repository. This is an
-unstable channel intended for testers — use on a production system at your own risk.
-
-You must remove any previous versions of Raspi-Sump or hcsr04sensor before doing this.  If you are not sure what to do ask in the Issue Tracker.
-
-There are full removal and install instructions at https://github.com/alaudet/raspi-sump/blob/main/betatesting/README.md
-
-Full documentation is available at [raspisumpdocs.linuxnorth.org](https://raspisumpdocs.linuxnorth.org).
-
-Please report issues in the [issue tracker](https://github.com/alaudet/raspi-sump/issues).
+![Homepage screenshot](docs/images/homepage%20dark.png)
 
 ---
 
