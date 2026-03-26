@@ -5,7 +5,9 @@
 ![Homepage screenshot](docs/images/homepage%20dark.png)
 
 ---
+## Documentation
 
+[Raspi-Sump User and Install Manual](https://raspisumpdocs.linuxnorth.org)
 
 ## Features
 
