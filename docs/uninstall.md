@@ -4,6 +4,8 @@
 
 ```bash
 sudo systemctl stop raspisump rsumpweb
+```
+```bash
 sudo systemctl disable raspisump rsumpweb
 ```
 
@@ -11,6 +13,8 @@ sudo systemctl disable raspisump rsumpweb
 
 ```bash
 sudo apt purge raspisump
+```
+```bash
 sudo apt autoremove
 ```
 
@@ -24,6 +28,8 @@ sudo deluser --remove-home raspisump
 
 ```bash
 sudo rm -rf /var/lib/raspisump
+```
+```bash
 sudo rm -rf /var/log/raspisump
 ```
 
@@ -31,7 +37,11 @@ sudo rm -rf /var/log/raspisump
 
 ```bash
 sudo rm /etc/apt/sources.list.d/linuxnorth.list
+```
+```bash
 sudo rm /usr/share/keyrings/linuxnorth-archive-keyring.gpg
+```
+```bash
 sudo apt update
 ```
 
@@ -47,7 +57,11 @@ remove it before installing the new package.
 
 ```bash
 source /opt/raspi-sump/bin/activate
+```
+```bash
 pip uninstall raspisump hcsr04sensor
+```
+```bash
 deactivate
 ```
 
@@ -67,6 +81,8 @@ Raspi-Sump uses nginx. If lighttpd is running it will conflict on port 80.
 
 ```bash
 sudo systemctl stop lighttpd
+```
+```bash
 sudo apt remove --purge lighttpd
 ```
 
