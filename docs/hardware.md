@@ -61,6 +61,13 @@ Any available GPIO pins can be used for trig and echo. The defaults are:
     on the Pi header. Set your chosen pins in `raspisump.conf` under
     `[gpio_pins]`.
 
+!!! Tip "Tip - Use pinsource to test your sensor"
+    Test your sensor with the pinsource utility;
+
+    ```
+    pinsource -t 17 -e 27
+    ```
+
 ---
 
 ## Sensor Placement

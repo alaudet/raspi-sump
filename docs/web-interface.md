@@ -1,5 +1,7 @@
 # Web Interface
 
+
+
 The Raspi-Sump web interface is served over HTTPS by nginx and is accessible
 from any device on your local network.
 
@@ -12,6 +14,8 @@ https://<your-pi-ip>
     warning on first access. Accept the exception to proceed — this is
     expected behaviour for a LAN appliance.
 
+!!! Tip - Exposing Web Interface to the Internet
+    Raspi-Sump is intented as a local area network appliance.  Exposing the web interface to the internet requires caution.  Remote access should be restricted behind a VPN or a secure remote access service like Tailscale.  At the very least you should ensure a strong password and segregate it to its own VLAN if you choose to expose it directly on the internet.
 ---
 
 ## Navigation

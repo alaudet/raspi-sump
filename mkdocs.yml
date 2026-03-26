@@ -28,6 +28,7 @@ theme:
     - navigation.top
     - search.highlight
     - content.action.edit
+    - content.code.copy
 
 markdown_extensions:
   - admonition

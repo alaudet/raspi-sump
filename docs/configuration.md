@@ -117,5 +117,7 @@ or from the command line:
 
 ```bash
 sudo systemctl restart raspisump
+```
+```bash
 sudo systemctl restart rsumpweb
 ```

@@ -45,6 +45,8 @@ to trigger the sensor.
     existing web servers are listening on port 80 or 443 before running this
     command.
 
+    If you are running an earlier version of Raspi-Sump, follow the [Full Uninstall - Earlier 1.x Versions](uninstall.md#earlier-1x) guidelines before installing this version.
+
 For ease of install, you can install Raspi-Sump with the following command;
 
 ```sh
@@ -87,8 +89,7 @@ echo "deb [signed-by=/usr/share/keyrings/linuxnorth-archive-keyring.gpg] \
 ### 3. Install
 
 ```bash
-sudo apt update
-sudo apt install raspisump
+sudo apt update && sudo apt install raspisump
 ```
 
 The installer creates the `raspisump` system user, sets up directories and
@@ -158,6 +159,8 @@ Alternatively, from the command line:
 
 ```bash
 sudo systemctl status raspisump
+```
+```bash
 sudo systemctl status rsumpweb
 ```
 
