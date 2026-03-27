@@ -27,10 +27,10 @@ sudo deluser --remove-home raspisump
 ### 4. Remove remaining data directories
 
 ```bash
-sudo rm -rf /var/lib/raspisump
+sudo rm -rf /var/lib/raspi-sump
 ```
 ```bash
-sudo rm -rf /var/log/raspisump
+sudo rm -rf /var/log/raspi-sump
 ```
 
 ### 5. Remove the Linuxnorth APT repository and signing key
