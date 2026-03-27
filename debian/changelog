@@ -1,3 +1,9 @@
+raspisump (2.0) unstable; urgency=medium
+
+  * Version 2.0 stable release
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 27 Mar 2026 00:00:00 +0000
+
 raspisump (2.0~rc2) unstable; urgency=medium
 
   * cycle detection: count in-progress cycle (armed but not yet reset) so
