@@ -50,7 +50,7 @@ to trigger the sensor.
 For ease of install, you can install Raspi-Sump with the following command;
 
 ```sh
-curl -fsSL https://www.linuxnorth.org/raspisumpv2/install.sh | sudo sh
+curl -fsSL https://www.linuxnorth.org/raspisumpv2/install/install.sh | sudo sh
 ```
 
 It is always a good idea to verify the contents of the file before invoking sudo.
