@@ -2,7 +2,7 @@
 # install.sh — Raspi-Sump installer
 #
 # Usage:
-#   curl -fsSL https://www.linuxnorth.org/raspisumpv2/install.sh | sudo sh
+#   curl -fsSL https://www.linuxnorth.org/raspisumpv2/install/install.sh | sudo sh
 #
 # What this script does:
 #   1. Checks for an existing unstable (pre-release) repository entry and
