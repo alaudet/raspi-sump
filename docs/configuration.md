@@ -39,6 +39,9 @@ on the header.
 | `temperature` | Basement temperature used to calibrate speed of sound (°C or °F) | `20` |
 | `alert_when` | `high` to alert on high water (sump pit); `low` to alert on low water (cistern) | `high` |
 
+!!! note "Changing units"
+    After changing `unit`, the web interface label updates on the next sensor reading. Readings already stored in the database are not converted — they retain the unit they were recorded in.
+
 ---
 
 ### [email]

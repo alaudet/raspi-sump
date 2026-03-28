@@ -283,6 +283,10 @@ def rsumpsupport():
     os_version = get_os_version()
     raspisump_version = get_raspisump_version()
     python_version = get_python_version()
+    config_values.config.read([
+        "/etc/raspi-sump/raspisump.conf",
+        "/etc/raspi-sump/credentials.conf",
+    ])
     configs = config_values.configuration()
 
     raspi_sump_status = run_command(["systemctl", "status", "raspisump"])

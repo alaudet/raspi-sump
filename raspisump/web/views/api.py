@@ -40,7 +40,7 @@ def readings():
 
     timestamps = []
     depths = []
-    unit = rows[0][2]
+    unit = rows[-1][2]
 
     for ts_str, depth, _unit in rows:
         # Parse "YYYY-MM-DD HH:MM:SS" → Unix seconds (local time)
@@ -82,7 +82,7 @@ def readings_range():
     return jsonify({
         "start": start,
         "end":   end,
-        "unit":  rows[0][2],
+        "unit":  rows[-1][2],
         "critical_level": _critical_level(),
         "data": [timestamps, depths],
     })

@@ -28,7 +28,7 @@ def day_stats(date=None):
                 COUNT(*),
                 (SELECT water_depth FROM readings WHERE ts LIKE ? ORDER BY ts DESC LIMIT 1),
                 (SELECT ts          FROM readings WHERE ts LIKE ? ORDER BY ts DESC LIMIT 1),
-                (SELECT unit        FROM readings WHERE ts LIKE ? LIMIT 1)
+                (SELECT unit        FROM readings WHERE ts LIKE ? ORDER BY ts DESC LIMIT 1)
             FROM readings
             WHERE ts LIKE ?
             """,

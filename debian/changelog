@@ -1,3 +1,12 @@
+raspisump (2.0.1) unstable; urgency=medium
+
+  * Fix unit label showing stale imperial/metric after changing units — web
+    chart y-axis and stat cards now reflect the most recent reading's unit
+  * Fix rsumpsupport showing stale unit when config changed without restarting
+    rsumpweb
+
+ -- Al Audet <alaudet@linuxnorth.org>  Fri, 27 Mar 2026 00:00:00 +0000
+
 raspisump (2.0) unstable; urgency=medium
 
   * Version 2.0 stable release
