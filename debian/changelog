@@ -1,3 +1,19 @@
+raspisump (2.0.2) unstable; urgency=medium
+
+  * B-1: First-ever alert (no alert_log file yet) now respects alert_type —
+    Mastodon-only users will receive their first flood alert on the correct
+    channel instead of a failing SMTP attempt
+  * B-2: Negative sensor reading no longer produces two duplicate DB rows
+    at the same timestamp; single insert with the corrected value
+  * B-3: Heartbeat with invalid alert_type (not 1 or 2) now writes a clear
+    error_log entry instead of silently doing nothing; rate-limited to one
+    entry per process to avoid log spam
+  * B-3: alerttest (emailtest.test_notifications) with invalid alert_type
+    now prints an error to stdout and writes to error_log instead of
+    exiting silently — visible to both CLI users and the web Support page
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 16 Apr 2026 00:00:00 +0000
+
 raspisump (2.0.1) unstable; urgency=medium
 
   * Fix unit label showing stale imperial/metric after changing units — web

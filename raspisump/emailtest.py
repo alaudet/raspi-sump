@@ -90,7 +90,15 @@ def test_mastodon():
 
 def test_notifications():
     """Send an email or mastodon test alert based on user notification preference."""
-    if configs["alert_type"] == 1:
+    alert_type = configs["alert_type"]
+    if alert_type == 1:
         test_email()
-    elif configs["alert_type"] == 2:
+    elif alert_type == 2:
         test_mastodon()
+    else:
+        msg = (
+            f"ERROR - Invalid alert_type={alert_type!r} in raspisump.conf "
+            "(expected 1 for SMTP or 2 for Mastodon). No test alert sent."
+        )
+        print(msg)
+        log.log_event("error_log", msg)

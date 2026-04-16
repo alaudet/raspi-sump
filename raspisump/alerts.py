@@ -138,8 +138,12 @@ def determine_if_alert(water_depth):
     alert_log = "/var/log/raspi-sump/alert_log"
 
     if not os.path.isfile(alert_log):
-        smtp_alerts(water_depth)
-        log.log_event("alert_log", "Alert Notification Sent")
+        if alert_type == 1:
+            smtp_alerts(water_depth)
+            log.log_event("alert_log", "Email SMS Alert Sent")
+        elif alert_type == 2:
+            mastodon_alerts(water_depth)
+            log.log_event("alert_log", "Mastodon Alert Sent")
 
     else:
         with open(alert_log, "rt") as f:

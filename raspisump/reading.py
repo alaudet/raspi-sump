@@ -53,7 +53,6 @@ def water_depth():
     water_depth = water_reading()
     if water_depth < 0.0:
         water_depth = 0.0
-        log.log_reading(water_depth, unit)
         log.log_event(
             "error_log",
             "ERROR - Negative reading adjusted to 0.0. Possible degrading sensor.",

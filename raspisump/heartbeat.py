@@ -115,10 +115,25 @@ def mastodon_heartbeat_alerts():
         log.log_event("error_log", f"{e}")
 
 
+_invalid_alert_type_logged = False
+
+
 def determine_if_heartbeat():
     """Determine if a heartbeat notification is required and if so, send
     the notification."""
+    global _invalid_alert_type_logged
     alert_type = configs["alert_type"]
+    if alert_type not in (1, 2):
+        if not _invalid_alert_type_logged:
+            log.log_event(
+                "error_log",
+                f"ERROR - Heartbeat enabled but alert_type={alert_type!r} is "
+                "invalid (expected 1 for SMTP or 2 for Mastodon). "
+                "Heartbeat notifications will not be sent.",
+            )
+            _invalid_alert_type_logged = True
+        return
+
     heartbeat_log = "/var/log/raspi-sump/heartbeat_log"
     if not os.path.isfile(heartbeat_log):
         if alert_type == 1:
