@@ -1,6 +1,61 @@
 """Admin authentication helpers."""
 
+import time
 from functools import wraps
+from threading import Lock
+
+
+# H-2: rate limit failed admin logins to slow down online password guessing.
+# In-memory only — cleared on rsumpweb restart, which is acceptable for a
+# single-process LAN appliance. Keyed by client IP (nginx X-Real-IP).
+_MAX_FAILED_ATTEMPTS = 15
+_WINDOW_SECONDS = 15 * 60
+_FAILED_ATTEMPTS: dict = {}
+_LOCK = Lock()
+
+
+def client_ip(request) -> str:
+    """Return the caller's IP from nginx's X-Real-IP, falling back to remote_addr."""
+    return request.headers.get("X-Real-IP") or request.remote_addr or "unknown"
+
+
+def _prune(ip: str, now: float) -> list:
+    """Drop stale timestamps outside the sliding window. Returns the pruned list."""
+    cutoff = now - _WINDOW_SECONDS
+    attempts = [t for t in _FAILED_ATTEMPTS.get(ip, []) if t > cutoff]
+    if attempts:
+        _FAILED_ATTEMPTS[ip] = attempts
+    else:
+        _FAILED_ATTEMPTS.pop(ip, None)
+    return attempts
+
+
+def is_rate_limited(ip: str) -> bool:
+    """Return True if ip has reached the failed-attempt threshold in the window."""
+    with _LOCK:
+        return len(_prune(ip, time.monotonic())) >= _MAX_FAILED_ATTEMPTS
+
+
+def record_failed_attempt(ip: str) -> None:
+    """Record a failed login. Logs a forensics event the moment the threshold is hit."""
+    with _LOCK:
+        now = time.monotonic()
+        attempts = _prune(ip, now)
+        attempts.append(now)
+        _FAILED_ATTEMPTS[ip] = attempts
+        if len(attempts) == _MAX_FAILED_ATTEMPTS:
+            from raspisump import log
+            log.log_event(
+                "error_log",
+                f"Rate limit triggered for {ip} after "
+                f"{_MAX_FAILED_ATTEMPTS} failed login attempts.",
+            )
+
+
+def clear_failed_attempts(ip: str) -> None:
+    """Clear the failed-attempt counter for ip (called after a successful login)."""
+    with _LOCK:
+        _FAILED_ATTEMPTS.pop(ip, None)
 
 
 def get_admin_password():
@@ -52,8 +107,15 @@ def check_password(candidate: str) -> bool:
             return True
         except (VerifyMismatchError, VerificationError):
             return False
-        except Exception:
-            return False  # malformed hash or other unexpected error
+        except Exception as e:
+            from raspisump import log
+            log.log_event(
+                "error_log",
+                f"Admin password verification error: {type(e).__name__}: {e}. "
+                "Possible corrupted hash in credentials.conf. Reset "
+                "web.admin_password to 'admin' to re-trigger the setup wizard.",
+            )
+            return False
     else:
         # Plaintext — migrate transparently on first successful login
         if candidate == stored:

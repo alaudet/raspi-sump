@@ -34,7 +34,14 @@ def create_app():
     )
 
     app.secret_key = _load_secret_key()
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)  # only applies when remember is checked
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)  # only applies when remember is checked
+
+    # H-3: session cookie hardening. Secure prevents the cookie from travelling
+    # over plain HTTP; HttpOnly blocks JS access; SameSite=Strict blocks the
+    # cookie on cross-site requests (defence against CSRF — H-1).
+    app.config["SESSION_COOKIE_SECURE"] = True
+    app.config["SESSION_COOKIE_HTTPONLY"] = True
+    app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
 
     try:
         app.config["VERSION"] = importlib.metadata.version("raspisump")
@@ -71,10 +78,19 @@ def create_app():
         if app.testing:
             return None
         from flask import redirect, request, url_for
-        if request.path.startswith("/setup") or request.path.startswith("/static"):
+        if request.path.startswith("/static"):
             return None
         from raspisump.web.views.setup import is_unconfigured
-        if is_unconfigured():
+        unconfigured = is_unconfigured()
+        if request.path.startswith("/setup"):
+            # Setup wizard is reachable only while the admin password is still
+            # the default. Once configured, redirect callers away — leaving
+            # /setup open to unauthenticated POSTs would allow any LAN/internet
+            # caller to overwrite credentials and take over the admin account.
+            if unconfigured:
+                return None
+            return redirect(url_for("home.index"))
+        if unconfigured:
             return redirect(url_for("setup.setup_get"))
         return None
 

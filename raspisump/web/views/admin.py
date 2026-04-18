@@ -4,7 +4,14 @@ import subprocess
 
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
-from raspisump.web.auth import check_password, login_required
+from raspisump.web.auth import (
+    check_password,
+    clear_failed_attempts,
+    client_ip,
+    is_rate_limited,
+    login_required,
+    record_failed_attempt,
+)
 from raspisump.web.system import all_service_statuses, control_service, get_journal_log, get_logfile_contents
 
 bp = Blueprint("admin", __name__)
@@ -32,14 +39,23 @@ def login_get():
 
 @bp.route("/admin/login", methods=["POST"])
 def login_post():
-    password = request.form.get("password", "")
+    ip = client_ip(request)
     next_url = request.form.get("next", "")
+    if is_rate_limited(ip):
+        return render_template(
+            "admin/login.html",
+            error="Too many failed login attempts. Please try again in about 15 minutes.",
+            next=next_url,
+        ), 429
+    password = request.form.get("password", "")
     if check_password(password):
+        clear_failed_attempts(ip)
         session["admin_logged_in"] = True
         session.permanent = request.form.get("remember") == "1"
         if next_url and next_url.startswith("/admin/"):
             return redirect(next_url)
         return redirect(url_for("admin.index"))
+    record_failed_attempt(ip)
     return render_template("admin/login.html", error="Invalid password.", next=next_url), 401
 
 

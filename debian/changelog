@@ -1,3 +1,36 @@
+raspisump (2.0.3) unstable; urgency=medium
+
+  * 1. Security — lock the /setup wizard once configuration is complete.
+    Previously any unauthenticated caller with network access could POST
+    to /setup to overwrite raspisump.conf and credentials.conf, rotating
+    the admin password and taking over the web admin. The before-request
+    hook now redirects away from /setup when the admin password is no
+    longer the default, and both setup_get and setup_post abort(404) as
+    defense in depth.
+  * 2. Security — rate-limit admin login attempts. After 15 failed
+    /admin/login POSTs from a single IP within a 15-minute sliding
+    window, further attempts return HTTP 429 until the window clears.
+    A forensics event is written to error_log the moment the threshold
+    is crossed. A successful login clears the counter.
+  * 3. Security — harden the admin session cookie. Set
+    SESSION_COOKIE_SECURE (browser won't send the cookie over plain
+    HTTP), SESSION_COOKIE_HTTPONLY (JS can't read the cookie), and
+    SESSION_COOKIE_SAMESITE="Strict" (the cookie is not attached to
+    cross-site requests, which also blocks classic CSRF against the
+    admin endpoints).
+  * 4. Shorten the "Keep me logged in" session lifetime from 30 days
+    to 7 days. Flask still refreshes on each request, so active users
+    stay signed in; an abandoned session expires in a week.
+  * 5. Log an error when admin password verification fails with an
+    unexpected exception (e.g. a corrupted argon2 hash in
+    credentials.conf). Previously these cases silently returned False
+    and looked identical to a wrong password, making the resulting
+    lockout impossible to diagnose. The log entry points the admin at
+    resetting web.admin_password to 'admin' to recover via the setup
+    wizard.
+
+ -- Al Audet <alaudet@linuxnorth.org>  Sat, 18 Apr 2026 00:00:00 +0000
+
 raspisump (2.0.2) unstable; urgency=medium
 
   * B-1: First-ever alert (no alert_log file yet) now respects alert_type —

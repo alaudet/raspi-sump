@@ -14,6 +14,9 @@
 ### Hardware
 - [Hardware](hardware.md) — Supported sensors, voltage divider wiring, and GPIO pinout
 
+### Security
+- [Security](security.md) - Raspi-Sump and Security
+
 ### Reference
 - [FAQ](faq.md) — Frequently asked questions
 - [Contributing](contributing.md) — How to contribute to the project

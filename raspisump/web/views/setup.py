@@ -3,7 +3,7 @@
 import configparser
 import subprocess
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, abort, render_template, request
 
 from raspisump.web.auth import hash_password
 from raspisump.web.config_helpers import (
@@ -75,6 +75,8 @@ def _validate_wizard_form(form_data):
 
 @bp.route("/setup", methods=["GET"])
 def setup_get():
+    if not is_unconfigured():
+        abort(404)
     try:
         current_conf = load_current_values()
     except OSError:
@@ -98,6 +100,8 @@ def setup_get():
 
 @bp.route("/setup", methods=["POST"])
 def setup_post():
+    if not is_unconfigured():
+        abort(404)
     conf_changes, cred_changes, errors = _validate_wizard_form(request.form)
 
     if errors:

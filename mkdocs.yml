@@ -48,5 +48,6 @@ nav:
   - CLI Tools: cli.md
   - Hardware: hardware.md
   - FAQ: faq.md
+  - Security: security.md
   - Contributing: contributing.md
   - Version History: versions.md
