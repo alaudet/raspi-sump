@@ -1,3 +1,7 @@
+# NOTICE - Version 1.x of Raspi-Sump is in Sunset
+
+Raspi-Sump has been updated to version 2.x and updates are no longer made on this version.  All development is now on [Version 2.x](https://github.com/alaudet/raspi-sump).
+
 # IMPORTANT
 
 Do not upgrade to the latest version 1.11 from version 1.9. Version 1.10 and later makes changes to the folder structure of the application and requires a fresh install. Read the [install instructions](https://github.com/alaudet/raspi-sump/blob/master/docs/install.md) carefully before proceeding.
