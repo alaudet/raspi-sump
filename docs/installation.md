@@ -3,8 +3,9 @@
 ## Prerequisites
 
 - Raspberry Pi B or greater running **Raspberry Pi OS Bookworm (v12) or Trixie (v13)**
-- A compatible ultrasonic distance sensor (see below)
-- A voltage divider cable to reduce the echo pin signal from 5V to 3.3V
+- A compatible ultrasonic distance sensor (see [Hardware](hardware.md))
+- A voltage divider cable to reduce the echo pin signal from 5V to 3.3V (see below)
+- Sensor connected to the cable and Raspberry Pi gpio pins.
 - Internet access on the Pi for the initial package install
 
 ### Supported Sensors
@@ -52,6 +53,8 @@ For ease of install, you can install Raspi-Sump with the following command;
 ```sh
 curl -fsSL https://www.linuxnorth.org/raspisumpv2/install/install.sh | sudo sh
 ```
+
+You must logout and back in after the install completes so that your user is added to the raspisump group.
 
 It is always a good idea to verify the contents of the file before invoking sudo.
 
