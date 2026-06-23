@@ -1,3 +1,13 @@
+raspisump (2.0.4) unstable; urgency=medium
+
+  * Fix rsumpsupport crashing when readings database is unreachable; DB
+    errors are now caught and included in the support file output.
+  * Web UI: add About page (/about/) showing version, release date, and
+    author; reorder project nav dropdown (Project, Source Code, License,
+    About).
+
+ -- Al Audet <alaudet@linuxnorth.org>  Mon, 23 Jun 2026 00:00:00 +0000
+
 raspisump (2.0.3) unstable; urgency=medium
 
   * 1. Security — lock the /setup wizard once configuration is complete.
