@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}About — Raspi-Sump{% endblock %}
+
+{% block content %}
+<div class="about-card">
+    <h1 class="about-title">Raspi-Sump</h1>
+    <table class="about-table">
+        <tr>
+            <th>Version</th>
+            <td>{{ version }}</td>
+        </tr>
+        <tr>
+            <th>Release Date</th>
+            <td>{{ release_date }}</td>
+        </tr>
+        <tr>
+            <th>Author</th>
+            <td>Al Audet (<a href="mailto:alaudet@linuxnorth.org">alaudet@linuxnorth.org</a>)</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

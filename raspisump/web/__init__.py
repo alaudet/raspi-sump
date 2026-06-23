@@ -62,6 +62,7 @@ def create_app():
     from raspisump.web.views.support import bp as support_bp
     from raspisump.web.views.api import bp as api_bp
     from raspisump.web.views.setup import bp as setup_bp
+    from raspisump.web.views.about import bp as about_bp
     app.register_blueprint(home_bp)
     app.register_blueprint(history_bp)
     app.register_blueprint(admin_bp)
@@ -72,6 +73,7 @@ def create_app():
     app.register_blueprint(support_bp)
     app.register_blueprint(api_bp)
     app.register_blueprint(setup_bp)
+    app.register_blueprint(about_bp)
 
     @app.before_request
     def check_first_run():

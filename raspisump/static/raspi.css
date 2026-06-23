@@ -1370,3 +1370,46 @@ footer {
     border-top: 1px solid var(--border);
     flex-shrink: 0;
 }
+
+/* --------------------------------------------------------------------------
+   10. About page
+   -------------------------------------------------------------------------- */
+.about-card {
+    max-width: 480px;
+    margin: 3rem auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.about-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand);
+    margin: 0 0 2rem;
+}
+
+.about-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.about-table th {
+    width: 40%;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    vertical-align: top;
+}
+
+.about-table td {
+    padding: 0.5rem 0;
+    color: var(--text);
+    font-size: 0.95rem;
+}
