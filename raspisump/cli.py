@@ -306,15 +306,19 @@ def rsumpsupport():
     rsump_service = run_command(["cat", f"{SYSTEMD_DIR}/raspisump.service"])
     rsumpweb_service = run_command(["cat", f"{SYSTEMD_DIR}/rsumpweb.service"])
 
+    import traceback
     from raspisump import log as _log
     today = time.strftime("%Y-%m-%d")
-    today_rows = _log.query_readings(date=today)
-    if today_rows:
-        readings_lines = "\n".join(
-            f"  {ts}  {depth}  {unit}" for ts, depth, unit in today_rows
-        )
-    else:
-        readings_lines = "  No readings found for today."
+    try:
+        today_rows = _log.query_readings(date=today)
+        if today_rows:
+            readings_lines = "\n".join(
+                f"  {ts}  {depth}  {unit}" for ts, depth, unit in today_rows
+            )
+        else:
+            readings_lines = "  No readings found for today."
+    except Exception:
+        readings_lines = "  ERROR: could not query readings database:\n" + traceback.format_exc()
 
     content = f"""\
 Date file generated: {current_date}

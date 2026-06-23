@@ -36,7 +36,7 @@ _FAKE_CONFIGS = {
 _TODAY_ROWS = [("2026-03-19 08:00:00", 22.5, "cm")]
 
 
-def _run_and_capture(today_rows=None):
+def _run_and_capture(today_rows=None, db_error=None):
     """Run rsumpsupport with all external calls mocked; return written content."""
     from raspisump.cli import rsumpsupport
 
@@ -61,10 +61,12 @@ def _run_and_capture(today_rows=None):
             return _F()
         return real_open(path, mode, *args, **kwargs)
 
+    qr_kwargs = {"side_effect": db_error} if db_error else {"return_value": today_rows}
+
     with (
         patch("raspisump.config_values.configuration", return_value=_FAKE_CONFIGS),
         patch("subprocess.check_output", return_value="mocked output"),
-        patch("raspisump.log.query_readings", return_value=today_rows),
+        patch("raspisump.log.query_readings", **qr_kwargs),
         patch("builtins.open", side_effect=fake_open),
         patch("os.makedirs"),
         patch("time.strftime", return_value="2026-03-19"),
@@ -104,6 +106,26 @@ class TestRsumpsupportContent(unittest.TestCase):
     def test_no_combined_journal_line(self):
         """Old combined journalctl -b line should be gone."""
         self.assertNotIn("raspisump.service -u rsumpweb.service -b", self.content)
+
+
+class TestRsumpsupportDbError(unittest.TestCase):
+
+    def setUp(self):
+        import sqlite3
+        self.content = _run_and_capture(
+            db_error=sqlite3.OperationalError("no such table: readings")
+        )
+
+    def test_does_not_raise(self):
+        """rsumpsupport must complete and write a file even when the DB is broken."""
+        self.assertIsInstance(self.content, str)
+        self.assertTrue(len(self.content) > 0)
+
+    def test_db_error_captured_in_file(self):
+        self.assertIn("ERROR: could not query readings database", self.content)
+
+    def test_traceback_in_file(self):
+        self.assertIn("no such table: readings", self.content)
 
 
 if __name__ == "__main__":
