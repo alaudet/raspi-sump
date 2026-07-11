@@ -13,6 +13,7 @@ except ImportError:
 
 # Minimal valid wizard form data (all raspisump.conf fields + admin password)
 _VALID_FORM = {
+    "display__time_format": "24h",
     "gpio_pins__trig_pin": "17",
     "gpio_pins__echo_pin": "27",
     "pit__unit": "metric",

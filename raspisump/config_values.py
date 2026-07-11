@@ -23,6 +23,11 @@ def cycle_detection_enabled() -> bool:
     return config.get("experimental", "cycle_detection", fallback="no").lower() == "yes"
 
 
+def time_format() -> str:
+    """Return '12h' or '24h' from [display] time_format; defaults to 24h."""
+    return config.get("display", "time_format", fallback="24h")
+
+
 def configuration():
     """Return a dict of the configuration file"""
     return {

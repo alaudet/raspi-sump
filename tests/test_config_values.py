@@ -128,3 +128,36 @@ class TestConfiguration(TestCase):
             call_args = mock_read.call_args[0][0]
         self.assertIn("/etc/raspi-sump/raspisump.conf", call_args)
         self.assertIn("/etc/raspi-sump/credentials.conf", call_args)
+
+
+class TestTimeFormat(TestCase):
+    """time_format() reads [display] time_format, defaulting to 24h."""
+
+    def _config_with(self, display=None):
+        """Build a parser, optionally with a [display] section dict."""
+        config = configparser.RawConfigParser()
+        if display is not None:
+            config.read_dict({"display": display})
+        return config
+
+    def test_defaults_to_24h_when_section_missing(self):
+        """No [display] section at all → 24h fallback."""
+        import raspisump.config_values as cv
+        with patch.object(cv, "config", self._config_with(display=None)):
+            self.assertEqual(cv.time_format(), "24h")
+
+    def test_defaults_to_24h_when_key_missing(self):
+        """[display] present but without time_format → 24h fallback."""
+        import raspisump.config_values as cv
+        with patch.object(cv, "config", self._config_with(display={})):
+            self.assertEqual(cv.time_format(), "24h")
+
+    def test_returns_24h_when_set(self):
+        import raspisump.config_values as cv
+        with patch.object(cv, "config", self._config_with({"time_format": "24h"})):
+            self.assertEqual(cv.time_format(), "24h")
+
+    def test_returns_12h_when_set(self):
+        import raspisump.config_values as cv
+        with patch.object(cv, "config", self._config_with({"time_format": "12h"})):
+            self.assertEqual(cv.time_format(), "12h")

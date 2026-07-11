@@ -50,7 +50,26 @@ def create_app():
 
     @app.context_processor
     def inject_globals():
-        return {"version": app.config["VERSION"]}
+        from raspisump.config_values import time_format
+        return {"version": app.config["VERSION"], "time_format": time_format()}
+
+    @app.template_filter("clocktime")
+    def clocktime(ts):
+        """Format a 'YYYY-MM-DD HH:MM:SS' timestamp as a clock label, honouring
+        the [display] time_format setting: 24h -> '14:30', 12h -> '2:30 PM'.
+
+        Mirrors the client-side _formatTime() in sumpChart.js so the stat-card
+        time and the chart x-axis agree.
+        """
+        from raspisump.config_values import time_format
+        hhmm = (ts or "")[11:16]
+        if time_format() != "12h" or len(hhmm) < 5:
+            return hhmm
+        hour = int(hhmm[:2])
+        minute = hhmm[3:5]
+        suffix = "AM" if hour < 12 else "PM"
+        hour12 = hour % 12 or 12
+        return f"{hour12}:{minute} {suffix}"
 
     from raspisump.web.views.home import bp as home_bp
     from raspisump.web.views.history import bp as history_bp

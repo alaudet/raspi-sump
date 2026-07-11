@@ -34,7 +34,7 @@
     <div class="stat-card">
         <span class="stat-label">Last Reading</span>
         <span class="stat-value">{{ "%.1f"|format(stats.last) }}</span>
-        <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts[11:16] }}</span>
+        <span class="stat-unit">{{ stats.unit }} &mdash; {{ stats.last_ts|clocktime }}</span>
     </div>
     {% if cycles is not none %}
     <div class="stat-card">
