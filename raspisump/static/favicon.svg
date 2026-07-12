@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Raspi-Sump">
+  <defs>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9fe6"/>
+      <stop offset="1" stop-color="#1666b8"/>
+    </linearGradient>
+  </defs>
+  <!-- pit / tank interior (fills the canvas — no off-white border) -->
+  <rect x="5" y="3" width="54" height="58" rx="9" fill="#0a1f36"/>
+  <!-- water fill with a wavy top (about 55% full) -->
+  <path fill="url(#water)"
+        d="M5 28
+           q 6.75 -6 13.5 0 t 13.5 0 t 13.5 0 t 13.5 0
+           V52 a9 9 0 0 1 -9 9 H14 a9 9 0 0 1 -9 -9 Z"/>
+  <!-- level tick marks on the wall -->
+  <g fill="#eaf4ff">
+    <rect x="47" y="16" width="8" height="3" rx="1.5"/>
+    <rect x="49" y="26" width="6" height="3" rx="1.5"/>
+    <rect x="47" y="36" width="8" height="3" rx="1.5"/>
+    <rect x="49" y="46" width="6" height="3" rx="1.5"/>
+  </g>
+</svg>
