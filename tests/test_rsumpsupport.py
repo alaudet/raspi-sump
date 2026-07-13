@@ -36,8 +36,12 @@ _FAKE_CONFIGS = {
 _TODAY_ROWS = [("2026-03-19 08:00:00", 22.5, "cm")]
 
 
-def _run_and_capture(today_rows=None, db_error=None):
-    """Run rsumpsupport with all external calls mocked; return written content."""
+def _run_and_capture(today_rows=None, db_error=None, log_namespace="", commands=None):
+    """Run rsumpsupport with all external calls mocked; return written content.
+
+    *log_namespace* is what get_log_namespace() reports for the units;
+    if *commands* is a list, every check_output command is appended to it.
+    """
     from raspisump.cli import rsumpsupport
 
     if today_rows is None:
@@ -45,6 +49,11 @@ def _run_and_capture(today_rows=None, db_error=None):
 
     captured = {}
     real_open = open
+
+    def fake_check_output(command, *args, **kwargs):
+        if commands is not None:
+            commands.append(command)
+        return "mocked output"
 
     def fake_open(path, mode="r", *args, **kwargs):
         if "w" in str(mode):
@@ -65,7 +74,8 @@ def _run_and_capture(today_rows=None, db_error=None):
 
     with (
         patch("raspisump.config_values.configuration", return_value=_FAKE_CONFIGS),
-        patch("subprocess.check_output", return_value="mocked output"),
+        patch("subprocess.check_output", side_effect=fake_check_output),
+        patch("raspisump.web.system.get_log_namespace", return_value=log_namespace),
         patch("raspisump.log.query_readings", **qr_kwargs),
         patch("builtins.open", side_effect=fake_open),
         patch("os.makedirs"),
@@ -74,6 +84,33 @@ def _run_and_capture(today_rows=None, db_error=None):
         rsumpsupport()
 
     return captured.get("content", "")
+
+
+class TestRsumpsupportJournalNamespace(unittest.TestCase):
+    """journalctl must target the units' journal namespace when one is set."""
+
+    def _journal_commands(self, log_namespace):
+        commands = []
+        _run_and_capture(log_namespace=log_namespace, commands=commands)
+        return [c for c in commands if c[0] == "journalctl"]
+
+    def test_namespace_flag_present_when_units_use_one(self):
+        commands = self._journal_commands("raspisump")
+        self.assertTrue(commands)
+        for command in commands:
+            self.assertIn("--namespace=raspisump", command)
+
+    def test_no_namespace_flag_on_default_journal(self):
+        commands = self._journal_commands("")
+        self.assertTrue(commands)
+        for command in commands:
+            self.assertNotIn("--namespace=raspisump", command)
+
+    def test_both_units_queried(self):
+        commands = self._journal_commands("raspisump")
+        units = [c[c.index("-u") + 1] for c in commands]
+        self.assertIn("raspisump.service", units)
+        self.assertIn("rsumpweb.service", units)
 
 
 class TestRsumpsupportContent(unittest.TestCase):

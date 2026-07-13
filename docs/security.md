@@ -39,3 +39,5 @@ Raspi-Sump does provide the following;
 * Defense against brute force password attacks that tarpits multiple requests over a small time window.
 
 * A dedicated `credentials.conf` file with tighter restrictions in `/etc/raspi-sump/`
+
+* Both services log to a dedicated systemd journal namespace (`LogNamespace=raspisump`). The unprivileged `raspisump` user is granted read access to that namespace only, so the web interface and `rsumpsupport` can show the service logs without being able to read the rest of the system journal (auth logs, kernel messages, other services).

@@ -4,7 +4,14 @@ import unittest
 from unittest.mock import patch, MagicMock
 import subprocess
 
-from raspisump.web.system import get_service_status, all_service_statuses, SERVICES, get_raspisump_config
+from raspisump.web.system import (
+    SERVICES,
+    all_service_statuses,
+    get_journal_log,
+    get_log_namespace,
+    get_raspisump_config,
+    get_service_status,
+)
 
 
 SAMPLE_OUTPUT = (
@@ -81,6 +88,72 @@ class TestAllServiceStatuses(unittest.TestCase):
         for name, props in results:
             self.assertIsInstance(name, str)
             self.assertEqual(props, fake_props)
+
+
+class TestGetLogNamespace(unittest.TestCase):
+
+    def test_returns_namespace_from_systemctl_show(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=_mock_run("raspisump\n")) as mock_run:
+            self.assertEqual(get_log_namespace("raspisump.service"), "raspisump")
+        cmd = mock_run.call_args[0][0]
+        self.assertEqual(
+            cmd,
+            ["systemctl", "show", "raspisump.service",
+             "--property=LogNamespace", "--value"],
+        )
+
+    def test_returns_empty_when_unit_has_no_namespace(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=_mock_run("\n")):
+            self.assertEqual(get_log_namespace("raspisump.service"), "")
+
+    def test_returns_empty_when_systemctl_missing(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   side_effect=FileNotFoundError):
+            self.assertEqual(get_log_namespace("raspisump.service"), "")
+
+    def test_returns_empty_on_timeout(self):
+        with patch("raspisump.web.system.subprocess.run",
+                   side_effect=subprocess.TimeoutExpired("systemctl", 5)):
+            self.assertEqual(get_log_namespace("raspisump.service"), "")
+
+
+class TestGetJournalLog(unittest.TestCase):
+
+    def _run(self, namespace, stdout="line one\nline two\n"):
+        with patch("raspisump.web.system.get_log_namespace",
+                   return_value=namespace), \
+             patch("raspisump.web.system.subprocess.run",
+                   return_value=_mock_run(stdout)) as mock_run:
+            lines = get_journal_log("raspisump.service", lines=20)
+        return lines, mock_run.call_args[0][0]
+
+    def test_returns_journal_lines(self):
+        lines, _ = self._run(namespace="")
+        self.assertEqual(lines, ["line one", "line two"])
+
+    def test_no_namespace_flag_for_default_journal(self):
+        _, cmd = self._run(namespace="")
+        self.assertNotIn("--namespace=", " ".join(cmd))
+        self.assertEqual(cmd[:3], ["journalctl", "-u", "raspisump.service"])
+
+    def test_namespace_flag_added_when_unit_has_one(self):
+        _, cmd = self._run(namespace="raspisump")
+        self.assertIn("--namespace=raspisump", cmd)
+        self.assertIn("-u", cmd)
+        self.assertIn("raspisump.service", cmd)
+
+    def test_requested_line_count_passed_through(self):
+        _, cmd = self._run(namespace="raspisump")
+        n_index = cmd.index("-n")
+        self.assertEqual(cmd[n_index + 1], "20")
+
+    def test_returns_empty_list_when_journalctl_missing(self):
+        with patch("raspisump.web.system.get_log_namespace", return_value=""), \
+             patch("raspisump.web.system.subprocess.run",
+                   side_effect=FileNotFoundError):
+            self.assertEqual(get_journal_log("raspisump.service"), [])
 
 
 _SAMPLE_CONF = """

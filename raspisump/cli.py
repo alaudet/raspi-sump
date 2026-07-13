@@ -273,6 +273,16 @@ def rsumpsupport():
         except Exception as e:
             return f"An unexpected error occurred: {str(e)}"
 
+    def journal_command(unit):
+        """Build a journalctl command for *unit*, honouring its LogNamespace=."""
+        from raspisump.web.system import get_log_namespace
+
+        command = ["journalctl", "-u", unit, "-n", "50", "--no-pager"]
+        namespace = get_log_namespace(unit)
+        if namespace:
+            command.insert(1, "--namespace=" + namespace)
+        return command
+
     support_folder = f"{STATE_DIR}/support"
     support_file_path = (
         f"{support_folder}/support-{time.strftime('%Y%m%d_%H%M%S')}.txt"
@@ -297,12 +307,8 @@ def rsumpsupport():
         ["tail", "-n", "10", f"{LOG_DIR}/heartbeat_log"]
     )
     logs_alert_log = run_command(["tail", "-n", "10", f"{LOG_DIR}/alert_log"])
-    journal_raspisump = run_command([
-        "journalctl", "-u", "raspisump.service", "-n", "50", "--no-pager",
-    ])
-    journal_rsumpweb = run_command([
-        "journalctl", "-u", "rsumpweb.service", "-n", "50", "--no-pager",
-    ])
+    journal_raspisump = run_command(journal_command("raspisump.service"))
+    journal_rsumpweb = run_command(journal_command("rsumpweb.service"))
     rsump_service = run_command(["cat", f"{SYSTEMD_DIR}/raspisump.service"])
     rsumpweb_service = run_command(["cat", f"{SYSTEMD_DIR}/rsumpweb.service"])
 

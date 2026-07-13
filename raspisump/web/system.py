@@ -93,15 +93,42 @@ def control_service(unit: str, action: str) -> tuple:
         return False, str(e)
 
 
-def get_journal_log(unit: str = "raspisump.service", lines: int = 20) -> list:
-    """Return the last *lines* journal entries for *unit* as a list of strings.
+def get_log_namespace(unit: str) -> str:
+    """Return the journal namespace (LogNamespace=) *unit* runs in, or "".
 
-    Returns an empty list if journalctl is unavailable.
+    Units running with systemd's LogNamespace= directive log to a dedicated
+    journal namespace instead of the default journal, and journalctl only
+    finds their entries when pointed at it with --namespace. An empty string
+    means the unit logs to the default journal (also the case on systemd
+    < 245, where the property does not exist).
     """
     try:
         result = subprocess.run(
-            ["journalctl", "-u", unit, "-n", str(lines),
-             "--no-pager", "--output=short"],
+            ["systemctl", "show", unit, "--property=LogNamespace", "--value"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return ""
+    return result.stdout.strip()
+
+
+def get_journal_log(unit: str = "raspisump.service", lines: int = 20) -> list:
+    """Return the last *lines* journal entries for *unit* as a list of strings.
+
+    Reads from the unit's journal namespace when it has one, so entries are
+    found whether or not the unit runs with LogNamespace=. Returns an empty
+    list if journalctl is unavailable.
+    """
+    cmd = ["journalctl", "-u", unit, "-n", str(lines),
+           "--no-pager", "--output=short"]
+    namespace = get_log_namespace(unit)
+    if namespace:
+        cmd.insert(1, "--namespace=" + namespace)
+    try:
+        result = subprocess.run(
+            cmd,
             capture_output=True,
             text=True,
             timeout=5,

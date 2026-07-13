@@ -8,6 +8,8 @@ case "$1" in
         systemctl reload nginx > /dev/null 2>&1 || true
         systemctl daemon-reload || true
         rm -rf /etc/raspi-sump
+        # Journal namespace store (dir is <machine-id>.raspisump)
+        rm -rf /var/log/journal/*.raspisump
         if getent passwd raspisump > /dev/null 2>&1; then
             deluser --system raspisump || true
         fi

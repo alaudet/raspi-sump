@@ -16,9 +16,15 @@ case "$1" in
             usermod -aG gpio raspisump
         fi
 
-        # Add raspisump to systemd-journal group so the web process can read the journal
-        if getent group systemd-journal > /dev/null 2>&1; then
-            usermod -aG systemd-journal raspisump
+        # raspisump.service and rsumpweb.service log to their own journal
+        # namespace (LogNamespace=raspisump), and raspisump is granted read
+        # access to just that namespace via an ACL applied by the packaged
+        # systemd-journald@raspisump.service drop-in. Membership in
+        # systemd-journal (granted by older versions) would additionally
+        # expose the entire system journal to the network-facing web
+        # process, so drop it on upgrade.
+        if id -nG raspisump 2>/dev/null | grep -qw systemd-journal; then
+            deluser raspisump systemd-journal > /dev/null 2>&1 || true
         fi
 
         # Add the user who invoked sudo/dpkg to the raspisump group so they

@@ -6,6 +6,7 @@ After=network.target
 ExecStart=/usr/bin/rsumpweb
 Restart=on-failure
 User=raspisump
+LogNamespace=raspisump
 UMask=0002
 RuntimeDirectory=raspi-sump
 RuntimeDirectoryMode=0750
