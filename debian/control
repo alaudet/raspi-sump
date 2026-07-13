@@ -18,7 +18,8 @@ Depends: ${python3:Depends}, ${misc:Depends},
  acl,
  adduser,
  nginx,
- openssl
+ openssl,
+ polkitd | policykit-1
 Recommends: sqlite3
 Description: Sump pit monitoring system for Raspberry Pi
  Raspi-Sump monitors a sump pit water level using an HC-SR04 ultrasonic

@@ -133,13 +133,13 @@ def setup_post():
 
     # Start raspisump.service now that config is in place
     subprocess.run(
-        ["sudo", "systemctl", "start", "raspisump.service"],
+        ["systemctl", "start", "raspisump.service"],
         capture_output=True,
     )
 
     # Delayed restart of rsumpweb so this HTTP response is delivered first
     subprocess.Popen(
-        ["bash", "-c", "sleep 2 && sudo systemctl restart rsumpweb.service"],
+        ["bash", "-c", "sleep 2 && systemctl restart rsumpweb.service"],
     )
 
     return render_template("admin/restarting.html", redirect_to="/")

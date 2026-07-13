@@ -41,3 +41,5 @@ Raspi-Sump does provide the following;
 * A dedicated `credentials.conf` file with tighter restrictions in `/etc/raspi-sump/`
 
 * Both services log to a dedicated systemd journal namespace (`LogNamespace=raspisump`). The unprivileged `raspisump` user is granted read access to that namespace only, so the web interface and `rsumpsupport` can show the service logs without being able to read the rest of the system journal (auth logs, kernel messages, other services).
+
+* Service start/stop/restart from the web admin panel is authorized by a scoped polkit rule rather than sudo. The rule allows the `raspisump` user exactly three verbs (start, stop, restart) on exactly two units (`raspisump.service`, `rsumpweb.service`), and no setuid binary or shell is involved in the privileged path.

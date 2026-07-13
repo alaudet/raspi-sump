@@ -1,4 +1,4 @@
-conf/sudoers/raspisump-web usr/share/raspi-sump/sudoers/
+conf/polkit/49-raspisump.rules usr/share/polkit-1/rules.d/
 conf/raspisump.conf usr/share/raspi-sump/examples/
 conf/credentials.conf usr/share/raspi-sump/examples/
 conf/systemd/raspisump.service lib/systemd/system/

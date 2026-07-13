@@ -168,6 +168,31 @@ class TestControlService(unittest.TestCase):
         self.assertIn("restart", msg)
         mock_run.assert_called_once()
 
+    def test_runs_plain_systemctl_without_sudo(self):
+        """Authorization comes from polkit, not sudo — see conf/polkit/."""
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(0)) as mock_run:
+            control_service("raspisump.service", "restart")
+        cmd = mock_run.call_args[0][0]
+        self.assertEqual(cmd, ["systemctl", "restart", "raspisump.service"])
+
+    def test_polkit_denial_explains_missing_rule(self):
+        stderr = ("Failed to restart raspisump.service: "
+                  "Interactive authentication required.")
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(1, stderr)):
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("polkit", msg)
+
+    def test_polkitd_absent_explains_missing_rule(self):
+        stderr = "Failed to restart raspisump.service: Access denied"
+        with patch("raspisump.web.system.subprocess.run",
+                   return_value=self._mock_run(1, stderr)):
+            ok, msg = control_service("raspisump.service", "restart")
+        self.assertFalse(ok)
+        self.assertIn("polkit", msg)
+
     def test_valid_stop_returns_success(self):
         with patch("raspisump.web.system.subprocess.run",
                    return_value=self._mock_run(0)):
@@ -193,17 +218,17 @@ class TestControlService(unittest.TestCase):
 
     def test_timeout_returns_error(self):
         with patch("raspisump.web.system.subprocess.run",
-                   side_effect=subprocess.TimeoutExpired(["sudo"], 15)):
+                   side_effect=subprocess.TimeoutExpired(["systemctl"], 15)):
             ok, msg = control_service("raspisump.service", "restart")
         self.assertFalse(ok)
         self.assertIn("timed out", msg)
 
     def test_os_error_returns_error(self):
         with patch("raspisump.web.system.subprocess.run",
-                   side_effect=OSError("sudo not found")):
+                   side_effect=OSError("systemctl not found")):
             ok, msg = control_service("raspisump.service", "restart")
         self.assertFalse(ok)
-        self.assertIn("sudo not found", msg)
+        self.assertIn("systemctl not found", msg)
 
 
 @unittest.skipUnless(FLASK_AVAILABLE, "Flask not installed")

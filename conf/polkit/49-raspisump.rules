@@ -1,0 +1,24 @@
+// Allow the raspisump service user to start/stop/restart its own two
+// units, and nothing else.
+//
+// Install to /usr/share/polkit-1/rules.d/ (package) or
+// /etc/polkit-1/rules.d/ (manual install). Replaces the earlier
+// sudoers-based approach: no setuid binary or shell in the path of the
+// network-facing web process, and authorization is scoped to the exact
+// user/unit/verb combination.
+//
+// The rule returns polkit.Result.YES only for that combination and
+// nothing (undefined) otherwise, so other rules still apply and file
+// ordering does not matter. subject.user needs no login session, which
+// is what a systemd service user has.
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.systemd1.manage-units" &&
+        subject.user == "raspisump") {
+        var unit = action.lookup("unit");
+        var verb = action.lookup("verb");
+        if ((unit == "raspisump.service" || unit == "rsumpweb.service") &&
+            (verb == "start" || verb == "stop" || verb == "restart")) {
+            return polkit.Result.YES;
+        }
+    }
+});

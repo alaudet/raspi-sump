@@ -70,7 +70,7 @@ def service_action():
     # then show a reconnecting page that auto-reloads once the service is back.
     if unit == "rsumpweb.service" and action == "restart":
         subprocess.Popen(
-            ["sh", "-c", "sleep 3 && sudo /usr/bin/systemctl restart rsumpweb.service"],
+            ["sh", "-c", "sleep 3 && systemctl restart rsumpweb.service"],
             close_fds=True,
             start_new_session=True,
         )
