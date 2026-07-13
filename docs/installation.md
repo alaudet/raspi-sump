@@ -132,6 +132,77 @@ sudo systemctl reload nginx
 
 ---
 
+## Optional: Replace nginx with Caddy
+
+Raspi-Sump ships configured for nginx, but you can use [Caddy](https://caddyserver.com/)
+instead if you prefer its simpler configuration syntax and automatic
+certificate management.
+
+### 1. Install Caddy and disable nginx
+
+Follow the [official Caddy install instructions](https://caddyserver.com/docs/install)
+for Debian-based distros, then stop and disable nginx so both servers don't
+fight over ports 80/443:
+
+```bash
+sudo systemctl disable --now nginx
+```
+
+### 2. Add the Caddy user to the raspisump group
+
+The Flask app listens on a Unix socket at `/run/raspi-sump/flask.sock` that is
+only readable by members of the `raspisump` group. Add the `caddy` user to
+that group so it can reach the socket:
+
+```bash
+sudo usermod -aG raspisump caddy
+```
+
+### 3. Create a Caddy site config
+
+Create `/etc/caddy/conf.d/raspi-sump.conf`:
+
+```caddy
+hostname.lan {
+    tls internal
+
+    handle /static/* {
+        root * /usr/share/raspi-sump/web
+        file_server
+    }
+
+    reverse_proxy unix//run/raspi-sump/flask.sock
+}
+```
+
+Replace `hostname.lan` with your Pi's hostname or LAN IP. Make sure this file
+is imported from your main `/etc/caddy/Caddyfile` (a default install usually
+already imports everything under `conf.d/*`).
+
+### 4. Restart Caddy
+
+```bash
+sudo systemctl restart caddy
+```
+
+`tls internal` tells Caddy to mint and serve a locally-trusted certificate
+from its own internal CA, so HTTPS works immediately without any manual
+certificate setup.
+
+!!! tip "Optional: trust Caddy's root certificate in your browser"
+    Caddy's self-signed certificate will still show as untrusted in most
+    browsers by default, since they don't know about Caddy's internal CA. To
+    remove the "not secure" warning, you can import Caddy's root certificate
+    (e.g. `/var/lib/caddy/pki/authorities/local/root.crt`) into your browser's
+    trust store. This is purely cosmetic.
+
+    For example, in Chromium on Linux:
+
+    Settings > search for "manage certificates" > Security > Manage
+    certificates > Custom > Import
+
+---
+
 ## First-Run Setup
 
 After install, the `rsumpweb` service starts automatically. Open a browser and
