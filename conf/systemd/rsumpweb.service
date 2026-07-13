@@ -3,7 +3,12 @@ Description=Raspi-Sump Flask Web Interface
 After=network.target
 
 [Service]
+# See raspisump.service for why these lines exist: PID1's own
+# Started/Stopped/Consumed-CPU messages never enter LogNamespace=, so
+# the unit logs its own start/stop markers instead.
+ExecStartPre=/usr/bin/logger -t rsumpweb --priority daemon.info "starting rsumpweb.service"
 ExecStart=/usr/bin/rsumpweb
+ExecStopPost=/bin/sh -c '/usr/bin/logger -t rsumpweb --priority daemon.info "stopped rsumpweb.service (result=$SERVICE_RESULT exit_code=$EXIT_CODE exit_status=$EXIT_STATUS)"'
 Restart=on-failure
 User=raspisump
 LogNamespace=raspisump

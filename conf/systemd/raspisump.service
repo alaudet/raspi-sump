@@ -3,7 +3,17 @@ Description=RaspiSump Service
 After=network.target
 
 [Service]
+# systemd's own lifecycle messages about this unit (Started/Stopped/
+# Consumed CPU time, OOM notices) are logged by PID1, which is never
+# namespaced, so they always land in the default journal and are
+# invisible to a reader confined to LogNamespace=raspisump below. These
+# two lines are logged by the unit's own process (ExecStartPre=/
+# ExecStopPost= share the unit's private mount namespace, same as
+# ExecStart=), so they land in the raspisump namespace instead and give
+# the confined reader a start/stop/crash-reason signal.
+ExecStartPre=/usr/bin/logger -t raspisump --priority daemon.info "starting raspisump.service"
 ExecStart=/usr/bin/rsump
+ExecStopPost=/bin/sh -c '/usr/bin/logger -t raspisump --priority daemon.info "stopped raspisump.service (result=$SERVICE_RESULT exit_code=$EXIT_CODE exit_status=$EXIT_STATUS)"'
 Restart=always
 User=raspisump
 LogNamespace=raspisump
