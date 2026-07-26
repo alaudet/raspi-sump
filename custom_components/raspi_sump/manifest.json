@@ -1,0 +1,13 @@
+{
+  "domain": "raspi_sump",
+  "name": "Raspi-Sump",
+  "codeowners": ["@alaudet"],
+  "config_flow": true,
+  "dependencies": ["frontend", "http", "websocket_api"],
+  "documentation": "https://raspisumpdocs.linuxnorth.org/home-assistant/",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/alaudet/raspi-sump/issues",
+  "requirements": [],
+  "version": "2.0.4"
+}

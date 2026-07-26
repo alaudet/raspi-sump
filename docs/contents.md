@@ -8,6 +8,7 @@
 ### Configuration & Usage
 - [Configuration](configuration.md) — All `raspisump.conf` settings explained
 - [Web Interface](web-interface.md) — Using the HTTPS web interface
+- [Home Assistant](home-assistant.md) — Custom integration, entities, and Lovelace card
 - [Alerts](alerts.md) — Setting up email and Mastodon alerts
 - [CLI Tools](cli.md) — Command line tools reference
 

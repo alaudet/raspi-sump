@@ -18,8 +18,25 @@
 - Interactive charts with dark mode support
 - Historical readings with single-day, multi-day, and custom date range views
 - Admin panel: service control, configuration editor, backup/export, CSV import, support tools
+- Home Assistant integration with a matching Lovelace card
 - Installed as a standard Debian package — no virtual environment required
 - systemd services with automatic startup
+
+---
+
+## Home Assistant
+
+A custom Home Assistant integration lives in `custom_components/raspi_sump`. It
+shows up under **Settings → Devices & Services**, creates water level, daily
+statistics, and diagnostic entities, and ships a Lovelace card that draws the
+same chart as the web interface.
+
+Install it through HACS by adding this repository as a custom repository with
+the category **Integration**, or copy `custom_components/raspi_sump` into your
+Home Assistant configuration directory.
+
+See the [Home Assistant documentation](https://raspisumpdocs.linuxnorth.org/home-assistant/)
+for setup, the full entity list, and card options.
 
 ---
 

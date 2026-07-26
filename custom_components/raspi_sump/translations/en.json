@@ -1,0 +1,86 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Raspi-Sump",
+        "description": "Enter the address of your raspi-sump web interface.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "ssl": "Uses HTTPS",
+          "verify_ssl": "Verify SSL certificate",
+          "path": "Path prefix"
+        },
+        "data_description": {
+          "host": "Hostname or IP address of the Raspberry Pi running raspi-sump.",
+          "port": "Port the web interface listens on. Use 443 when it is served over HTTPS.",
+          "verify_ssl": "Turn this off only for a self-signed certificate.",
+          "path": "Only needed when a reverse proxy serves raspi-sump under a subpath, for example 'sump' for https://home.example.com/sump."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the raspi-sump web interface at that address.",
+      "unsupported_version": "That raspi-sump instance does not provide the /api/status endpoint this integration needs. Upgrade raspi-sump on the Pi."
+    },
+    "abort": {
+      "already_configured": "This raspi-sump instance is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Raspi-Sump options",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        },
+        "data_description": {
+          "scan_interval": "How often to poll raspi-sump. There is no benefit to polling faster than the reading interval configured on the Pi."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "water_level": {
+        "name": "Water level"
+      },
+      "pit_full": {
+        "name": "Pit full"
+      },
+      "level_min_today": {
+        "name": "Level min today"
+      },
+      "level_max_today": {
+        "name": "Level max today"
+      },
+      "pit_empties_today": {
+        "name": "Pit empties today"
+      },
+      "readings_today": {
+        "name": "Readings today"
+      },
+      "last_reading": {
+        "name": "Last reading"
+      },
+      "critical_level": {
+        "name": "Critical level"
+      },
+      "pit_depth": {
+        "name": "Pit depth"
+      }
+    },
+    "binary_sensor": {
+      "critical": {
+        "name": "Critical",
+        "state": {
+          "off": "Normal",
+          "on": "Critical"
+        }
+      },
+      "service": {
+        "name": "Service"
+      }
+    }
+  }
+}

@@ -44,6 +44,7 @@ nav:
     - Full Uninstall: uninstall.md
   - Configuration: configuration.md
   - Web Interface: web-interface.md
+  - Home Assistant: home-assistant.md
   - Alerts: alerts.md
   - CLI Tools: cli.md
   - Hardware: hardware.md
