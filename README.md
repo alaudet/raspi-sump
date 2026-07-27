@@ -41,6 +41,16 @@ Raspi-Sump follows the [Debian release schedule](https://wiki.debian.org/DebianR
 
 ---
 
+## Unofficial OS
+
+| OS | Architecture |
+|---|---|
+| Arch Linux and Arch Linux ARM | aarch64 and armv7h (unofficial) |
+
+An unofficial port is maintained on the [Arch User Repository](https://aur.archlinux.org/packages/raspisump), which hosts the build file and its required dependencies for running Raspi-Sump on Arch Linux via the [unofficial ARM64 port](https://ports.archlinux.page/aarch64/) or on [Arch Linux ARM](https://archlinuxarm.org/). This port is community-maintained and not officially supported here.
+
+---
+
 ## What's New in Version 2.0
 
 Version 2.0 is a complete rewrite:
