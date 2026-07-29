@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from raspisump.web.config_helpers import (
+    FIELD_SCHEMA,
     load_current_values,
     validate_config_form,
     write_config_values,
@@ -82,11 +83,33 @@ class TestLoadCurrentValues(unittest.TestCase):
         self.assertEqual(vals, {})
 
 
+class TestFieldSchema(unittest.TestCase):
+    """The [display] time_format field is wired into the editor schema."""
+
+    def _display_field(self):
+        for section, _label, fields in FIELD_SCHEMA:
+            if section == "display":
+                return fields[0]
+        return None
+
+    def test_display_section_present(self):
+        sections = [s for s, _label, _fields in FIELD_SCHEMA]
+        self.assertIn("display", sections)
+
+    def test_time_format_is_a_select_with_both_options(self):
+        key, label, widget, options, _help = self._display_field()
+        self.assertEqual(key, "time_format")
+        self.assertEqual(label, "Chart Time Format")
+        self.assertEqual(widget, "select")
+        self.assertEqual([o[0] for o in options], ["24h", "12h"])
+
+
 class TestValidateConfigForm(unittest.TestCase):
 
     def _make_form(self, overrides=None):
         """Build a valid form dict, apply any overrides."""
         data = {
+            "display__time_format": "24h",
             "gpio_pins__trig_pin": "17",
             "gpio_pins__echo_pin": "27",
             "pit__unit": "metric",
@@ -149,6 +172,18 @@ class TestValidateConfigForm(unittest.TestCase):
         })
         _, errors = validate_config_form(bad)
         self.assertEqual(len(errors), 2)
+
+    def test_time_format_change_captured(self):
+        changes, _ = validate_config_form(self._make_form({"display__time_format": "12h"}))
+        self.assertEqual(changes[("display", "time_format")], "12h")
+
+    def test_valid_time_format_12h_passes(self):
+        _, errors = validate_config_form(self._make_form({"display__time_format": "12h"}))
+        self.assertEqual(errors, [])
+
+    def test_invalid_time_format_returns_error(self):
+        _, errors = validate_config_form(self._make_form({"display__time_format": "48h"}))
+        self.assertTrue(any("Chart Time Format" in e for e in errors))
 
 
 class TestWriteConfigValues(unittest.TestCase):
@@ -286,6 +321,7 @@ class TestConfigView(unittest.TestCase):
     def test_config_post_valid_saves_and_shows_success(self):
         self._auth()
         form = {
+            "display__time_format": "24h",
             "gpio_pins__trig_pin": "18",
             "gpio_pins__echo_pin": "27",
             "pit__unit": "metric",
@@ -318,6 +354,46 @@ class TestConfigView(unittest.TestCase):
             response = self.client.post("/admin/config", data=form)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Trig Pin", response.data)
+
+
+@unittest.skipUnless(FLASK_AVAILABLE, "Flask not installed")
+class TestTimeFormatRendering(unittest.TestCase):
+    """The inject_globals context processor renders time_format into base.html
+    as a data-timeformat attribute that sumpChart.js reads.
+
+    /admin/login is used because it extends base.html and needs no database.
+    """
+
+    def setUp(self):
+        app = create_app()
+        app.config["TESTING"] = True
+        self.client = app.test_client()
+
+    def _render_with_time_format(self, value=None):
+        """GET the login page with config_values.time_format returning value.
+
+        value=None leaves [display] absent so the 24h default applies.
+        """
+        cp = configparser.RawConfigParser()
+        if value is not None:
+            cp.read_dict({"display": {"time_format": value}})
+        with patch("raspisump.config_values.config", cp):
+            return self.client.get("/admin/login")
+
+    def test_24h_omits_attribute(self):
+        response = self._render_with_time_format("24h")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(b"data-timeformat", response.data)
+
+    def test_default_omits_attribute(self):
+        response = self._render_with_time_format(None)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(b"data-timeformat", response.data)
+
+    def test_12h_adds_attribute(self):
+        response = self._render_with_time_format("12h")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-timeformat="12h"', response.data)
 
 
 if __name__ == "__main__":

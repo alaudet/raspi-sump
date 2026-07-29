@@ -13,6 +13,11 @@ _CONF_PATH = "/etc/raspi-sump/raspisump.conf"
 # options: [(value, display), ...] for select, else None
 # ---------------------------------------------------------------------------
 FIELD_SCHEMA = [
+    ("display", "Display", [
+        ("time_format", "Chart Time Format", "select",
+         [("24h", "24-hour (14:30)"), ("12h", "12-hour (2:30 PM)")],
+         "Time format for the water-level chart x-axis"),
+    ]),
     ("gpio_pins", "GPIO Pins", [
         ("trig_pin", "Trig Pin", "integer", None,
          "GPIO pin number that sends the trigger signal"),

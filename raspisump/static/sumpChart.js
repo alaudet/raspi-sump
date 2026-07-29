@@ -38,6 +38,19 @@ function initRangeChart(containerId, start, end) {
     _fetchAndRender(url, containerId, true);
 }
 
+/* ── time formatting ────────────────────────────────────────────────── */
+
+function _formatTime(d) {
+    if (document.documentElement.getAttribute('data-timeformat') === '12h') {
+        var h = d.getHours() % 12;
+        if (h === 0) h = 12;
+        var ampm = d.getHours() < 12 ? 'AM' : 'PM';
+        return h + ':' + String(d.getMinutes()).padStart(2, '0') + ' ' + ampm;
+    }
+    return String(d.getHours()).padStart(2, '0') + ':' +
+           String(d.getMinutes()).padStart(2, '0');
+}
+
 /* ── shared fetch + render ─────────────────────────────────────────── */
 
 function _fetchAndRender(url, containerId, multiDay) {
@@ -102,16 +115,14 @@ function _renderChart(container, json, containerId, multiDay) {
                 if (v === null) return '';
                 var d = new Date(v * 1000);
                 return _MONTHS[d.getMonth()] + ' ' + String(d.getDate()).padStart(2, '0') +
-                       ' ' + String(d.getHours()).padStart(2, '0') + ':' +
-                       String(d.getMinutes()).padStart(2, '0');
+                       ' ' + _formatTime(d);
             });
           }
         : function(u, vals) {
             return vals.map(function(v) {
                 if (v === null) return '';
                 var d = new Date(v * 1000);
-                return String(d.getHours()).padStart(2, '0') + ':' +
-                       String(d.getMinutes()).padStart(2, '0');
+                return _formatTime(d);
             });
           };
 
@@ -178,10 +189,12 @@ function downloadChart(containerId, filename) {
 
 /* ── theme change ────────────────────────────────────────────────────── */
 
-document.addEventListener('themechange', function() {
+function _rerenderAll() {
     Object.keys(_registry).forEach(function(id) {
         var reg = _registry[id];
         if (reg.type === 'day')   initChart(id, reg.date);
         if (reg.type === 'range') initRangeChart(id, reg.start, reg.end);
     });
-});
+}
+
+document.addEventListener('themechange', _rerenderAll);
