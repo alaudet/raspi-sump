@@ -142,17 +142,41 @@ saved in the browser and applied on subsequent visits.
 
 ## JSON API
 
-Three read-only JSON endpoints back the charts. They require no
-authentication, matching the rest of the read-only pages.
+!!! note "External Clients"
+    Thanks to Github user graysky2 for providing these endpoints. He provides a Home Assistant setup for Raspi-Sump which is separate from this project. The api can be used by any external client.  If you are interested in this, check out his [github page](https://github.com/graysky2/ha-raspi-sump)
+
+
+Beyond the pages above, Raspi-Sump exposes a small set of read-only JSON
+endpoints as of version 2.1.0. They're what power the charts on this site, but they're equally
+useful for pulling water level data into something of your own like a home
+automation setup, a monitoring dashboard, a phone widget, or a quick script.
+Nothing about them assumes a particular consumer.
+
+!!! note "No authentication required"
+    These endpoints are unauthenticated, the same as the History charts they
+    back. Treat them as part of the same LAN trust boundary as the rest of
+    the read-only pages. The caution above about exposing the web interface
+    to the internet applies here too.
+
+You can query them with `curl`, a browser, or any HTTP client:
+
+```
+curl -sk https://<your-pi-ip>/api/status
+```
+
+The `-k` flag skips certificate verification.
 
 ### `GET /api/status`
 
-Current state summary — one small payload, suitable for polling.
+A compact snapshot of current state: the latest reading, today's stats, pump
+cycle count, and whether the `raspisump` service is running, all in one
+small payload. Built for polling on an interval, so a client doesn't need to
+fetch a full day of readings just to check the latest value.
 
 ```json
 {
   "api_version": 1,
-  "version": "2.0.4",
+  "version": "2.1.0",
   "level": 41.2,
   "unit": "cm",
   "last_ts": "2026-07-26T09:20:00-04:00",
@@ -166,22 +190,27 @@ Current state summary — one small payload, suitable for polling.
 }
 ```
 
-`api_version` is incremented only when the shape of this payload changes in a
-way that would break a client.
+`api_version` is incremented only when this payload's shape changes in a way
+that would break a client — safe to build automation against.
 
-Any field that Raspi-Sump cannot determine is `null` rather than an error:
-`cycles_today` is `null` unless `cycle_detection` is enabled, `service_active`
-is `null` where systemd is unavailable, and `level`, `unit` and `last_ts` are
-`null` before the first reading is recorded. `unit` falls back to the value
-configured in `raspisump.conf` when no readings exist yet.
+Fields degrade to `null` rather than erroring when Raspi-Sump can't determine
+them: `cycles_today` stays `null` unless cycle detection is enabled,
+`service_active` is `null` if systemd is unavailable, and `level`, `unit` and
+`last_ts` are `null` before the first reading is recorded (`unit` falls back
+to the value configured in `raspisump.conf` in that case).
 
 ### `GET /api/readings`
 
-All readings for one calendar day, in the array-of-arrays form uPlot consumes.
+All readings for one calendar day, in the array-of-arrays form the chart
+library (uPlot) consumes.
 
 | Parameter | Description |
 | --- | --- |
 | `date` | `YYYY-MM-DD`, defaults to today |
+
+```
+curl -sk "https://<your-pi-ip>/api/readings?date=2026-07-26"
+```
 
 ```json
 {
@@ -197,9 +226,17 @@ matching water levels.
 
 ### `GET /api/readings/range`
 
-The same shape across an arbitrary time range.
+The same shape as above, across an arbitrary start/end range instead of a
+single day.
 
-| Parameter | Description |
-| --- | --- |
-| `start` | `YYYY-MM-DDTHH:MM` (required) |
-| `end` | `YYYY-MM-DDTHH:MM` (required) |
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `start` | yes | `YYYY-MM-DDTHH:MM` |
+| `end` | yes | `YYYY-MM-DDTHH:MM` |
+
+```
+curl -sk "https://<your-pi-ip>/api/readings/range?start=2026-07-26T00:00&end=2026-07-26T12:00"
+```
+
+Omitting either parameter returns a `400` with an error message rather than
+guessing at a default range.

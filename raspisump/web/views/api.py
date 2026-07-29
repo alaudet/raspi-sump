@@ -1,4 +1,4 @@
-"""JSON API — readings data for uPlot charts and the Home Assistant integration."""
+"""JSON API — readings data for uPlot charts and external clients."""
 
 import configparser
 import logging
@@ -16,8 +16,8 @@ bp = Blueprint("api", __name__)
 
 _RASPISUMP_CONF = "/etc/raspi-sump/raspisump.conf"
 
-# Bumped only on a breaking change to the /api/status payload.  Clients (the
-# Home Assistant integration) refuse to talk to a version they don't know.
+# Bumped only on a breaking change to the /api/status payload, giving
+# clients a version to check before trusting the shape.
 STATUS_API_VERSION = 1
 
 
@@ -131,8 +131,8 @@ def _isoformat(ts_str):
     """Convert a "YYYY-MM-DD HH:MM:SS" reading timestamp to tz-aware ISO-8601.
 
     The chart endpoints emit naive local-time Unix seconds, which uPlot is happy
-    with.  Home Assistant rejects naive datetimes for timestamp sensors, so the
-    local timezone offset is attached here.
+    with.  Some consumers (e.g. Home Assistant) reject naive datetimes for
+    timestamp sensors, so the local timezone offset is attached here.
     """
     try:
         naive = datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S")
@@ -172,8 +172,8 @@ def _service_active():
 def status():
     """Current state summary — one small payload per poll.
 
-    Built for the Home Assistant integration, but useful to any client that
-    wants the latest reading without downloading a whole day of readings.
+    A summary for any client that wants the latest reading without
+    downloading a whole day of readings.
     Optional pieces degrade to null rather than failing the request.
     """
     try:
