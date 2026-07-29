@@ -137,3 +137,69 @@ Click the **⚙ gear icon** and select **Logout** to end your admin session.
 
 A dark mode toggle is available in the navigation bar. Your preference is
 saved in the browser and applied on subsequent visits.
+
+---
+
+## JSON API
+
+Three read-only JSON endpoints back the charts. They require no
+authentication, matching the rest of the read-only pages.
+
+### `GET /api/status`
+
+Current state summary — one small payload, suitable for polling.
+
+```json
+{
+  "api_version": 1,
+  "version": "2.0.4",
+  "level": 41.2,
+  "unit": "cm",
+  "last_ts": "2026-07-26T09:20:00-04:00",
+  "critical_level": 35.0,
+  "pit_depth": 72.0,
+  "alert_when": "high",
+  "reading_interval": 60,
+  "day": { "min": 38.1, "max": 52.0, "count": 540 },
+  "cycles_today": 4,
+  "service_active": true
+}
+```
+
+`api_version` is incremented only when the shape of this payload changes in a
+way that would break a client.
+
+Any field that Raspi-Sump cannot determine is `null` rather than an error:
+`cycles_today` is `null` unless `cycle_detection` is enabled, `service_active`
+is `null` where systemd is unavailable, and `level`, `unit` and `last_ts` are
+`null` before the first reading is recorded. `unit` falls back to the value
+configured in `raspisump.conf` when no readings exist yet.
+
+### `GET /api/readings`
+
+All readings for one calendar day, in the array-of-arrays form uPlot consumes.
+
+| Parameter | Description |
+| --- | --- |
+| `date` | `YYYY-MM-DD`, defaults to today |
+
+```json
+{
+  "date": "2026-07-26",
+  "unit": "cm",
+  "critical_level": 35.0,
+  "data": [[1769433600, 1769433660], [41.2, 41.4]]
+}
+```
+
+The first inner array is Unix timestamps in local time, the second is the
+matching water levels.
+
+### `GET /api/readings/range`
+
+The same shape across an arbitrary time range.
+
+| Parameter | Description |
+| --- | --- |
+| `start` | `YYYY-MM-DDTHH:MM` (required) |
+| `end` | `YYYY-MM-DDTHH:MM` (required) |

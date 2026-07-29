@@ -37,6 +37,7 @@ pytest tests/test_sump.py::TestRaspisump::test_config_dict
 | `test_rsumplog.py` | `rsumplog` CLI — `--today`, `--date`, `--last` |
 | `test_sump.py` | Core raspisump config values and reading logic |
 | `test_web_admin.py` | Admin system status page and service control |
+| `test_web_api_status.py` | `/api/status` summary endpoint and pit config parsing |
 | `test_web_backup.py` | Backup/export zip download |
 | `test_web_config.py` | Configuration editor — load, validate, write |
 | `test_web_csvdata.py` | CSV import and export via web |
