@@ -396,5 +396,64 @@ class TestTimeFormatRendering(unittest.TestCase):
         self.assertIn(b'data-timeformat="12h"', response.data)
 
 
+@unittest.skipUnless(FLASK_AVAILABLE, "Flask not installed")
+class TestClocktimeFilter(unittest.TestCase):
+    """The clocktime Jinja filter used by home.html/history.html for the
+    'Last Reading' stat card.
+    """
+
+    def setUp(self):
+        app = create_app()
+        app.config["TESTING"] = True
+        self.clocktime = app.jinja_env.filters["clocktime"]
+
+    def _with_time_format(self, value, fn):
+        cp = configparser.RawConfigParser()
+        if value is not None:
+            cp.read_dict({"display": {"time_format": value}})
+        with patch("raspisump.config_values.config", cp):
+            return fn()
+
+    def test_24h_returns_raw_slice(self):
+        result = self._with_time_format(
+            "24h", lambda: self.clocktime("2026-07-29 14:30:00")
+        )
+        self.assertEqual(result, "14:30")
+
+    def test_12h_formats_afternoon(self):
+        result = self._with_time_format(
+            "12h", lambda: self.clocktime("2026-07-29 14:30:00")
+        )
+        self.assertEqual(result, "2:30 PM")
+
+    def test_12h_formats_midnight_and_noon(self):
+        midnight = self._with_time_format(
+            "12h", lambda: self.clocktime("2026-07-29 00:05:00")
+        )
+        noon = self._with_time_format(
+            "12h", lambda: self.clocktime("2026-07-29 12:00:00")
+        )
+        self.assertEqual(midnight, "12:05 AM")
+        self.assertEqual(noon, "12:00 PM")
+
+    def test_12h_malformed_hour_falls_back_to_raw_slice(self):
+        """A non-numeric hour (DB corruption, manual tampering) must not
+        raise — it should degrade to the raw HH:MM slice like the old
+        stats.last_ts[11:16] behavior did.
+        """
+        result = self._with_time_format(
+            "12h", lambda: self.clocktime("2026-07-29 XX:30:00")
+        )
+        self.assertEqual(result, "XX:30")
+
+    def test_empty_timestamp_returns_empty_string(self):
+        result = self._with_time_format("12h", lambda: self.clocktime(""))
+        self.assertEqual(result, "")
+
+    def test_none_timestamp_returns_empty_string(self):
+        result = self._with_time_format("12h", lambda: self.clocktime(None))
+        self.assertEqual(result, "")
+
+
 if __name__ == "__main__":
     unittest.main()

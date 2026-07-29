@@ -65,7 +65,10 @@ def create_app():
         hhmm = (ts or "")[11:16]
         if time_format() != "12h" or len(hhmm) < 5:
             return hhmm
-        hour = int(hhmm[:2])
+        try:
+            hour = int(hhmm[:2])
+        except ValueError:
+            return hhmm
         minute = hhmm[3:5]
         suffix = "AM" if hour < 12 else "PM"
         hour12 = hour % 12 or 12

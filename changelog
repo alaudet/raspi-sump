@@ -1,3 +1,13 @@
+2026-07-?? Version 2.1.0
+------------------------
+
+- added a web icon to the web Interface
+- added 12h format for graphs as an option
+- raspisump now works on Arch Linux ARM.  It is not officially supported here but is a user contribution.
+All support for ARM should discuss on the Arch Linux AUR page at https://aur.archlinux.org/packages/raspi-sump
+
+
+
 2026-06-23 Version 2.0.4
 ------------------------
 
