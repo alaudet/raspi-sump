@@ -25,7 +25,7 @@
 
 ## Supported Hardware
 
-- Raspberry Pi 2, 3, 4, and 5
+- Raspberry PiB, Zero2w, Pi 2, 3, 4, and 5
 - Ultrasonic sensors: HC-SR04, JSN-SR04T 2.0 (waterproof).  JSN-SR04T 3.0 not recommended.
 
 ---
