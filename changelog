@@ -5,7 +5,8 @@
 - added 12h format for graphs as an option
 - api endpoints for external clients (see docs)
 - raspisump now works on Arch Linux ARM.  It is not officially supported here but is a user contribution.
-All support for ARM should discuss on the Arch Linux AUR page at https://aur.archlinux.org/packages/raspi-sump
+
+All support for Arch Linux on ARM should discuss on the Arch Linux AUR page at https://aur.archlinux.org/packages/raspi-sump
 
 
 
