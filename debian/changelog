@@ -1,3 +1,16 @@
+raspisump (2.1.0) unstable; urgency=medium
+
+  * Add JSON API endpoints for external clients (see docs/web-interface.md).
+  * Add 12h/24h time format setting for chart x-axis.
+  * Add a web UI favicon.
+  * Fix unhandled ValueError on the homepage when last_ts is malformed
+    (DB corruption or manual tampering) — now degrades gracefully.
+  * raspisump now works on Arch Linux ARM (community-contributed, not
+    officially supported); support discussion redirected to the Arch
+    Linux AUR page.
+
+ -- Al Audet <alaudet@linuxnorth.org>  Thu, 30 Jul 2026 00:00:00 +0000
+
 raspisump (2.0.4) unstable; urgency=medium
 
   * Fix rsumpsupport crashing when readings database is unreachable; DB
