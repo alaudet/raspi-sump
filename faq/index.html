@@ -1,0 +1,2052 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://raspisumpdocs.linuxnorth.org/faq/">
+      
+      
+        <link rel="prev" href="../hardware/">
+      
+      
+        <link rel="next" href="../security/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>FAQ - Raspi-Sump</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#faq" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Raspi-Sump" class="md-header__button md-logo" aria-label="Raspi-Sump" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Raspi-Sump
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FAQ
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alaudet/raspi-sump" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alaudet/raspi-sump
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contents/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Table of Contents
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../installation/" class="md-tabs__link">
+          
+  
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../configuration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../web-interface/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Interface
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../alerts/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Alerts
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cli/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  CLI Tools
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hardware/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Hardware
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../security/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Security
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../versions/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Version History
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Raspi-Sump" class="md-nav__button md-logo" aria-label="Raspi-Sump" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Raspi-Sump
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alaudet/raspi-sump" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alaudet/raspi-sump
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fresh Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Upgrading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uninstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full Uninstall
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alerts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-related_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Related
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-raspi-sump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Raspi-Sump?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-problem-does-raspi-sump-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problem does Raspi-Sump solve?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-much-does-it-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How much does it cost?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#will-it-always-be-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Will it always be free?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-python-and-os-versions-are-supported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Python and OS versions are supported?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-would-like-to-re-use-the-code-to-make-a-different-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I would like to re-use the code to make a different program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-have-a-good-idea-for-the-application-can-you-add-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I have a good idea for the application, can you add it?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-can-i-get-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I get help?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-can-i-donate-to-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I donate to the project?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-is-no-data-showing-on-the-home-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is no data showing on the home page?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-am-not-getting-any-depth-readings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I am not getting any depth readings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-am-i-getting-multiple-readings-of-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why am I getting multiple readings of 0?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-use-the-jsn-sr04t-and-get-bad-readings-when-the-water-is-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I use the JSN-SR04T and get bad readings when the water is high
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-want-alerts-when-the-water-level-gets-too-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I want alerts when the water level gets too low
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-reset-my-admin-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I reset my admin password?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-web-interface-shows-a-security-warning-in-my-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The web interface shows a security warning in my browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-change-the-gpio-pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I change the GPIO pins?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-readings-after-changing-the-reading-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No readings after changing the reading interval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-are-my-alerts-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why are my alerts not working?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-set-the-heartbeat-alert-to-always-arrive-at-the-same-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I set the heartbeat alert to always arrive at the same time?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-about-power-outages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What about power outages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-the-pi-control-the-pump-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can the Pi control the pump directly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-import-data-from-raspi-sump-1x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I import data from Raspi-Sump 1.x?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-back-up-my-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I back up my data?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-run-raspi-sump-without-the-web-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I run Raspi-Sump without the web interface?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-are-the-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where are the log files?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-report-a-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I report a bug?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-related_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Related
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Related">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-raspi-sump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Raspi-Sump?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-problem-does-raspi-sump-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problem does Raspi-Sump solve?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-much-does-it-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How much does it cost?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#will-it-always-be-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Will it always be free?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-python-and-os-versions-are-supported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Python and OS versions are supported?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-would-like-to-re-use-the-code-to-make-a-different-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I would like to re-use the code to make a different program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-have-a-good-idea-for-the-application-can-you-add-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I have a good idea for the application, can you add it?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-can-i-get-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I get help?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-can-i-donate-to-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I donate to the project?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-is-no-data-showing-on-the-home-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is no data showing on the home page?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-am-not-getting-any-depth-readings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I am not getting any depth readings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-am-i-getting-multiple-readings-of-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why am I getting multiple readings of 0?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-use-the-jsn-sr04t-and-get-bad-readings-when-the-water-is-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I use the JSN-SR04T and get bad readings when the water is high
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-want-alerts-when-the-water-level-gets-too-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I want alerts when the water level gets too low
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-reset-my-admin-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I reset my admin password?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-web-interface-shows-a-security-warning-in-my-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The web interface shows a security warning in my browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-change-the-gpio-pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I change the GPIO pins?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-readings-after-changing-the-reading-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No readings after changing the reading interval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-are-my-alerts-not-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why are my alerts not working?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-set-the-heartbeat-alert-to-always-arrive-at-the-same-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I set the heartbeat alert to always arrive at the same time?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-about-power-outages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What about power outages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-the-pi-control-the-pump-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can the Pi control the pump directly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-import-data-from-raspi-sump-1x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I import data from Raspi-Sump 1.x?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-back-up-my-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I back up my data?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-run-raspi-sump-without-the-web-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I run Raspi-Sump without the web interface?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-are-the-log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where are the log files?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-report-a-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I report a bug?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/alaudet/raspi-sump/edit/main/docs/faq.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="faq">FAQ</h1>
+<h2 id="project-related">Project Related</h2>
+<ul>
+<li><a href="#what-is-raspi-sump">What is Raspi-Sump?</a></li>
+<li><a href="#what-problem-does-raspi-sump-solve">What problem does Raspi-Sump solve?</a></li>
+<li><a href="#how-much-does-it-cost">How much does it cost?</a></li>
+<li><a href="#will-it-always-be-free">Will it always be free?</a></li>
+<li><a href="#what-python-and-os-versions-are-supported">What Python and OS versions are supported?</a></li>
+<li><a href="#i-would-like-to-re-use-the-code-to-make-a-different-program">I would like to re-use the code to make a different program</a></li>
+<li><a href="#i-have-a-good-idea-for-the-application-can-you-add-it">I have a good idea for the application, can you add it?</a></li>
+<li><a href="#how-can-i-get-help">How can I get help?</a></li>
+<li><a href="#how-can-i-donate-to-the-project">How can I donate to the project?</a></li>
+</ul>
+<h2 id="technical">Technical</h2>
+<ul>
+<li><a href="#why-is-no-data-showing-on-the-home-page">Why is no data showing on the home page?</a></li>
+<li><a href="#i-am-not-getting-any-depth-readings">I am not getting any depth readings</a></li>
+<li><a href="#why-am-i-getting-multiple-readings-of-0">Why am I getting multiple readings of 0?</a></li>
+<li><a href="#i-use-the-jsn-sr04t-and-get-bad-readings-when-the-water-is-high">I use the JSN-SR04T and get bad readings when the water is high</a></li>
+<li><a href="#i-want-alerts-when-the-water-level-gets-too-low">I want alerts when the water level gets too low</a></li>
+<li><a href="#how-do-i-reset-my-admin-password">How do I reset my admin password?</a></li>
+<li><a href="#the-web-interface-shows-a-security-warning-in-my-browser">The web interface shows a security warning in my browser</a></li>
+<li><a href="#how-do-i-change-the-gpio-pins">How do I change the GPIO pins?</a></li>
+<li><a href="#no-readings-after-changing-the-reading-interval">No readings after changing the reading interval</a></li>
+<li><a href="#why-are-my-alerts-not-working">Why are my alerts not working?</a></li>
+<li><a href="#how-do-i-set-the-heartbeat-alert-to-always-arrive-at-the-same-time">How do I set the heartbeat alert to always arrive at the same time?</a></li>
+<li><a href="#what-about-power-outages">What about power outages?</a></li>
+<li><a href="#can-the-pi-control-the-pump-directly">Can the Pi control the pump directly?</a></li>
+<li><a href="#how-do-i-import-data-from-raspi-sump-1x">How do I import data from Raspi-Sump 1.x?</a></li>
+<li><a href="#how-do-i-back-up-my-data">How do I back up my data?</a></li>
+<li><a href="#can-i-run-raspi-sump-without-the-web-interface">Can I run Raspi-Sump without the web interface?</a></li>
+<li><a href="#where-are-the-log-files">Where are the log files?</a></li>
+<li><a href="#how-do-i-report-a-bug">How do I report a bug?</a></li>
+</ul>
+<hr />
+<h2 id="project-related_1">Project Related</h2>
+<h3 id="what-is-raspi-sump">What is Raspi-Sump?</h3>
+<p>Raspi-Sump is a water level monitoring system that uses an ultrasonic distance
+sensor connected to the GPIO pins of a Raspberry Pi. It passively monitors the
+water level and sends you an alert if the water exceeds a pre-defined level.</p>
+<p>The program is written in Python and the source code is available on
+<a href="https://github.com/alaudet/raspi-sump">GitHub</a>.</p>
+<hr />
+<h3 id="what-problem-does-raspi-sump-solve">What problem does Raspi-Sump solve?</h3>
+<p>Monitoring the water level of a sump pit requires you to be at that location.
+Raspi-Sump allows you to monitor the level from anywhere with an internet
+connection, and actively alerts you if there is a problem so you can address it
+before there is a disaster.</p>
+<hr />
+<h3 id="how-much-does-it-cost">How much does it cost?</h3>
+<p>Raspi-Sump is free to use under the
+<a href="https://github.com/alaudet/raspi-sump/blob/main/LICENSE">Apache 2.0 License</a>. The
+source code is freely available to use, modify, and distribute as you see fit.</p>
+<hr />
+<h3 id="will-it-always-be-free">Will it always be free?</h3>
+<p>Yes. Raspi-Sump will always remain free to use.</p>
+<hr />
+<h3 id="what-python-and-os-versions-are-supported">What Python and OS versions are supported?</h3>
+<p>Raspi-Sump requires Python 3.11 or later and runs on Raspberry Pi OS Bookworm
+(v12) or Trixie (v13) on any Raspberry Pi 2 or greater.</p>
+<p>Support targets in-support versions of Raspberry Pi OS. It may work on
+other ARM-based operating systems or boards (such as Orange Pi or Ubuntu ARM)
+but these are not officially supported.</p>
+<hr />
+<h3 id="i-would-like-to-re-use-the-code-to-make-a-different-program">I would like to re-use the code to make a different program</h3>
+<p>The <a href="https://github.com/alaudet/raspi-sump/blob/main/LICENSE">Apache 2.0 License</a> allows this.</p>
+<p>Please see the license details.</p>
+<hr />
+<h3 id="i-have-a-good-idea-for-the-application-can-you-add-it">I have a good idea for the application, can you add it?</h3>
+<p>Raspi-Sump is open source and contributions are welcome. There are
+<a href="https://github.com/alaudet/raspi-sump/blob/main/CONTRIBUTING.md">contribution guidelines</a>
+to follow. Be clear about what you are proposing and why, make sure your code
+works and is readable before submitting a pull request. Run the unit tests
+before submitting — it is the first thing that will be checked.</p>
+<p>If you are not sure whether something is worth pursuing, open an issue in the
+<a href="https://github.com/alaudet/raspi-sump/issues">tracker</a> to discuss it before writing any code.</p>
+<hr />
+<h3 id="how-can-i-get-help">How can I get help?</h3>
+<ul>
+<li>Report problems or find solutions on the <a href="https://github.com/alaudet/raspi-sump/issues">GitHub issue tracker</a></li>
+<li>Join the Discord group — <a href="mailto:alaudet@linuxnorth.org?Subject=Raspi-Sump%20Discord%20Invite">email for an invite</a></li>
+</ul>
+<hr />
+<h3 id="how-can-i-donate-to-the-project">How can I donate to the project?</h3>
+<p>See the <a href="https://www.linuxnorth.org/donate/">donation page</a>.</p>
+<hr />
+<h2 id="technical_1">Technical</h2>
+<h3 id="why-is-no-data-showing-on-the-home-page">Why is no data showing on the home page?</h3>
+<p>The <code>raspisump</code> service is likely not running. Check the service status via
+<strong>gear icon → System Status</strong> in the web interface, or from the command line:</p>
+<pre><code class="language-bash">sudo systemctl status raspisump
+</code></pre>
+<p>If it is not running, start it:</p>
+<pre><code class="language-bash">sudo systemctl start raspisump
+</code></pre>
+<p>Also verify that your configuration is correct — particularly <code>trig_pin</code>,
+<code>echo_pin</code>, and <code>pit_depth</code> in <code>raspisump.conf</code>.</p>
+<hr />
+<h3 id="i-am-not-getting-any-depth-readings">I am not getting any depth readings</h3>
+<p>If the sensor signal is not being received, check <code>journalctl -u raspisump</code> or
+the error log in <code>/var/log/raspi-sump/</code> for the following:</p>
+<pre><code>ERROR - Signal not received. Possible cable or sensor problem.
+</code></pre>
+<p>Check that the cable is firmly attached and that each pin is connected to the
+correct GPIO pin as configured in <code>raspisump.conf</code>. Check the sensor for
+corrosion. You can test the sensor directly on the comman line with:</p>
+<pre><code class="language-bash">pinsource -t trigpin -e echopin
+</code></pre>
+<p>Replace <code>trigpin</code> and <code>echopin</code> with the BCM GPIO numbers you are using.</p>
+<hr />
+<h3 id="why-am-i-getting-multiple-readings-of-0">Why am I getting multiple readings of 0?</h3>
+<p>This is almost always a failing sensor. Raspi-Sump corrects negative values to
+0 to keep charts readable, so a sensor throwing high negative values shows up
+as repeated zeros. Check for corrosion on the sensor and replace it if
+necessary.</p>
+<hr />
+<h3 id="i-use-the-jsn-sr04t-and-get-bad-readings-when-the-water-is-high">I use the JSN-SR04T and get bad readings when the water is high</h3>
+<p>The JSN-SR04T v2.0 has a minimum sensing distance of approximately 20 cm (8
+inches). If the water level gets within that range of the sensor it will return
+bad readings. Try mounting the sensor slightly higher if possible, and adjust
+<code>pit_depth</code> in <code>raspisump.conf</code> to match the new position — that value is the
+distance from the sensor face to the bottom of the pit.</p>
+<hr />
+<h3 id="i-want-alerts-when-the-water-level-gets-too-low">I want alerts when the water level gets too low</h3>
+<p>Raspi-Sump can monitor for low water levels as well as high — useful for
+cisterns or tanks. In <code>raspisump.conf</code> change:</p>
+<pre><code class="language-ini">alert_when = high
+</code></pre>
+<p>to:</p>
+<pre><code class="language-ini">alert_when = low
+</code></pre>
+<p>Adjust <code>critical_water_level</code> accordingly. Alerts will be worded for low water
+conditions.</p>
+<hr />
+<h3 id="how-do-i-reset-my-admin-password">How do I reset my admin password?</h3>
+<p>Log in to the web interface and go to <strong>gear icon → Security</strong>. Enter a new
+password in the admin password fields and save.</p>
+<p>If you are locked out entirely, edit <code>/etc/raspi-sump/credentials.conf</code>
+directly and set:</p>
+<pre><code class="language-ini">[web]
+admin_password = admin
+</code></pre>
+<p>Then restart the <code>rsumpweb</code> service. The first-run setup wizard will appear on
+next browser visit and prompt you to set a new password.</p>
+<hr />
+<h3 id="the-web-interface-shows-a-security-warning-in-my-browser">The web interface shows a security warning in my browser</h3>
+<p>This is expected. The TLS certificate is self-signed. Accept the browser
+exception to proceed — the connection is still encrypted.</p>
+<hr />
+<h3 id="how-do-i-change-the-gpio-pins">How do I change the GPIO pins?</h3>
+<p>Edit <code>raspisump.conf</code> via <strong>gear icon → Configuration</strong> and update <code>trig_pin</code>
+and <code>echo_pin</code> to your chosen BCM GPIO numbers. Restart the <code>raspisump</code>
+service for the change to take effect.</p>
+<hr />
+<h3 id="no-readings-after-changing-the-reading-interval">No readings after changing the reading interval</h3>
+<p>Restart the <code>raspisump</code> service after changing <code>reading_interval</code>:</p>
+<pre><code class="language-bash">sudo systemctl restart raspisump
+</code></pre>
+<p>Or use the restart button on <strong>gear icon → System Status</strong>.</p>
+<hr />
+<h3 id="why-are-my-alerts-not-working">Why are my alerts not working?</h3>
+<p>Check the following:</p>
+<ul>
+<li>Are the server configuration details correct in <code>raspisump.conf</code>?</li>
+<li>Are the credentials correct in <code>credentials.conf</code>?</li>
+<li>If using Gmail, are you using an App Password? Google requires app passwords
+  when two-factor authentication is enabled. See
+  <a href="https://support.google.com/mail/answer/185833">Signing in with App Passwords</a>.</li>
+<li>If using Mastodon, are the OAuth2 settings configured correctly in
+  <code>credentials.conf</code>?</li>
+</ul>
+<p>Run <code>alerttest</code> from the command line to see error output. If problems persist,
+open an issue in the <a href="https://github.com/alaudet/raspi-sump/issues">GitHub tracker</a>.</p>
+<hr />
+<h3 id="how-do-i-set-the-heartbeat-alert-to-always-arrive-at-the-same-time">How do I set the heartbeat alert to always arrive at the same time?</h3>
+<p>Set <code>heartbeat_interval</code> to match your desired frequency (in minutes):</p>
+<pre><code class="language-ini"># daily   = 1439 minutes
+# weekly  = 10079 minutes
+# monthly = 43199 minutes
+heartbeat_interval = 1439
+</code></pre>
+<p>To pin the start time, check <code>/var/log/raspi-sump/heartbeat_log</code> for the last heartbeat time entry and change to the time you want to receive heartbeat notices. </p>
+<p>Then save the file. </p>
+<hr />
+<h3 id="what-about-power-outages">What about power outages?</h3>
+<p>A battery backup (UPS) is essential for both the Pi and your internet
+modem/router. With a UPS, alerting should continue through short outages. A
+mobile data connection is another option, a USB data plan and pi plugged into a UPS
+would allow the Pi to send alerts even if the home network goes down, though
+that requires configuration on your part and is beyond the scope of Raspi-Sump.</p>
+<p>Remember that Raspi-Sump is one layer of protection. It cannot start a failed
+pump or supply power. A backup pump and generator are important infrastructure
+to have in place first.</p>
+<hr />
+<h3 id="can-the-pi-control-the-pump-directly">Can the Pi control the pump directly?</h3>
+<p>Technically possible, but strongly not recommended. Mechanical float devices
+are reliable for a reason. Raspi-Sump is and will always be a <strong>passive</strong>
+monitoring system. A software or hardware failure on the Pi should never be the
+reason a pump does not start.</p>
+<hr />
+<h3 id="how-do-i-import-data-from-raspi-sump-1x">How do I import data from Raspi-Sump 1.x?</h3>
+<p>See the <a href="../upgrade/">Upgrading</a> guide for full instructions. The short version:</p>
+<pre><code class="language-bash">rsumpimport --dir ~/raspi-sump-backup/ --unit metric
+</code></pre>
+<p>Or use the web interface: <strong>gear icon → Import/Export CSV</strong>.</p>
+<hr />
+<h3 id="how-do-i-back-up-my-data">How do I back up my data?</h3>
+<p>Use <strong>gear icon → Backup/Export</strong> in the web interface. This downloads a zip
+file containing the SQLite database and <code>raspisump.conf</code>.</p>
+<hr />
+<h3 id="can-i-run-raspi-sump-without-the-web-interface">Can I run Raspi-Sump without the web interface?</h3>
+<p>Yes. The <code>raspisump</code> and <code>rsumpweb</code> services are independent. Stop <code>rsumpweb</code>
+if you do not need the web interface:</p>
+<pre><code class="language-bash">sudo systemctl stop rsumpweb
+sudo systemctl disable rsumpweb
+</code></pre>
+<p>The monitoring daemon (<code>raspisump</code>) will continue running and logging readings.</p>
+<hr />
+<h3 id="where-are-the-log-files">Where are the log files?</h3>
+<table>
+<thead>
+<tr>
+<th>Log</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service logs</td>
+<td><code>journalctl -u raspisump</code> / <code>journalctl -u rsumpweb</code></td>
+</tr>
+<tr>
+<td>Error log</td>
+<td><code>/var/log/raspi-sump/</code></td>
+</tr>
+<tr>
+<td>Database</td>
+<td><code>/var/lib/raspi-sump/raspisump.db</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="how-do-i-report-a-bug">How do I report a bug?</h3>
+<p>Run <code>rsumpsupport</code> to generate a support file:</p>
+<pre><code class="language-bash">rsumpsupport
+</code></pre>
+<p>On the web interface, <strong>gear icon → Support</strong>.  There is an option to download the support file directly to your computer.</p>
+<p>Then open an issue in the
+<a href="https://github.com/alaudet/raspi-sump/issues">issue tracker</a> and attach the
+support file.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
