@@ -20,6 +20,11 @@
 - Admin panel: service control, configuration editor, backup/export, CSV import, support tools
 - Installed as a standard Debian package — no virtual environment required
 - systemd services with automatic startup
+- [JSON API](https://raspisumpdocs.linuxnorth.org/web-interface/#json-api) for external endpoints like Home Assistant
+
+Github user graysky2 has a repo called [ha-raspi-sump](https://github.com/graysky2/ha-raspi-sump) with instructions for adding Raspi-Sump to Home Assistant which is worth checking out.
+
+
 
 ---
 
