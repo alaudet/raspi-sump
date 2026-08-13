@@ -22,7 +22,7 @@
 - systemd services with automatic startup
 - [JSON API](https://raspisumpdocs.linuxnorth.org/web-interface/#json-api) for external endpoints like Home Assistant
 
-Github user graysky2 has a repo called [ha-raspi-sump](https://github.com/graysky2/ha-raspi-sump) with instructions for adding Raspi-Sump to Home Assistant which is worth checking out.
+Github user graysky2 has a repo called [ha-raspi-sump](https://github.com/graysky2/ha-raspi-sump) with instructions for adding Raspi-Sump to Home Assistant. It has been added to the HACS ecosystem and is installable through the HACS tab of Home Assistant.
 
 
 

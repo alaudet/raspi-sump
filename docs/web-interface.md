@@ -143,7 +143,7 @@ saved in the browser and applied on subsequent visits.
 ## JSON API
 
 !!! note "External Clients"
-    Thanks to Github user graysky2 for providing these endpoints. He provides a Home Assistant setup for Raspi-Sump which is separate from this project. The api can be used by any external client.  If you are interested in this, check out his [github page](https://github.com/graysky2/ha-raspi-sump)
+    Thanks to Github user graysky2 for providing these endpoints. He provides a Home Assistant setup for Raspi-Sump which is separate from this project. The api can also be used by any other external client.  If you are interested in this, see his [github page](https://github.com/graysky2/ha-raspi-sump). It has been added into the HACS ecosystem and is installable through the HACS tab of Home Assistant.
 
 
 Beyond the pages above, Raspi-Sump exposes a small set of read-only JSON
