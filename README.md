@@ -76,11 +76,11 @@ See the [changelog](https://github.com/alaudet/raspi-sump/blob/main/debian/chang
 
 ## Legacy 1.11.1 Version
 
-V1.11.1 is the latest and last version 1 release.  Only bug fixes will be applied going forward.  Support for v1.11.1 will cease with the debian release cycle and drop of support for Debian 11 - Bullseye on **August 31, 2026**
+Support for v1.11.1 is now discontinued as of **August 31, 2026**
 
-The github source code is tagged **v1.11.1** at the following url;
+For historical purposes you can still download the code from the releases page, but changes to the code are now locked.
 
-https://github.com/alaudet/raspi-sump/tree/legacyV1
+https://github.com/alaudet/raspi-sump/releases?page=2#release-v1.11.1
 
 
 ## Community
